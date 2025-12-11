@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | ryupro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .thanks-page {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+
+        .thanks-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--color-bg);
+            margin-bottom: 1rem;
+        }
+
+        .thanks-text {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .home-btn {
+            display: inline-block;
+            background-color: var(--color-primary);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .home-btn:hover {
+            background-color: var(--color-bg);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="../index.html" class="logo">ryupro</a>
+        </div>
+    </header>
+
+    <main class="thanks-page">
+        <div class="container">
+            <h1 class="thanks-title">Thank You</h1>
+            <p class="thanks-text">お問い合わせありがとうございます。<br>内容を確認の上、担当者よりご連絡させていただきます。</p>
+            <a href="../index.html" class="home-btn">トップページへ戻る</a>
+        </div>
+    </main>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="合同会社ryuproのブログ一覧ページです。最新のニュースやコラムをお届けします。">
+    <title>Blog | 合同会社ryupro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="container header-container">
+            <a href="../index.html" class="logo">ryupro</a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="../index.html#philosophy">理念</a></li>
+                    <li><a href="../index.html#services">事業内容</a></li>
+                    <li><a href="../index.html#company">会社概要</a></li>
+                    <li><a href="index.html" class="active">ブログ</a></li>
+                    <li><a href="../contact/index.html">お問い合わせ</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="メニューを開く">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu">
+            <ul class="mobile-nav-list">
+                <li><a href="../index.html#philosophy">理念</a></li>
+                <li><a href="../index.html#services">事業内容</a></li>
+                <li><a href="../index.html#company">会社概要</a></li>
+                <li><a href="index.html">ブログ</a></li>
+                <li><a href="../index.html#contact">お問い合わせ</a></li>
+            </ul>
+            <button class="close-menu-btn" aria-label="メニューを閉じる">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="section bg-light" style="padding-top: 10rem; padding-bottom: 4rem;">
+            <div class="container text-center">
+                <h1 class="section-title">Blog</h1>
+                <span class="section-subtitle">ブログ・お知らせ</span>
+            </div>
+        </section>
+
+        <!-- Blog Grid -->
+        <section class="section" style="padding-top: 2rem;">
+            <div class="container">
+                <div class="blog-grid" id="blog-grid">
+                    <!-- Articles will be loaded here via JavaScript -->
+                    <div class="loading-state" style="text-align: center; grid-column: 1/-1;">
+                        <p>Loading articles...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ryupro</div>
+                <p class="footer-message">Creating Professional Value</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ryupro LLC. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Fetch Blog Posts from Node.js API
+        async function loadPosts() {
+            try {
+                // If running on local Node.js server
+                let response = await fetch('/api/posts?t=' + Date.now());
+
+                // Fallback for static file serving (if API fails or not on server)
+                if (!response.ok) {
+                    response = await fetch('data/posts.json?t=' + Date.now());
+                }
+
+                const posts = await response.json();
+                renderPosts(posts);
+            } catch (error) {
+                console.error('Error loading posts:', error);
+                document.getElementById('blog-grid').innerHTML = '<p>記事の読み込みに失敗しました。</p>';
+            }
+        }
+
+        function renderPosts(posts) {
+            const container = document.getElementById('blog-grid');
+            container.innerHTML = ''; // Clear loading state
+
+            posts.forEach(post => {
+                const articleHTML = `
+                    <article class="blog-card">
+                        <a href="${post.url}" class="blog-card-image">
+                            <img src="${post.image}" alt="${post.title}">
+                        </a>
+                        <div class="blog-card-content">
+                            <div class="blog-date">${post.date}</div>
+                            <h2 class="blog-title"><a href="${post.url}">${post.title}</a></h2>
+                            <p class="blog-excerpt">${post.excerpt}</p>
+                            <a href="${post.url}" class="read-more">Read More <i data-lucide="arrow-right" size="16"></i></a>
+                        </div>
+                    </article>
+                `;
+                container.insertAdjacentHTML('beforeend', articleHTML);
+            });
+            // Re-initialize icons for new content
+            lucide.createIcons();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadPosts);
+    </script>
+</body>
+
+</html>

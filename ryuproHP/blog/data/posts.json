@@ -1,0 +1,36 @@
+[
+    {
+        "id": "2025-12-11-juvy8",
+        "title": "ニュース記事を更新しました。",
+        "date": "2025.12.11",
+        "excerpt": "ニュース記事を更新しました。",
+        "content": "ニュース記事を更新しました。",
+        "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        "url": "posts/2025-12-11-juvy8.html"
+    },
+    {
+        "id": "2024-03-news",
+        "title": "公式ウェブサイトをリニューアルオープンしました",
+        "date": "2024.01.01",
+        "excerpt": "ryuproの公式ウェブサイトを全面的にリニューアルいたしました。よろしくお願いします。",
+        "image": "/assets/uploads/img_1765427824591.png",
+        "url": "posts/2024-03-news.html",
+        "content": "ryuproの公式ウェブサイトを全面的にリニューアルいたしました。"
+    },
+    {
+        "id": "2024-03-vision",
+        "title": "2024年度の事業ビジョンについて",
+        "date": "2024.03.15",
+        "excerpt": "私たちが目指す「プロフェッショナルな価値の創出」に向けた、今年度の新たな取り組みと展望についてお話しします。",
+        "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        "url": "posts/2024-03-vision.html"
+    },
+    {
+        "id": "2024-04-event",
+        "title": "春の交流イベント開催レポート",
+        "date": "2024.04.20",
+        "excerpt": "先日開催された起業家交流会の様子をご報告します。多くの熱意ある方々にご参加いただき、素晴らしいつながりが生まれました。",
+        "image": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        "url": "posts/2024-04-event.html"
+    }
+]
