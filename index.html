@@ -214,8 +214,13 @@
         // Load News for Homepage
         async function loadHomeNews() {
             try {
-                let response = await fetch('/api/posts');
-                if (!response.ok) response = await fetch('blog/data/posts.json'); // Fallback
+                let response;
+                try {
+                    response = await fetch('/api/posts');
+                    if (!response.ok) throw new Error('API unavailable');
+                } catch (e) {
+                    response = await fetch('blog/data/posts.json'); // Fallback
+                }
                 const posts = await response.json();
 
                 // Take top 3
