@@ -173,7 +173,10 @@
     <script>
         lucide.createIcons();
         // Dynamically set redirect URL to current origin
-        document.getElementById('redirectUrl').value = window.location.origin + '/contact/thanks.html';
+        // Dynamically set redirect URL to current origin + path
+        // Use new URL() to resolve 'thanks.html' relative to current location
+        // This handles /ryupro/contact/index.html -> /ryupro/contact/thanks.html correctly
+        document.getElementById('redirectUrl').value = new URL('thanks.html', window.location.href).href;
     </script>
 </body>
 
