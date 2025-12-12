@@ -113,10 +113,16 @@
             container.innerHTML = ''; // Clear loading state
 
             posts.forEach(post => {
+                // Fix image path for GitHub Pages (prepend .. to make relative from blog/ subdir covers /assets -> ../assets)
+                let imgPath = post.image;
+                if (imgPath.startsWith('/') && !imgPath.startsWith('//')) {
+                    imgPath = '..' + imgPath;
+                }
+
                 const articleHTML = `
                     <article class="blog-card">
                         <a href="${post.url}" class="blog-card-image">
-                            <img src="${post.image}" alt="${post.title}">
+                            <img src="${imgPath}" alt="${post.title}">
                         </a>
                         <div class="blog-card-content">
                             <div class="blog-date">${post.date}</div>

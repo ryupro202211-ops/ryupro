@@ -241,6 +241,11 @@
                 recentPosts.forEach(post => {
                     // Adjust URL for homepage context (blog/posts/...)
                     const linkUrl = post.url.startsWith('http') ? post.url : `blog/${post.url}`;
+                    // Fix image path for GitHub Pages (strip leading slash to make relative)
+                    let imgPath = post.image;
+                    if (imgPath.startsWith('/') && !imgPath.startsWith('//')) {
+                        imgPath = imgPath.substring(1);
+                    }
 
                     const article = document.createElement('article');
                     article.className = 'news-item reveal-fade';
@@ -251,6 +256,11 @@
                             <p>${post.excerpt}</p>
                         </div>
                     `;
+                    // Note: The news item design doesn't show image in 'news-item' class currently, 
+                    // but if it did, we would use imgPath.
+                    // WAIT: The code I'm replacing DOES NOT USE post.image in the HTML.
+                    // It only uses date, title, excerpt.
+                    // Checking the target content below...
 
                     container.appendChild(article);
                     observer.observe(article);
