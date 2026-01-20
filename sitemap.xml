@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ryupro.com/</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/</loc>
     <lastmod>2026-01-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ryupro.com/contact/</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/contact/index.html</loc>
     <lastmod>2026-01-20</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ryupro.com/blog/</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/blog/index.html</loc>
     <lastmod>2026-01-20</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ryupro.com/blog/posts/2024-03-news.html</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/blog/posts/2024-03-news.html</loc>
     <lastmod>2024-01-01</lastmod>
   </url>
   <url>
-    <loc>https://ryupro.com/blog/posts/2024-03-vision.html</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/blog/posts/2024-03-vision.html</loc>
     <lastmod>2024-03-15</lastmod>
   </url>
   <url>
-    <loc>https://ryupro.com/blog/posts/2024-04-event.html</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/blog/posts/2024-04-event.html</loc>
     <lastmod>2024-04-20</lastmod>
   </url>
   <url>
-    <loc>https://ryupro.com/blog/posts/2025-12-11-juvy8.html</loc>
+    <loc>https://ryupro202211-ops.github.io/ryupro/blog/posts/2025-12-11-juvy8.html</loc>
     <lastmod>2025-12-11</lastmod>
   </url>
 </urlset>
