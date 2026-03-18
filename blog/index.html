@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/images/favicon.png">
+    <link rel="icon" href="../assets/images/favicon.png">
     <meta name="description" content="合同会社ryuproのブログ一覧ページです。最新のニュースやコラムをお届けします。">
     <title>Blog | 合同会社ryupro</title>
 
@@ -23,8 +23,8 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (pinned version) -->
+    <script src="https://unpkg.com/lucide@0.344.0"></script>
 </head>
 
 <body>
@@ -52,7 +52,7 @@
                 <li><a href="../index.html#services">事業内容</a></li>
                 <li><a href="../index.html#company">会社概要</a></li>
                 <li><a href="index.html">ブログ</a></li>
-                <li><a href="../index.html#contact">お問い合わせ</a></li>
+                <li><a href="../contact/index.html">お問い合わせ</a></li>
             </ul>
             <button class="close-menu-btn" aria-label="メニューを閉じる">
                 <i data-lucide="x"></i>
@@ -62,7 +62,7 @@
 
     <main>
         <!-- Page Header -->
-        <section class="section bg-light" style="padding-top: 10rem; padding-bottom: 4rem;">
+        <section class="section bg-light blog-page-header">
             <div class="container text-center">
                 <h1 class="section-title">Blog</h1>
                 <span class="section-subtitle">ブログ・お知らせ</span>
@@ -70,11 +70,10 @@
         </section>
 
         <!-- Blog Grid -->
-        <section class="section" style="padding-top: 2rem;">
+        <section class="section blog-section-body">
             <div class="container">
                 <div class="blog-grid" id="blog-grid">
-                    <!-- Articles will be loaded here via JavaScript -->
-                    <div class="loading-state" style="text-align: center; grid-column: 1/-1;">
+                    <div class="loading-state">
                         <p>Loading articles...</p>
                     </div>
                 </div>
@@ -90,7 +89,7 @@
                 <p class="footer-message">Creating Professional Value</p>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 ryupro LLC. All Rights Reserved.</p>
+                <p>&copy; <span class="js-year">2024</span> ryupro LLC. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -98,11 +97,10 @@
     <script src="../js/main.js"></script>
     <script>
         lucide.createIcons();
+        document.querySelector('.js-year').textContent = new Date().getFullYear();
 
-        // Fetch Blog Posts from Node.js API
         async function loadPosts() {
             try {
-                // If running on local Node.js server
                 let response;
                 try {
                     response = await fetch('/api/posts?t=' + Date.now());
@@ -112,28 +110,36 @@
                 }
 
                 const posts = await response.json();
+
+                // Sort by date descending
+                posts.sort((a, b) => {
+                    const dateA = a.date.replace(/\./g, '-');
+                    const dateB = b.date.replace(/\./g, '-');
+                    return dateB.localeCompare(dateA);
+                });
+
                 renderPosts(posts);
             } catch (error) {
                 console.error('Error loading posts:', error);
-                document.getElementById('blog-grid').innerHTML = '<p>記事の読み込みに失敗しました。</p>';
+                document.getElementById('blog-grid').innerHTML = '<p class="loading-state">記事の読み込みに失敗しました。</p>';
             }
         }
 
         function renderPosts(posts) {
             const container = document.getElementById('blog-grid');
-            container.innerHTML = ''; // Clear loading state
+            container.innerHTML = '';
 
             posts.forEach(post => {
-                // Fix image path for GitHub Pages (prepend .. to make relative from blog/ subdir covers /assets -> ../assets)
+                // Fix image path for GitHub Pages
                 let imgPath = post.image;
                 if (imgPath.startsWith('/') && !imgPath.startsWith('//')) {
                     imgPath = '..' + imgPath;
                 }
 
                 const articleHTML = `
-                    <article class="blog-card">
+                    <article class="blog-card reveal-up">
                         <a href="${post.url}" class="blog-card-image">
-                            <img src="${imgPath}" alt="${post.title}">
+                            <img src="${imgPath}" alt="${post.title}" loading="lazy">
                         </a>
                         <div class="blog-card-content">
                             <div class="blog-date">${post.date}</div>
@@ -145,11 +151,9 @@
                 `;
                 container.insertAdjacentHTML('beforeend', articleHTML);
             });
-            // Re-initialize icons for new content
             lucide.createIcons();
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', loadPosts);
     </script>
 </body>

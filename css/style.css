@@ -20,6 +20,9 @@
 
     --transition-speed: 0.3s;
     --container-width: 1200px;
+
+    /* Base path for GitHub Pages subpath deployment — override in <style> if needed */
+    --base-path: '.';
 }
 
 * {
@@ -213,7 +216,7 @@ h6 {
     position: relative;
     display: flex;
     align-items: center;
-    background-image: linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.7)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+    background-image: linear-gradient(rgba(10, 25, 47, 0.7), rgba(10, 25, 47, 0.7)), url('../assets/images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -677,6 +680,39 @@ h6 {
     font-weight: 600;
 }
 
+.back-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* Loading state */
+.loading-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--color-text-light);
+}
+
+/* Blog page header */
+.blog-page-header {
+    padding-top: 10rem;
+    padding-bottom: 4rem;
+}
+
+.blog-section-body {
+    padding-top: 2rem;
+}
+
+/* News section "View All" link */
+.news-view-all {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.news-view-all .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
 /* Scroll Animations */
 .reveal-up {

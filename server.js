@@ -12,8 +12,15 @@ app.use(express.static(path.join(__dirname)));
 const DATA_FILE = path.join(__dirname, 'blog/data/posts.json');
 const UPLOADS_DIR = path.join(__dirname, 'assets/uploads');
 const POSTS_DIR = path.join(__dirname, 'blog/posts');
-const PUBLIC_DIR = __dirname;
 const TEMPLATE_FILE = path.join(POSTS_DIR, 'template.html');
+
+// Allowed image extensions
+const ALLOWED_IMAGE_EXTS = new Set(['png', 'jpg', 'jpeg', 'gif', 'webp']);
+
+// Helper: Sanitize filename to prevent path traversal
+function sanitizeFilename(name) {
+    return name.replace(/[^a-zA-Z0-9._-]/g, '');
+}
 
 // Helper: Generate HTML
 function generatePostHtml(post, callback) {
@@ -35,11 +42,18 @@ function generatePostHtml(post, callback) {
         if (fileName === 'template.html') {
             console.warn(`Warning: Post ${post.id} tries to write to template.html. Redirecting to ${post.id}.html`);
             fileName = `${post.id}.html`;
-            // Note: We are not updating the JSON here, so this is a temporary fix for file generation.
-            // Ideally JSON should be updated too, but we did a bulk update in JSON already.
         }
 
+        fileName = sanitizeFilename(fileName);
         const filePath = path.join(POSTS_DIR, fileName);
+
+        // Verify the resolved path is within POSTS_DIR
+        const resolvedPath = path.resolve(filePath);
+        if (!resolvedPath.startsWith(path.resolve(POSTS_DIR))) {
+            if (callback) callback(new Error('Invalid file path'));
+            return;
+        }
+
         fs.writeFile(filePath, html, 'utf8', (err) => {
             if (callback) callback(err);
         });
@@ -75,13 +89,25 @@ app.get('/api/posts', (req, res) => {
             console.error(err);
             return res.status(500).json({ error: 'Failed to read posts data' });
         }
-        res.json(JSON.parse(data));
+        const posts = JSON.parse(data);
+        // Sort by date descending
+        posts.sort((a, b) => {
+            const dateA = a.date.replace(/\./g, '-');
+            const dateB = b.date.replace(/\./g, '-');
+            return dateB.localeCompare(dateA);
+        });
+        res.json(posts);
     });
 });
 
 // 2. Create or Update Post
 app.post('/api/posts', (req, res) => {
     const { id, title, date, excerpt, content, imageFile, currentImage } = req.body;
+
+    // Basic validation
+    if (!title || !date || !excerpt) {
+        return res.status(400).json({ error: 'Missing required fields: title, date, excerpt' });
+    }
 
     fs.readFile(DATA_FILE, 'utf8', (err, data) => {
         if (err) {
@@ -91,26 +117,30 @@ app.post('/api/posts', (req, res) => {
 
         let posts = JSON.parse(data);
         let post = posts.find(p => p.id === id);
-        let isNew = false;
-        let imagePath = currentImage; // Default to existing image
+        let imagePath = currentImage;
 
         // Handle Image Upload
         if (imageFile) {
             try {
-                // Remove header "data:image/jpeg;base64,"
                 const matches = imageFile.match(/^data:image\/([A-Za-z-+\/]+);base64,(.+)$/);
                 if (matches && matches.length === 3) {
-                    const ext = matches[1];
+                    const ext = matches[1].split('/')[0].toLowerCase();
+                    if (!ALLOWED_IMAGE_EXTS.has(ext)) {
+                        return res.status(400).json({ error: 'Unsupported image format' });
+                    }
                     const buffer = Buffer.from(matches[2], 'base64');
+                    // Limit file size to 5MB
+                    if (buffer.length > 5 * 1024 * 1024) {
+                        return res.status(400).json({ error: 'Image too large (max 5MB)' });
+                    }
                     const fileName = `img_${Date.now()}.${ext}`;
                     const filePath = path.join(UPLOADS_DIR, fileName);
 
                     fs.writeFileSync(filePath, buffer);
-                    imagePath = `/assets/uploads/${fileName}`; // Root relative path for web
+                    imagePath = `/assets/uploads/${fileName}`;
                 }
             } catch (e) {
                 console.error("Image upload failed", e);
-                // Continue without failing the whole request, keep old image
             }
         }
 
@@ -123,7 +153,6 @@ app.post('/api/posts', (req, res) => {
             post.image = imagePath;
         } else {
             // Create new
-            isNew = true;
             const newId = generateId(date);
             post = {
                 id: newId,
@@ -134,7 +163,7 @@ app.post('/api/posts', (req, res) => {
                 image: imagePath,
                 url: `posts/${newId}.html`
             };
-            posts.unshift(post); // Add to top
+            posts.unshift(post);
         }
 
         // Save JSON
@@ -182,13 +211,14 @@ app.delete('/api/posts', (req, res) => {
 
             // Delete HTML file
             if (post.url && post.url.startsWith('posts/')) {
-                const htmlPath = path.join(__dirname, 'blog', post.url);
-                if (fs.existsSync(htmlPath)) {
+                const htmlFileName = sanitizeFilename(post.url.split('/').pop());
+                const htmlPath = path.join(POSTS_DIR, htmlFileName);
+                const resolvedPath = path.resolve(htmlPath);
+
+                if (resolvedPath.startsWith(path.resolve(POSTS_DIR)) && fs.existsSync(htmlPath)) {
                     fs.unlinkSync(htmlPath);
                 }
             }
-
-            // Optional: Delete image if local (complex logic omitted for safety)
 
             res.json({ success: true });
         });
@@ -197,7 +227,6 @@ app.delete('/api/posts', (req, res) => {
 
 // Helper: Generate ID
 function generateId(dateStr) {
-    // 2024.12.11 -> 2024-12-11-xxxxx
     const datePart = dateStr.replace(/\./g, '-');
     const randomPart = Math.random().toString(36).substr(2, 5);
     return `${datePart}-${randomPart}`;

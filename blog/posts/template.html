@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/images/favicon.png">
-    <meta name="description" content="記事の概要をここに記述します">
+    <link rel="icon" href="../../assets/images/favicon.png">
+    <meta name="description" content="{{TITLE}} - 合同会社ryuproのブログ記事">
     <title>{{TITLE}} | 合同会社ryupro</title>
 
     <!-- OGP -->
@@ -14,7 +14,7 @@
     <meta property="og:url" content="https://ryupro202211-ops.github.io/ryupro/blog/posts/">
     <meta property="og:image" content="https://ryupro202211-ops.github.io/ryupro/assets/images/ogp.jpg">
     <meta property="og:site_name" content="合同会社ryupro">
-    <meta property="og:description" content="記事の概要をここに記述します">
+    <meta property="og:description" content="{{TITLE}} - 合同会社ryuproのブログ記事">
 
     <link rel="canonical" href="https://ryupro202211-ops.github.io/ryupro/blog/posts/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,8 +23,8 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../../css/style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (pinned version) -->
+    <script src="https://unpkg.com/lucide@0.344.0"></script>
 </head>
 
 <body>
@@ -38,7 +38,7 @@
                     <li><a href="../../index.html#services">事業内容</a></li>
                     <li><a href="../../index.html#company">会社概要</a></li>
                     <li><a href="../index.html" class="active">ブログ</a></li>
-                    <li><a href="../../index.html#contact">お問い合わせ</a></li>
+                    <li><a href="../../contact/index.html">お問い合わせ</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" aria-label="メニューを開く">
@@ -52,7 +52,7 @@
                 <li><a href="../../index.html#services">事業内容</a></li>
                 <li><a href="../../index.html#company">会社概要</a></li>
                 <li><a href="../index.html">ブログ</a></li>
-                <li><a href="../../index.html#contact">お問い合わせ</a></li>
+                <li><a href="../../contact/index.html">お問い合わせ</a></li>
             </ul>
             <button class="close-menu-btn" aria-label="メニューを閉じる">
                 <i data-lucide="x"></i>
@@ -70,9 +70,7 @@
             </div>
 
             <div class="article-body">
-                <!-- 記事本文ここから -->
                 {{CONTENT}}
-                <!-- 記事本文ここまで -->
             </div>
 
             <div class="article-footer">
@@ -84,14 +82,14 @@
     </main>
 
     <!-- Footer -->
-    <footer id="contact" class="footer">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">ryupro</div>
                 <p class="footer-message">Creating Professional Value</p>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 ryupro LLC. All Rights Reserved.</p>
+                <p>&copy; <span class="js-year">2024</span> ryupro LLC. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -99,6 +97,7 @@
     <script src="../../js/main.js"></script>
     <script>
         lucide.createIcons();
+        document.querySelector('.js-year').textContent = new Date().getFullYear();
     </script>
 </body>
 

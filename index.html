@@ -8,7 +8,7 @@
     <meta name="description" content="合同会社ryuproは「プロフェッショナルな人財・価値を創出する」を理念に、起業・転職、引越し、イベント、ウェルネスなど多角的な事業を展開しています。">
     <meta name="keywords" content="ryupro,合同会社ryupro,起業支援,転職支援,引越し,イベント企画,ウェルネス">
     <title>合同会社ryupro | プロフェッショナルな人財・価値を創出する</title>
-    <link rel="icon" href="/assets/images/favicon.png">
+    <link rel="icon" href="assets/images/favicon.png">
 
     <!-- OGP -->
     <meta property="og:title" content="合同会社ryupro | プロフェッショナルな人財・価値を創出する">
@@ -31,8 +31,8 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (pinned version) -->
+    <script src="https://unpkg.com/lucide@0.344.0"></script>
 </head>
 
 <body>
@@ -44,9 +44,9 @@
                 <ul class="nav-list">
                     <li><a href="#philosophy">理念</a></li>
                     <li><a href="#services">事業内容</a></li>
-                    <li><a href="#company" class="nav-link">会社概要</a></li>
+                    <li><a href="#company">会社概要</a></li>
                     <li><a href="blog/index.html">ブログ</a></li>
-                    <li><a href="contact/index.html" class="nav-link">お問い合わせ</a></li>
+                    <li><a href="contact/index.html">お問い合わせ</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" aria-label="メニューを開く">
@@ -60,7 +60,7 @@
                 <li><a href="#services">事業内容</a></li>
                 <li><a href="#company">会社概要</a></li>
                 <li><a href="blog/index.html">ブログ</a></li>
-                <li><a href="#contact">お問い合わせ</a></li>
+                <li><a href="contact/index.html">お問い合わせ</a></li>
             </ul>
             <button class="close-menu-btn" aria-label="メニューを閉じる">
                 <i data-lucide="x"></i>
@@ -198,13 +198,10 @@
                     <span class="section-subtitle">お知らせ</span>
                 </div>
                 <div class="news-list" id="home-news-list">
-                    <!-- News items will be loaded here via JavaScript -->
-                    <div style="text-align: center; color: #666;">Loading news...</div>
+                    <div class="loading-state">Loading news...</div>
                 </div>
-                <!-- Link to all blogs -->
-                <div style="text-align: center; margin-top: 2rem;">
-                    <a href="blog/index.html" class="read-more"
-                        style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                <div class="news-view-all">
+                    <a href="blog/index.html" class="read-more">
                         View All News <i data-lucide="arrow-right" size="16"></i>
                     </a>
                 </div>
@@ -220,7 +217,7 @@
                 <p class="footer-message">Creating Professional Value</p>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 ryupro LLC. All Rights Reserved.</p>
+                <p>&copy; <span class="js-year">2024</span> ryupro LLC. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -230,6 +227,9 @@
         // Initialize Lucide icons
         lucide.createIcons();
 
+        // Dynamic copyright year
+        document.querySelector('.js-year').textContent = new Date().getFullYear();
+
         // Load News for Homepage
         async function loadHomeNews() {
             try {
@@ -238,9 +238,16 @@
                     response = await fetch('/api/posts');
                     if (!response.ok) throw new Error('API unavailable');
                 } catch (e) {
-                    response = await fetch('blog/data/posts.json'); // Fallback
+                    response = await fetch('blog/data/posts.json');
                 }
                 const posts = await response.json();
+
+                // Sort by date descending
+                posts.sort((a, b) => {
+                    const dateA = a.date.replace(/\./g, '-');
+                    const dateB = b.date.replace(/\./g, '-');
+                    return dateB.localeCompare(dateA);
+                });
 
                 // Take top 3
                 const recentPosts = posts.slice(0, 3);
@@ -248,7 +255,6 @@
                 const container = document.getElementById('home-news-list');
                 container.innerHTML = '';
 
-                // Create Observer for dynamic items
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
@@ -258,35 +264,23 @@
                 }, { threshold: 0.1 });
 
                 recentPosts.forEach(post => {
-                    // Adjust URL for homepage context (blog/posts/...)
                     const linkUrl = post.url.startsWith('http') ? post.url : `blog/${post.url}`;
-                    // Fix image path for GitHub Pages (strip leading slash to make relative)
-                    let imgPath = post.image;
-                    if (imgPath.startsWith('/') && !imgPath.startsWith('//')) {
-                        imgPath = imgPath.substring(1);
-                    }
 
                     const article = document.createElement('article');
                     article.className = 'news-item reveal-fade';
                     article.innerHTML = `
                         <time>${post.date}</time>
                         <div class="news-content">
-                            <h4><a href="${linkUrl}" style="text-decoration:none; color:inherit;">${post.title}</a></h4>
+                            <h4><a href="${linkUrl}">${post.title}</a></h4>
                             <p>${post.excerpt}</p>
                         </div>
                     `;
-                    // Note: The news item design doesn't show image in 'news-item' class currently, 
-                    // but if it did, we would use imgPath.
-                    // WAIT: The code I'm replacing DOES NOT USE post.image in the HTML.
-                    // It only uses date, title, excerpt.
-                    // Checking the target content below...
-
                     container.appendChild(article);
                     observer.observe(article);
                 });
             } catch (e) {
                 console.error('Failed to load news', e);
-                document.getElementById('home-news-list').innerHTML = '<p style="text-align:center;">News currently unavailable.</p>';
+                document.getElementById('home-news-list').innerHTML = '<p class="loading-state">News currently unavailable.</p>';
             }
         }
 
@@ -295,4 +289,3 @@
 </body>
 
 </html>
-```

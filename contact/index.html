@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/images/favicon.png">
+    <link rel="icon" href="../assets/images/favicon.png">
     <title>Contact | 合同会社ryupro</title>
     <meta name="description" content="合同会社ryuproへのお問い合わせページです。起業・転職、引越し、イベント、ウェルネス等の事業に関するご相談はこちらから。">
 
@@ -20,9 +20,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.344.0"></script>
     <link rel="stylesheet" href="../css/style.css">
     <style>
         .contact-page {
@@ -51,6 +51,10 @@
             color: var(--color-text);
         }
 
+        .form-label .required {
+            color: #d00;
+        }
+
         .form-input,
         .form-textarea {
             width: 100%;
@@ -77,16 +81,16 @@
             color: #fff;
             border: none;
             padding: 1rem 3rem;
-            font-family: 'Cinzel', serif;
+            font-family: var(--font-en);
             font-size: 1.1rem;
             cursor: pointer;
             width: 100%;
             transition: all 0.3s;
+            border-radius: 4px;
         }
 
         .submit-btn:hover {
-            background-color: var(--color-bg);
-            /* Dark navy */
+            background-color: var(--color-bg-dark);
         }
     </style>
 </head>
@@ -100,9 +104,9 @@
                 <ul class="nav-list">
                     <li><a href="../index.html#philosophy">理念</a></li>
                     <li><a href="../index.html#services">事業内容</a></li>
-                    <li><a href="../index.html#company" class="nav-link">会社概要</a></li>
+                    <li><a href="../index.html#company">会社概要</a></li>
                     <li><a href="../blog/index.html">ブログ</a></li>
-                    <li><a href="index.html" class="nav-link">お問い合わせ</a></li>
+                    <li><a href="index.html">お問い合わせ</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" aria-label="メニューを開く">
@@ -126,26 +130,25 @@
 
     <main class="contact-page">
         <div class="container">
-            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
-                <h1 class="section-title" style="color: var(--color-bg);">Contact</h1>
+            <div class="section-header">
+                <h1 class="section-title">Contact</h1>
                 <p class="section-subtitle">お問い合わせ</p>
             </div>
 
             <div class="form-container reveal-up">
                 <form action="https://formsubmit.co/ryupro202211@gmail.com" method="POST">
                     <!-- Config Fields -->
-                    <!-- Redirect URL will be set by JS to handle both localhost and production -->
                     <input type="hidden" name="_next" id="redirectUrl">
                     <input type="hidden" name="_subject" value="【ryupro】Webサイトからのお問い合わせ">
-                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_captcha" value="true">
 
                     <div class="form-group">
-                        <label class="form-label" for="name">お名前 <span style="color:#d00">*</span></label>
+                        <label class="form-label" for="name">お名前 <span class="required">*</span></label>
                         <input type="text" id="name" name="name" class="form-input" required placeholder="山田 太郎">
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="email">メールアドレス <span style="color:#d00">*</span></label>
+                        <label class="form-label" for="email">メールアドレス <span class="required">*</span></label>
                         <input type="email" id="email" name="email" class="form-input" required
                             placeholder="example@email.com">
                     </div>
@@ -156,26 +159,26 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="message">お問い合わせ内容 <span style="color:#d00">*</span></label>
+                        <label class="form-label" for="message">お問い合わせ内容 <span class="required">*</span></label>
                         <textarea id="message" name="message" class="form-textarea" required
                             placeholder="お問い合わせ内容をご記入ください"></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn" style="color: white !important;">送信する</button>
+                    <button type="submit" class="submit-btn">送信する</button>
                 </form>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer id="contact" class="footer">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">ryupro</div>
                 <p class="footer-message">Creating Professional Value</p>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 ryupro LLC. All Rights Reserved. (v2.0.1)</p>
+                <p>&copy; <span class="js-year">2024</span> ryupro LLC. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -183,10 +186,7 @@
     <script src="../js/main.js"></script>
     <script>
         lucide.createIcons();
-        // Dynamically set redirect URL to current origin
-        // Dynamically set redirect URL to current origin + path
-        // Use new URL() to resolve 'thanks.html' relative to current location
-        // This handles /ryupro/contact/index.html -> /ryupro/contact/thanks.html correctly
+        document.querySelector('.js-year').textContent = new Date().getFullYear();
         document.getElementById('redirectUrl').value = new URL('thanks.html', window.location.href).href;
     </script>
 </body>

@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../assets/images/favicon.png">
     <title>Thank You | ryupro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;600&display=swap"
         rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.344.0"></script>
     <link rel="stylesheet" href="../css/style.css">
     <style>
         .thanks-page {
@@ -22,9 +23,9 @@
         }
 
         .thanks-title {
-            font-family: 'Cinzel', serif;
+            font-family: var(--font-heading);
             font-size: 3rem;
-            color: var(--color-bg);
+            color: var(--color-primary);
             margin-bottom: 1rem;
         }
 
@@ -41,10 +42,11 @@
             padding: 1rem 2rem;
             text-decoration: none;
             transition: all 0.3s;
+            border-radius: 4px;
         }
 
         .home-btn:hover {
-            background-color: var(--color-bg);
+            background-color: var(--color-bg-dark);
             color: white;
         }
     </style>
@@ -52,7 +54,7 @@
 
 <body>
     <header class="header">
-        <div class="container header-inner">
+        <div class="container header-container">
             <a href="../index.html" class="logo">ryupro</a>
         </div>
     </header>
