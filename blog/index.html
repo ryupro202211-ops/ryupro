@@ -153,8 +153,8 @@
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo">ryupro</a>
-    <a href="/" class="nav-back">&larr; トップに戻る</a>
+    <a href="/ryupro/" class="nav-logo">ryupro</a>
+    <a href="/ryupro/" class="nav-back">&larr; トップに戻る</a>
   </div>
 </nav>
 
@@ -173,7 +173,8 @@
 </footer>
 
 <script>
-  fetch('/api/posts')
+  const basePath = '/ryupro';
+  fetch(basePath + '/blog/data/posts.json')
     .then(res => res.json())
     .then(posts => {
       const list = document.getElementById('blogList');
@@ -181,19 +182,21 @@
         list.innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.95rem;">まだ記事がありません。</p>';
         return;
       }
-      const defaultImg = '/assets/images/default-blog.jpg';
-      list.innerHTML = posts.map(post => `
-        <a href="/blog/${post.url}" class="blog-card">
+      const defaultImg = basePath + '/assets/images/default-blog.jpg';
+      list.innerHTML = posts.map(post => {
+        const imgSrc = post.image ? basePath + post.image : defaultImg;
+        return `
+        <a href="${basePath}/blog/${post.url}" class="blog-card">
           <div class="blog-card-img">
-            <img src="${post.image || defaultImg}" alt="${post.title}" onerror="this.src='${defaultImg}'">
+            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='${defaultImg}'">
           </div>
           <div>
             <div class="blog-card-date">${post.date}</div>
             <div class="blog-card-title">${post.title}</div>
             <div class="blog-card-excerpt">${post.excerpt}</div>
           </div>
-        </a>
-      `).join('');
+        </a>`;
+      }).join('');
     })
     .catch(() => {
       document.getElementById('blogList').innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.95rem;">記事の読み込みに失敗しました。</p>';
