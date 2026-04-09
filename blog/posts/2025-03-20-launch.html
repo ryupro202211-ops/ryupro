@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ryupro公式サイトをリニューアルしました | ryupro ブログ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-bg: #FAFAF8;
+      --color-text: #1a1a1a;
+      --color-text-muted: #6b6b6b;
+      --color-text-light: #999;
+      --color-accent: #2A5C3F;
+      --color-accent-light: #E8F0EB;
+      --color-warm: #F5F0EB;
+      --color-border: #e8e6e1;
+      --color-white: #fff;
+      --font-ja: 'Noto Sans JP', sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --max-width: 1080px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ja);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--color-accent); }
+    .article-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 7rem 2rem 4rem;
+    }
+    .article-date {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .article-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
+    }
+    .article-body {
+      font-size: 0.95rem;
+      line-height: 2;
+      color: var(--color-text-muted);
+    }
+    .article-body p { margin-bottom: 1.5rem; }
+    .article-body strong { color: var(--color-text); font-weight: 600; }
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid var(--color-accent);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+    .article-back:hover {
+      background: var(--color-accent);
+      color: #fff;
+    }
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+    }
+    .footer-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">ryupro</a>
+    <a href="/blog" class="nav-back">&larr; ブログ一覧に戻る</a>
+  </div>
+</nav>
+<main class="article-wrapper">
+  <div class="article-date">2025.03.20</div>
+  <h1 class="article-title">ryupro公式サイトをリニューアルしました</h1>
+  <div class="article-body"><p>いつもryuproをご覧いただきありがとうございます。</p><p>この度、公式サイトを全面リニューアルいたしました。デザインを一新し、私たちの理念やサービスをより分かりやすくお伝えできるようになりました。</p><p>今後も皆さまに有益な情報をお届けしてまいります。引き続きよろしくお願いいたします。</p></div>
+  <a href="/blog" class="article-back">&larr; ブログ一覧に戻る</a>
+</main>
+<footer>
+  <div class="footer-logo">ryupro</div>
+  <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
+</footer>
+</body>
+</html>

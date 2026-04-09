@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#E8F0EB"/>
+  <g transform="translate(400,230)">
+    <rect x="-40" y="-30" width="80" height="60" rx="8" fill="none" stroke="#2A5C3F" stroke-width="2.5" opacity="0.4"/>
+    <circle cx="15" cy="-10" r="8" fill="none" stroke="#2A5C3F" stroke-width="2" opacity="0.4"/>
+    <polygon points="-30,22 -5,-5 10,10 20,2 35,22" fill="none" stroke="#2A5C3F" stroke-width="2" opacity="0.4"/>
+  </g>
+  <text x="400" y="290" text-anchor="middle" font-family="'Outfit',sans-serif" font-size="16" font-weight="500" fill="#2A5C3F" opacity="0.5">ryupro blog</text>
+</svg>

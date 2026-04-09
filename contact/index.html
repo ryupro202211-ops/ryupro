@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせ | 合同会社ryupro</title>
+  <meta name="description" content="合同会社ryuproへのお問い合わせはこちらから。イベント参加や事業に関するご質問など、お気軽にどうぞ。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-bg: #FAFAF8;
+      --color-text: #1a1a1a;
+      --color-text-muted: #6b6b6b;
+      --color-text-light: #999;
+      --color-accent: #2A5C3F;
+      --color-accent-light: #E8F0EB;
+      --color-warm: #F5F0EB;
+      --color-border: #e8e6e1;
+      --color-white: #fff;
+      --font-ja: 'Noto Sans JP', sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --max-width: 1080px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ja);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--color-accent); }
+
+    /* --- PAGE HEADER --- */
+    .page-header {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 7rem 2rem 1.5rem;
+      text-align: center;
+    }
+    .section-label {
+      font-family: var(--font-en);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+    .page-intro {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* --- FORM --- */
+    .form-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+    .form-group {
+      margin-bottom: 1.75rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .form-label .required {
+      font-size: 0.75rem;
+      color: var(--color-accent);
+      margin-left: 0.35rem;
+      font-weight: 400;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-ja);
+      font-size: 0.95rem;
+      color: var(--color-text);
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--color-accent);
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--color-text-light);
+    }
+    .form-textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 1rem 2rem;
+      font-family: var(--font-ja);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--color-white);
+      background: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-submit:hover {
+      background: #1e4530;
+    }
+
+    /* --- SUCCESS MESSAGE --- */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .form-success-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--color-accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+    }
+    .form-success h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .form-success p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+    .form-success a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--color-accent);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+    .form-success a:hover {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+    }
+    .footer-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+    }
+
+    @media (max-width: 768px) {
+      .page-header { padding: 6rem 1.5rem 1.5rem; }
+      .form-wrapper { padding: 2rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">ryupro</a>
+    <a href="/" class="nav-back">&larr; トップに戻る</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="section-label">Contact</div>
+  <h1 class="section-title">お問い合わせ</h1>
+  <p class="page-intro">イベントへの参加や事業についてのご質問など、どんなことでもお気軽にご連絡ください。</p>
+</header>
+
+<main class="form-wrapper">
+  <form id="contactForm" action="https://formspree.io/f/xanywvlg" method="POST">
+    <div class="form-group">
+      <label class="form-label" for="name">お名前<span class="required">*</span></label>
+      <input class="form-input" type="text" id="name" name="name" placeholder="山田 太郎" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="email">メールアドレス<span class="required">*</span></label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="example@email.com" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="subject">件名</label>
+      <input class="form-input" type="text" id="subject" name="subject" placeholder="ご用件">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="message">お問い合わせ内容<span class="required">*</span></label>
+      <textarea class="form-textarea" id="message" name="message" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+    </div>
+    <button type="submit" class="form-submit">送信する</button>
+  </form>
+
+  <div class="form-success" id="formSuccess">
+    <div class="form-success-icon">&#10003;</div>
+    <h2>送信が完了しました</h2>
+    <p>お問い合わせいただきありがとうございます。<br>内容を確認の上、折り返しご連絡いたします。</p>
+    <a href="/">&larr; トップに戻る</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">ryupro</div>
+  <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const data = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }
+    }).catch(() => {
+      alert('送信に失敗しました。しばらく経ってから再度お試しください。');
+    });
+  });
+</script>
+</body>
+</html>

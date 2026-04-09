@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ブログ | 合同会社ryupro</title>
+  <meta name="description" content="合同会社ryuproのブログ。イベント情報やコラムをお届けします。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-bg: #FAFAF8;
+      --color-text: #1a1a1a;
+      --color-text-muted: #6b6b6b;
+      --color-text-light: #999;
+      --color-accent: #2A5C3F;
+      --color-accent-light: #E8F0EB;
+      --color-warm: #F5F0EB;
+      --color-border: #e8e6e1;
+      --color-white: #fff;
+      --font-ja: 'Noto Sans JP', sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --max-width: 1080px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ja);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-back {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--color-accent); }
+    .page-header {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 7rem 2rem 3rem;
+    }
+    .section-label {
+      font-family: var(--font-en);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .blog-list {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .blog-card {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--color-border);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+    .blog-card:first-child { border-top: 1px solid var(--color-border); }
+    .blog-card:hover { opacity: 0.7; }
+    .blog-card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: var(--color-warm);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .blog-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .blog-card-date {
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+      margin-bottom: 0.5rem;
+    }
+    .blog-card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+    .blog-card-excerpt {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+    }
+    .footer-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+    }
+    @media (max-width: 768px) {
+      .blog-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .blog-card-img { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">ryupro</a>
+    <a href="/" class="nav-back">&larr; トップに戻る</a>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="section-label">Blog</div>
+  <h1 class="section-title">ブログ</h1>
+</header>
+
+<main class="blog-list" id="blogList">
+  <p style="color: var(--color-text-muted); font-size: 0.95rem;">読み込み中...</p>
+</main>
+
+<footer>
+  <div class="footer-logo">ryupro</div>
+  <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
+</footer>
+
+<script>
+  fetch('/api/posts')
+    .then(res => res.json())
+    .then(posts => {
+      const list = document.getElementById('blogList');
+      if (!posts.length) {
+        list.innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.95rem;">まだ記事がありません。</p>';
+        return;
+      }
+      const defaultImg = '/assets/images/default-blog.jpg';
+      list.innerHTML = posts.map(post => `
+        <a href="/blog/${post.url}" class="blog-card">
+          <div class="blog-card-img">
+            <img src="${post.image || defaultImg}" alt="${post.title}" onerror="this.src='${defaultImg}'">
+          </div>
+          <div>
+            <div class="blog-card-date">${post.date}</div>
+            <div class="blog-card-title">${post.title}</div>
+            <div class="blog-card-excerpt">${post.excerpt}</div>
+          </div>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('blogList').innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.95rem;">記事の読み込みに失敗しました。</p>';
+    });
+</script>
+</body>
+</html>

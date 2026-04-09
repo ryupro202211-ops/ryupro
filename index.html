@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>合同会社ryupro | 人と人がつながる場を創る</title>
+  <meta name="description" content="合同会社ryuproは、イベント企画・コミュニティデザイン・ライフスタイルプロデュースを通じて、人の可能性を広げる事業を展開しています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #FAFAF8;
+      --color-text: #1a1a1a;
+      --color-text-muted: #6b6b6b;
+      --color-text-light: #999;
+      --color-accent: #2A5C3F;
+      --color-accent-light: #E8F0EB;
+      --color-warm: #F5F0EB;
+      --color-border: #e8e6e1;
+      --color-white: #fff;
+      --font-ja: 'Noto Sans JP', sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --max-width: 1080px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-ja);
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--color-accent); }
+
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: var(--color-text); margin: 5px 0; transition: 0.3s; }
+
+    /* --- HERO --- */
+    .hero {
+      padding: 10rem 2rem 6rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .hero-en {
+      font-family: var(--font-en);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+      max-width: 540px;
+      opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- SECTIONS --- */
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: var(--max-width); margin: 0 auto; }
+    .section-label {
+      font-family: var(--font-en);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* --- FOUNDER (新設: 代表プロフィール) --- */
+    .founder {
+      background: var(--color-white);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .founder-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--color-warm);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-light);
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .founder-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .founder-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .founder-name-en {
+      font-family: var(--font-en);
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .founder-story {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      line-height: 2;
+      margin-bottom: 1.5rem;
+    }
+    .founder-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .founder-tag {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.85rem;
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      border-radius: 100px;
+      font-weight: 500;
+    }
+
+    /* --- PHILOSOPHY --- */
+    .philosophy {
+      background: var(--color-accent);
+      color: #fff;
+    }
+    .philosophy .section-label { color: rgba(255,255,255,0.5); }
+    .philosophy .section-title { color: #fff; }
+    .philosophy-text {
+      font-size: 1.05rem;
+      line-height: 2;
+      max-width: 640px;
+      color: rgba(255,255,255,0.85);
+    }
+    .philosophy-quote {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      color: #fff;
+      line-height: 1.8;
+    }
+
+    /* --- SERVICES --- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--color-accent-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+    }
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+    }
+
+    /* --- COMMUNITY (楽SAKE セクション 新設) --- */
+    .community { background: var(--color-warm); }
+    .community-intro {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+    .community-sub-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .community-img {
+      margin-bottom: 2rem;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .community-img img {
+      width: 100%;
+      display: block;
+    }
+    .community-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .community-photo {
+      aspect-ratio: 1;
+      background: var(--color-white);
+      border-radius: 8px;
+      border: 1px dashed var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-light);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+    .community-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--color-accent);
+      border-radius: 100px;
+      transition: all 0.2s;
+    }
+    .community-cta:hover {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    /* --- COMPANY --- */
+    .company-table {
+      width: 100%;
+      max-width: 600px;
+      border-collapse: collapse;
+    }
+    .company-table tr {
+      border-bottom: 1px solid var(--color-border);
+    }
+    .company-table th {
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      padding: 1rem 2rem 1rem 0;
+      width: 140px;
+      vertical-align: top;
+    }
+    .company-table td {
+      font-size: 0.95rem;
+      padding: 1rem 0;
+    }
+
+    /* --- CONTACT --- */
+    .contact {
+      background: var(--color-white);
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+    }
+    .contact-text {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .contact-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+      border: 1px solid var(--color-accent);
+    }
+    .btn-primary:hover { background: #1e4530; }
+    .btn-outline {
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+    .btn-outline:hover { border-color: var(--color-text); }
+
+    /* --- FOOTER --- */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+    }
+    .footer-logo {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--color-text-light);
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: var(--color-bg);
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--color-border);
+        gap: 1.25rem;
+      }
+      .hero { padding: 8rem 1.5rem 4rem; }
+      .founder-grid { grid-template-columns: 1fr; }
+      .founder-photo { max-width: 240px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .community-gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">ryupro</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#founder">代表紹介</a></li>
+      <li><a href="#philosophy">理念</a></li>
+      <li><a href="#services">事業内容</a></li>
+      <li><a href="#community">コミュニティ</a></li>
+      <li><a href="#company">会社概要</a></li>
+      <li><a href="/blog">ブログ</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-en">Creating connections, Creating value</div>
+  <h1>人と人がつながる場から、<br>新しい価値が生まれる。</h1>
+  <p>合同会社ryuproは、イベント企画・コミュニティデザインを通じて、一人ひとりの可能性を広げる場を創っています。</p>
+</header>
+
+<!-- FOUNDER（新設：最重要セクション） -->
+<section class="founder" id="founder">
+  <div class="section-inner">
+    <div class="section-label">Founder</div>
+    <div class="section-title">代表紹介</div>
+    <div class="founder-grid">
+      <div class="founder-photo">
+        <img src="founder.jpg" alt="大塚隆平">
+      </div>
+      <div>
+        <div class="founder-name">大塚 隆平</div>
+        <div class="founder-name-en">Ryuhei Otsuka &#8212; Founder &amp; CEO</div>
+
+        <p class="founder-story">
+          25歳の頃、IT企業で毎日を全力で働いていました。<br>
+          仕事にはやりがいがあったけれど、「このまま10年後、20年後もここにいるのか」という漠然とした不安がいつもありました。
+        </p>
+        <p class="founder-story">
+          転機になったのは、信頼できるメンターとの出会い。<br>
+          「付き合う人が変われば、人生が変わる」という言葉をきっかけに、ITインフラエンジニアとしてのキャリアを経て、独立の道を選びました。
+        </p>
+        <p class="founder-story">
+          今は、かつての自分と同じように「一歩を踏み出したい」と思っている人が、自然と集まれる場を作ることに全力を注いでいます。
+        </p>
+
+        <div class="founder-tags">
+          <span class="founder-tag">ITインフラ 15年</span>
+          <span class="founder-tag">ウェイトトレーニング</span>
+
+          <span class="founder-tag">イベント企画</span>
+          <span class="founder-tag">コミュニティデザイン</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="section-inner">
+    <div class="section-label">Philosophy</div>
+    <div class="section-title">経営理念</div>
+    <div class="philosophy-quote">
+      「挑戦する人が、当たり前に挑戦できる社会をつくる」
+    </div>
+    <p class="philosophy-text">
+      一歩踏み出すことは、簡単ではありません。<br>
+      でも、その一歩を踏み出した先に、想像もしなかった出会いや成長が待っている。<br><br>
+      ryuproは、挑戦する人の「最初の一歩」を支える場を創ります。<br>
+      人が集まり、つながり、刺激し合う。<br>
+      その連鎖が、一人ひとりの人生を、そして社会を豊かにしていくと信じています。
+    </p>
+  </div>
+</section>
+
+<!-- SERVICES（表現を柔らかく変更） -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-label">Services</div>
+    <div class="section-title">事業内容</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">&#127880;</div>
+        <h3>イベント企画・運営</h3>
+        <p>BBQ、花火、季節のパーティーなど、人と人がつながるイベントを企画・運営。初めての方でも気軽に参加できる、温かいコミュニティの場を提供します。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#127793;</div>
+        <h3>コミュニティデザイン</h3>
+        <p>価値観の合う仲間と出会い、互いに高め合える場を設計。読書会やワークショップなど、学びと成長の場を通じてコミュニティを育てます。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">&#10024;</div>
+        <h3>ライフスタイルプロデュース</h3>
+        <p>住まい探しのサポートや、健康・美容に関するサービスを通じて、暮らし全体を豊かにするお手伝いをしています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY（楽SAKE セクション：新設） -->
+<section class="community" id="community">
+  <div class="section-inner">
+    <div class="section-label">Community</div>
+    <div class="section-title">コミュニティ</div>
+    <div class="community-sub-title">楽SAKEターミナル</div>
+    <p class="community-intro">
+      ryuproの活動の中心にあるコミュニティイベントです。BBQ、花火、流しそうめん、クリスマスパーティーなど、季節ごとの楽しい企画を通じて仲間が集まります。「楽しい」から始まるつながりを大切にしています。
+    </p>
+    <div class="community-img">
+      <img src="rakusake_events.png" alt="楽SAKEターミナルの様子">
+    </div>
+    <a href="https://ryupro202211-ops.github.io/rakusake/" class="community-cta">
+      楽SAKEターミナルについて詳しく見る &rarr;
+    </a>
+  </div>
+</section>
+
+<!-- COMPANY（資本金を削除） -->
+<section id="company">
+  <div class="section-inner">
+    <div class="section-label">Company</div>
+    <div class="section-title">会社概要</div>
+    <table class="company-table">
+      <tr><th>社名</th><td>合同会社ryupro</td></tr>
+      <tr><th>代表者</th><td>大塚 隆平</td></tr>
+      <tr><th>設立</th><td>2022年11月</td></tr>
+      <tr><th>所在地</th><td>東京都中央区銀座1丁目12番4号 N&amp;E BLD. 6F</td></tr>
+      <tr><th>事業内容</th><td>イベント企画・運営<br>コミュニティデザイン<br>ライフスタイルプロデュース</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <div class="section-title">お問い合わせ</div>
+    <p class="contact-text">
+      イベントへの参加や事業についてのご質問など、どんなことでもお気軽にご連絡ください。
+    </p>
+    <div class="contact-buttons">
+      <a href="/contact" class="btn btn-primary">お問い合わせフォーム</a>
+      <a href="https://ryupro202211-ops.github.io/rakusake/" class="btn btn-outline">楽SAKEの詳細を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ryupro</div>
+  <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
+</footer>
+
+</body>
+</html>
