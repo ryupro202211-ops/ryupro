@@ -7,22 +7,22 @@
   <meta name="description" content="合同会社ryuproへのお問い合わせはこちらから。イベント参加や事業に関するご質問など、お気軽にどうぞ。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --color-bg: #FAFAF8;
-      --color-text: #1a1a1a;
-      --color-text-muted: #6b6b6b;
-      --color-text-light: #999;
-      --color-accent: #2A5C3F;
-      --color-accent-light: #E8F0EB;
-      --color-warm: #F5F0EB;
-      --color-border: #e8e6e1;
-      --color-white: #fff;
+      --color-bg: #0a0a0a;
+      --color-bg-card: #141414;
+      --color-text: #f0f0f0;
+      --color-text-muted: #999;
+      --color-text-light: #555;
+      --color-accent: #39FF14;
+      --color-accent-2: #FF6B2B;
+      --color-border: #2a2a2a;
       --font-ja: 'Noto Sans JP', sans-serif;
       --font-en: 'Outfit', sans-serif;
       --max-width: 1080px;
+      --glow-green: 0 0 20px rgba(57,255,20,0.4);
     }
     html { scroll-behavior: smooth; }
     body {
@@ -36,8 +36,8 @@
     /* --- NAV --- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250,250,248,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-border);
     }
     .nav-inner {
@@ -51,40 +51,46 @@
     }
     .nav-logo {
       font-family: var(--font-en);
-      font-weight: 600;
-      font-size: 1.25rem;
-      color: var(--color-text);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--color-accent);
       text-decoration: none;
       letter-spacing: -0.02em;
+      text-shadow: var(--glow-green);
     }
     .nav-back {
       font-size: 0.85rem;
+      font-weight: 500;
       color: var(--color-text-muted);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.3s, text-shadow 0.3s;
     }
-    .nav-back:hover { color: var(--color-accent); }
+    .nav-back:hover {
+      color: var(--color-accent);
+      text-shadow: var(--glow-green);
+    }
 
     /* --- PAGE HEADER --- */
     .page-header {
       max-width: var(--max-width);
       margin: 0 auto;
-      padding: 7rem 2rem 1.5rem;
+      padding: 8rem 2rem 1.5rem;
       text-align: center;
     }
     .section-label {
       font-family: var(--font-en);
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 700;
       color: var(--color-accent);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 0.75rem;
+      text-shadow: var(--glow-green);
     }
     .section-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       margin-bottom: 1rem;
     }
     .page-intro {
@@ -106,14 +112,14 @@
     .form-label {
       display: block;
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 700;
       margin-bottom: 0.5rem;
     }
     .form-label .required {
       font-size: 0.75rem;
       color: var(--color-accent);
       margin-left: 0.35rem;
-      font-weight: 400;
+      font-weight: 500;
     }
     .form-input,
     .form-textarea {
@@ -122,15 +128,16 @@
       font-family: var(--font-ja);
       font-size: 0.95rem;
       color: var(--color-text);
-      background: var(--color-white);
+      background: var(--color-bg-card);
       border: 1px solid var(--color-border);
       border-radius: 12px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
     .form-input:focus,
     .form-textarea:focus {
       border-color: var(--color-accent);
+      box-shadow: 0 0 12px rgba(57,255,20,0.15);
     }
     .form-input::placeholder,
     .form-textarea::placeholder {
@@ -149,61 +156,18 @@
       padding: 1rem 2rem;
       font-family: var(--font-ja);
       font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--color-white);
+      font-weight: 700;
+      color: #0a0a0a;
       background: var(--color-accent);
-      border: 1px solid var(--color-accent);
+      border: 2px solid var(--color-accent);
       border-radius: 100px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.3s;
     }
     .form-submit:hover {
-      background: #1e4530;
-    }
-
-    /* --- SUCCESS MESSAGE --- */
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 3rem 2rem;
-    }
-    .form-success-icon {
-      width: 56px;
-      height: 56px;
-      background: var(--color-accent-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 1.5rem;
-    }
-    .form-success h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-    .form-success p {
-      font-size: 0.95rem;
-      color: var(--color-text-muted);
-      margin-bottom: 2rem;
-    }
-    .form-success a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
+      background: transparent;
       color: var(--color-accent);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.75rem 1.5rem;
-      border: 1px solid var(--color-accent);
-      border-radius: 100px;
-      transition: all 0.2s;
-    }
-    .form-success a:hover {
-      background: var(--color-accent);
-      color: #fff;
+      box-shadow: var(--glow-green);
     }
 
     /* --- FOOTER --- */
@@ -214,9 +178,11 @@
     }
     .footer-logo {
       font-family: var(--font-en);
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: 1.1rem;
       margin-bottom: 0.5rem;
+      color: var(--color-accent);
+      text-shadow: var(--glow-green);
     }
     .footer-copy {
       font-size: 0.75rem;
