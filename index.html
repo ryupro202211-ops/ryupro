@@ -7,23 +7,26 @@
   <meta name="description" content="合同会社ryuproは、イベント企画・コミュニティデザイン・ライフスタイルプロデュースを通じて、人の可能性を広げる事業を展開しています。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --color-bg: #FAFAF8;
-      --color-text: #1a1a1a;
-      --color-text-muted: #6b6b6b;
-      --color-text-light: #999;
-      --color-accent: #2A5C3F;
-      --color-accent-light: #E8F0EB;
-      --color-warm: #F5F0EB;
-      --color-border: #e8e6e1;
-      --color-white: #fff;
+      --color-bg: #0a0a0a;
+      --color-bg-card: #141414;
+      --color-bg-elevated: #1a1a1a;
+      --color-text: #f0f0f0;
+      --color-text-muted: #999;
+      --color-text-light: #555;
+      --color-accent: #39FF14;
+      --color-accent-2: #FF6B2B;
+      --color-border: #2a2a2a;
+      --color-white: #f0f0f0;
       --font-ja: 'Noto Sans JP', sans-serif;
       --font-en: 'Outfit', sans-serif;
       --max-width: 1080px;
+      --glow-green: 0 0 20px rgba(57,255,20,0.4);
+      --glow-orange: 0 0 20px rgba(255,107,43,0.4);
     }
 
     html { scroll-behavior: smooth; }
@@ -36,11 +39,22 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* --- SCROLL ANIMATIONS --- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* --- NAV --- */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250,250,248,0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--color-border);
     }
     .nav-inner {
@@ -54,46 +68,64 @@
     }
     .nav-logo {
       font-family: var(--font-en);
-      font-weight: 600;
-      font-size: 1.25rem;
-      color: var(--color-text);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--color-accent);
       text-decoration: none;
       letter-spacing: -0.02em;
+      text-shadow: var(--glow-green);
     }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       font-size: 0.85rem;
+      font-weight: 500;
       color: var(--color-text-muted);
       text-decoration: none;
       letter-spacing: 0.02em;
-      transition: color 0.2s;
+      transition: color 0.3s, text-shadow 0.3s;
     }
-    .nav-links a:hover { color: var(--color-accent); }
+    .nav-links a:hover {
+      color: var(--color-accent);
+      text-shadow: var(--glow-green);
+    }
 
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 20px; height: 2px; background: var(--color-text); margin: 5px 0; transition: 0.3s; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--color-accent); margin: 5px 0; transition: 0.3s; }
 
     /* --- HERO --- */
     .hero {
-      padding: 10rem 2rem 6rem;
+      padding: 12rem 2rem 7rem;
       max-width: var(--max-width);
       margin: 0 auto;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(57,255,20,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
     }
     .hero-en {
       font-family: var(--font-en);
-      font-size: 0.8rem;
-      font-weight: 500;
+      font-size: 0.85rem;
+      font-weight: 700;
       color: var(--color-accent);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 1.5rem;
+      text-shadow: var(--glow-green);
       opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
     }
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.4;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: -0.03em;
       margin-bottom: 1.5rem;
       opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
     }
@@ -105,32 +137,38 @@
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes glow-pulse {
+      0%, 100% { text-shadow: 0 0 10px rgba(57,255,20,0.3); }
+      50% { text-shadow: 0 0 25px rgba(57,255,20,0.6), 0 0 50px rgba(57,255,20,0.2); }
+    }
+
     /* --- SECTIONS --- */
-    section { padding: 5rem 2rem; }
+    section { padding: 6rem 2rem; }
     .section-inner { max-width: var(--max-width); margin: 0 auto; }
     .section-label {
       font-family: var(--font-en);
       font-size: 0.75rem;
-      font-weight: 500;
+      font-weight: 700;
       color: var(--color-accent);
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       margin-bottom: 0.75rem;
+      text-shadow: var(--glow-green);
     }
     .section-title {
-      font-size: 1.6rem;
-      font-weight: 700;
+      font-size: 1.8rem;
+      font-weight: 800;
       margin-bottom: 2.5rem;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
 
-    /* --- FOUNDER (新設: 代表プロフィール) --- */
+    /* --- FOUNDER --- */
     .founder {
-      background: var(--color-white);
+      background: var(--color-bg-card);
       border-top: 1px solid var(--color-border);
       border-bottom: 1px solid var(--color-border);
     }
@@ -143,7 +181,7 @@
     .founder-photo {
       width: 100%;
       aspect-ratio: 3/4;
-      background: var(--color-warm);
+      background: var(--color-bg-elevated);
       border-radius: 12px;
       overflow: hidden;
       display: flex;
@@ -153,6 +191,8 @@
       font-size: 0.85rem;
       text-align: center;
       line-height: 1.6;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 0 30px rgba(57,255,20,0.08);
     }
     .founder-photo img {
       width: 100%;
@@ -161,8 +201,8 @@
       object-position: center top;
     }
     .founder-name {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 800;
       margin-bottom: 0.25rem;
     }
     .founder-name-en {
@@ -185,32 +225,33 @@
     }
     .founder-tag {
       font-size: 0.8rem;
-      padding: 0.35rem 0.85rem;
-      background: var(--color-accent-light);
-      color: var(--color-accent);
+      padding: 0.4rem 0.9rem;
+      background: var(--color-accent);
+      color: #0a0a0a;
       border-radius: 100px;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     /* --- PHILOSOPHY --- */
     .philosophy {
-      background: var(--color-accent);
-      color: #fff;
+      background: linear-gradient(135deg, #0d1a0f 0%, #0a0a0a 50%, #1a0d00 100%);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
     }
-    .philosophy .section-label { color: rgba(255,255,255,0.5); }
-    .philosophy .section-title { color: #fff; }
+    .philosophy .section-title { color: var(--color-text); }
     .philosophy-text {
       font-size: 1.05rem;
       line-height: 2;
       max-width: 640px;
-      color: rgba(255,255,255,0.85);
+      color: var(--color-text-muted);
     }
     .philosophy-quote {
-      font-size: 1.3rem;
-      font-weight: 500;
+      font-size: 1.4rem;
+      font-weight: 800;
       margin-bottom: 2rem;
-      color: #fff;
+      color: var(--color-accent);
       line-height: 1.8;
+      text-shadow: var(--glow-green);
     }
 
     /* --- SERVICES --- */
@@ -220,30 +261,32 @@
       gap: 1.5rem;
     }
     .service-card {
-      background: var(--color-white);
+      background: var(--color-bg-card);
       border: 1px solid var(--color-border);
       border-radius: 12px;
       padding: 2rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
     .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      transform: translateY(-6px);
+      border-color: var(--color-accent);
+      box-shadow: 0 8px 32px rgba(57,255,20,0.1), var(--glow-green);
     }
     .service-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--color-accent-light);
+      width: 52px;
+      height: 52px;
+      background: rgba(57,255,20,0.1);
+      border: 1px solid rgba(57,255,20,0.2);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 1.25rem;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
     }
     .service-card h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
       margin-bottom: 0.75rem;
     }
     .service-card p {
@@ -252,8 +295,12 @@
       line-height: 1.8;
     }
 
-    /* --- COMMUNITY (楽SAKE セクション 新設) --- */
-    .community { background: var(--color-warm); }
+    /* --- COMMUNITY --- */
+    .community {
+      background: var(--color-bg-elevated);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
     .community-intro {
       font-size: 0.95rem;
       color: var(--color-text-muted);
@@ -262,53 +309,38 @@
       line-height: 1.8;
     }
     .community-sub-title {
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-size: 1.3rem;
+      font-weight: 800;
       margin-bottom: 1rem;
+      color: var(--color-accent-2);
     }
     .community-img {
       margin-bottom: 2rem;
       border-radius: 12px;
       overflow: hidden;
+      border: 1px solid var(--color-border);
     }
     .community-img img {
       width: 100%;
       display: block;
-    }
-    .community-gallery {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-    .community-photo {
-      aspect-ratio: 1;
-      background: var(--color-white);
-      border-radius: 8px;
-      border: 1px dashed var(--color-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-text-light);
-      font-size: 0.75rem;
-      text-align: center;
     }
     .community-cta {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       font-size: 0.9rem;
-      color: var(--color-accent);
+      color: var(--color-accent-2);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 700;
       padding: 0.75rem 1.5rem;
-      border: 1px solid var(--color-accent);
+      border: 2px solid var(--color-accent-2);
       border-radius: 100px;
-      transition: all 0.2s;
+      transition: all 0.3s;
     }
     .community-cta:hover {
-      background: var(--color-accent);
-      color: #fff;
+      background: var(--color-accent-2);
+      color: #0a0a0a;
+      box-shadow: var(--glow-orange);
     }
 
     /* --- COMPANY --- */
@@ -322,9 +354,9 @@
     }
     .company-table th {
       text-align: left;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 0.85rem;
-      color: var(--color-text-muted);
+      color: var(--color-accent);
       padding: 1rem 2rem 1rem 0;
       width: 140px;
       vertical-align: top;
@@ -332,11 +364,12 @@
     .company-table td {
       font-size: 0.95rem;
       padding: 1rem 0;
+      color: var(--color-text-muted);
     }
 
     /* --- CONTACT --- */
     .contact {
-      background: var(--color-white);
+      background: var(--color-bg-card);
       border-top: 1px solid var(--color-border);
       text-align: center;
     }
@@ -358,37 +391,48 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.85rem 2rem;
+      padding: 0.9rem 2rem;
       border-radius: 100px;
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 700;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.3s;
     }
     .btn-primary {
       background: var(--color-accent);
-      color: #fff;
-      border: 1px solid var(--color-accent);
+      color: #0a0a0a;
+      border: 2px solid var(--color-accent);
     }
-    .btn-primary:hover { background: #1e4530; }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--color-accent);
+      box-shadow: var(--glow-green);
+    }
     .btn-outline {
       background: transparent;
-      color: var(--color-text);
-      border: 1px solid var(--color-border);
+      color: var(--color-accent-2);
+      border: 2px solid var(--color-accent-2);
     }
-    .btn-outline:hover { border-color: var(--color-text); }
+    .btn-outline:hover {
+      background: var(--color-accent-2);
+      color: #0a0a0a;
+      box-shadow: var(--glow-orange);
+    }
 
     /* --- FOOTER --- */
     footer {
       padding: 3rem 2rem;
       text-align: center;
       border-top: 1px solid var(--color-border);
+      background: var(--color-bg);
     }
     .footer-logo {
       font-family: var(--font-en);
-      font-weight: 600;
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: 1.1rem;
       margin-bottom: 0.5rem;
+      color: var(--color-accent);
+      text-shadow: var(--glow-green);
     }
     .footer-copy {
       font-size: 0.75rem;
@@ -404,16 +448,16 @@
         flex-direction: column;
         position: absolute;
         top: 64px; left: 0; right: 0;
-        background: var(--color-bg);
+        background: rgba(10,10,10,0.96);
         padding: 1.5rem 2rem;
         border-bottom: 1px solid var(--color-border);
         gap: 1.25rem;
       }
-      .hero { padding: 8rem 1.5rem 4rem; }
+      .hero { padding: 9rem 1.5rem 4rem; }
+      .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
       .founder-grid { grid-template-columns: 1fr; }
       .founder-photo { max-width: 240px; }
       .services-grid { grid-template-columns: 1fr; }
-      .community-gallery { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -445,9 +489,9 @@
   <p>合同会社ryuproは、イベント企画・コミュニティデザインを通じて、一人ひとりの可能性を広げる場を創っています。</p>
 </header>
 
-<!-- FOUNDER（新設：最重要セクション） -->
+<!-- FOUNDER -->
 <section class="founder" id="founder">
-  <div class="section-inner">
+  <div class="section-inner fade-in">
     <div class="section-label">Founder</div>
     <div class="section-title">代表紹介</div>
     <div class="founder-grid">
@@ -473,7 +517,6 @@
         <div class="founder-tags">
           <span class="founder-tag">ITインフラ 15年</span>
           <span class="founder-tag">ウェイトトレーニング</span>
-
           <span class="founder-tag">イベント企画</span>
           <span class="founder-tag">コミュニティデザイン</span>
         </div>
@@ -484,7 +527,7 @@
 
 <!-- PHILOSOPHY -->
 <section class="philosophy" id="philosophy">
-  <div class="section-inner">
+  <div class="section-inner fade-in">
     <div class="section-label">Philosophy</div>
     <div class="section-title">経営理念</div>
     <div class="philosophy-quote">
@@ -500,9 +543,9 @@
   </div>
 </section>
 
-<!-- SERVICES（表現を柔らかく変更） -->
+<!-- SERVICES -->
 <section class="services" id="services">
-  <div class="section-inner">
+  <div class="section-inner fade-in">
     <div class="section-label">Services</div>
     <div class="section-title">事業内容</div>
     <div class="services-grid">
@@ -514,7 +557,7 @@
       <div class="service-card">
         <div class="service-icon">&#127793;</div>
         <h3>コミュニティデザイン</h3>
-        <p>価値観の合う仲間と出会い、互いに高め合える場を設計。読書会やワークショップなど、学びと成長の場を通じてコミュニティを育てます。</p>
+        <p>価値観の合う仲間と出会い、互いに高め合える場を設計。勉強会やワークショップなど、学びと成長の場を通じて人を育てます。</p>
       </div>
       <div class="service-card">
         <div class="service-icon">&#128188;</div>
@@ -530,9 +573,9 @@
   </div>
 </section>
 
-<!-- COMMUNITY（楽SAKE セクション：新設） -->
+<!-- COMMUNITY -->
 <section class="community" id="community">
-  <div class="section-inner">
+  <div class="section-inner fade-in">
     <div class="section-label">Community</div>
     <div class="section-title">コミュニティ</div>
     <div class="community-sub-title">楽SAKEターミナル</div>
@@ -548,9 +591,9 @@
   </div>
 </section>
 
-<!-- COMPANY（資本金を削除） -->
+<!-- COMPANY -->
 <section id="company">
-  <div class="section-inner">
+  <div class="section-inner fade-in">
     <div class="section-label">Company</div>
     <div class="section-title">会社概要</div>
     <table class="company-table">
@@ -565,7 +608,7 @@
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div class="section-inner">
+  <div class="section-inner fade-in">
     <div class="section-label">Contact</div>
     <div class="section-title">お問い合わせ</div>
     <p class="contact-text">
@@ -583,6 +626,19 @@
   <div class="footer-logo">ryupro</div>
   <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
 </footer>
+
+<!-- SCROLL ANIMATION -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
