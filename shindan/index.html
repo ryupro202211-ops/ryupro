@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>転職タイプ診断｜Re▶CAMPUS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    font-family: 'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',sans-serif;
+    color: #f4ecdd;
+    background: radial-gradient(120% 80% at 50% -10%, #2a2342 0%, #14121f 55%, #0d0b16 100%);
+    display: flex; justify-content: center;
+    position: relative; overflow-x: hidden;
+  }
+  .glow { position: fixed; border-radius: 50%; filter: blur(95px); z-index: 0; }
+  .glow.a { top: -80px; left: -60px; width: 260px; height: 260px; background: #e0411f; opacity: .22; animation: glow 4s ease-in-out infinite; }
+  .glow.b { bottom: -100px; right: -70px; width: 300px; height: 300px; background: #e6b450; opacity: .18; animation: glow 5s ease-in-out infinite; }
+  #wrap { width: 100%; max-width: 440px; padding: 28px 22px 48px; position: relative; z-index: 1; }
+  @keyframes rise { from {opacity:0; transform:translateY(16px)} to {opacity:1; transform:none} }
+  @keyframes pop { 0%{transform:scale(.8);opacity:0} 60%{transform:scale(1.05)} 100%{transform:scale(1);opacity:1} }
+  @keyframes glow { 0%,100%{opacity:.5} 50%{opacity:1} }
+  @keyframes spin { to { transform: rotate(360deg) } }
+  @keyframes think { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .rise { animation: rise .5s ease both; }
+  .display { font-family: 'Dela Gothic One',sans-serif; }
+  button { font-family: inherit; cursor: pointer; }
+  .opt { width:100%; padding:22px 20px; margin-bottom:16px; border-radius:16px; border:1.5px solid rgba(230,180,80,.35);
+         background:rgba(255,255,255,.04); color:#f4ecdd; font-size:17px; font-weight:700; text-align:left;
+         transition:all .2s; display:flex; align-items:center; gap:14px; }
+  .opt:hover { transform: translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,.4); }
+  .opt:active { transform: scale(.98); }
+  .badge { flex-shrink:0; width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+           background:#e6b450; color:#14121f; font-weight:900; font-size:15px; font-family:'Dela Gothic One',sans-serif; }
+  .cta { width:100%; padding:18px; border:none; border-radius:16px; color:#fff; font-size:18px; font-weight:900;
+         letter-spacing:1px; box-shadow:0 12px 30px rgba(224,65,31,.4); font-family:'Dela Gothic One',sans-serif;
+         background:linear-gradient(135deg,#e0411f,#b8330f); }
+  .ghost { width:100%; padding:13px; border:none; background:none; color:#bdb4cf; font-size:14px; }
+  input, textarea { width:100%; padding:14px 16px; border-radius:12px; border:1.5px solid rgba(230,180,80,.3);
+                    background:rgba(255,255,255,.06); color:#f4ecdd; font-size:15px; font-family:inherit; outline:none; }
+  textarea { resize:none; line-height:1.6; }
+  ::placeholder { color:#8d84a3; }
+  .lbl { font-size:13px; color:#bdb4cf; display:block; margin-bottom:8px; font-weight:700; }
+  .seg { display:flex; flex-wrap:wrap; gap:8px; }
+  .chip { padding:11px 14px; border-radius:11px; border:1.5px solid rgba(230,180,80,.35);
+          background:rgba(255,255,255,.04); color:#f4ecdd; font-size:14px; font-weight:700; transition:all .15s; }
+  .chip:active { transform:scale(.96); }
+  .chip[data-sel="1"] { background:#e6b450; color:#14121f; border-color:#e6b450; }
+  .admin { margin-top:26px; font-size:12px; color:#6b6280; text-align:center; line-height:1.8; }
+  .admin a { color:#e6b450; text-decoration:underline; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="glow a"></div><div class="glow b"></div>
+<div id="wrap"></div>
+
+<script>
+/* ============================================================
+   ▼▼▼ 設定（ここだけ書き換えればOK）▼▼▼
+   1) GASウェブアプリのURLを SHEET_ENDPOINT に貼る
+   2) 端末の区別は URL末尾に ?t=A / ?t=B を付ける（任意）
+   ============================================================ */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxItFp34knSsl3XPy-XiDlgOz8gO3BYjYusvFghSSswl61uQDeiCTqCD8NEP222PxXV/exec"; // GASウェブアプリURL
+const TABLET = new URLSearchParams(location.search).get("t") || "";
+
+/* ====== タイプ定義 ====== */
+const TYPES = {
+  jump:    {emoji:"🚀", name:"ジャンプ型", accent:"#e0411f",
+    taiko:"迷ってる時間がいちばんもったいない。あなたはもう飛べる。",
+    susumekata:"情報収集より行動が勝ち筋。条件より“面白そう”で選ぶと当たります。未経験の業界でも、まず受けてみる人。",
+    ippo:"気になる求人を今日3件だけ、応募ボタンの手前まで進めてみる。",
+    jirai:"完璧な準備を待ちすぎて、せっかくの熱が冷めてしまうこと。"},
+  step:    {emoji:"🪜", name:"ステップ型", accent:"#c8922b",
+    taiko:"焦らなくていい。あなたの強みは“積み上げ”だ。",
+    susumekata:"いきなり辞めず、社内異動・資格・実績づくりで足場を固めてから動くと失敗しません。堅実さが最大の武器です。",
+    ippo:"今の職場で次に手に入れたいスキルや経験を1つ書き出す。",
+    jirai:"準備し続けて一生動かないこと。期限だけは先に決めよう。"},
+  trial:   {emoji:"🌱", name:"お試し型", accent:"#3a9a5c",
+    taiko:"全部を賭けなくていい。小さく試して、確かめよう。",
+    susumekata:"副業・複業で本命を小さく試してから本移行するのが正解。リスクを抑えつつ、本当の手触りを得られます。",
+    ippo:"やってみたい仕事を“副業として”始める方法を1つ調べる。",
+    jirai:"試すだけで満足して、本移行のタイミングを逃すこと。"},
+  connect: {emoji:"🤝", name:"人づて型", accent:"#d9466e",
+    taiko:"求人サイトより、あなたを知ってる人があなたを動かす。",
+    susumekata:"公募より、信頼できる人の紹介・リファラルが圧倒的に合います。“転職を考えてる”と周りに言うことが最大の一手です。",
+    ippo:"信頼できる人1人に「転職、ちょっと考えてる」と伝えてみる。",
+    jirai:"一人で求人サイトとにらめっこして、静かに消耗すること。"},
+  solo:    {emoji:"🦅", name:"独立型", accent:"#5b6ee0",
+    taiko:"組織で消耗するより、自分で舵を握る方が向いてる。",
+    susumekata:"転職だけでなく、フリーランス・独立・起業も本気で選択肢に。まずは副業で“自分で稼ぐ”感覚を掴むのが助走になります。",
+    ippo:"自分のスキルで個人として受けられる仕事を1つ書き出す。",
+    jirai:"準備ゼロで全部辞めてしまうこと。助走をつけてから跳ぼう。"},
+  clarify: {emoji:"🧭", name:"言語化先行型", accent:"#8a6fd1",
+    taiko:"動く前に、まず“何が嫌で何がしたいか”をハッキリさせよう。",
+    susumekata:"転職先を探す前に、キャリアの言語化が先。方向が定まれば動きは一気に速くなります。信頼できる人に話すのが近道です。",
+    ippo:"「今の仕事の何がモヤモヤするか」を3つ書き出す。",
+    jirai:"モヤモヤしたまま勢いで転職して、同じ不満を繰り返すこと。"},
+};
+
+/* ====== 質問（2択×5） ====== */
+const QUESTIONS = [
+  {q:"今の働き方を変えるなら、まず…",
+   a:{label:"とにかく早く動きたい", w:{jump:2,solo:1}},
+   b:{label:"しっかり準備してから", w:{step:2,trial:1,clarify:1}}},
+  {q:"新しい環境では…",
+   a:{label:"未経験でも飛び込みたい", w:{jump:2,solo:1,trial:1}},
+   b:{label:"今の経験を活かせる場所がいい", w:{step:2,connect:1}}},
+  {q:"あなたの一番の武器は…",
+   a:{label:"専門スキル・知識", w:{step:1,solo:1,jump:1}},
+   b:{label:"人とのつながり・巻き込み力", w:{connect:3}}},
+  {q:"理想の働き方に近いのは…",
+   a:{label:"組織の中で力を発揮する", w:{step:1,connect:1,clarify:1}},
+   b:{label:"自分で決めて自分で動く", w:{solo:3,jump:1}}},
+  {q:"一歩を踏み出すとき、背中を押すのは…",
+   a:{label:"ワクワクする未来", w:{jump:1,solo:1,trial:1}},
+   b:{label:"今のモヤモヤから抜け出したい気持ち", w:{clarify:2,step:1}}},
+];
+const PRIORITY = ["connect","solo","trial","clarify","jump","step"];
+
+/* ====== プロフィール選択肢 ====== */
+const AGE    = ["10代","20代","30代","40代","50代","60代〜"];
+const GENDER = ["男性","女性","その他・無回答"];
+const YEARS  = ["1年未満","1〜3年","4〜9年","10年以上"];
+const JOBS   = ["0回","1回","2回","3回以上"];
+
+/* ====== 状態 ====== */
+const state = { step:0, answers:[], type:null,
+  name:"", ageRange:"", gender:"", years:"", jobChanges:"", moya:"" };
+
+/* ====== ロジック ====== */
+function determineType(ans){
+  const s = {jump:0,step:0,trial:0,connect:0,solo:0,clarify:0};
+  ans.forEach((a,i)=>{ const w = a===0?QUESTIONS[i].a.w:QUESTIONS[i].b.w; for(const k in w) s[k]+=w[k]; });
+  let best = PRIORITY[0];
+  PRIORITY.forEach(k=>{ if(s[k]>s[best]) best=k; });
+  return best;
+}
+const esc = t => (t||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ====== データ保存（実機ブラウザで有効） ====== */
+const KEY = "recamp_data";
+function recCount(){ try { return JSON.parse(localStorage.getItem(KEY)||"[]").length; } catch(e){ return 0; } }
+function buildRecord(){
+  return {
+    ts: new Date().toLocaleString("ja-JP"),
+    name: state.name||"", age: state.ageRange||"", gender: state.gender||"",
+    years: state.years||"", jobChanges: state.jobChanges||"",
+    type: TYPES[state.type].name,
+    answers: state.answers.map(a=> a===0?"A":"B").join(""),
+    moya: state.moya||"", tablet: TABLET
+  };
+}
+function saveRecord(rec){
+  try {
+    const arr = JSON.parse(localStorage.getItem(KEY)||"[]");
+    arr.push(rec);
+    localStorage.setItem(KEY, JSON.stringify(arr));
+  } catch(e){ /* 保存不可環境ではスキップ */ }
+}
+function sendToSheet(rec){
+  if(!SHEET_ENDPOINT) return;            // 未設定なら送信しない
+  try {
+    fetch(SHEET_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",                   // GASのCORS問題を回避（送信専用）
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(rec)
+    });
+  } catch(e){ /* 送信失敗してもローカルCSVに残る */ }
+}
+function exportCSV(){
+  let arr=[]; try { arr = JSON.parse(localStorage.getItem(KEY)||"[]"); } catch(e){}
+  if(!arr.length){ alert("まだ保存された回答がありません。\n（実機でファイルを開いて診断すると保存されます）"); return; }
+  const head = ["日時","お名前","年齢層","性別","社会人歴","転職回数","タイプ","回答パターン","モヤモヤ","端末"];
+  const rows = arr.map(r=>[r.ts,r.name,r.age,r.gender,r.years,r.jobChanges,r.type,r.answers,r.moya,r.tablet||""]);
+  const csv = [head,...rows].map(row=> row.map(c=> '"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const blob = new Blob(["\uFEFF"+csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url; a.download="recamp_responses_"+new Date().toISOString().slice(0,10)+".csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function clearData(){
+  if(confirm("保存した回答をすべて削除します。よろしいですか？")){
+    try{ localStorage.removeItem(KEY); }catch(e){} renderIntro();
+  }
+}
+
+/* ====== 画面 ====== */
+const wrap = document.getElementById("wrap");
+
+function renderIntro(){
+  wrap.innerHTML = `
+    <div class="rise" style="margin-top:7vh;text-align:center;">
+      <div style="font-size:15px;letter-spacing:2px;color:#e6b450;margin-bottom:18px;font-weight:700;">Re▶CAMPUS</div>
+      <div style="font-size:58px;line-height:1;margin-bottom:14px;">🏮</div>
+      <h1 class="display" style="font-size:34px;line-height:1.35;margin:0 0 6px;">転職タイプ<br>診断</h1>
+      <p style="color:#bdb4cf;font-size:15px;margin:16px 0 4px;">5つの質問に答えるだけ。</p>
+      <p style="color:#bdb4cf;font-size:15px;margin:0;">あなたに合った<br><span style="color:#e6b450;font-weight:700;">“転職の動き方”</span>が分かります。</p>
+      <button class="cta" style="margin-top:36px;" onclick="renderProfile()">はじめる</button>
+      <p style="color:#7d7393;font-size:12px;margin-top:18px;">所要時間 約1分</p>
+    </div>`;
+}
+
+function renderProfile(){
+  wrap.innerHTML = `
+    <div class="rise" style="margin-top:3vh;">
+      <div style="text-align:center;font-size:13px;letter-spacing:4px;color:#e6b450;margin-bottom:6px;">まずはあなたについて</div>
+      <h2 style="font-size:21px;font-weight:900;text-align:center;line-height:1.5;margin:0 0 24px;">かんたんプロフィール</h2>
+
+      <label class="lbl">お名前（任意）</label>
+      <input id="p-name" placeholder="例：りゅう" value="${esc(state.name)}" />
+
+      <div class="lbl" style="margin-top:20px;">年齢層</div>
+      <div id="g-age" class="seg"></div>
+      <div class="lbl" style="margin-top:18px;">性別</div>
+      <div id="g-gender" class="seg"></div>
+      <div class="lbl" style="margin-top:18px;">社会人歴</div>
+      <div id="g-years" class="seg"></div>
+      <div class="lbl" style="margin-top:18px;">転職回数</div>
+      <div id="g-jobs" class="seg"></div>
+
+      <button class="cta" style="margin-top:28px;" onclick="submitProfile()">診断スタート</button>
+      <button class="ghost" style="margin-top:8px;" onclick="renderIntro()">← もどる</button>
+    </div>`;
+  buildSeg("g-age", AGE, "ageRange");
+  buildSeg("g-gender", GENDER, "gender");
+  buildSeg("g-years", YEARS, "years");
+  buildSeg("g-jobs", JOBS, "jobChanges");
+}
+function buildSeg(id, options, field){
+  document.getElementById(id).innerHTML = options.map(o=>
+    `<button class="chip" data-v="${esc(o)}" ${state[field]===o?'data-sel="1"':''} onclick="pick('${field}','${id}',this)">${esc(o)}</button>`
+  ).join("");
+}
+function pick(field, id, btn){
+  state[field] = btn.getAttribute("data-v");
+  [...document.getElementById(id).children].forEach(b=> b.removeAttribute("data-sel"));
+  btn.setAttribute("data-sel","1");
+}
+function submitProfile(){
+  state.name = document.getElementById("p-name").value.trim();
+  startQuiz();
+}
+
+function startQuiz(){ state.step=0; state.answers=[]; renderQuiz(); }
+
+function renderQuiz(){
+  const i = state.step, Q = QUESTIONS[i];
+  const dots = QUESTIONS.map((_,k)=>`<div style="flex:1;height:5px;border-radius:3px;background:${k<=i?'#e6b450':'rgba(255,255,255,.15)'};transition:background .3s;"></div>`).join("");
+  const opts = [Q.a,Q.b].map((o,idx)=>`
+    <button class="opt rise" style="animation-delay:${idx*0.08}s" onclick="choose(${idx})">
+      <span class="badge">${idx===0?'A':'B'}</span>${esc(o.label)}
+    </button>`).join("");
+  wrap.innerHTML = `
+    <div class="rise">
+      <div style="display:flex;gap:6px;margin:6px 0 8px;">${dots}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
+        <button onclick="goBack()" style="background:none;border:none;color:#bdb4cf;font-size:14px;padding:4px;">← もどる</button>
+        <span style="font-size:13px;color:#e6b450;font-weight:700;">Q${i+1} / ${QUESTIONS.length}</span>
+      </div>
+      <h2 style="font-size:23px;line-height:1.5;font-weight:900;margin:0 0 32px;min-height:80px;">${esc(Q.q)}</h2>
+      ${opts}
+    </div>`;
+}
+function choose(idx){
+  state.answers.push(idx);
+  if(state.step < QUESTIONS.length-1){ state.step++; renderQuiz(); }
+  else { state.type = determineType(state.answers); renderExtra(); }
+}
+function goBack(){
+  if(state.step===0){ renderProfile(); return; }
+  state.answers.pop(); state.step--; renderQuiz();
+}
+
+function renderExtra(){
+  wrap.innerHTML = `
+    <div class="rise" style="margin-top:8vh;">
+      <div style="text-align:center;font-size:13px;letter-spacing:4px;color:#e6b450;margin-bottom:8px;">あと少し！</div>
+      <h2 style="font-size:22px;font-weight:900;text-align:center;line-height:1.5;margin:0 0 28px;">今の気持ちを教えてください<br>（任意）</h2>
+      <label class="lbl">今の仕事でモヤッとすること</label>
+      <textarea id="f-moya" rows="3" placeholder="例：このままでいいのか不安／給料が上がらない…">${esc(state.moya)}</textarea>
+      <button class="cta" style="margin-top:24px;" onclick="submitExtra(false)">結果を見る</button>
+      <button class="ghost" style="margin-top:12px;" onclick="submitExtra(true)">入力せずに結果を見る</button>
+    </div>`;
+}
+function submitExtra(skip){
+  state.moya = skip ? "" : document.getElementById("f-moya").value.trim();
+  renderLoading();
+}
+
+function renderLoading(){
+  const steps = ["回答を読み込んでいます","あなたのタイプを判定中","強み・向いている動き方を分析中","あなた専用のメッセージを組み立て中"];
+  wrap.innerHTML = `
+    <div style="margin-top:20vh;">
+      <div style="text-align:center;margin-bottom:30px;">
+        <div style="font-size:48px;animation:think 1.5s ease-in-out infinite;">🤔</div>
+        <p style="font-size:15px;color:#e6b450;font-weight:900;letter-spacing:3px;margin-top:12px;">AI が 診 断 中 …</p>
+      </div>
+      <div id="steps" style="max-width:300px;margin:0 auto;"></div>
+    </div>`;
+  document.getElementById("steps").innerHTML = steps.map((s,i)=>`
+    <div id="st-${i}" style="display:flex;align-items:center;gap:12px;padding:10px 0;opacity:.3;transition:opacity .4s;">
+      <span id="ic-${i}" style="width:24px;height:24px;flex-shrink:0;border-radius:50%;border:2px solid rgba(230,180,80,.4);display:grid;place-items:center;font-size:13px;"></span>
+      <span style="font-size:15px;font-weight:700;">${s}</span>
+    </div>`).join("");
+  const activate=(k)=>{
+    const r=document.getElementById("st-"+k), ic=document.getElementById("ic-"+k);
+    if(r) r.style.opacity="1";
+    if(ic) ic.innerHTML='<span style="display:block;width:12px;height:12px;border:2px solid rgba(230,180,80,.4);border-top-color:#e6b450;border-radius:50%;animation:spin .7s linear infinite;"></span>';
+  };
+  const complete=(k)=>{
+    const ic=document.getElementById("ic-"+k);
+    if(ic){ ic.style.background="#e6b450"; ic.style.borderColor="#e6b450"; ic.style.color="#14121f"; ic.style.fontWeight="900"; ic.textContent="✓"; }
+  };
+  const per = 5000/steps.length; // 合計 約5秒
+  let i=0; activate(0);
+  const iv=setInterval(()=>{
+    complete(i); i++;
+    if(i<steps.length){ activate(i); }
+    else { clearInterval(iv); setTimeout(renderResult, 350); }
+  }, per);
+}
+
+function renderResult(){
+  const rec = buildRecord();
+  saveRecord(rec);   // ローカルにもバックアップ
+  sendToSheet(rec);  // スプレッドシートへ送信
+  const t = TYPES[state.type];
+  const taiko = (state.name ? state.name+"さん、" : "") + t.taiko;
+  const moyaLine = state.moya ? `
+    <div style="background:rgba(0,0,0,.04);border-left:3px solid ${t.accent};border-radius:8px;padding:12px 14px;margin:0 0 18px;">
+      <div style="font-size:12px;color:#8a7d72;margin-bottom:4px;">あなたのモヤモヤ</div>
+      <div style="font-size:14px;color:#3a3247;line-height:1.6;">「${esc(state.moya)}」<br>——だからこそ、この動き方が合います。</div>
+    </div>` : "";
+  wrap.innerHTML = `
+    <div class="rise">
+      <div style="border-radius:22px;padding:30px 24px 26px;margin-top:8px;background:linear-gradient(180deg,#fdf8ec,#f7efdd);color:#2a2336;box-shadow:0 24px 60px rgba(0,0,0,.5);position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:6px;background:${t.accent};"></div>
+        <div style="text-align:center;font-size:12px;letter-spacing:4px;color:${t.accent};font-weight:900;margin-bottom:4px;">YOUR TYPE</div>
+        <div style="text-align:center;font-size:64px;line-height:1;margin:6px 0;animation:pop .6s ease both;">${t.emoji}</div>
+        <h2 class="display" style="text-align:center;font-size:30px;margin:4px 0 2px;color:${t.accent};">${t.name}</h2>
+        <p style="text-align:center;font-size:16px;font-weight:700;line-height:1.6;margin:16px 4px 22px;color:#1f1a2b;">「${esc(taiko)}」</p>
+        ${moyaLine}
+        <div style="margin-bottom:4px;">
+          <div style="font-size:12px;font-weight:900;letter-spacing:1px;color:${t.accent};margin-bottom:6px;">あなたに合う転職の進め方</div>
+          <p style="font-size:14.5px;line-height:1.75;margin:0;color:#3a3247;">${t.susumekata}</p>
+        </div>
+        <div style="background:${t.accent};border-radius:14px;padding:16px 18px;margin:16px 0;color:#fff;">
+          <div style="font-size:12px;font-weight:900;letter-spacing:2px;opacity:.9;margin-bottom:6px;">今日からの最初の一歩 👣</div>
+          <div style="font-size:16px;font-weight:700;line-height:1.6;">${t.ippo}</div>
+        </div>
+        <div style="margin-bottom:4px;">
+          <div style="font-size:12px;font-weight:900;letter-spacing:1px;color:#9b8aa0;margin-bottom:6px;">やりがちな“地雷”</div>
+          <p style="font-size:14.5px;line-height:1.75;margin:0;color:#3a3247;">${t.jirai}</p>
+        </div>
+        <div style="margin-top:22px;padding-top:16px;border-top:1px dashed #cdbfa6;text-align:center;">
+          <!-- ▼ 当日はここを Re▶CAMPUS のLINE登録QR / 案内 に差し替え ▼ -->
+          <div style="font-size:13px;color:#6b5f55;line-height:1.7;">
+            こういう“動き方”の人が集まる場所、あるよ。<br>
+            <span style="font-weight:900;color:${t.accent};">▶ Re▶CAMPUS のLINEはこちら（QRを設置）</span>
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center;color:#bdb4cf;font-size:13px;margin:18px 0 4px;">📸 スクショして友だちにシェアしてね</p>
+      <button class="ghost" style="margin-top:8px;border:1.5px solid rgba(230,180,80,.4);border-radius:14px;padding:16px;color:#e6b450;font-size:16px;font-weight:900;background:rgba(255,255,255,.04);" onclick="renderIntro()">もう一度 / 次の人へ</button>
+    </div>`;
+}
+
+renderIntro();
+</script>
+</body>
+</html>
