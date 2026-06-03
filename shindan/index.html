@@ -67,59 +67,119 @@
 const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxItFp34knSsl3XPy-XiDlgOz8gO3BYjYusvFghSSswl61uQDeiCTqCD8NEP222PxXV/exec"; // GASウェブアプリURL
 const TABLET = new URLSearchParams(location.search).get("t") || "";
 
-/* ====== タイプ定義 ====== */
+/* ====== タイプ定義（4軸の組み合わせ＝16種） ======
+   コード: テンポ(Q即/P計画) 志向(C挑戦/K堅実) 武器(S スキル/H 人脈) 舞台(M自分/O組織) */
 const TYPES = {
-  jump:    {emoji:"🚀", name:"ジャンプ型", accent:"#e0411f",
-    taiko:"迷ってる時間がいちばんもったいない。あなたはもう飛べる。",
-    susumekata:"情報収集より行動が勝ち筋。条件より“面白そう”で選ぶと当たります。未経験の業界でも、まず受けてみる人。",
-    ippo:"気になる求人を今日3件だけ、応募ボタンの手前まで進めてみる。",
-    jirai:"完璧な準備を待ちすぎて、せっかくの熱が冷めてしまうこと。"},
-  step:    {emoji:"🪜", name:"ステップ型", accent:"#c8922b",
-    taiko:"焦らなくていい。あなたの強みは“積み上げ”だ。",
-    susumekata:"いきなり辞めず、社内異動・資格・実績づくりで足場を固めてから動くと失敗しません。堅実さが最大の武器です。",
-    ippo:"今の職場で次に手に入れたいスキルや経験を1つ書き出す。",
-    jirai:"準備し続けて一生動かないこと。期限だけは先に決めよう。"},
-  trial:   {emoji:"🌱", name:"お試し型", accent:"#3a9a5c",
-    taiko:"全部を賭けなくていい。小さく試して、確かめよう。",
-    susumekata:"副業・複業で本命を小さく試してから本移行するのが正解。リスクを抑えつつ、本当の手触りを得られます。",
-    ippo:"やってみたい仕事を“副業として”始める方法を1つ調べる。",
-    jirai:"試すだけで満足して、本移行のタイミングを逃すこと。"},
-  connect: {emoji:"🤝", name:"人づて型", accent:"#d9466e",
-    taiko:"求人サイトより、あなたを知ってる人があなたを動かす。",
-    susumekata:"公募より、信頼できる人の紹介・リファラルが圧倒的に合います。“転職を考えてる”と周りに言うことが最大の一手です。",
-    ippo:"信頼できる人1人に「転職、ちょっと考えてる」と伝えてみる。",
-    jirai:"一人で求人サイトとにらめっこして、静かに消耗すること。"},
-  solo:    {emoji:"🦅", name:"独立型", accent:"#5b6ee0",
-    taiko:"組織で消耗するより、自分で舵を握る方が向いてる。",
-    susumekata:"転職だけでなく、フリーランス・独立・起業も本気で選択肢に。まずは副業で“自分で稼ぐ”感覚を掴むのが助走になります。",
-    ippo:"自分のスキルで個人として受けられる仕事を1つ書き出す。",
-    jirai:"準備ゼロで全部辞めてしまうこと。助走をつけてから跳ぼう。"},
-  clarify: {emoji:"🧭", name:"言語化先行型", accent:"#8a6fd1",
-    taiko:"動く前に、まず“何が嫌で何がしたいか”をハッキリさせよう。",
-    susumekata:"転職先を探す前に、キャリアの言語化が先。方向が定まれば動きは一気に速くなります。信頼できる人に話すのが近道です。",
-    ippo:"「今の仕事の何がモヤモヤするか」を3つ書き出す。",
-    jirai:"モヤモヤしたまま勢いで転職して、同じ不満を繰り返すこと。"},
+  QCSM: {emoji:"🚀", name:"先駆けパイオニア型", accent:"#e0411f",
+    taiko:"あなたは、誰も通っていない道を最初に走れる人だ。",
+    susumekata:"スキルを武器に、未経験領域へ自分から飛び込むのが勝ち筋。求人を待つより、案件やプロジェクト単位で動くと一気に開けます。",
+    ippo:"自分のスキルで挑戦したい分野を今日1つ決めて、発信してみる。",
+    jirai:"走り出しが速すぎて、土台づくりを飛ばしてしまうこと。"},
+  QCSO: {emoji:"⚡", name:"稲妻チャレンジャー型", accent:"#e8893a",
+    taiko:"迷う前に動ける。その決断スピードが最大の才能だ。",
+    susumekata:"スキルを引っさげ、思い切って異業種や成長企業へ飛び込むのが合います。条件より“伸びしろ”で選ぶと当たります。",
+    ippo:"気になる業界の求人を今日3件見て、1件だけ応募してみる。",
+    jirai:"勢いで決めて入社後に「思ってたのと違う」となること。1社は深掘りを。"},
+  QCHM: {emoji:"🦁", name:"巻き込み起業家型", accent:"#d4762b",
+    taiko:"人を巻き込んで、ゼロから何かを起こせる人だ。",
+    susumekata:"転職より、人脈を活かした独立・起業が向いています。まず仲間と小さく始め、走りながら形にするのが正解。",
+    ippo:"一緒に何かやれそうな人に、今日アイデアを1つ話してみる。",
+    jirai:"勢いだけで広げて、足元のお金や計画が後回しになること。"},
+  QCHO: {emoji:"🐬", name:"縁つかみダイバー型", accent:"#2fa3c0",
+    taiko:"チャンスの波が来たら、迷わず乗れる人だ。",
+    susumekata:"公募より、人の縁から飛び込む転職が合います。“面白そうな人がいる場所”へ直感で動くと、思わぬ好機をつかめます。",
+    ippo:"気になる会社で働く知り合いに、今日連絡を取ってみる。",
+    jirai:"ノリで決めて、後から条件面で後悔すること。最低限の確認は忘れずに。"},
+  QKSM: {emoji:"🛠", name:"早撃ち職人型", accent:"#b5862f",
+    taiko:"確かな腕がある。あとは「やる」と決めるだけだ。",
+    susumekata:"スキルは十分。堅実にいきつつ、早めに自分の看板（フリー・個人事業）で動くのが向いています。副業からの即移行が近道。",
+    ippo:"自分のスキルで個人で受けられる仕事を今日1つリスト化する。",
+    jirai:"「まだ早い」と腕を磨き続けて、踏み出しを先延ばしにすること。"},
+  QKSO: {emoji:"📈", name:"即戦力スイッチ型", accent:"#5a8f3a",
+    taiko:"あなたはすぐ戦力になれる。動けば結果はついてくる。",
+    susumekata:"培ったスキルを活かせる組織へ、堅実かつスピーディに移るのが王道。同業・近い職種なら短期で決まります。",
+    ippo:"今の経験で評価される求人を今日3件、条件を見比べる。",
+    jirai:"早く決めたい気持ちで、年収や役割の交渉を省いてしまうこと。"},
+  QKHM: {emoji:"🦊", name:"つて頼り独立型", accent:"#c77f4a",
+    taiko:"あなたの周りには、もう次のチャンスが揃っている。",
+    susumekata:"人脈を頼りに、堅実に独立・個人で動くのが合います。いきなり大勝負より、知人経由の仕事から始めると安全。",
+    ippo:"信頼できる人に「個人でも仕事を受けられるよ」と今日伝えてみる。",
+    jirai:"仲のいい相手に頼りすぎて、条件をなあなあにしてしまうこと。"},
+  QKHO: {emoji:"🐕", name:"信頼でつなぐ即決型", accent:"#b56a55",
+    taiko:"信頼が、あなたを次のステージへ運んでくれる。",
+    susumekata:"紹介・リファラルでの堅実な転職が最短ルート。“転職を考えてる”と早めに周りへ言うほど、良い話が早く来ます。",
+    ippo:"信頼できる人1人に、今日「転職、考えてる」と伝えてみる。",
+    jirai:"紹介だからと遠慮して、希望条件をちゃんと言えないこと。"},
+  PCSM: {emoji:"🦅", name:"設計派フリーランス型", accent:"#5b6ee0",
+    taiko:"あなたは、跳ぶ前にちゃんと翼を作れる人だ。",
+    susumekata:"じっくり準備して、大胆にスキルで独立する道が向いています。収入の柱を作ってから飛ぶと、挑戦が無謀になりません。",
+    ippo:"独立後の収入源になりそうなスキル・案件を今日1つ書き出す。",
+    jirai:"準備が完璧主義になって、いつまでも跳べないこと。期限を決めよう。"},
+  PCSO: {emoji:"🎯", name:"戦略的キャリアチェンジ型", accent:"#4e63c8",
+    taiko:"あなたは、狙った的を計画どおりに射抜ける人だ。",
+    susumekata:"計画的に、スキルを軸とした大胆な異業種転職が合います。逆算してスキルの穴を埋めれば、未経験でも通ります。",
+    ippo:"行きたい業界で求められるスキルを今日1つ調べ、学ぶ計画を立てる。",
+    jirai:"分析しすぎて、応募のタイミングを逃すこと。"},
+  PCHM: {emoji:"🕸", name:"縁を編む起業準備型", accent:"#8a6fd1",
+    taiko:"あなたは、人とのつながりから未来を作れる人だ。",
+    susumekata:"時間をかけて人脈を育て、独立・起業へつなげる道が向いています。今のうちから“応援される関係”を積み上げるのが資産になります。",
+    ippo:"将来一緒にやりたい人と、今日ひとつ接点を持つ。",
+    jirai:"準備と人付き合いに時間をかけすぎて、踏み出しが遅れること。"},
+  PCHO: {emoji:"🧭", name:"根回し開拓型", accent:"#7a5fc0",
+    taiko:"あなたは、味方を作ってから道を切り開ける人だ。",
+    susumekata:"計画的に人脈を使い、挑戦的な組織へ移るのが合います。中の人に話を聞いてから動くと、ミスマッチがほぼ消えます。",
+    ippo:"興味のある会社の中の人に、今日カジュアルに話を聞く約束をする。",
+    jirai:"根回しに慎重になりすぎて、肝心の一歩が遅れること。"},
+  PKSM: {emoji:"🌿", name:"助走ひとり立ち型", accent:"#3a9a5c",
+    taiko:"焦らなくていい。あなたは確実に独り立ちできる。",
+    susumekata:"堅実に準備し、スキルで少しずつ自分の道へ。副業で実績と収入を作ってから本移行するのが、いちばん失敗しません。",
+    ippo:"副業として始められる小さな仕事を今日1つ探してみる。",
+    jirai:"安全を優先しすぎて、いつまでも「準備中」で終わること。"},
+  PKSO: {emoji:"🪜", name:"王道ステップアップ型", accent:"#c8922b",
+    taiko:"あなたの強みは、着実に積み上げる力だ。",
+    susumekata:"スキルを軸に、計画的なキャリアアップ転職が王道。資格や実績で足場を固めてから、より良い組織へ堅実に移りましょう。",
+    ippo:"次の転職で武器になる実績・資格を今日1つ書き出す。",
+    jirai:"準備し続けて動かず、好機を逃すこと。期限を決めよう。"},
+  PKHM: {emoji:"🌾", name:"ご縁熟成型", accent:"#8f9a3a",
+    taiko:"あなたのご縁は、時間をかけるほど強くなる。",
+    susumekata:"焦らず人脈を温め、将来の独立につなげる道が合います。今すぐ動くより、信頼の貯金を増やすことが最大の準備になります。",
+    ippo:"久しく連絡していない信頼できる人に、今日ひとこと連絡する。",
+    jirai:"縁を温めるだけで満足して、踏み出す機会を作らないこと。"},
+  PKHO: {emoji:"🧶", name:"安心つながり型", accent:"#b07a92",
+    taiko:"あなたは、信頼できる場所でこそ力を発揮できる人だ。",
+    susumekata:"計画的に、人の縁で安心できる組織へ移るのが向いています。紹介ベースなら入る前に内情が分かり、後悔のない転職ができます。",
+    ippo:"信頼できる人に、どんな職場が合いそうか今日相談してみる。",
+    jirai:"安心を求めるあまり、現状維持に流れてしまうこと。"},
 };
 
-/* ====== 質問（2択×5） ====== */
+/* ====== 質問（2択×8＝4軸を各2問で測定） ====== */
+/* 並び順: 0-1テンポ / 2-3志向 / 4-5武器 / 6-7舞台 */
 const QUESTIONS = [
   {q:"今の働き方を変えるなら、まず…",
-   a:{label:"とにかく早く動きたい", w:{jump:2,solo:1}},
-   b:{label:"しっかり準備してから", w:{step:2,trial:1,clarify:1}}},
-  {q:"新しい環境では…",
-   a:{label:"未経験でも飛び込みたい", w:{jump:2,solo:1,trial:1}},
-   b:{label:"今の経験を活かせる場所がいい", w:{step:2,connect:1}}},
+   a:{label:"とにかく早く動きたい", v:"Q"},
+   b:{label:"しっかり準備してから", v:"P"}},
+  {q:"チャンスが目の前に来たら…",
+   a:{label:"直感を信じて、まず飛び込む", v:"Q"},
+   b:{label:"情報を集めて、慎重に判断する", v:"P"}},
+  {q:"新しい仕事に求めるのは…",
+   a:{label:"未経験でも大きく変える挑戦", v:"C"},
+   b:{label:"今の経験を活かせる安定", v:"K"}},
+  {q:"ワクワクするのはどっち？",
+   a:{label:"やったことのない世界に飛び込む", v:"C"},
+   b:{label:"得意なことを、さらに極める", v:"K"}},
   {q:"あなたの一番の武器は…",
-   a:{label:"専門スキル・知識", w:{step:1,solo:1,jump:1}},
-   b:{label:"人とのつながり・巻き込み力", w:{connect:3}}},
+   a:{label:"専門スキル・知識", v:"S"},
+   b:{label:"人とのつながり・巻き込み力", v:"H"}},
+  {q:"仕事で頼りにされるのは…",
+   a:{label:"「これはあの人に任せれば確実」な専門性", v:"S"},
+   b:{label:"「あの人に聞けば誰かにつながる」人脈", v:"H"}},
   {q:"理想の働き方に近いのは…",
-   a:{label:"組織の中で力を発揮する", w:{step:1,connect:1,clarify:1}},
-   b:{label:"自分で決めて自分で動く", w:{solo:3,jump:1}}},
-  {q:"一歩を踏み出すとき、背中を押すのは…",
-   a:{label:"ワクワクする未来", w:{jump:1,solo:1,trial:1}},
-   b:{label:"今のモヤモヤから抜け出したい気持ち", w:{clarify:2,step:1}}},
+   a:{label:"自分で決めて、自分で動く", v:"M"},
+   b:{label:"組織の中で力を発揮する", v:"O"}},
+  {q:"やる気が出るのは…",
+   a:{label:"自分の裁量で進められるとき", v:"M"},
+   b:{label:"チームや仲間と進めるとき", v:"O"}},
 ];
-const PRIORITY = ["connect","solo","trial","clarify","jump","step"];
 
 /* ====== プロフィール選択肢 ====== */
 const AGE    = ["10代","20代","30代","40代","50代","60代〜"];
@@ -133,11 +193,15 @@ const state = { step:0, answers:[], type:null,
 
 /* ====== ロジック ====== */
 function determineType(ans){
-  const s = {jump:0,step:0,trial:0,connect:0,solo:0,clarify:0};
-  ans.forEach((a,i)=>{ const w = a===0?QUESTIONS[i].a.w:QUESTIONS[i].b.w; for(const k in w) s[k]+=w[k]; });
-  let best = PRIORITY[0];
-  PRIORITY.forEach(k=>{ if(s[k]>s[best]) best=k; });
-  return best;
+  const v = i => ans[i]===0 ? QUESTIONS[i].a.v : QUESTIONS[i].b.v;
+  // 各軸を2問で測定：両方一致なら確定、1対1で割れたら最初の問を優先
+  const axis = (i,j,A,B) => {
+    let a = 0; if(v(i)===A) a++; if(v(j)===A) a++;
+    if(a===2) return A;
+    if(a===0) return B;
+    return v(i);
+  };
+  return axis(0,1,"Q","P") + axis(2,3,"C","K") + axis(4,5,"S","H") + axis(6,7,"M","O");
 }
 const esc = t => (t||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -199,10 +263,10 @@ function renderIntro(){
       <div style="font-size:15px;letter-spacing:2px;color:#e6b450;margin-bottom:18px;font-weight:700;">Re▶CAMPUS</div>
       <div style="font-size:58px;line-height:1;margin-bottom:14px;">🏮</div>
       <h1 class="display" style="font-size:34px;line-height:1.35;margin:0 0 6px;">転職タイプ<br>診断</h1>
-      <p style="color:#bdb4cf;font-size:15px;margin:16px 0 4px;">5つの質問に答えるだけ。</p>
+      <p style="color:#bdb4cf;font-size:15px;margin:16px 0 4px;">8つの質問に答えるだけ。</p>
       <p style="color:#bdb4cf;font-size:15px;margin:0;">あなたに合った<br><span style="color:#e6b450;font-weight:700;">“転職の動き方”</span>が分かります。</p>
       <button class="cta" style="margin-top:36px;" onclick="renderProfile()">はじめる</button>
-      <p style="color:#7d7393;font-size:12px;margin-top:18px;">所要時間 約1分</p>
+      <p style="color:#7d7393;font-size:12px;margin-top:18px;">所要時間 約2分</p>
     </div>`;
 }
 
@@ -344,6 +408,7 @@ function renderResult(){
         <div style="text-align:center;font-size:12px;letter-spacing:4px;color:${t.accent};font-weight:900;margin-bottom:4px;">YOUR TYPE</div>
         <div style="text-align:center;font-size:64px;line-height:1;margin:6px 0;animation:pop .6s ease both;">${t.emoji}</div>
         <h2 class="display" style="text-align:center;font-size:30px;margin:4px 0 2px;color:${t.accent};">${t.name}</h2>
+        <div style="text-align:center;font-size:12px;letter-spacing:3px;color:#9b8aa0;font-weight:700;margin-top:2px;">TYPE ${state.type}　（16種）</div>
         <p style="text-align:center;font-size:16px;font-weight:700;line-height:1.6;margin:16px 4px 22px;color:#1f1a2b;">「${esc(taiko)}」</p>
         ${moyaLine}
         <div style="margin-bottom:4px;">
