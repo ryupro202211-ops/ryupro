@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>転職タイプ診断｜Re▶CAMPUS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; }
@@ -214,6 +214,8 @@ function buildRecord(){
     name: state.name||"", age: state.ageRange||"", gender: state.gender||"",
     years: state.years||"", jobChanges: state.jobChanges||"",
     type: TYPES[state.type].name,
+    typeCode: state.type,
+    date: new Date().toLocaleDateString("ja-JP"),
     answers: state.answers.map(a=> a===0?"A":"B").join(""),
     moya: state.moya||"", tablet: TABLET
   };
@@ -262,7 +264,7 @@ function renderIntro(){
     <div class="rise" style="margin-top:7vh;text-align:center;">
       <div style="font-size:15px;letter-spacing:2px;color:#e6b450;margin-bottom:18px;font-weight:700;">Re▶CAMPUS</div>
       <div style="font-size:58px;line-height:1;margin-bottom:14px;">🏮</div>
-      <h1 class="display" style="font-size:34px;line-height:1.35;margin:0 0 6px;">転職タイプ<br>診断</h1>
+      <h1 style="font-family:'Zen Maru Gothic','Noto Sans CJK JP',sans-serif;font-weight:900;font-size:40px;line-height:1.3;letter-spacing:1px;margin:0 0 6px;color:#f9f3e6;">転職タイプ<br>診断</h1>
       <p style="color:#bdb4cf;font-size:15px;margin:16px 0 4px;">8つの質問に答えるだけ。</p>
       <p style="color:#bdb4cf;font-size:15px;margin:0;">あなたに合った<br><span style="color:#e6b450;font-weight:700;">“転職の動き方”</span>が分かります。</p>
       <button class="cta" style="margin-top:36px;" onclick="renderProfile()">はじめる</button>
@@ -353,6 +355,8 @@ function renderExtra(){
     </div>`;
 }
 function submitExtra(skip){
+  ensureAudio(); // 効果音の準備（ユーザー操作のタイミングで有効化）
+  refreshStats(); // スプシから最新の出現率を取得
   state.moya = skip ? "" : document.getElementById("f-moya").value.trim();
   renderLoading();
 }
@@ -390,11 +394,123 @@ function renderLoading(){
   }, per);
 }
 
+/* ====== 演出：効果音・紙吹雪・集計・4軸メーター ====== */
+let AC = null;
+function ensureAudio(){
+  try { if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==="suspended") AC.resume(); }
+  catch(e){ AC=null; }
+}
+function playFanfare(rare){
+  if(!AC) return;
+  try {
+    const now = AC.currentTime;
+    const notes = rare ? [523,659,784,1047,1319] : [523,659,784,1047];
+    notes.forEach((f,i)=>{
+      const o=AC.createOscillator(), g=AC.createGain();
+      o.type="triangle"; o.frequency.value=f;
+      const t0=now+i*0.10;
+      g.gain.setValueAtTime(0.0001,t0);
+      g.gain.exponentialRampToValueAtTime(0.25,t0+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,t0+0.28);
+      o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0+0.3);
+    });
+    // 太鼓ドン（低音ノイズ）
+    const dur=0.18, buf=AC.createBuffer(1,Math.floor(AC.sampleRate*dur),AC.sampleRate), d=buf.getChannelData(0);
+    for(let k=0;k<d.length;k++) d[k]=(Math.random()*2-1)*Math.pow(1-k/d.length,2);
+    const src=AC.createBufferSource(); src.buffer=buf;
+    const lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=220;
+    const bg=AC.createGain(); bg.gain.value=0.5;
+    src.connect(lp).connect(bg).connect(AC.destination); src.start(now);
+  } catch(e){}
+}
+function launchConfetti(accent, intense){
+  try {
+    const cv=document.createElement("canvas");
+    cv.style.cssText="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;";
+    document.body.appendChild(cv);
+    const ctx=cv.getContext("2d"), W=cv.width=innerWidth, H=cv.height=innerHeight;
+    const colors=[accent,"#e6b450","#e0411f","#ffffff","#3a9a5c"], N=intense?180:120, P=[];
+    for(let i=0;i<N;i++) P.push({x:Math.random()*W,y:-20-Math.random()*H*0.4,w:6+Math.random()*8,h:8+Math.random()*10,
+      c:colors[(Math.random()*colors.length)|0],vx:(Math.random()-0.5)*3,vy:3+Math.random()*4,rot:Math.random()*6.28,vr:(Math.random()-0.5)*0.4});
+    let frames=0;
+    (function loop(){
+      ctx.clearRect(0,0,W,H);
+      P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.rot+=p.vr;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
+      if(++frames<160) requestAnimationFrame(loop);
+      else { cv.style.transition="opacity .6s"; cv.style.opacity="0"; setTimeout(()=>cv.remove(),700); }
+    })();
+  } catch(e){}
+}
+let STATS = { total:0, counts:{}, loaded:false };
+function refreshStats(){
+  if(!SHEET_ENDPOINT) return;
+  try {
+    const cb = "__stats_" + Date.now();
+    window[cb] = function(data){
+      try { if(data && typeof data.total==="number"){ STATS.total=data.total; STATS.counts=data.counts||{}; STATS.loaded=true; } } catch(e){}
+      delete window[cb];
+      const el=document.getElementById(cb); if(el) el.remove();
+    };
+    const s=document.createElement("script");
+    s.id=cb;
+    s.src = SHEET_ENDPOINT + (SHEET_ENDPOINT.indexOf("?")>=0?"&":"?") + "callback=" + cb + "&_=" + Date.now();
+    s.onerror=function(){ try{ delete window[cb]; }catch(e){} s.remove(); };
+    document.head.appendChild(s);
+  } catch(e){}
+}
+// スプシ集計があれば2台合算の出現率、なければ端末内データで計算
+function getStats(code, name){
+  if(SHEET_ENDPOINT && STATS.loaded && STATS.total>0){
+    const c = STATS.counts[name] || 0;
+    return { total: STATS.total, typeCount: c, pct: Math.round(c/STATS.total*1000)/10, src:"sheet" };
+  }
+  let arr=[]; try{ arr=JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){}
+  const total=arr.length, typeCount=arr.filter(r=> r.typeCode===code).length;
+  return { total, typeCount, pct: total?Math.round(typeCount/total*1000)/10:0, src:"local" };
+}
+function axisMeterHTML(accent){
+  const v = k => state.answers[k]===0 ? QUESTIONS[k].a.v : QUESTIONS[k].b.v;
+  const lean = (i,j,A)=>{ let a=0; if(v(i)===A)a++; if(v(j)===A)a++; return a/2; }; // 0 / .5 / 1
+  const tQ=lean(0,1,"Q"), tC=lean(2,3,"C"), tS=lean(4,5,"S"), tM=lean(6,7,"M");
+  const poles=[
+    {l:"即行動",val:tQ},{l:"挑戦",val:tC},{l:"スキル",val:tS},{l:"自分で",val:tM},
+    {l:"計画",val:1-tQ},{l:"堅実",val:1-tC},{l:"人脈",val:1-tS},{l:"組織",val:1-tM}
+  ];
+  const cx=150, cy=120, R=74, lr=R+22;
+  const ang=i=>(-90+i*45)*Math.PI/180;
+  const pt=(i,r)=>[(cx+r*Math.cos(ang(i))).toFixed(1),(cy+r*Math.sin(ang(i))).toFixed(1)];
+  const ring=r=>poles.map((_,i)=>pt(i,r).join(",")).join(" ");
+  const spokes=poles.map((_,i)=>{const p=pt(i,R);return `<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="#ddd0b6" stroke-width="1"/>`;}).join("");
+  const data=poles.map((p,i)=>pt(i,Math.max(0.07,p.val)*R).join(",")).join(" ");
+  const dots=poles.map((p,i)=>{const q=pt(i,Math.max(0.07,p.val)*R);return `<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="${accent}"/>`;}).join("");
+  const labels=poles.map((p,i)=>{const q=pt(i,lr);const c=p.val>0.5?accent:"#b3a99c";return `<text x="${q[0]}" y="${(parseFloat(q[1])+3.5).toFixed(1)}" font-size="11" font-weight="700" fill="${c}" text-anchor="middle">${p.l}</text>`;}).join("");
+  return `<div style="margin:2px 0 14px;text-align:center;">
+      <div style="font-size:12px;font-weight:900;letter-spacing:1px;color:${accent};margin-bottom:2px;">あなたの傾向（4軸）</div>
+      <svg viewBox="0 0 300 240" width="100%" style="max-width:300px;display:block;margin:0 auto;">
+        <polygon points="${ring(R)}" fill="none" stroke="#e0d4ba" stroke-width="1"/>
+        <polygon points="${ring(R*0.5)}" fill="none" stroke="#e7ddc8" stroke-width="1"/>
+        ${spokes}
+        <polygon points="${data}" fill="${accent}" fill-opacity="0.22" stroke="${accent}" stroke-width="2.5" stroke-linejoin="round"/>
+        ${dots}
+        ${labels}
+      </svg>
+    </div>`;
+}
+
 function renderResult(){
   const rec = buildRecord();
   saveRecord(rec);   // ローカルにもバックアップ
   sendToSheet(rec);  // スプレッドシートへ送信
   const t = TYPES[state.type];
+  const st = getStats(state.type, t.name);
+  const rare = st.total >= 20 && st.pct <= 6.25;   // 平均(1/16≒6.25%)以下＝レア
+  const sub = `（全${st.total}人中${st.typeCount}人）`;
+  const pill = rare
+    ? `<span style="display:inline-block;font-size:12.5px;font-weight:900;padding:6px 16px;border-radius:999px;background:${t.accent};color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.2);">✨ 出現率 ${st.pct}% のレアタイプ！</span>`
+    : `<span style="display:inline-block;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.05);color:#6b5f55;">全期間の出現率 ${st.pct}% <span style="font-weight:400;opacity:.7;">${sub}</span></span>`;
+  const rarityHTML = `<div style="text-align:center;margin:8px 0 2px;">${pill}</div>`;
+  const meterHTML = axisMeterHTML(t.accent);
   const taiko = (state.name ? state.name+"さん、" : "") + t.taiko;
   const moyaLine = state.moya ? `
     <div style="background:rgba(0,0,0,.04);border-left:3px solid ${t.accent};border-radius:8px;padding:12px 14px;margin:0 0 18px;">
@@ -407,10 +523,12 @@ function renderResult(){
         <div style="position:absolute;top:0;left:0;right:0;height:6px;background:${t.accent};"></div>
         <div style="text-align:center;font-size:12px;letter-spacing:4px;color:${t.accent};font-weight:900;margin-bottom:4px;">YOUR TYPE</div>
         <div style="text-align:center;font-size:64px;line-height:1;margin:6px 0;animation:pop .6s ease both;">${t.emoji}</div>
-        <h2 class="display" style="text-align:center;font-size:30px;margin:4px 0 2px;color:${t.accent};">${t.name}</h2>
+        <h2 style="font-family:'Zen Maru Gothic','Noto Sans CJK JP',sans-serif;font-weight:900;text-align:center;font-size:28px;margin:4px 0 2px;color:${t.accent};">${t.name}</h2>
         <div style="text-align:center;font-size:12px;letter-spacing:3px;color:#9b8aa0;font-weight:700;margin-top:2px;">TYPE ${state.type}　（16種）</div>
-        <p style="text-align:center;font-size:16px;font-weight:700;line-height:1.6;margin:16px 4px 22px;color:#1f1a2b;">「${esc(taiko)}」</p>
+        ${rarityHTML}
+        <p style="text-align:center;font-size:16px;font-weight:700;line-height:1.6;margin:14px 4px 20px;color:#1f1a2b;">「${esc(taiko)}」</p>
         ${moyaLine}
+        ${meterHTML}
         <div style="margin-bottom:4px;">
           <div style="font-size:12px;font-weight:900;letter-spacing:1px;color:${t.accent};margin-bottom:6px;">あなたに合う転職の進め方</div>
           <p style="font-size:14.5px;line-height:1.75;margin:0;color:#3a3247;">${t.susumekata}</p>
@@ -434,9 +552,13 @@ function renderResult(){
       <p style="text-align:center;color:#bdb4cf;font-size:13px;margin:18px 0 4px;">📸 スクショして友だちにシェアしてね</p>
       <button class="ghost" style="margin-top:8px;border:1.5px solid rgba(230,180,80,.4);border-radius:14px;padding:16px;color:#e6b450;font-size:16px;font-weight:900;background:rgba(255,255,255,.04);" onclick="renderIntro()">もう一度 / 次の人へ</button>
     </div>`;
+  // 結果発表の演出（紙吹雪＋効果音）
+  launchConfetti(t.accent, rare);
+  playFanfare(rare);
 }
 
 renderIntro();
+refreshStats(); // 起動時にスプシ集計を先読み
 </script>
 </body>
 </html>
