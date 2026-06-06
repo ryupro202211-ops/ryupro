@@ -2370,10 +2370,9 @@ var qrcode = function() {
    ============================================================ */
 const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxItFp34knSsl3XPy-XiDlgOz8gO3BYjYusvFghSSswl61uQDeiCTqCD8NEP222PxXV/exec"; // GASウェブアプリURL
 const TABLET = new URLSearchParams(location.search).get("t") || "";
-// QRの開き先（公開URL）。空ならアプリを開いているURLを使う。
-// ★ローカルやプレビューで開く場合は、ここに公開URLを入れるとQRが正しくなります。
-// 例: "https://ryupro202211-ops.github.io/ryupro/shindan/"
-const RESULT_BASE_URL = "";
+// QRの開き先（結果専用ページの公開URL）。あなたの公開URLに合わせて確認してください。
+// 例: "https://ryupro202211-ops.github.io/ryupro/shindan_result/"
+const RESULT_BASE_URL = "https://ryupro202211-ops.github.io/ryupro/shindan_result/";
 
 /* ====== タイプ定義（4軸の組み合わせ＝16種） ======
    コード: テンポ(Q即/P計画) 志向(C挑戦/K堅実) 武器(S スキル/H 人脈) 舞台(M自分/O組織) */
@@ -2842,7 +2841,7 @@ function renderResult(view){
   const cleanBase = RESULT_BASE_URL || (location.origin + location.pathname);
   const shareLine = `<p style="text-align:center;color:#8a7a66;font-size:13px;margin:18px 0 4px;">📸 スクショして保存・シェアしてね</p>`;
   const bottomHTML = view
-    ? `<a href="${cleanBase}" style="display:block;text-decoration:none;margin-top:8px;border:1.5px solid rgba(224,65,31,.5);border-radius:14px;padding:16px;color:#e0411f;font-size:16px;font-weight:900;background:#fffdf7;text-align:center;">▶ 自分も診断してみる</a>`
+    ? ``
     : `<button class="ghost" style="margin-top:8px;border:1.5px solid rgba(230,180,80,.4);border-radius:14px;padding:16px;color:#c8922b;font-size:16px;font-weight:900;background:#fffdf7;" onclick="restart()">もう一度 / 次の人へ</button>`;
   const taiko = (state.name ? state.name+"さん、" : "") + t.taiko;
   const moyaLine = state.moya ? `
@@ -2891,20 +2890,46 @@ function renderResult(view){
   playFanfare(rare);
 }
 
-renderIntro();
+/* QRから開いた閲覧者向け：結果が読めないときの案内（スタート画面には飛ばさない） */
+function renderViewerNotice(){
+  wrap.innerHTML = `<div class="rise" style="margin-top:16vh;text-align:center;">
+    <div style="font-size:15px;letter-spacing:2px;color:#c8922b;margin-bottom:14px;font-weight:700;">Re▶CAMPUS</div>
+    <div style="font-size:50px;margin-bottom:10px;">🏮</div>
+    <h2 style="font-family:'Zen Maru Gothic','Noto Sans CJK JP',sans-serif;font-weight:900;font-size:22px;color:#e0411f;line-height:1.5;margin:0 0 12px;">転職タイプ診断</h2>
+    <p style="color:#8a7a66;font-size:14px;line-height:1.9;">この画面は、QRから結果を見るための<br>ページです。<br>診断は会場のブースでどうぞ！</p>
+  </div>`;
+}
+
 refreshStats(); // 起動時にスプシ集計を先読み
-// QRから開かれた場合：回答(?a=)を復元して結果を直接表示
+// 起動時の振り分け：QR経由（=閲覧者）はスタート画面に飛ばさない
 (function(){
-  try {
-    const p = new URLSearchParams(location.search);
-    const a = p.get("a");
-    if(a && /^[01]{8}$/.test(a)){
-      state.answers = a.split("").map(Number);
-      state.name = p.get("n") || "";
-      state.type = determineType(state.answers);
-      renderResult(true); // 閲覧モード（保存・送信しない）
+  let a=null, n=null;
+  try { const p=new URLSearchParams(location.search); a=p.get("a"); n=p.get("n"); } catch(e){}
+  let sa=null, sn=null;
+  try { sa=sessionStorage.getItem("va"); sn=sessionStorage.getItem("vn"); } catch(e){}
+  let viewer=false, ans=null, nm="";
+  if(a!==null){                           // QRから来た（aパラメータあり）→ 閲覧者
+    viewer=true;
+    if(/^[01]{8}$/.test(a)){ ans=a; nm=n||""; try{ sessionStorage.setItem("va",a); sessionStorage.setItem("vn",nm); }catch(e){} }
+    else if(sa && /^[01]{8}$/.test(sa)){ ans=sa; nm=sn||""; }   // 壊れたら直前の結果を復元
+  } else if(sa && /^[01]{8}$/.test(sa)){   // 以前QRで開いた端末（URLを丸ごと消した等）
+    viewer=true; ans=sa; nm=sn||"";
+  }
+  const isResultPage = location.pathname.indexOf("shindan_result") >= 0;
+  if(viewer){
+    if(ans){
+      state.answers=ans.split("").map(Number);
+      state.name=nm;
+      state.type=determineType(state.answers);
+      renderResult(true);                  // 閲覧モード（保存・送信しない）
+    } else {
+      renderViewerNotice();                // 結果が復元できないときも、スタートには戻さない
     }
-  } catch(e){}
+  } else if(isResultPage){
+    renderViewerNotice();                  // 結果専用ページに直接来た（aなし）→ スタートは出さない
+  } else {
+    renderIntro();                         // ブース（通常フロー）
+  }
 })();
 </script>
 </body>
