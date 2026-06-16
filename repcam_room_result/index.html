@@ -284,7 +284,7 @@
       <div class="live" id="live"></div>
     </div>
 
-    <div class="panel share">
+    <div class="panel share" id="sharePanel">
       <h3>結果を保存・シェア</h3>
       <div class="qrwrap">
         <div id="qrbox" class="qrbox"></div>
@@ -2854,7 +2854,10 @@ function renderResultScreen(res){
   $('verdict').textContent=vd.v;
   $('hearts').textContent=heartStr(vd.h);
   $('comment').textContent=buildComment(res.fin,res.types.A,res.types.B,res.na,res.nb);
-  buildShare(res);
+  var viewer = IS_VIEWER || VIEWER_ONLY;
+  var sp=$('sharePanel');
+  if(viewer){ if(sp) sp.style.display='none'; }          // QRから来た画面ではQRは出さない
+  else { if(sp) sp.style.display=''; buildShare(res); }
 }
 
 /* ===================== 共有URL & QR ===================== */
