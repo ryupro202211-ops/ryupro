@@ -2879,7 +2879,9 @@ function decodeRes(str){
   }catch(e){ return null; }
 }
 function buildShare(res){
-  var url=shareBase()+'#r='+encodeRes(res);
+  var base=shareBase();
+  var sep = base.indexOf('?')>=0 ? '&' : '?';
+  var url = base + sep + 'r=' + encodeRes(res);   // #ではなく?を使う（QRリーダーでの欠落対策）
   state.shareUrl=url;
   var box=$('qrbox'); if(!box) return;
   try{
@@ -3077,12 +3079,20 @@ function showEmpty(){
   var el=$('s-empty'); if(el){ show('s-empty'); }
 }
 
-function applyHash(){
+function getPayload(){
   var h=location.hash||'';
-  if(h.indexOf('#r=')===0){
-    var res=decodeRes(h.slice(3));
-    if(res){ LAST_RHASH=h; renderViewer(res); return true; }
-  }
+  if(h.charAt(0)==='#') h=h.slice(1);
+  var m=h.match(/(?:^|&)r=([^&]+)/);            // #r=XXX または #...&r=XXX
+  if(m) return m[1];
+  var q=location.search||'';
+  var mq=q.match(/[?&]r=([^&]+)/);              // ?r=XXX（リダイレクト等でクエリに移った場合）
+  if(mq) return mq[1];
+  if(h && h.indexOf('=')<0 && h.length>=20) return h;  // #XXX（r=なしでデータだけ）
+  return null;
+}
+function applyHash(){
+  var p=getPayload();
+  if(p){ var res=decodeRes(p); if(res){ LAST_RHASH='#r='+p; renderViewer(res); return true; } }
   return false;
 }
 
