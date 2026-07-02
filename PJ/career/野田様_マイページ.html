@@ -172,11 +172,26 @@
   .appeal {
     background: #F8F9FA;
     border-left: 3px solid #F4C6D5;
-    padding: 12px 16px;
+    padding: 12px 16px 12px 20px;
     margin: 12px 0;
     border-radius: 6px;
     font-size: 13px;
     color: #555;
+    list-style: none;
+  }
+  .appeal li {
+    padding: 4px 0 4px 20px;
+    position: relative;
+    line-height: 1.65;
+  }
+  .appeal li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: #E8B4C8;
+    font-weight: 700;
+    font-size: 14px;
   }
 
   .conditions {
@@ -409,7 +424,11 @@ const DATA = {
       nightShift: 'なし',
       overtime: '月10時間以下',
       holidays: '土日祝・年間休日125日',
-      appeal: '労働環境が最良クラスの案件です。夜勤なし・残業月10時間以下・年間休日125日と、腰を据えて長く働ける環境が整っています。ITインフラエンジニアとして着実にキャリアを積める、第一推薦の案件です。',
+      appeal: [
+        '労働環境が最良クラス(年間休日125日・残業月10時間以下・夜勤なし)',
+        '純粋なインフラエンジニア職で、現職の経験がそのまま活きる',
+        '腰を据えて長く働ける、第一推薦の案件',
+      ],
       url: 'https://circus-job.com/selections/4341553/job?jobDetailPublicToken=e748604c-8686-4c93-80dd-193be016edd7',
       status: 'proposed',
       interview: null,
@@ -424,7 +443,11 @@ const DATA = {
       nightShift: 'なし',
       overtime: '月20時間以下',
       holidays: '土日祝・年間休日122日',
-      appeal: '全国主要都市に拠点があり、配属の柔軟性が高いのが特徴です。夜間勤務なしが明示されており、労働条件も良好。インフラ職として腰を据えて積み上げたい方向けの案件です。',
+      appeal: [
+        '全国主要都市(東京・大阪・愛知・福岡)に拠点があり、配属の柔軟性が高い',
+        '夜間勤務なしが明示されており、労働条件も良好',
+        'インフラ職として腰を据えて積み上げたい方向け',
+      ],
       url: 'https://circus-job.com/selections/4341518/job?jobDetailPublicToken=eb8cecee-f12b-4b20-8818-b3e12ce875a4',
       status: 'proposed',
       interview: null,
@@ -439,7 +462,11 @@ const DATA = {
       nightShift: 'なし',
       overtime: '月20時間以下',
       holidays: '土日祝',
-      appeal: '入社時に研修制度(1ヶ月程度)があり、「学べる環境」を求める野田様のご志向と相性が良い案件です。夜間勤務なし・東京勤務で、生活リズムを保ちやすい設計です。',
+      appeal: [
+        '入社時に研修制度(1ヶ月程度)があり、学習意欲を活かせる',
+        '夜間勤務なし・東京勤務で、生活リズムを保ちやすい',
+        '「学べる環境」を求めるご志向と相性◎',
+      ],
       url: 'https://circus-job.com/selections/4341560/job?jobDetailPublicToken=c50c9d6a-eb3d-45ac-adcb-2bedb9b42321',
       status: 'proposed',
       interview: null,
@@ -454,7 +481,11 @@ const DATA = {
       nightShift: '要確認',
       overtime: '月10時間以下',
       holidays: '土日祝',
-      appeal: 'ボードルアと並ぶ純粋なインフラエンジニア案件です。東京勤務固定で、現職での設計書修正・テスト工程の延長線上で着実にスキルを伸ばせる環境です。',
+      appeal: [
+        'ボードルアと並ぶ純粋なインフラエンジニア案件',
+        '東京勤務固定で、通勤環境が安定',
+        '現職での設計書修正・テスト工程の延長線上で着実にスキルアップ可能',
+      ],
       url: 'https://circus-job.com/selections/4341576/job?jobDetailPublicToken=829c47d4-f0d4-47c6-816e-56bde6aef5bb',
       status: 'proposed',
       interview: null,
@@ -469,7 +500,11 @@ const DATA = {
       nightShift: 'なし',
       overtime: '月10時間以下',
       holidays: '土日祝・年間休日120日',
-      appeal: '現職のテスト経験を活かしつつ、AI/データサイエンス領域への挑戦も可能な案件です。「学べる環境で成長したい」というご志向と方向性が一致します。',
+      appeal: [
+        '現職のテスト経験を活かしつつ、AI/データサイエンス領域への挑戦も可能',
+        '「学べる環境で成長したい」というご志向と方向性が一致',
+        '夜間勤務なし・残業月10時間以下・年間休日120日と労働条件も良好',
+      ],
       url: 'https://circus-job.com/selections/4341611/job?jobDetailPublicToken=c54ca923-8e20-4e66-b75b-0be665ce1f21',
       status: 'proposed',
       interview: null,
@@ -591,7 +626,9 @@ function renderJobCard(j) {
 
       <div style="font-size:11px;color:#7f8c8d;margin-bottom:8px">${s.desc}</div>
 
-      <div class="appeal">${j.appeal}</div>
+      <ul class="appeal">
+        ${(Array.isArray(j.appeal) ? j.appeal : [j.appeal]).map(a => `<li>${a}</li>`).join('')}
+      </ul>
 
       <div class="conditions">
         <div class="cond"><span class="k">📍勤務地</span><span class="v">${j.location}</span></div>
