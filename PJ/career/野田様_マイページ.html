@@ -337,25 +337,6 @@
   <div id="jobList"></div>
 </div>
 
-<!-- 担当CAへの連絡 -->
-<div class="section">
-  <div class="section-header">
-    <span class="icon">💬</span>
-    <h2>担当キャリアアドバイザーへ相談</h2>
-  </div>
-  <div class="contact-card">
-    <div class="name">UCHIAGE 営業担当2</div>
-    <div class="role">野田様の担当キャリアアドバイザー</div>
-    <div class="contact-btns">
-      <a href="#" class="btn btn-primary">💬 LINEで相談する</a>
-      <a href="mailto:contact@uchiage.example" class="btn btn-secondary">📧 メール</a>
-    </div>
-    <div style="margin-top:14px;font-size:12px;color:#7f8c8d">
-      💡 ご質問・確認したい点・辞退希望など、何でもお気軽にご相談ください
-    </div>
-  </div>
-</div>
-
 <!-- お役立ち情報 -->
 <div class="section">
   <div class="section-header">
@@ -622,23 +603,11 @@ function renderJobCard(j) {
 
       <div class="job-actions">
         <a href="${j.url}" target="_blank" class="btn btn-primary">📄 求人票を見る</a>
-        <a href="#" onclick="expressInterest('${j.id}'); return false;" class="btn btn-secondary">✨ 気になる</a>
       </div>
 
       ${timelineHtml}
     </div>
   `;
-}
-
-function expressInterest(id) {
-  const job = data.jobs.find(j => j.id === id);
-  if (!job) return;
-  alert(`「${job.company}」に「気になる」を選択しました。\n\n担当キャリアアドバイザーへ通知されます。\n(実運用ではLINEに反映されます)`);
-  job.timeline = job.timeline || [];
-  job.timeline.push({ date: new Date().toISOString().slice(0,10), event: '野田様が「気になる」を選択' });
-  job.status = 'considering';
-  saveData(data);
-  render();
 }
 
 function render() {
