@@ -133,6 +133,7 @@
   .job.status-offer { border-left: 5px solid #27AE60; background: linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 30%); }
   .job.status-accepted { border-left: 5px solid #16A085; }
   .job.status-declined { border-left: 5px solid #95A5A6; opacity: 0.7; }
+  .job.status-closed { border-left: 5px solid #BDC3C7; opacity: 0.7; }
 
   .job-head {
     display: flex;
@@ -168,6 +169,7 @@
   .status-pill.status-offer { background: #ABEBC6; color: #145A32; }
   .status-pill.status-accepted { background: #A9DFBF; color: #0E6251; }
   .status-pill.status-declined { background: #ECF0F1; color: #7f8c8d; }
+  .status-pill.status-closed { background: #E8E8E8; color: #566573; }
 
   .appeal {
     background: #F8F9FA;
@@ -409,7 +411,8 @@ const STATUS_MAP = {
   interviewed: { label: '面接済', desc: '結果連絡をお待ちください', step: 5 },
   offer: { label: '内定', desc: '🎉 おめでとうございます!', step: 6 },
   accepted: { label: '内定承諾', desc: '入社準備を進めています', step: 7 },
-  declined: { label: '辞退済み', desc: '', step: 0 },
+  declined: { label: 'お見送り', desc: '', step: 0 },
+  closed: { label: '募集終了', desc: '', step: 0 },
 };
 
 const DATA = {
@@ -430,9 +433,12 @@ const DATA = {
         '腰を据えて長く働ける、第一推薦の案件',
       ],
       url: 'https://circus-job.com/selections/4341553/job?jobDetailPublicToken=e748604c-8686-4c93-80dd-193be016edd7',
-      status: 'proposed',
+      status: 'declined',
       interview: null,
-      timeline: [{ date: '2026-07-02', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-02', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: 'お見送りとなりました' },
+      ],
     },
     {
       id: 'noda-2', priority: 2,
@@ -449,9 +455,12 @@ const DATA = {
         'インフラ職として腰を据えて積み上げたい方向け',
       ],
       url: 'https://circus-job.com/selections/4341518/job?jobDetailPublicToken=eb8cecee-f12b-4b20-8818-b3e12ce875a4',
-      status: 'proposed',
+      status: 'closed',
       interview: null,
-      timeline: [{ date: '2026-07-02', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-02', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: '募集終了となりました' },
+      ],
     },
     {
       id: 'noda-3', priority: 3,
@@ -487,9 +496,12 @@ const DATA = {
         '現職での設計書修正・テスト工程の延長線上で着実にスキルアップ可能',
       ],
       url: 'https://circus-job.com/selections/4341576/job?jobDetailPublicToken=829c47d4-f0d4-47c6-816e-56bde6aef5bb',
-      status: 'proposed',
+      status: 'closed',
       interview: null,
-      timeline: [{ date: '2026-07-02', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-02', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: '募集終了となりました' },
+      ],
     },
     {
       id: 'noda-5', priority: 5,
@@ -534,7 +546,7 @@ function greeting() {
 }
 
 function renderStats() {
-  const active = data.jobs.filter(j => !['declined', 'accepted'].includes(j.status));
+  const active = data.jobs.filter(j => !['declined', 'accepted', 'closed'].includes(j.status));
   const interviews = data.jobs.filter(j => j.interview);
   const offers = data.jobs.filter(j => j.status === 'offer').length;
   document.getElementById('stats').innerHTML = `
@@ -557,7 +569,7 @@ function renderStats() {
 }
 
 function renderInterviews() {
-  const list = data.jobs.filter(j => j.interview && j.status !== 'declined');
+  const list = data.jobs.filter(j => j.interview && !['declined', 'closed'].includes(j.status));
   const el = document.getElementById('interviewList');
   if (!list.length) {
     el.innerHTML = `
@@ -588,14 +600,15 @@ function renderInterviews() {
 }
 
 function renderJobs() {
-  const active = data.jobs.filter(j => j.status !== 'declined').sort((a,b) => (a.priority||99)-(b.priority||99));
-  const declined = data.jobs.filter(j => j.status === 'declined');
+  const isEnded = j => ['declined', 'closed'].includes(j.status);
+  const active = data.jobs.filter(j => !isEnded(j)).sort((a,b) => (a.priority||99)-(b.priority||99));
+  const ended = data.jobs.filter(isEnded);
 
   const html = active.map(j => renderJobCard(j)).join('');
-  const declinedHtml = declined.length
-    ? `<details style="margin-top:16px"><summary>辞退した案件 (${declined.length}件)</summary>${declined.map(renderJobCard).join('')}</details>`
+  const endedHtml = ended.length
+    ? `<details style="margin-top:16px"><summary>選考終了・お見送りとなった案件 (${ended.length}件)</summary>${ended.map(renderJobCard).join('')}</details>`
     : '';
-  document.getElementById('jobList').innerHTML = html + declinedHtml;
+  document.getElementById('jobList').innerHTML = html + endedHtml;
 }
 
 function renderJobCard(j) {
