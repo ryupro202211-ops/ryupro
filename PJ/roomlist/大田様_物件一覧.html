@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大田様専用 物件一覧 – 全7件</title>
+<style>
+:root {
+  --bg: #f6f4ef;
+  --card: #ffffff;
+  --ink: #232629;
+  --ink-sub: #6a6d72;
+  --line: #e4e2dc;
+  --accent: #1f6f5c;
+  --accent-soft: #dcece6;
+  --gold: #b7891f;
+  --warn: #c94a3f;
+  --tag-a: #eaf3ee;
+  --tag-b: #efe9d9;
+  --tag-c: #ecd8d5;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+header.hero {
+  background: linear-gradient(135deg, #1f6f5c 0%, #2a8a72 100%);
+  color: white;
+  padding: 30px 20px 24px;
+  text-align: center;
+}
+header.hero h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+header.hero .sub {
+  font-size: 13px;
+  opacity: 0.92;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.criteria {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.criteria h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 20px;
+  font-size: 13px;
+}
+.criteria-grid div span:first-child {
+  color: var(--ink-sub);
+  font-size: 11px;
+  display: block;
+}
+.criteria-grid div span:last-child {
+  font-weight: 600;
+}
+.priorities {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  color: var(--ink-sub);
+}
+.priorities strong { color: var(--ink); }
+
+.controls {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+}
+.controls > * { flex: 0 0 auto; }
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+.control-group label {
+  color: var(--ink-sub);
+  font-size: 12px;
+}
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.chip:hover { border-color: var(--accent); }
+.chip.on {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.count-badge {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--ink-sub);
+  font-weight: 500;
+}
+.count-badge strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+}
+.card.hidden { display: none; }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.card-name-sub {
+  font-size: 11.5px;
+  color: var(--ink-sub);
+  margin-top: 2px;
+}
+.card-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+.card-price .total {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.card-price .breakdown {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  margin-top: 3px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.tag {
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tag-a);
+  color: var(--accent);
+  font-weight: 500;
+}
+.tag.new { background: var(--tag-b); color: var(--gold); }
+.tag.warn { background: var(--tag-c); color: var(--warn); }
+
+.meta-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #faf9f4;
+  border-radius: 8px;
+}
+.meta-row div span:first-child {
+  color: var(--ink-sub);
+  font-size: 10.5px;
+  display: block;
+}
+.meta-row div span:last-child {
+  font-weight: 600;
+  font-size: 12.5px;
+}
+.notes {
+  font-size: 12px;
+  color: var(--ink-sub);
+  line-height: 1.55;
+  padding: 8px 0 12px;
+  border-top: 1px dashed var(--line);
+  margin-top: auto;
+}
+.notes strong { color: var(--ink); }
+.pros-list {
+  margin: 6px 0 12px;
+  padding-left: 20px;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.pros-list li {
+  margin-bottom: 4px;
+}
+.pros-list li::marker {
+  color: var(--accent);
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.btn {
+  flex: 1;
+  text-align: center;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+.btn-primary:hover { background: #175a4a; }
+.btn-secondary {
+  background: white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+.btn-disabled {
+  background: #f4f2ec;
+  color: var(--ink-sub);
+  cursor: default;
+  flex: 1;
+  text-align: center;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  border: 1px dashed var(--line);
+}
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--ink-sub);
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+  grid-column: 1 / -1;
+}
+
+footer.foot {
+  text-align: center;
+  padding: 24px 20px 40px;
+  color: var(--ink-sub);
+  font-size: 11.5px;
+}
+
+/* Modal for PDF preview */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+.modal-backdrop.on { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: min(1000px, 100%);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title { font-weight: 600; font-size: 14px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--ink-sub);
+  padding: 0 6px;
+}
+.modal iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  header.hero h1 { font-size: 18px; }
+  .card { padding: 14px 14px 12px; }
+  .card-price .total { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>大田様専用 物件セレクション</h1>
+  <div class="sub">最終更新 2026-07-02 ・ 全7件</div>
+</header>
+
+<div class="container">
+
+  <section class="criteria">
+    <h2>大田様のご希望条件</h2>
+    <div class="criteria-grid">
+      <div><span>ご予算（管込）</span><span>65,000〜80,000円</span></div>
+      <div><span>初期費用</span><span>250,000円程度</span></div>
+      <div><span>広さ</span><span>25㎡以上</span></div>
+      <div><span>間取り</span><span>ワンルーム／1K／1DK</span></div>
+      <div><span>駅からの徒歩</span><span>15分以内目安</span></div>
+      <div><span>築年数</span><span>10〜15年以内目安</span></div>
+      <div><span>職場</span><span>麻布台一丁目（麻布台ヒルズ）</span></div>
+      <div><span>職場の最寄駅</span><span>神谷町／六本木一丁目<br>徒歩4〜7分（日比谷線・南北線）</span></div>
+      <div><span>通勤時間</span><span>30〜45分（60分まで許容）</span></div>
+      <div><span>必須設備</span><span>バス・トイレ別／独立洗面台／<br>オートロック／モニター付インターホン／<br>宅配ボックス／室内洗濯機置場</span></div>
+      <div><span>ご入居希望</span><span>2026年10月中旬まで（現契約10/31満了）</span></div>
+      <div><span>その他</span><span>敷礼なし優先／単身入居</span></div>
+    </div>
+    <div class="priorities">
+      <strong>優先順位：</strong>①設備の充実度 → ②家賃の安さ → ③部屋の広さ → ④築年数の新しさ → ⑤駅からの近さ → ⑥通勤時間の短さ
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="control-group">
+      <label>並び順</label>
+      <select id="sort">
+        <option value="rent-asc">家賃が安い順</option>
+        <option value="size-desc">広さが大きい順</option>
+        <option value="walk-asc">駅から近い順</option>
+        <option value="age-asc">築が新しい順</option>
+      </select>
+    </div>
+    <div class="control-group" data-filter="line">
+      <label>沿線</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="日比谷">日比谷</span>
+      <span class="chip" data-value="スカイツリー">スカイツリー</span>
+      <span class="chip" data-value="東武東上">東武東上</span>
+      <span class="chip" data-value="京浜東北">京浜東北</span>
+      <span class="chip" data-value="日暮里舎人">日暮里舎人</span>
+    </div>
+    <div class="control-group" data-filter="layout">
+      <label>間取</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="ワンルーム">ワンルーム</span>
+      <span class="chip" data-value="1K">1K</span>
+    </div>
+    <div class="control-group">
+      <label>ご予算</label>
+      <select id="rentcap">
+        <option value="65000">〜65,000円（ご希望管込）</option>
+        <option value="75000">〜75,000円</option>
+        <option value="80000" selected>〜80,000円（上限）</option>
+        <option value="90000">〜90,000円（参考）</option>
+        <option value="999999">上限なし</option>
+      </select>
+    </div>
+    <div class="count-badge">表示中 <strong id="count">7</strong> / 7件</div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+</div>
+
+<footer class="foot">
+  ご不明点はお気軽にLINEまたはメールにてお問い合わせください。<br>
+  ※図面は仲介業者向け内部資料を元にお客様向けに加工したものです。
+</footer>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">図面プレビュー</div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <iframe id="modal-frame" src=""></iframe>
+  </div>
+</div>
+
+<script>
+const PROPERTIES = [
+  {
+    id: '05', name: 'BestStage シリウス柳瀬川', unit: '104号室',
+    line: '東武東上', station: '柳瀬川', walk: 6,
+    size: 25.18, layout: '1K',
+    rent: 62000, kanri: 3000, total: 65000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2017, structure: '木造',
+    tags: [
+      {t:'コスパNo.1', c:'new'},
+      {t:'管込65,000円', c:'new'},
+      {t:'インターネット無料', c:''},
+      {t:'ウォークインクローゼット', c:''}
+    ],
+    pros: [
+      '管理費込み65,000円でご希望ど真ん中・今回7件中最安',
+      'バス・トイレ別／独立洗面台／オートロック／宅配BOX／モニター付インターホン／室内洗濯機置場の必須6点フル装備',
+      'インターネット（J:COM）無料・実質さらに月3,000〜5,000円のお得感',
+      'ウォークインクローゼット・浴室乾燥機・追焚・複層ガラス・IHクッキングヒーターと快適設備が充実',
+      '東武東上線「柳瀬川」駅徒歩6分・志木の隣駅で駅前もにぎやか'
+    ],
+    cons: [
+      '木造アパートのため隣室・上階の音は気になる可能性',
+      '所在階1階＋バルコニー北西向きで日当たりは弱め',
+      '神谷町までの通勤は約60分（乗換1〜2回）と長め'
+    ],
+    driveId: '1miC9x6iZJLi7nmljQhl0d1LrXD6So2Pv',
+  },
+  {
+    id: '03', name: 'アリス瀬崎', unit: '203号室',
+    line: 'スカイツリー', station: '谷塚', walk: 7,
+    size: 28.10, layout: 'ワンルーム',
+    rent: 68000, kanri: 2000, total: 70000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2020, structure: '木造',
+    tags: [
+      {t:'最上階南向き角部屋', c:'new'},
+      {t:'ロフト6.7畳付き', c:'new'},
+      {t:'谷塚徒歩7分', c:''},
+      {t:'⚠️木造', c:'warn'}
+    ],
+    pros: [
+      '2階建ての2階＝最上階、南向き＋角部屋の三拍子で日当たり・眺望・遮音すべて有利',
+      '専有面積28.10㎡＋洋室7.7畳＋ロフト6.7畳で今回7件中もっとも広く使える',
+      'バス・トイレ別／独立洗面台（シャンプードレッサー）／室内洗濯機置場／オートロック／モニター付インターホン／宅配BOXの必須6点フル',
+      'IHクッキングヒーター・温水洗浄便座・床暖房・追焚・浴室乾燥機など快適設備も充実',
+      '東武スカイツリーライン「谷塚」駅徒歩7分・日比谷線直通で神谷町まで約45分'
+    ],
+    cons: [
+      '木造アパートのため音は気になる可能性（最上階＋角部屋で一部緩和）',
+      '現入居中（7月下旬退去予定）で内覧は退去後になります',
+      '鍵交換代33,000円＋室内消毒15,400円が別途発生します'
+    ],
+    driveId: '1RUA7ECl3R_PKL5xo3_VEqTkJDatetyBS',
+  },
+  {
+    id: '02', name: 'シャンブル英美Ⅳ', unit: '108号室',
+    line: 'スカイツリー', station: '谷塚', walk: 15,
+    size: 27.34, layout: 'ワンルーム',
+    rent: 65000, kanri: 6000, total: 71000,
+    deposit: '敷1.5ヶ月', reikin: '礼1ヶ月',
+    year: 2022, structure: 'RC造',
+    tags: [
+      {t:'築4年RC', c:'new'},
+      {t:'エレベータ完備', c:''},
+      {t:'床暖・浴室乾燥・複層ガラス', c:''},
+      {t:'⚠️図面PDFなし', c:'warn'}
+    ],
+    pros: [
+      '今回7件中もっとも築浅・築約4年のRC造マンションで防音性・断熱性ともに高い',
+      'バス・トイレ別／独立洗面台／オートロック／モニター付インターホン／宅配BOX／室内洗濯機置場の必須6点フル',
+      '床暖房・浴室乾燥機・追焚・複層ガラス・温水洗浄便座・エレベータ完備で快適',
+      '専有面積27.34㎡と今回7件中2番目に広め、ワンルームで開放感がある',
+      '管理費込み71,000円と築浅RC造としてはコスパ良好'
+    ],
+    cons: [
+      'REINSに図面PDFが登録されていないため、間取り図は元付業者経由での取り寄せをお願いする形になります（写真は10枚あり）',
+      '所在階1階＋物件前面（西側）に3階建て賃貸マンションあり、日当たり要現地確認',
+      '「谷塚」駅徒歩15分と駅からはやや距離あり'
+    ],
+    driveId: '',
+  },
+  {
+    id: '01', name: 'モデナエスタ北千住', unit: '1階',
+    line: '日比谷', station: '北千住', walk: 10,
+    size: 25.15, layout: '1K',
+    rent: 71000, kanri: 15000, total: 86000,
+    deposit: '敷なし', reikin: '礼なし',
+    year: 2004, structure: '鉄骨造',
+    tags: [
+      {t:'神谷町直通25分', c:'new'},
+      {t:'敷礼0・初期費用最安', c:'new'},
+      {t:'⚠️築22年', c:'warn'},
+      {t:'⚠️定期借家2年', c:'warn'}
+    ],
+    pros: [
+      '日比谷線「北千住」駅から神谷町まで乗換なし約25分、今回7件中もっとも職場に近い',
+      '敷礼0・その他一時金なし・保証金なし＝初期費用を10万円台前半まで抑えられる可能性',
+      '京成本線「千住大橋」駅も徒歩13分で使え、2沿線利用可',
+      'バス・トイレ別／独立洗面台／室内洗濯機置場／モニター付インターホン／ネット無料・バイク置場あり',
+      '南向きバルコニーで日当たり良好、鉄骨造2階建ての1階'
+    ],
+    cons: [
+      '築2004年7月＝築約22年で、ご希望「築新しめ」からは大きく外れます',
+      '契約形態が定期借家契約2年（再契約型・再契約料1ヶ月）で2年ごとの再契約手続きが必要',
+      '設備6点のうち「オートロック」「宅配ボックス」が未記載のため要確認',
+      '管理費等15,000円（インターネット使用料込）で月額実質86,000円になります'
+    ],
+    driveId: '1xRvmRF_yM5I0Hd6Iw7xJavrJxLUX73r7',
+  },
+  {
+    id: '06', name: 'Impress', unit: '102号室',
+    line: '京浜東北', station: '川口', walk: 5,
+    size: 25.61, layout: '1K',
+    rent: 72000, kanri: 5000, total: 77000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2003, structure: '軽量気泡コンクリート',
+    tags: [
+      {t:'川口徒歩5分', c:'new'},
+      {t:'南北線→六本木一丁目30分', c:'new'},
+      {t:'防犯シャッター・床下収納', c:''},
+      {t:'⚠️築22年', c:'warn'}
+    ],
+    pros: [
+      'JR京浜東北線「川口」駅徒歩5分の駅前立地',
+      '埼玉高速線「川口元郷」駅徒歩15分も利用可→南北線直通で六本木一丁目まで乗換なし約30分',
+      'バス・トイレ別／独立洗面台／オートロック／モニター付インターホン／宅配BOX／室内洗濯機置場の必須6点フル',
+      '防犯シャッター・床下収納・ガスコンロ設置可・南向きバルコニー',
+      '徒歩2分圏内にドン・キホーテ／ローソン／樹モールプラザで買い物便利'
+    ],
+    cons: [
+      '築2003年12月＝築約22年で、ご希望「築新しめ」から大きく外れます',
+      '初期費用が敷礼＋鍵交換25,300円＋My Concier Club 18,000円＋保険で合計36万円前後になります',
+      '退去時の清掃費用62,920円が確定で発生します（契約時に明記）'
+    ],
+    driveId: '1q35QMFl6qGWiviPF0STwidlZH5XEjO-k',
+  },
+  {
+    id: '07', name: 'リブリ・川口飯塚', unit: '3階（複数号室選択可）',
+    line: '京浜東北', station: '川口', walk: 15,
+    size: 26.08, layout: '1K',
+    rent: 77000, kanri: 3000, total: 80000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2026, structure: '鉄骨造',
+    tags: [
+      {t:'🆕新築2026年8月完成', c:'new'},
+      {t:'ZEH省エネ最高水準', c:'new'},
+      {t:'24Hセキュリティ・管理人', c:''},
+      {t:'⚠️定期借家2年', c:'warn'}
+    ],
+    pros: [
+      '2026年8月完成の新築・入居予定7月上旬で今回7件中もっとも築が新しい',
+      'ZEH（省エネ最高ランク）認定・都市ガス・電気代の負担が軽くなる可能性',
+      'バス・トイレ別／独立洗面台／オートロック／モニター付インターホン／宅配BOX／室内洗濯機置場の必須6点フル',
+      '24時間セキュリティ・管理人常駐・防犯カメラ・防犯シャッター・ダブルロックキー・インターネット無料',
+      '3階（最上階）・浴室乾燥機・温水洗浄便座・IHクッキングヒーター'
+    ],
+    cons: [
+      '契約形態が定期借家契約2年（再契約型・再契約料は新賃料の1ヶ月分）',
+      '「リブリクラブ」入会必須（入会費7,700円・月額会費2,200円）で月額実質82,200円になります',
+      '退去時のクリーニング費用49,500円（A・A´・C・C´type）が確定で発生します',
+      'バルコニー北東向きで日当たりは控えめ'
+    ],
+    driveId: '1dvu4-srT6bf_tLRT9rPQadOwAkPHaxoK',
+  },
+  {
+    id: '04', name: 'ユリカロゼ西新井', unit: '304号室',
+    line: '日暮里舎人', station: '西新井大師西', walk: 6,
+    size: 25.77, layout: '1K',
+    rent: 75000, kanri: 15000, total: 90000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2016, structure: 'RC造',
+    tags: [
+      {t:'分譲タイプ・ハイグレード', c:'new'},
+      {t:'24Hセキュリティ・床暖', c:''},
+      {t:'駅徒歩6分', c:''},
+      {t:'⚠️予算超過（月90k）', c:'warn'}
+    ],
+    pros: [
+      '分譲マンション扱い・7階建てRC造3階と今回7件中もっともグレードが高い建物',
+      'バス・トイレ別／独立洗面台（シャンプードレッサー）／オートロック／モニター付インターホン／宅配BOX／室内洗濯機置場の必須6点フル',
+      '床暖房／浴室乾燥機／温水洗浄便座／24時間セキュリティ／管理人／ディンプルキー／24時間ゴミ出し可',
+      '日暮里舎人ライナー「西新井大師西」駅徒歩6分・Wi-Fi無料',
+      '築2016年11月と築約9年でご希望の築年数範囲に収まる'
+    ],
+    cons: [
+      '共益費15,000円込みで月額90,000円となり、ご希望上限を大きく超過します',
+      '日暮里舎人ライナーは職場までの直通ルートがなく通勤は約55分（乗換1〜2回）',
+      '保証会社必須（全保連60%）／アクセス24が12,000円／鍵交換手数料26,000円'
+    ],
+    driveId: '1p8C2VebG3L_tWYv_RG_6AFf5yrWq4-2W',
+  },
+];
+
+// ---------- Rendering ----------
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+
+function fmt(n) { return n.toLocaleString('ja-JP'); }
+
+function cardHtml(p) {
+  const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
+  const unitStr = p.unit ? ` ${p.unit}` : '';
+  const actionsHtml = p.driveId
+    ? `<button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
+       <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>`
+    : `<div class="btn-disabled">📷 図面PDF未登録（お問合せください）</div>`;
+  return `
+    <div class="card" data-id="${p.id}" data-line="${p.line}" data-layout="${p.layout}" data-total="${p.total}" data-size="${p.size}" data-walk="${p.walk}" data-year="${p.year}">
+      <div class="card-header">
+        <div>
+          <div class="card-name">${p.name}${unitStr}</div>
+          <div class="card-name-sub">${p.line}線 ${p.station}駅 徒歩${p.walk}分</div>
+        </div>
+        <div class="card-price">
+          <div class="total">${fmt(p.total)}<span style="font-size:11px">円</span></div>
+          <div class="breakdown">賃料 ${fmt(p.rent)} + 管理 ${fmt(p.kanri)}</div>
+        </div>
+      </div>
+      <div class="tags">${tagsHtml}</div>
+      <div class="meta-row">
+        <div><span>広さ</span><span>${p.size}㎡</span></div>
+        <div><span>間取り</span><span>${p.layout}</span></div>
+        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
+        <div><span>構造</span><span>${p.structure}</span></div>
+        <div><span>敷金</span><span>${p.deposit}</span></div>
+        <div><span>礼金</span><span>${p.reikin}</span></div>
+      </div>
+      <div class="notes">
+        <strong>おすすめポイント</strong>
+        <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
+        ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+      </div>
+      <div class="actions">
+        ${actionsHtml}
+      </div>
+    </div>
+  `;
+}
+
+function renderAll() {
+  grid.innerHTML = PROPERTIES.map(cardHtml).join('');
+  applyFilters();
+}
+
+// ---------- Filtering + Sorting ----------
+const state = {
+  line: 'all',
+  layout: 'all',
+  sort: 'rent-asc',
+  rentcap: 80000,
+};
+
+document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.line = c.dataset.value;
+    applyFilters();
+  });
+});
+document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.layout = c.dataset.value;
+    applyFilters();
+  });
+});
+document.getElementById('sort').addEventListener('change', e => {
+  state.sort = e.target.value;
+  applyFilters();
+});
+document.getElementById('rentcap').addEventListener('change', e => {
+  state.rentcap = parseInt(e.target.value, 10);
+  applyFilters();
+});
+
+function applyFilters() {
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const filtered = cards.filter(card => {
+    if (state.line !== 'all' && card.dataset.line !== state.line) return false;
+    if (state.layout !== 'all' && card.dataset.layout !== state.layout) return false;
+    if (parseInt(card.dataset.total, 10) > state.rentcap) return false;
+    return true;
+  });
+  // sort
+  filtered.sort((a, b) => {
+    const ka = a.dataset, kb = b.dataset;
+    switch (state.sort) {
+      case 'rent-asc': return (+ka.total) - (+kb.total);
+      case 'size-desc': return (+kb.size) - (+ka.size);
+      case 'walk-asc': return (+ka.walk) - (+kb.walk);
+      case 'age-asc': return (+kb.year) - (+ka.year);
+    }
+    return 0;
+  });
+  // apply visibility & order
+  cards.forEach(c => c.classList.add('hidden'));
+  filtered.forEach(c => {
+    c.classList.remove('hidden');
+    grid.appendChild(c);
+  });
+  countEl.textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    if (!grid.querySelector('.empty')) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = '条件に合う物件がありません。フィルタを緩めてお試しください。';
+      grid.appendChild(empty);
+    }
+  } else {
+    const existing = grid.querySelector('.empty');
+    if (existing) existing.remove();
+  }
+}
+
+// ---------- Preview modal ----------
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalFrame = document.getElementById('modal-frame');
+
+function openPreview(driveId, name) {
+  modalTitle.textContent = '図面プレビュー：' + name;
+  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+  modal.classList.add('on');
+}
+document.getElementById('modal-close').addEventListener('click', () => {
+  modal.classList.remove('on');
+  modalFrame.src = '';
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) {
+    modal.classList.remove('on');
+    modalFrame.src = '';
+  }
+});
+
+renderAll();
+</script>
+</body>
+</html>
