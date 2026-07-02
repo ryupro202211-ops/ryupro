@@ -427,9 +427,9 @@ footer.foot {
       <select id="rentcap">
         <option value="65000">〜65,000円（ご希望管込）</option>
         <option value="75000">〜75,000円</option>
-        <option value="80000" selected>〜80,000円（上限）</option>
+        <option value="80000">〜80,000円（上限）</option>
         <option value="90000">〜90,000円（参考）</option>
-        <option value="999999">上限なし</option>
+        <option value="999999" selected>すべて表示</option>
       </select>
     </div>
     <div class="count-badge">表示中 <strong id="count">7</strong> / 7件</div>
@@ -705,7 +705,7 @@ const state = {
   line: 'all',
   layout: 'all',
   sort: 'rent-asc',
-  rentcap: 80000,
+  rentcap: 999999,
 };
 
 document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
