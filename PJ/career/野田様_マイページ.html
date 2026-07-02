@@ -526,15 +526,11 @@ const DATA = {
 };
 
 // ========== INIT ==========
-function loadData() {
-  const saved = localStorage.getItem('noda_mypage');
-  return saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DATA));
-}
-function saveData(d) {
-  localStorage.setItem('noda_mypage', JSON.stringify(d));
-}
+// Always use the latest DATA from code (single source of truth via git).
+// Clear any stale localStorage from earlier versions.
+try { localStorage.removeItem('noda_mypage'); } catch(e) {}
 
-let data = loadData();
+let data = JSON.parse(JSON.stringify(DATA));
 
 // ========== RENDER ==========
 function greeting() {
