@@ -128,6 +128,7 @@
   .job.status-applying { border-left: 5px solid #3498DB; }
   .job.status-applied { border-left: 5px solid #2980B9; }
   .job.status-screening { border-left: 5px solid #9B59B6; }
+  .job.status-arrangingInterview { border-left: 5px solid #D35400; background: linear-gradient(135deg, #FFF3E6 0%, #FFFFFF 40%); }
   .job.status-interviewScheduled { border-left: 5px solid #E74C3C; background: linear-gradient(135deg, #FFF9F0 0%, #FFFFFF 30%); }
   .job.status-interviewed { border-left: 5px solid #8E44AD; }
   .job.status-offer { border-left: 5px solid #27AE60; background: linear-gradient(135deg, #F0FFF4 0%, #FFFFFF 30%); }
@@ -182,6 +183,7 @@
   .status-pill.status-applying { background: #D6EAF8; color: #2874A6; }
   .status-pill.status-applied { background: #AED6F1; color: #1A5276; }
   .status-pill.status-screening { background: #E8DAEF; color: #6C3483; }
+  .status-pill.status-arrangingInterview { background: #FDEBD0; color: #A04000; }
   .status-pill.status-interviewScheduled { background: #FADBD8; color: #B03A2E; }
   .status-pill.status-interviewed { background: #D2B4DE; color: #4A235A; }
   .status-pill.status-offer { background: #ABEBC6; color: #145A32; }
@@ -425,6 +427,7 @@ const STATUS_MAP = {
   applying: { label: '応募準備中', desc: '書類を整えて応募手続き中です', step: 2 },
   applied: { label: '応募済', desc: '企業側の選考待ちです', step: 3 },
   screening: { label: '書類選考中', desc: '企業側で書類選考が進んでいます', step: 3 },
+  arrangingInterview: { label: '一次面接調整中', desc: '書類選考通過!面接日程を調整しています', step: 4 },
   interviewScheduled: { label: '面接予定', desc: '面接日が決定しています', step: 4 },
   interviewed: { label: '面接済', desc: '結果連絡をお待ちください', step: 5 },
   offer: { label: '内定', desc: '🎉 おめでとうございます!', step: 6 },
@@ -539,11 +542,17 @@ const DATA = {
         '夜間勤務なし・残業月10時間以下・年間休日120日と労働条件も良好',
       ],
       url: 'https://circus-job.com/selections/4341611/job?jobDetailPublicToken=c54ca923-8e20-4e66-b75b-0be665ce1f21',
-      status: 'screening',
-      interview: null,
+      status: 'arrangingInterview',
+      interview: {
+        round: '一次面接',
+        format: 'オンライン',
+        date: null,
+        note: 'ご希望日時を担当キャリアアドバイザーまでお知らせください。日程確定後にオンライン面接URLをお送りします。',
+      },
       timeline: [
         { date: '2026-07-02', event: '案件をご提案しました' },
         { date: '2026-07-03', event: '書類選考が開始されました(結果待ち)' },
+        { date: '2026-07-03', event: '🎉 書類選考通過!一次面接のご案内を受領' },
       ],
     },
     {
@@ -561,10 +570,13 @@ const DATA = {
         '年間休日124日・残業月20時間以下と労働条件も良好',
       ],
       url: 'https://circus-job.com/selections/4361587/job?jobDetailPublicToken=1c4b6621-077f-4872-a64b-edc389a1b3dc',
-      status: 'proposed',
+      status: 'applied',
       interview: null,
       isNew: true,
-      timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-03', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: '応募済み(企業側の選考待ち)' },
+      ],
     },
     {
       id: 'noda-7', priority: 7,
@@ -581,10 +593,13 @@ const DATA = {
         '夜間勤務なし明示・残業月20時間以下と労働条件も良好',
       ],
       url: 'https://circus-job.com/selections/4361580/job?jobDetailPublicToken=c8324e43-1939-44a4-ad61-fb0c2298cf1b',
-      status: 'proposed',
+      status: 'applied',
       interview: null,
       isNew: true,
-      timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-03', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: '応募済み(企業側の選考待ち)' },
+      ],
     },
     {
       id: 'noda-8', priority: 8,
@@ -601,10 +616,13 @@ const DATA = {
         '早朝勤務(08:00-17:00)で、退勤後の時間を有効活用可能',
       ],
       url: 'https://circus-job.com/selections/4361578/job?jobDetailPublicToken=39efc798-fabc-4683-a369-1b18996fe540',
-      status: 'proposed',
+      status: 'applied',
       interview: null,
       isNew: true,
-      timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-03', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: '応募済み(企業側の選考待ち)' },
+      ],
     },
     {
       id: 'noda-9', priority: 9,
@@ -621,10 +639,13 @@ const DATA = {
         '夜間勤務なし・残業月20時間以下で私生活も充実',
       ],
       url: 'https://circus-job.com/selections/4361536/job?jobDetailPublicToken=ca158d38-74d9-47aa-9ff2-ba9e6e9866de',
-      status: 'proposed',
+      status: 'applied',
       interview: null,
       isNew: true,
-      timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
+      timeline: [
+        { date: '2026-07-03', event: '案件をご提案しました' },
+        { date: '2026-07-03', event: '応募済み(企業側の選考待ち)' },
+      ],
     },
   ],
 };
@@ -682,17 +703,22 @@ function renderInterviews() {
   }
   el.innerHTML = list.map(j => {
     const iv = j.interview;
+    const isArranging = !iv.date;
     return `
-      <div class="interview-card">
+      <div class="interview-card ${isArranging ? 'is-arranging' : ''}">
         <div class="company">${j.company}</div>
         <div style="font-size:12px;color:#7f8c8d">${iv.round || '面接'}</div>
-        <div class="datetime">📅 ${iv.date} ${iv.time || ''}</div>
+        ${isArranging
+          ? `<div class="datetime" style="font-size:16px">📆 日程調整中</div>`
+          : `<div class="datetime">📅 ${iv.date} ${iv.time || ''}</div>`
+        }
         <div class="details">
           <div class="row"><div class="k">形式</div><div>${iv.format || '未定'}</div></div>
           ${iv.location ? `<div class="row"><div class="k">場所</div><div>${iv.location}</div></div>` : ''}
           ${iv.interviewer ? `<div class="row"><div class="k">面接官</div><div>${iv.interviewer}</div></div>` : ''}
           ${iv.duration ? `<div class="row"><div class="k">所要時間</div><div>${iv.duration}</div></div>` : ''}
           ${iv.prep ? `<div class="row"><div class="k">事前準備</div><div>${iv.prep}</div></div>` : ''}
+          ${iv.note ? `<div class="row"><div class="k">ご案内</div><div style="color:#D35400;font-weight:600">${iv.note}</div></div>` : ''}
         </div>
       </div>
     `;
