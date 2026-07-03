@@ -326,6 +326,123 @@
   }
   details[open] summary::before { transform: rotate(90deg); }
 
+  /* ============ STATUS GROUPS ============ */
+  .status-group {
+    margin-bottom: 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+  }
+  .status-group summary {
+    padding: 16px 22px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: #2c3e50;
+    background: linear-gradient(90deg, #FFF5F7 0%, #F4F9FC 100%);
+    border-left: 5px solid #DEEBF7;
+    transition: background 0.2s;
+    border-radius: 0;
+  }
+  .status-group summary::before {
+    content: "▶";
+    font-size: 10px;
+    color: #7f8c8d;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .status-group[open] summary::before { transform: rotate(90deg); }
+  .status-group summary:hover { filter: brightness(0.98); }
+  .status-group .group-icon { font-size: 20px; line-height: 1; }
+  .status-group .group-label { flex: 1; font-size: 15px; }
+  .status-group .group-count {
+    background: #DEEBF7;
+    color: #1F4E79;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    min-width: 40px;
+    text-align: center;
+  }
+  .status-group .group-content {
+    padding: 14px 18px 18px;
+    background: #FBFCFD;
+  }
+  .status-group .group-content .job {
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .status-group .group-content .job:last-child { margin-bottom: 0; }
+
+  /* Per-status accents */
+  .status-group.status-group-interviewScheduled summary {
+    background: linear-gradient(90deg, #FADBD8 0%, #FDF2F0 100%);
+    border-left-color: #E74C3C;
+  }
+  .status-group.status-group-interviewScheduled .group-count { background: #E74C3C; color: white; }
+
+  .status-group.status-group-arrangingInterview summary {
+    background: linear-gradient(90deg, #FDEBD0 0%, #FEF9F0 100%);
+    border-left-color: #D35400;
+  }
+  .status-group.status-group-arrangingInterview .group-count { background: #D35400; color: white; }
+
+  .status-group.status-group-interviewed summary {
+    background: linear-gradient(90deg, #D2B4DE 0%, #ECDCF3 100%);
+    border-left-color: #8E44AD;
+  }
+  .status-group.status-group-interviewed .group-count { background: #8E44AD; color: white; }
+
+  .status-group.status-group-offer summary {
+    background: linear-gradient(90deg, #ABEBC6 0%, #E8F8EE 100%);
+    border-left-color: #27AE60;
+  }
+  .status-group.status-group-offer .group-count { background: #27AE60; color: white; }
+
+  .status-group.status-group-accepted summary {
+    background: linear-gradient(90deg, #A9DFBF 0%, #E5F5EB 100%);
+    border-left-color: #16A085;
+  }
+  .status-group.status-group-accepted .group-count { background: #16A085; color: white; }
+
+  .status-group.status-group-screening summary {
+    background: linear-gradient(90deg, #E8DAEF 0%, #F4ECF7 100%);
+    border-left-color: #9B59B6;
+  }
+  .status-group.status-group-screening .group-count { background: #9B59B6; color: white; }
+
+  .status-group.status-group-applied summary {
+    background: linear-gradient(90deg, #D6EAF8 0%, #EBF5FB 100%);
+    border-left-color: #2980B9;
+  }
+  .status-group.status-group-applied .group-count { background: #2980B9; color: white; }
+
+  .status-group.status-group-proposed summary {
+    background: linear-gradient(90deg, #FEF5E7 0%, #FEFAF0 100%);
+    border-left-color: #F39C12;
+  }
+  .status-group.status-group-proposed .group-count { background: #F39C12; color: white; }
+
+  .status-group.status-group-considering summary {
+    background: linear-gradient(90deg, #FDEBD0 0%, #FEF6E9 100%);
+    border-left-color: #E67E22;
+  }
+  .status-group.status-group-considering .group-count { background: #E67E22; color: white; }
+
+  .status-group.status-group-declined summary,
+  .status-group.status-group-closed summary {
+    background: linear-gradient(90deg, #ECF0F1 0%, #F8F9F9 100%);
+    border-left-color: #95A5A6;
+    color: #7f8c8d;
+  }
+  .status-group.status-group-declined .group-count,
+  .status-group.status-group-closed .group-count { background: #95A5A6; color: white; }
+
   /* ============ FOOTER ============ */
   .footer {
     text-align: center;
@@ -742,15 +859,78 @@ function renderInterviews() {
 }
 
 function renderJobs() {
-  const isEnded = j => ['declined', 'closed'].includes(j.status);
-  const active = data.jobs.filter(j => !isEnded(j)).sort((a,b) => (a.priority||99)-(b.priority||99));
-  const ended = data.jobs.filter(isEnded);
+  // Group by status
+  const groups = {};
+  data.jobs.forEach(j => {
+    if (!groups[j.status]) groups[j.status] = [];
+    groups[j.status].push(j);
+  });
 
-  const html = active.map(j => renderJobCard(j)).join('');
-  const endedHtml = ended.length
-    ? `<details style="margin-top:16px"><summary>選考終了・お見送りとなった案件 (${ended.length}件)</summary>${ended.map(renderJobCard).join('')}</details>`
-    : '';
-  document.getElementById('jobList').innerHTML = html + endedHtml;
+  // Display order (top to bottom)
+  const groupOrder = [
+    'interviewScheduled',
+    'arrangingInterview',
+    'interviewed',
+    'offer',
+    'accepted',
+    'passed',
+    'screening',
+    'applied',
+    'applying',
+    'considering',
+    'proposed',
+    'declined',
+    'closed',
+  ];
+
+  // Which groups start expanded
+  const defaultOpen = new Set([
+    'interviewScheduled',
+    'arrangingInterview',
+    'interviewed',
+    'offer',
+    'accepted',
+    'proposed',
+    'considering',
+  ]);
+
+  const groupIcons = {
+    interviewScheduled: '🎥',
+    arrangingInterview: '📅',
+    interviewed: '💬',
+    offer: '🎉',
+    accepted: '✨',
+    passed: '✅',
+    screening: '📄',
+    applied: '📮',
+    applying: '✏️',
+    considering: '🤔',
+    proposed: '💌',
+    declined: '🚪',
+    closed: '🔒',
+  };
+
+  const html = groupOrder
+    .filter(s => groups[s]?.length)
+    .map(s => {
+      const jobs = groups[s].sort((a,b) => (a.priority||99)-(b.priority||99));
+      const info = STATUS_MAP[s] || { label: s };
+      const isOpen = defaultOpen.has(s);
+      return `
+        <details class="status-group status-group-${s}" ${isOpen ? 'open' : ''}>
+          <summary>
+            <span class="group-icon">${groupIcons[s] || '📋'}</span>
+            <span class="group-label">${info.label}</span>
+            <span class="group-count">${jobs.length}件</span>
+          </summary>
+          <div class="group-content">
+            ${jobs.map(renderJobCard).join('')}
+          </div>
+        </details>
+      `;
+    }).join('');
+
+  document.getElementById('jobList').innerHTML = html || '<div style="padding:24px;background:white;border-radius:12px;text-align:center;color:#7f8c8d">案件はまだありません</div>';
 }
 
 function renderJobCard(j) {
