@@ -305,6 +305,82 @@
   .tips ul { padding-left: 20px; }
   .tips li { padding: 4px 0; }
 
+  /* ============ COUNTDOWN & TODAY BANNER ============ */
+  .countdown {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+    background: #ECF0F1;
+    color: #5D6D7E;
+  }
+  .countdown-soon {
+    background: #FEF9E7;
+    color: #B7950B;
+    border: 1px solid #F4D03F;
+  }
+  .countdown-urgent {
+    background: #FDEBD0;
+    color: #A04000;
+    border: 1px solid #F39C12;
+    animation: countdownPulse 2s ease-in-out infinite;
+  }
+  .countdown-today {
+    background: linear-gradient(135deg, #E74C3C 0%, #C0392B 100%);
+    color: white;
+    font-size: 15px;
+    padding: 10px 20px;
+    box-shadow: 0 3px 12px rgba(231, 76, 60, 0.35);
+    animation: countdownPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes countdownPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .today-banner {
+    background: linear-gradient(135deg, #E74C3C 0%, #F39C12 100%);
+    color: white;
+    padding: 20px 24px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 24px rgba(231, 76, 60, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: bannerBounce 1s ease-out;
+  }
+  @keyframes bannerBounce {
+    0% { transform: translateY(-30px); opacity: 0; }
+    60% { transform: translateY(5px); opacity: 1; }
+    100% { transform: translateY(0); }
+  }
+  .today-banner .icon { font-size: 36px; }
+  .today-banner .content { flex: 1; }
+  .today-banner .title { font-weight: 800; font-size: 16px; margin-bottom: 2px; }
+  .today-banner .detail { font-size: 13px; opacity: 0.95; }
+
+  .btn-calendar {
+    background: white;
+    color: #4A6FA5;
+    border: 1.5px solid #DEEBF7;
+    padding: 10px 20px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.2s;
+    font-family: inherit;
+    margin-left: 8px;
+  }
+  .btn-calendar:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+
   /* ============ TOGGLE ============ */
   details { margin-top: 8px; }
   details summary {
@@ -469,6 +545,9 @@
   <h1>野田様のマイページ</h1>
   <div class="sub">転職活動の進捗と、現在ご紹介中の案件をこちらでご確認いただけます</div>
 </div>
+
+<!-- TODAY BANNER (面接当日のみ表示) -->
+<div id="todayBanner"></div>
 
 <!-- STATS -->
 <div class="stats" id="stats"></div>
@@ -811,6 +890,140 @@ function renderStats() {
   `;
 }
 
+// 日付文字列から YYYY-MM-DD を抽出し、今日との差分(日数)を返す
+function daysUntilInterview(dateStr) {
+  const m = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return null;
+  const target = new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+  target.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Math.round((target - today) / (1000 * 60 * 60 * 24));
+}
+
+// カウントダウン表示HTMLを生成
+function countdownHtml(dateStr) {
+  const days = daysUntilInterview(dateStr);
+  if (days === null) return '';
+  if (days < 0) return `<div class="countdown">面接から ${-days} 日経過</div>`;
+  if (days === 0) return `<div class="countdown countdown-today">🔔 本日面接です!</div>`;
+  if (days === 1) return `<div class="countdown countdown-urgent">⚠️ 面接まで あと 1 日</div>`;
+  if (days <= 3) return `<div class="countdown countdown-urgent">⏰ 面接まで あと ${days} 日</div>`;
+  if (days <= 7) return `<div class="countdown countdown-soon">📅 面接まで あと ${days} 日</div>`;
+  return `<div class="countdown">📅 面接まで あと ${days} 日</div>`;
+}
+
+// 日付文字列と時刻から Date を生成 (例: '2026-07-07 (火)' + '18:00〜19:00')
+function parseInterviewDateTime(dateStr, timeStr) {
+  const d = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!d) return null;
+  const t = (timeStr || '').match(/(\d{1,2}):(\d{2}).*?(\d{1,2}):(\d{2})/);
+  const startH = t ? parseInt(t[1]) : 10;
+  const startM = t ? parseInt(t[2]) : 0;
+  const endH = t ? parseInt(t[3]) : startH + 1;
+  const endM = t ? parseInt(t[4]) : startM;
+  return {
+    start: new Date(parseInt(d[1]), parseInt(d[2]) - 1, parseInt(d[3]), startH, startM),
+    end: new Date(parseInt(d[1]), parseInt(d[2]) - 1, parseInt(d[3]), endH, endM),
+  };
+}
+
+// Date → iCalendar形式 (YYYYMMDDTHHMMSS)
+function toICSDate(dt) {
+  const pad = n => String(n).padStart(2, '0');
+  return `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
+}
+
+// iCalendar文字列のエスケープ (改行、コンマ、セミコロン)
+function icsEscape(s) {
+  return (s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
+}
+
+// 面接情報から .ics ファイル内容を生成
+function generateICS(job) {
+  const iv = job.interview;
+  const dt = parseInterviewDateTime(iv.date, iv.time);
+  if (!dt) return null;
+
+  const desc = [
+    iv.format ? `形式: ${iv.format}` : '',
+    iv.meetingUrl ? `\\nTeams URL:\\n${iv.meetingUrl}` : '',
+    iv.meetingId ? `\\nミーティングID: ${iv.meetingId}` : '',
+    iv.passcode ? `\\nパスコード: ${iv.passcode}` : '',
+    iv.changeContact ? `\\n\\n日程変更: ${iv.changeContact}` : '',
+  ].filter(Boolean).join('');
+
+  const uid = `${job.id}-${iv.date.replace(/[^0-9]/g, '')}@ryupro-mypage`;
+
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//UCHIAGE//Career Support Mypage//JA',
+    'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    `UID:${uid}`,
+    `DTSTAMP:${toICSDate(new Date())}`,
+    `DTSTART:${toICSDate(dt.start)}`,
+    `DTEND:${toICSDate(dt.end)}`,
+    `SUMMARY:${icsEscape(`${iv.round || '面接'} / ${job.company}`)}`,
+    `DESCRIPTION:${icsEscape(desc)}`,
+    `LOCATION:${icsEscape(iv.format || 'オンライン')}`,
+    'BEGIN:VALARM',
+    'TRIGGER:-P1D',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:明日は面接です',
+    'END:VALARM',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT30M',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:面接開始30分前',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n');
+}
+
+// カレンダー追加ボタンのハンドラ
+function downloadICS(jobId) {
+  const job = data.jobs.find(j => j.id === jobId);
+  if (!job || !job.interview) return;
+  const ics = generateICS(job);
+  if (!ics) { alert('カレンダーファイルを生成できませんでした。日程情報をご確認ください。'); return; }
+  const blob = new Blob([ics], {type: 'text/calendar;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${job.company.replace(/[\\/:*?"<>|]/g, '_')}_${job.interview.round || '面接'}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// 本日面接のあるジョブがあればトップにバナー表示
+function renderTodayBanner() {
+  const el = document.getElementById('todayBanner');
+  const todays = data.jobs.filter(j =>
+    j.interview && j.interview.date &&
+    !['declined', 'closed'].includes(j.status) &&
+    daysUntilInterview(j.interview.date) === 0
+  );
+  if (!todays.length) { el.innerHTML = ''; return; }
+  el.innerHTML = todays.map(j => {
+    const iv = j.interview;
+    return `
+      <div class="today-banner">
+        <div class="icon">🔔</div>
+        <div class="content">
+          <div class="title">本日 ${iv.time || ''} から面接です</div>
+          <div class="detail">${j.company} / ${iv.round || '面接'} ・ ${iv.format || ''}</div>
+        </div>
+        ${iv.meetingUrl ? `<a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="background:white;color:#E74C3C;font-weight:700">🎥 参加する</a>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
 function renderInterviews() {
   const list = data.jobs.filter(j => j.interview && !['declined', 'closed'].includes(j.status));
   const el = document.getElementById('interviewList');
@@ -834,6 +1047,7 @@ function renderInterviews() {
           ? `<div class="datetime" style="font-size:16px">📆 日程調整中</div>`
           : `<div class="datetime">📅 ${iv.date} ${iv.time || ''}</div>`
         }
+        ${!isArranging ? countdownHtml(iv.date) : ''}
         <div class="details">
           <div class="row"><div class="k">形式</div><div>${iv.format || '未定'}</div></div>
           ${iv.location ? `<div class="row"><div class="k">場所</div><div>${iv.location}</div></div>` : ''}
@@ -845,12 +1059,11 @@ function renderInterviews() {
           ${iv.changeContact ? `<div class="row"><div class="k">日程変更</div><div style="font-size:11px;color:#555">${iv.changeContact}</div></div>` : ''}
           ${iv.note ? `<div class="row"><div class="k">ご案内</div><div style="color:#D35400;font-weight:600">${iv.note}</div></div>` : ''}
         </div>
-        ${iv.meetingUrl ? `
+        ${!isArranging || iv.meetingUrl ? `
           <div style="margin-top:14px;text-align:center">
-            <a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:12px 24px">
-              🎥 Teamsで面接に参加する
-            </a>
-            <div style="font-size:11px;color:#7f8c8d;margin-top:6px">面接時刻になりましたらクリックしてください</div>
+            ${iv.meetingUrl ? `<a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:12px 24px">🎥 Teamsで面接に参加する</a>` : ''}
+            ${!isArranging ? `<button onclick="downloadICS('${j.id}')" class="btn-calendar">📅 カレンダーに追加</button>` : ''}
+            ${iv.meetingUrl ? `<div style="font-size:11px;color:#7f8c8d;margin-top:6px">面接時刻になりましたらクリックしてください</div>` : ''}
           </div>` : ''}
       </div>
     `;
@@ -981,6 +1194,7 @@ function renderJobCard(j) {
 
 function render() {
   greeting();
+  renderTodayBanner();
   renderStats();
   renderInterviews();
   renderJobs();
