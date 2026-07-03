@@ -150,6 +150,24 @@
     margin-bottom: 4px;
   }
   .job-title .role { font-size: 13px; color: #7f8c8d; }
+  .new-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+    letter-spacing: 0.08em;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.35);
+    animation: newPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes newPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 2px 8px rgba(255, 107, 107, 0.35); }
+    50% { transform: scale(1.08); box-shadow: 0 3px 12px rgba(255, 107, 107, 0.5); }
+  }
 
   .status-pill {
     display: inline-block;
@@ -545,6 +563,7 @@ const DATA = {
       url: 'https://circus-job.com/selections/4361587/job?jobDetailPublicToken=1c4b6621-077f-4872-a64b-edc389a1b3dc',
       status: 'proposed',
       interview: null,
+      isNew: true,
       timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
     },
     {
@@ -564,6 +583,7 @@ const DATA = {
       url: 'https://circus-job.com/selections/4361580/job?jobDetailPublicToken=c8324e43-1939-44a4-ad61-fb0c2298cf1b',
       status: 'proposed',
       interview: null,
+      isNew: true,
       timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
     },
     {
@@ -583,6 +603,7 @@ const DATA = {
       url: 'https://circus-job.com/selections/4361578/job?jobDetailPublicToken=39efc798-fabc-4683-a369-1b18996fe540',
       status: 'proposed',
       interview: null,
+      isNew: true,
       timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
     },
     {
@@ -602,6 +623,7 @@ const DATA = {
       url: 'https://circus-job.com/selections/4361536/job?jobDetailPublicToken=ca158d38-74d9-47aa-9ff2-ba9e6e9866de',
       status: 'proposed',
       interview: null,
+      isNew: true,
       timeline: [{ date: '2026-07-03', event: '案件をご提案しました' }],
     },
   ],
@@ -709,7 +731,7 @@ function renderJobCard(j) {
     <div class="job status-${j.status}">
       <div class="job-head">
         <div class="job-title">
-          <h3>${j.company}</h3>
+          <h3>${j.company}${j.isNew ? '<span class="new-badge">NEW</span>' : ''}</h3>
           <div class="role">${j.role}</div>
         </div>
         <span class="status-pill status-${j.status}">${s.label}</span>
