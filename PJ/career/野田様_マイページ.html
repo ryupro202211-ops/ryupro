@@ -928,76 +928,35 @@ function parseInterviewDateTime(dateStr, timeStr) {
   };
 }
 
-// Date → iCalendar形式 (YYYYMMDDTHHMMSS)
-function toICSDate(dt) {
-  const pad = n => String(n).padStart(2, '0');
-  return `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}00`;
-}
-
-// iCalendar文字列のエスケープ (改行、コンマ、セミコロン)
-function icsEscape(s) {
-  return (s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
-}
-
-// 面接情報から .ics ファイル内容を生成
-function generateICS(job) {
-  const iv = job.interview;
-  const dt = parseInterviewDateTime(iv.date, iv.time);
-  if (!dt) return null;
-
-  const desc = [
-    iv.format ? `形式: ${iv.format}` : '',
-    iv.meetingUrl ? `\\nTeams URL:\\n${iv.meetingUrl}` : '',
-    iv.meetingId ? `\\nミーティングID: ${iv.meetingId}` : '',
-    iv.passcode ? `\\nパスコード: ${iv.passcode}` : '',
-    iv.changeContact ? `\\n\\n日程変更: ${iv.changeContact}` : '',
-  ].filter(Boolean).join('');
-
-  const uid = `${job.id}-${iv.date.replace(/[^0-9]/g, '')}@ryupro-mypage`;
-
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//UCHIAGE//Career Support Mypage//JA',
-    'CALSCALE:GREGORIAN',
-    'BEGIN:VEVENT',
-    `UID:${uid}`,
-    `DTSTAMP:${toICSDate(new Date())}`,
-    `DTSTART:${toICSDate(dt.start)}`,
-    `DTEND:${toICSDate(dt.end)}`,
-    `SUMMARY:${icsEscape(`${iv.round || '面接'} / ${job.company}`)}`,
-    `DESCRIPTION:${icsEscape(desc)}`,
-    `LOCATION:${icsEscape(iv.format || 'オンライン')}`,
-    'BEGIN:VALARM',
-    'TRIGGER:-P1D',
-    'ACTION:DISPLAY',
-    'DESCRIPTION:明日は面接です',
-    'END:VALARM',
-    'BEGIN:VALARM',
-    'TRIGGER:-PT30M',
-    'ACTION:DISPLAY',
-    'DESCRIPTION:面接開始30分前',
-    'END:VALARM',
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n');
-}
-
-// カレンダー追加ボタンのハンドラ
-function downloadICS(jobId) {
+// Googleカレンダー予約リンクを開く
+function openGoogleCalendar(jobId) {
   const job = data.jobs.find(j => j.id === jobId);
   if (!job || !job.interview) return;
-  const ics = generateICS(job);
-  if (!ics) { alert('カレンダーファイルを生成できませんでした。日程情報をご確認ください。'); return; }
-  const blob = new Blob([ics], {type: 'text/calendar;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${job.company.replace(/[\\/:*?"<>|]/g, '_')}_${job.interview.round || '面接'}.ics`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const iv = job.interview;
+  const dt = parseInterviewDateTime(iv.date, iv.time);
+  if (!dt) { alert('日程情報が不完全です'); return; }
+
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = d => `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+
+  const details = [
+    iv.format ? `形式: ${iv.format}` : '',
+    iv.meetingUrl ? `\nTeams URL:\n${iv.meetingUrl}` : '',
+    iv.meetingId ? `\nミーティングID: ${iv.meetingId}` : '',
+    iv.passcode ? `\nパスコード: ${iv.passcode}` : '',
+    iv.changeContact ? `\n\n日程変更: ${iv.changeContact}` : '',
+  ].filter(Boolean).join('');
+
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: `${iv.round || '面接'} / ${job.company}`,
+    dates: `${fmt(dt.start)}/${fmt(dt.end)}`,
+    details: details,
+    location: iv.format || 'オンライン',
+    ctz: 'Asia/Tokyo',
+  });
+
+  window.open(`https://calendar.google.com/calendar/render?${params.toString()}`, '_blank');
 }
 
 // 本日面接のあるジョブがあればトップにバナー表示
@@ -1062,7 +1021,7 @@ function renderInterviews() {
         ${!isArranging || iv.meetingUrl ? `
           <div style="margin-top:14px;text-align:center">
             ${iv.meetingUrl ? `<a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:12px 24px">🎥 Teamsで面接に参加する</a>` : ''}
-            ${!isArranging ? `<button onclick="downloadICS('${j.id}')" class="btn-calendar">📅 カレンダーに追加</button>` : ''}
+            ${!isArranging ? `<button onclick="openGoogleCalendar('${j.id}')" class="btn-calendar">📅 Googleカレンダーに追加</button>` : ''}
             ${iv.meetingUrl ? `<div style="font-size:11px;color:#7f8c8d;margin-top:6px">面接時刻になりましたらクリックしてください</div>` : ''}
           </div>` : ''}
       </div>
