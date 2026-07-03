@@ -1,0 +1,80 @@
+name: Deploy GitHub Pages (auto-retry)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時実行制御 - 前のデプロイが終わってから次に進む
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.final.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages (attempt 1)
+        id: try1
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Wait before retry (30s)
+        if: steps.try1.outcome != 'success'
+        run: |
+          echo "Attempt 1 failed. Waiting 30 seconds before retry..."
+          sleep 30
+
+      - name: Deploy to GitHub Pages (attempt 2)
+        id: try2
+        if: steps.try1.outcome != 'success'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Wait before final retry (60s)
+        if: steps.try1.outcome != 'success' && steps.try2.outcome != 'success'
+        run: |
+          echo "Attempt 2 failed. Waiting 60 seconds before final retry..."
+          sleep 60
+
+      - name: Deploy to GitHub Pages (attempt 3 - final)
+        id: try3
+        if: steps.try1.outcome != 'success' && steps.try2.outcome != 'success'
+        uses: actions/deploy-pages@v4
+
+      - name: Report deployment result
+        id: final
+        run: |
+          if [ "${{ steps.try1.outcome }}" = "success" ]; then
+            echo "✅ Deployed on attempt 1"
+            echo "page_url=${{ steps.try1.outputs.page_url }}" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.try2.outcome }}" = "success" ]; then
+            echo "✅ Deployed on attempt 2 (1 retry)"
+            echo "page_url=${{ steps.try2.outputs.page_url }}" >> $GITHUB_OUTPUT
+          elif [ "${{ steps.try3.outcome }}" = "success" ]; then
+            echo "✅ Deployed on attempt 3 (2 retries)"
+            echo "page_url=${{ steps.try3.outputs.page_url }}" >> $GITHUB_OUTPUT
+          fi
