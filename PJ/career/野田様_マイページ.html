@@ -542,17 +542,23 @@ const DATA = {
         '夜間勤務なし・残業月10時間以下・年間休日120日と労働条件も良好',
       ],
       url: 'https://circus-job.com/selections/4341611/job?jobDetailPublicToken=c54ca923-8e20-4e66-b75b-0be665ce1f21',
-      status: 'arrangingInterview',
+      status: 'interviewScheduled',
       interview: {
         round: '一次面接',
-        format: 'オンライン',
-        date: null,
-        note: 'ご希望日時を担当キャリアアドバイザーまでお知らせください。日程確定後にオンライン面接URLをお送りします。',
+        format: 'オンライン (Microsoft Teams)',
+        date: '2026-07-07 (火)',
+        time: '18:00〜19:00',
+        duration: '30分〜1時間',
+        meetingUrl: 'https://teams.microsoft.com/l/meetup-join/19%3ameeting_NTg1ZDcyY2EtNzA5MS00ZjVlLWFiMWItOTRmMzA5NjUwYzg4%40thread.v2/0?context=%7b%22Tid%22%3a%221afda869-1f95-44ee-9a1d-688120f4fc18%22%2c%22Oid%22%3a%228c9a4c99-41cb-4959-a03e-097b9ec38e7e%22%7d',
+        meetingId: '475 097 170 530 71',
+        passcode: 'iS7yG67y',
+        changeContact: '採用部 03-6679-2918(メールまたはお電話で日程変更・取消可能)',
       },
       timeline: [
         { date: '2026-07-02', event: '案件をご提案しました' },
         { date: '2026-07-03', event: '書類選考が開始されました(結果待ち)' },
         { date: '2026-07-03', event: '🎉 書類選考通過!一次面接のご案内を受領' },
+        { date: '2026-07-03', event: '一次面接日程確定:2026-07-07(火) 18:00〜19:00' },
       ],
     },
     {
@@ -717,9 +723,19 @@ function renderInterviews() {
           ${iv.location ? `<div class="row"><div class="k">場所</div><div>${iv.location}</div></div>` : ''}
           ${iv.interviewer ? `<div class="row"><div class="k">面接官</div><div>${iv.interviewer}</div></div>` : ''}
           ${iv.duration ? `<div class="row"><div class="k">所要時間</div><div>${iv.duration}</div></div>` : ''}
+          ${iv.meetingId ? `<div class="row"><div class="k">ミーティングID</div><div style="font-family:monospace">${iv.meetingId}</div></div>` : ''}
+          ${iv.passcode ? `<div class="row"><div class="k">パスコード</div><div style="font-family:monospace;font-weight:700">${iv.passcode}</div></div>` : ''}
           ${iv.prep ? `<div class="row"><div class="k">事前準備</div><div>${iv.prep}</div></div>` : ''}
+          ${iv.changeContact ? `<div class="row"><div class="k">日程変更</div><div style="font-size:11px;color:#555">${iv.changeContact}</div></div>` : ''}
           ${iv.note ? `<div class="row"><div class="k">ご案内</div><div style="color:#D35400;font-weight:600">${iv.note}</div></div>` : ''}
         </div>
+        ${iv.meetingUrl ? `
+          <div style="margin-top:14px;text-align:center">
+            <a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:12px 24px">
+              🎥 Teamsで面接に参加する
+            </a>
+            <div style="font-size:11px;color:#7f8c8d;margin-top:6px">面接時刻になりましたらクリックしてください</div>
+          </div>` : ''}
       </div>
     `;
   }).join('');
