@@ -748,6 +748,7 @@ const DATA = {
         meetingId: '475 097 170 530 71',
         passcode: 'iS7yG67y',
         changeContact: '採用部 03-6679-2918(メールまたはお電話で日程変更・取消可能)',
+        prepGuideUrl: 'https://ryupro202211-ops.github.io/ryupro/PJ/career/野田様_面接ロープレ_ラクスパートナーズ.html',
       },
       timeline: [
         { date: '2026-07-02', event: '案件をご提案しました' },
@@ -1023,7 +1024,13 @@ function renderInterviews() {
             ${iv.meetingUrl ? `<a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:12px 24px">🎥 Teamsで面接に参加する</a>` : ''}
             ${!isArranging ? `<button onclick="openGoogleCalendar('${j.id}')" class="btn-calendar">📅 Googleカレンダーに追加</button>` : ''}
             ${iv.meetingUrl ? `<div style="font-size:11px;color:#7f8c8d;margin-top:6px">面接時刻になりましたらクリックしてください</div>` : ''}
-          </div>` : ''}
+          </div>
+          ${iv.prepGuideUrl ? `
+          <div style="margin-top:10px;padding:14px 16px;background:linear-gradient(135deg,#FFF5F7 0%,#F4F9FC 100%);border:2px dashed #F4C6D5;border-radius:12px;text-align:center">
+            <div style="font-size:12px;color:#4A6FA5;font-weight:700;margin-bottom:8px">📝 面接前にぜひご一読ください</div>
+            <a href="${iv.prepGuideUrl}" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">🌸 面接ロープレ対策資料を開く</a>
+            <div style="font-size:11px;color:#7f8c8d;margin-top:8px">想定質問・回答例・逆質問・NGワードなど収録</div>
+          </div>` : ''}` : ''}
       </div>
     `;
   }).join('');
