@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>木村様専用 物件一覧 – 全6件</title>
+<style>
+:root {
+  --bg: #f6f4ef;
+  --card: #ffffff;
+  --ink: #232629;
+  --ink-sub: #6a6d72;
+  --line: #e4e2dc;
+  --accent: #1f6f5c;
+  --accent-soft: #dcece6;
+  --gold: #b7891f;
+  --warn: #c94a3f;
+  --tag-a: #eaf3ee;
+  --tag-b: #efe9d9;
+  --tag-c: #ecd8d5;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+header.hero {
+  background: linear-gradient(135deg, #1f6f5c 0%, #2a8a72 100%);
+  color: white;
+  padding: 30px 20px 24px;
+  text-align: center;
+}
+header.hero h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+header.hero .sub {
+  font-size: 13px;
+  opacity: 0.92;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.criteria {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.criteria h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 20px;
+  font-size: 13px;
+}
+.criteria-grid div span:first-child {
+  color: var(--ink-sub);
+  font-size: 11px;
+  display: block;
+}
+.criteria-grid div span:last-child {
+  font-weight: 600;
+}
+.priorities {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  color: var(--ink-sub);
+}
+.priorities strong { color: var(--ink); }
+
+.controls {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+}
+.controls > * { flex: 0 0 auto; }
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+.control-group label {
+  color: var(--ink-sub);
+  font-size: 12px;
+}
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.chip:hover { border-color: var(--accent); }
+.chip.on {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.count-badge {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--ink-sub);
+  font-weight: 500;
+}
+.count-badge strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+}
+.card.hidden { display: none; }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.card-name-sub {
+  font-size: 11.5px;
+  color: var(--ink-sub);
+  margin-top: 2px;
+}
+.card-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+.card-price .total {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.card-price .breakdown {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  margin-top: 3px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.tag {
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tag-a);
+  color: var(--accent);
+  font-weight: 500;
+}
+.tag.new { background: var(--tag-b); color: var(--gold); }
+.tag.warn { background: var(--tag-c); color: var(--warn); }
+
+.meta-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #faf9f4;
+  border-radius: 8px;
+}
+.meta-row div span:first-child {
+  color: var(--ink-sub);
+  font-size: 10.5px;
+  display: block;
+}
+.meta-row div span:last-child {
+  font-weight: 600;
+  font-size: 12.5px;
+}
+.notes {
+  font-size: 12px;
+  color: var(--ink-sub);
+  line-height: 1.55;
+  padding: 8px 0 12px;
+  border-top: 1px dashed var(--line);
+  margin-top: auto;
+}
+.notes strong { color: var(--ink); }
+.pros-list {
+  margin: 6px 0 12px;
+  padding-left: 20px;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.pros-list li {
+  margin-bottom: 4px;
+}
+.pros-list li::marker {
+  color: var(--accent);
+}
+.new-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff5252, #d63a3a);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(214,58,58,0.35);
+}
+.added-date {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  text-align: right;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  margin-top: 8px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.btn {
+  flex: 1;
+  text-align: center;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+.btn-primary:hover { background: #175a4a; }
+.btn-secondary {
+  background: white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--ink-sub);
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+  grid-column: 1 / -1;
+}
+
+footer.foot {
+  text-align: center;
+  padding: 24px 20px 40px;
+  color: var(--ink-sub);
+  font-size: 11.5px;
+}
+
+/* Modal for PDF preview */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+.modal-backdrop.on { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: min(1000px, 100%);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title { font-weight: 600; font-size: 14px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--ink-sub);
+  padding: 0 6px;
+}
+.modal iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  header.hero h1 { font-size: 18px; }
+  .card { padding: 14px 14px 12px; }
+  .card-price .total { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>木村様専用 物件セレクション</h1>
+  <div class="sub">最終更新 2026年7月6日</div>
+</header>
+
+<div class="container">
+
+  <section class="criteria">
+    <h2>木村様のご希望条件</h2>
+    <div class="criteria-grid">
+      <div><span>ご予算</span><span>家賃込 8万円 / 初期費用40万円</span></div>
+      <div><span>入居時期</span><span>2026年8月中旬</span></div>
+      <div><span>職場</span><span>六本木（30分以内）</span></div>
+      <div><span>エリア</span><span>都内 or 都内寄り千葉</span></div>
+      <div><span>間取り</span><span>1DK / 1LDK</span></div>
+      <div><span>広さ・築年</span><span>築5年以内・駅徒歩15分以内</span></div>
+      <div><span>必須設備</span><span>バストイレ別・2階以上・独立洗面台・2口以上コンロ・オートロック・室内洗濯機置場</span></div>
+      <div><span>ご希望構造</span><span>鉄筋コンクリート（可能ならば）</span></div>
+    </div>
+    <div class="priorities">
+      <strong>優先順位：</strong>設備の充実度 &gt; 部屋の広さ &gt; 家賃の安さ
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="control-group">
+      <label>並び順</label>
+      <select id="sort">
+        <option value="rent-asc">家賃が安い順</option>
+        <option value="size-desc">広さが大きい順</option>
+        <option value="walk-asc">駅から近い順</option>
+        <option value="age-asc">築が新しい順</option>
+      </select>
+    </div>
+    <div class="control-group" data-filter="line">
+      <label>沿線</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="常磐">常磐線</span>
+      <span class="chip" data-value="東西">東西線</span>
+      <span class="chip" data-value="TX">つくばEX</span>
+    </div>
+    <div class="control-group" data-filter="layout">
+      <label>間取</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="1DK">1DK</span>
+      <span class="chip" data-value="1LDK">1LDK</span>
+      <span class="chip" data-value="1LDK+ロフト">1LDK+ロフト</span>
+    </div>
+    <div class="control-group">
+      <label>ご予算</label>
+      <select id="rentcap">
+        <option value="100000" selected>家賃込10万円まで</option>
+        <option value="90000">家賃込9万円まで</option>
+        <option value="85000">家賃込8.5万円まで</option>
+        <option value="80000">家賃込8万円まで（絶対上限）</option>
+      </select>
+    </div>
+    <div class="count-badge">表示中 <strong id="count">6</strong> / 6件</div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+</div>
+
+<footer class="foot">
+  ご不明点はお気軽にLINEまたはメールにてお問い合わせください。<br>
+  ※図面は仲介業者向け内部資料を元にお客様向けに加工したものです。
+</footer>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">図面プレビュー</div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <iframe id="modal-frame" src=""></iframe>
+  </div>
+</div>
+
+<script>
+const PROPERTIES = [
+  {
+    id: '01',
+    name: 'アピチェ南千住B棟',
+    unit: '402号室',
+    line: '常磐',
+    station: '南千住',
+    walk: 11,
+    size: 20.00,
+    layout: '1DK',
+    rent: 90000,
+    kanri: 10000,
+    total: 100000,
+    deposit: 'なし',
+    reikin: '礼1ヶ月',
+    year: 2024,
+    structure: '鉄筋コンクリート',
+    tags: [
+      {t:'RC造', c:'new'},
+      {t:'4階', c:''},
+      {t:'六本木27分', c:''},
+      {t:'築2年', c:''},
+    ],
+    pros: [
+      'ご希望のRC造・4階の高層階、南東向きで日当たり良好',
+      '日比谷線 三ノ輪駅（徒歩13分）から六本木まで直通約27分、通勤最短',
+      '築2024年8月で築2年、最新設備',
+      'オートロック・宅配BOX・防犯カメラ・浴室乾燥機・温水洗浄便座・モニター付インターホン完備',
+      'インターネット無料、更新料0ヶ月',
+    ],
+    cons: [
+      '家賃込10万円で予算8万円から+2万円',
+      '専有面積20㎡（他候補と比較して狭め）',
+      '定期借家契約（再契約可・大手法人相談可）、短期解約違約金1年未満2ヶ月',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1hI-k2VhvE7yEyLimfOfDjQRJD5dFhIOS',
+  },
+  {
+    id: '02',
+    name: 'FOREST M24',
+    unit: '205号室',
+    line: '東西',
+    station: '妙典',
+    walk: 13,
+    size: 27.50,
+    layout: '1DK',
+    rent: 82000,
+    kanri: 3000,
+    total: 85000,
+    deposit: 'なし',
+    reikin: '礼1ヶ月',
+    year: 2019,
+    structure: '鉄骨造',
+    tags: [
+      {t:'鉄骨造', c:''},
+      {t:'2階', c:''},
+      {t:'六本木35分', c:''},
+      {t:'南西向き', c:''},
+    ],
+    pros: [
+      '東京メトロ東西線 妙典駅から六本木まで約35分',
+      '独立洗面台・2口ガスコンロ・オートロック・宅配BOX完備',
+      'バス・トイレ別、室内洗濯機置場、インターネット無料',
+      '広さ27.5㎡、DK6.9帖＋洋室4.5帖でゆったり',
+      '鉄骨造マンション（2階/3階建）で防音・耐震性能◎',
+    ],
+    cons: [
+      '定期借家契約2年（再契約可、法人契約時は普通借家への変更を要相談）',
+      '3年未満の解約時は違約金あり（賃料+管理費の1ヶ月分）',
+      'その他費用：鍵交換24,200円・室内消毒16,500円・退去時クリーニング66,000円',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1lo47h6infeKeAw3BURksbyRMFSzazcW-',
+  },
+  {
+    id: '03',
+    name: 'RIZE柏たなかⅠ',
+    unit: '303号室',
+    line: 'TX',
+    station: '柏たなか',
+    walk: 14,
+    size: 33.62,
+    layout: '1LDK',
+    rent: 80000,
+    kanri: 3000,
+    total: 83000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2025,
+    structure: '木造',
+    tags: [
+      {t:'家賃最安', c:'new'},
+      {t:'3階', c:''},
+      {t:'築1年', c:'new'},
+      {t:'33.62㎡', c:''},
+    ],
+    pros: [
+      '家賃込8.3万円で候補中最安（予算+3千円）',
+      '築2025年6月の築1年、最新設備が揃っている',
+      'オートロック・宅配BOX・防犯カメラ・24時間換気システム・温水洗浄便座',
+      '独立洗面台（シャンプードレッサー）・2口ガス・浴室暖房換気乾燥機',
+      '広さ33.62㎡（LDK 8.36帖＋洋室4.23帖）で候補中最大、1LDKでゆったり',
+      'インターネット無料 J:COM 1ギガ、敷金・礼金ゼロ、都市ガス（経済的）',
+    ],
+    cons: [
+      '木造3階建（ご希望のRC造ではありません）',
+      'つくばEX柏たなか駅から六本木まで乗り換え複数、約55分',
+      '駐車場なし（駐輪1世帯1台のみ）',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1klaFfxEbgdUZR--VvZ-3ORXr_k0kKmT9',
+  },
+  {
+    id: '04',
+    name: 'Lotus Gran松戸',
+    unit: '301号室',
+    line: '常磐',
+    station: '松戸',
+    walk: 8,
+    size: 31.17,
+    layout: '1LDK+ロフト',
+    rent: 80000,
+    kanri: 5000,
+    total: 85000,
+    deposit: 'なし',
+    reikin: '礼0.5ヶ月',
+    year: 2024,
+    structure: '木造',
+    tags: [
+      {t:'南角部屋', c:''},
+      {t:'築2年', c:'new'},
+      {t:'松戸8分', c:''},
+      {t:'ロフト付き', c:''},
+    ],
+    pros: [
+      '築2024年3月の築2年、最新設備',
+      'JR常磐線＆新京成線 松戸駅から徒歩8分の好立地（複数路線利用可）',
+      '南角部屋で採光良好、内廊下・宅配BOX',
+      'オートロック・防犯カメラ・独立洗面台・浴室乾燥機・モニター付インターホン',
+      '1LDK+ロフト（LDK9.9帖＋洋室3.7帖）で収納力大、31.17㎡',
+    ],
+    cons: [
+      '木造3階建（ご希望のRC造ではありません）',
+      '六本木まで乗換複数で約45分',
+      'プロパンガス（都市ガスより高くなる可能性）',
+      '解約違約金：1年未満2ヶ月、2年未満1ヶ月／契約時ハウスクリーニング71,500円',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1CwY3mOLw77qBzIovRoIPPMkrktjPG2cJ',
+  },
+  {
+    id: '05',
+    name: 'モルゲンレーテ',
+    unit: '202号室',
+    line: '常磐',
+    station: '松戸',
+    walk: 13,
+    size: 29.01,
+    layout: '1LDK',
+    rent: 82000,
+    kanri: 4000,
+    total: 86000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2020,
+    structure: '木造',
+    tags: [
+      {t:'全戸角部屋', c:''},
+      {t:'築6年', c:''},
+      {t:'2駅利用可', c:''},
+      {t:'単身限定', c:''},
+    ],
+    pros: [
+      'JR常磐線 松戸駅徒歩13分／京成松戸線 上本郷駅徒歩10分の2駅利用可',
+      '全戸角部屋でプライバシー確保、隣り合う面が少ない間取り',
+      'オートロック・宅配BOX・温水洗浄便座・防犯カメラ・シャンプードレッサー',
+      'ウォークインクローゼット、バス・トイレ別、2口ガス、浴室換気乾燥機',
+      'インターネット無料 J:COM、徒歩圏内にファミマ・すし銚子丸・ステーキのあさくま',
+    ],
+    cons: [
+      '木造3階建（ご希望のRC造ではありません）',
+      '単身入居限定、禁煙物件（電子タバコ・加熱式タバコも含む）',
+      '2年未満解約時に違約金あり（2年未満1ヶ月／1年未満2ヶ月）',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1zUyhhVhDduY05fwSeLBFxdGm9_WikKeb',
+  },
+  {
+    id: '06',
+    name: 'LUXIA柏',
+    unit: '304号室',
+    line: '常磐',
+    station: '柏',
+    walk: 9,
+    size: 31.34,
+    layout: '1LDK',
+    rent: 82000,
+    kanri: 5000,
+    total: 87000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2021,
+    structure: '木造',
+    tags: [
+      {t:'角住戸最上階', c:''},
+      {t:'築5年', c:''},
+      {t:'柏9分', c:''},
+      {t:'二人入居可', c:''},
+    ],
+    pros: [
+      '築2021年2月の築5年、比較的新しい',
+      '常磐線・常磐緩行線 柏駅から徒歩9分の好立地',
+      '角住戸で採光良好、3階建の3階（最上階）',
+      '独立洗面台・システムキッチン・2口ガス・浴室乾燥・光ファイバー',
+      'ウォークインクローゼット、二人入居可',
+      '敷金・礼金ゼロ',
+    ],
+    cons: [
+      '木造3階建（ご希望のRC造ではありません）',
+      '向き：北西（日照は控えめ）',
+      '更新料 1ヶ月、その他費用：抗菌施工16,500円・消毒剤12,100円・ダスキン16,500円',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1fdYR7omgUsedXwicvCsJeFOytKO_3RJ5',
+  },
+];
+
+// ---------- Rendering ----------
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+
+function fmt(n) { return n.toLocaleString('ja-JP'); }
+
+// CUSTOMIZE: Set to the date of the latest batch of properties. Any property
+// whose addedAt is >= this date shows a "NEW" badge. Update this whenever you
+// add a new batch so the previous batch stops being NEW.
+const NEW_SINCE = '2026-07-06';
+
+function cardHtml(p) {
+  const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
+  const unitStr = p.unit ? ` ${p.unit}` : '';
+  const isNew = p.addedAt && p.addedAt >= NEW_SINCE;
+  const newBadge = isNew ? '<span class="new-badge">NEW</span>' : '';
+  const dateStr = p.addedAt ? p.addedAt.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1年$2月$3日') : '';
+  return `
+    <div class="card" data-id="${p.id}" data-line="${p.line}" data-layout="${p.layout}" data-total="${p.total}" data-size="${p.size}" data-walk="${p.walk}" data-year="${p.year}">
+      <div class="card-header">
+        <div>
+          <div class="card-name">${newBadge}${p.name}${unitStr}</div>
+          <div class="card-name-sub">${p.line}線 ${p.station}駅 徒歩${p.walk}分</div>
+        </div>
+        <div class="card-price">
+          <div class="total">${fmt(p.total)}<span style="font-size:11px">円</span></div>
+          <div class="breakdown">賃料 ${fmt(p.rent)} + 管理 ${fmt(p.kanri)}</div>
+        </div>
+      </div>
+      <div class="tags">${tagsHtml}</div>
+      <div class="meta-row">
+        <div><span>広さ</span><span>${p.size}㎡</span></div>
+        <div><span>間取り</span><span>${p.layout}</span></div>
+        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
+        <div><span>構造</span><span>${p.structure}</span></div>
+        <div><span>敷金</span><span>${p.deposit}</span></div>
+        <div><span>礼金</span><span>${p.reikin}</span></div>
+      </div>
+      <div class="notes">
+        <strong>おすすめポイント</strong>
+        <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
+        ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
+        <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>
+      </div>
+      ${dateStr ? `<div class="added-date">物件情報の登録日：${dateStr}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderAll() {
+  grid.innerHTML = PROPERTIES.map(cardHtml).join('');
+  applyFilters();
+}
+
+// ---------- Filtering + Sorting ----------
+const state = {
+  line: 'all',
+  layout: 'all',
+  sort: 'rent-asc',
+  rentcap: 100000,
+};
+
+document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.line = c.dataset.value;
+    applyFilters();
+  });
+});
+document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.layout = c.dataset.value;
+    applyFilters();
+  });
+});
+document.getElementById('sort').addEventListener('change', e => {
+  state.sort = e.target.value;
+  applyFilters();
+});
+document.getElementById('rentcap').addEventListener('change', e => {
+  state.rentcap = parseInt(e.target.value, 10);
+  applyFilters();
+});
+
+function applyFilters() {
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const filtered = cards.filter(card => {
+    if (state.line !== 'all' && card.dataset.line !== state.line) return false;
+    if (state.layout !== 'all' && card.dataset.layout !== state.layout) return false;
+    if (parseInt(card.dataset.total, 10) > state.rentcap) return false;
+    return true;
+  });
+  // sort
+  filtered.sort((a, b) => {
+    const ka = a.dataset, kb = b.dataset;
+    switch (state.sort) {
+      case 'rent-asc': return (+ka.total) - (+kb.total);
+      case 'size-desc': return (+kb.size) - (+ka.size);
+      case 'walk-asc': return (+ka.walk) - (+kb.walk);
+      case 'age-asc': return (+kb.year) - (+ka.year);
+    }
+    return 0;
+  });
+  // apply visibility & order
+  cards.forEach(c => c.classList.add('hidden'));
+  filtered.forEach(c => {
+    c.classList.remove('hidden');
+    grid.appendChild(c);
+  });
+  countEl.textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    if (!grid.querySelector('.empty')) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = '条件に合う物件がありません。フィルタを緩めてお試しください。';
+      grid.appendChild(empty);
+    }
+  } else {
+    const existing = grid.querySelector('.empty');
+    if (existing) existing.remove();
+  }
+}
+
+// ---------- Preview modal ----------
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalFrame = document.getElementById('modal-frame');
+
+function openPreview(driveId, name) {
+  modalTitle.textContent = '図面プレビュー：' + name;
+  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+  modal.classList.add('on');
+}
+document.getElementById('modal-close').addEventListener('click', () => {
+  modal.classList.remove('on');
+  modalFrame.src = '';
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) {
+    modal.classList.remove('on');
+    modalFrame.src = '';
+  }
+});
+
+renderAll();
+</script>
+</body>
+</html>
