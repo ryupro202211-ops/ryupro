@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>木村様専用 物件一覧 – 全6件</title>
+<title>木村様専用 物件一覧 – 全7件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -418,10 +418,12 @@ footer.foot {
       <span class="chip" data-value="常磐">常磐線</span>
       <span class="chip" data-value="東西">東西線</span>
       <span class="chip" data-value="TX">つくばEX</span>
+      <span class="chip" data-value="京成">京成本線</span>
     </div>
     <div class="control-group" data-filter="layout">
       <label>間取</label>
       <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="1R">1R</span>
       <span class="chip" data-value="1DK">1DK</span>
       <span class="chip" data-value="1LDK">1LDK</span>
       <span class="chip" data-value="1LDK+ロフト">1LDK+ロフト</span>
@@ -435,7 +437,7 @@ footer.foot {
         <option value="80000">家賃込8万円まで（絶対上限）</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">6</strong> / 6件</div>
+    <div class="count-badge">表示中 <strong id="count">7</strong> / 7件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -645,6 +647,47 @@ const PROPERTIES = [
     ],
     addedAt: '2026-07-06',
     driveId: '1zUyhhVhDduY05fwSeLBFxdGm9_WikKeb',
+  },
+  {
+    id: '07',
+    name: 'Starlight Home',
+    unit: '301号室',
+    line: '京成',
+    station: '千住大橋',
+    walk: 9,
+    size: 17.42,
+    layout: '1R',
+    rent: 72000,
+    kanri: 4000,
+    total: 76000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2023,
+    structure: '木造',
+    tags: [
+      {t:'予算内◎', c:'new'},
+      {t:'3階', c:''},
+      {t:'築3年', c:'new'},
+      {t:'足立区', c:''},
+    ],
+    pros: [
+      '家賃込7.6万円で候補中唯一の予算内',
+      '築2023年3月の築3年、新しい設備が揃っている',
+      '京成本線 千住大橋駅から徒歩9分の都内立地（足立区）',
+      'オートロック・独立洗面台・2口キッチン・浴室乾燥機・TVモニターホン完備',
+      'IoT機能搭載・Wi-Fi完備・室内洗濯機置場・ウォシュレット・シューズBOX',
+      '敷金・礼金ゼロ、インターネット月額無料',
+    ],
+    cons: [
+      '間取り1R（ご希望の1DK/1LDKではありません）、住戸面積17.42㎡でコンパクト',
+      '木造3階建（ご希望のRC造ではありません）',
+      '京成本線→六本木まで乗換複数で約40-50分（ご希望30分は超過）',
+      'IoT物件のためスマホ必須（スマホを持っていないと入退出不可）',
+      'LPガス指定、単身限定、生活保護・水商売・留学生は申込不可',
+      '短期解約違約金：1年未満2ヶ月／1年以上2年未満1ヶ月、解約予告2ヶ月前',
+    ],
+    addedAt: '2026-07-06',
+    driveId: '1EN3rVeY4txkOMZXkC_JAf88sgu9GFyjR',
   },
   {
     id: '06',
