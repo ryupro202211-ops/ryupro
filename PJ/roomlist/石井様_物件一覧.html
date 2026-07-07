@@ -287,6 +287,78 @@ select {
   margin-top: 8px;
 }
 .contact-note strong { color: var(--accent); }
+.actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+.btn {
+  flex: 1;
+  text-align: center;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+.btn-primary:hover { background: #175a4a; }
+.btn-secondary {
+  background: white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+.modal-backdrop.on { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: min(1000px, 100%);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title { font-weight: 600; font-size: 14px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--ink-sub);
+  padding: 0 6px;
+}
+.modal iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+}
 
 .empty {
   padding: 60px 20px;
@@ -385,6 +457,16 @@ footer.foot {
   ※掲載情報は2026年7月7日時点のものです。募集状況は随時変動する可能性がございます。
 </footer>
 
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">図面プレビュー</div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <iframe id="modal-frame" src=""></iframe>
+  </div>
+</div>
+
 <script>
 const PROPERTIES = [
   {
@@ -421,7 +503,8 @@ const PROPERTIES = [
       'バルコニー方向は北東のため、朝方の採光が中心',
       '田町・浜松町の徒歩5分エリアからは外れます（御成門駅の最寄り）'
     ],
-    addedAt: '2026-07-07'
+    addedAt: '2026-07-07',
+    driveId: '1ErDRPO9t_83UswHtB9ek3Zicfs9MyJdj'
   },
   {
     id: '02',
@@ -458,7 +541,8 @@ const PROPERTIES = [
       '定期借家契約（2年）のため、契約満了時は再契約手続きが必要（更新料1ヶ月）',
       '礼金1ヶ月＋保険1.8万円/2年など契約時費用にご留意ください'
     ],
-    addedAt: '2026-07-07'
+    addedAt: '2026-07-07',
+    driveId: '1OEU0i1V2sBWN6MUiK005VWDj95c9vyYV'
   },
   {
     id: '03',
@@ -497,7 +581,8 @@ const PROPERTIES = [
       '駅徒歩10分と、ご希望の徒歩5分エリア外、主要採光面は西向きで夕方の西日にご留意',
       '1年未満の解約は違約金1ヶ月分／セントラル給湯・宅配ボックス使用は有料'
     ],
-    addedAt: '2026-07-07'
+    addedAt: '2026-07-07',
+    driveId: '1r9985HHIW7nRUntP6tDva67UA0irTrC2'
   },
   {
     id: '04',
@@ -534,7 +619,8 @@ const PROPERTIES = [
       '築1980年1月・築46年の旧耐震物件',
       '駅徒歩10分と、ご希望の徒歩5分エリア外／1年未満の解約は違約金1ヶ月分'
     ],
-    addedAt: '2026-07-07'
+    addedAt: '2026-07-07',
+    driveId: '1kaFH7Z9A4XsUD3nH5gittQXGYcGO8vkd'
   },
   {
     id: '05',
@@ -572,7 +658,8 @@ const PROPERTIES = [
       '最寄りは「日の出」駅（ゆりかもめ）徒歩7分、山手線「田町」駅は徒歩14分',
       '管理費13,000円＋24Hサポート19,800円・室内清掃50,000円・火災保険20,000円/2年など契約時費用が発生'
     ],
-    addedAt: '2026-07-07'
+    addedAt: '2026-07-07',
+    driveId: '1wMpQ91TblDljgQMkW61dIVYH-ZmWaf8R'
   }
 ];
 
@@ -615,9 +702,14 @@ function cardHtml(p) {
         <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
         ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
       </div>
+      ${p.driveId ? `
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
+        <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>
+      </div>` : `
       <div class="contact-note">
         図面・詳細情報・内見のご希望は<strong>ご担当までLINE等でお問い合わせ</strong>ください
-      </div>
+      </div>`}
       ${dateStr ? `<div class="added-date">物件情報の登録日：${dateStr}</div>` : ''}
     </div>
   `;
@@ -697,6 +789,26 @@ function applyFilters() {
     if (existing) existing.remove();
   }
 }
+
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalFrame = document.getElementById('modal-frame');
+
+function openPreview(driveId, name) {
+  modalTitle.textContent = '図面プレビュー：' + name;
+  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+  modal.classList.add('on');
+}
+document.getElementById('modal-close').addEventListener('click', () => {
+  modal.classList.remove('on');
+  modalFrame.src = '';
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) {
+    modal.classList.remove('on');
+    modalFrame.src = '';
+  }
+});
 
 renderAll();
 </script>
