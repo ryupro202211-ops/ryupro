@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>平尾様専用 物件一覧 – 全17件</title>
+<style>
+:root {
+  --bg: #f6f4ef;
+  --card: #ffffff;
+  --ink: #232629;
+  --ink-sub: #6a6d72;
+  --line: #e4e2dc;
+  --accent: #1f6f5c;
+  --accent-soft: #dcece6;
+  --gold: #b7891f;
+  --warn: #c94a3f;
+  --tag-a: #eaf3ee;
+  --tag-b: #efe9d9;
+  --tag-c: #ecd8d5;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+header.hero {
+  background: linear-gradient(135deg, #1f6f5c 0%, #2a8a72 100%);
+  color: white;
+  padding: 30px 20px 24px;
+  text-align: center;
+}
+header.hero h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+header.hero .sub {
+  font-size: 13px;
+  opacity: 0.92;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.criteria {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.criteria h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 20px;
+  font-size: 13px;
+}
+.criteria-grid div span:first-child {
+  color: var(--ink-sub);
+  font-size: 11px;
+  display: block;
+}
+.criteria-grid div span:last-child {
+  font-weight: 600;
+}
+.priorities {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  color: var(--ink-sub);
+}
+.priorities strong { color: var(--ink); }
+
+.controls {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+}
+.controls > * { flex: 0 0 auto; }
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+.control-group label {
+  color: var(--ink-sub);
+  font-size: 12px;
+}
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.chip:hover { border-color: var(--accent); }
+.chip.on {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.count-badge {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--ink-sub);
+  font-weight: 500;
+}
+.count-badge strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+}
+.card.hidden { display: none; }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.card-name-sub {
+  font-size: 11.5px;
+  color: var(--ink-sub);
+  margin-top: 2px;
+}
+.card-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+.card-price .total {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.card-price .breakdown {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  margin-top: 3px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.tag {
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tag-a);
+  color: var(--accent);
+  font-weight: 500;
+}
+.tag.new { background: var(--tag-b); color: var(--gold); }
+.tag.warn { background: var(--tag-c); color: var(--warn); }
+
+.meta-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #faf9f4;
+  border-radius: 8px;
+}
+.meta-row div span:first-child {
+  color: var(--ink-sub);
+  font-size: 10.5px;
+  display: block;
+}
+.meta-row div span:last-child {
+  font-weight: 600;
+  font-size: 12.5px;
+}
+.notes {
+  font-size: 12px;
+  color: var(--ink-sub);
+  line-height: 1.55;
+  padding: 8px 0 12px;
+  border-top: 1px dashed var(--line);
+  margin-top: auto;
+}
+.notes strong { color: var(--ink); }
+.pros-list {
+  margin: 6px 0 12px;
+  padding-left: 20px;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.pros-list li {
+  margin-bottom: 4px;
+}
+.pros-list li::marker {
+  color: var(--accent);
+}
+.new-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff5252, #d63a3a);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(214,58,58,0.35);
+}
+.added-date {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  text-align: right;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  margin-top: 8px;
+}
+.contact-note {
+  font-size: 11.5px;
+  color: var(--ink-sub);
+  text-align: center;
+  padding: 10px 0 6px;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+.contact-note strong { color: var(--accent); }
+.actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+}
+.btn {
+  flex: 1;
+  text-align: center;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+.btn-primary:hover { background: #175a4a; }
+.btn-secondary {
+  background: white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+.modal-backdrop.on { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: min(1000px, 100%);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title { font-weight: 600; font-size: 14px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--ink-sub);
+  padding: 0 6px;
+}
+.modal iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+}
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--ink-sub);
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+  grid-column: 1 / -1;
+}
+
+footer.foot {
+  text-align: center;
+  padding: 24px 20px 40px;
+  color: var(--ink-sub);
+  font-size: 11.5px;
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  header.hero h1 { font-size: 18px; }
+  .card { padding: 14px 14px 12px; }
+  .card-price .total { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>平尾様専用 物件セレクション</h1>
+  <div class="sub">最終更新 2026年7月7日 ／ 全17件</div>
+</header>
+
+<div class="container">
+
+  <section class="criteria">
+    <h2>平尾様のご希望条件</h2>
+    <div class="criteria-grid">
+      <div><span>ご予算</span><span>家賃管理費込み 12万円以内</span></div>
+      <div><span>初期費用</span><span>30万円以内</span></div>
+      <div><span>築年数</span><span>20年以内</span></div>
+      <div><span>設備</span><span>バストイレ別 ／ 都市ガス ／ 2階以上 ／ 独立洗面台 ／ 室内洗濯機置き場</span></div>
+    </div>
+    <div class="priorities">
+      <strong>優先順位：</strong>家賃の安さ ＞ 部屋の広さ ＞ 設備の充実度
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="control-group">
+      <label>並び順</label>
+      <select id="sort">
+        <option value="rent-asc">家賃が安い順</option>
+        <option value="size-desc">広さが大きい順</option>
+        <option value="walk-asc">駅から近い順</option>
+        <option value="age-asc">築が新しい順</option>
+      </select>
+    </div>
+    <div class="control-group" data-filter="line">
+      <label>沿線</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="山手線">山手線</span>
+      <span class="chip" data-value="京浜東北線">京浜東北線</span>
+      <span class="chip" data-value="都営三田線">三田線</span>
+      <span class="chip" data-value="都営大江戸線">大江戸線</span>
+      <span class="chip" data-value="都営浅草線">浅草線</span>
+      <span class="chip" data-value="ゆりかもめ">ゆりかもめ</span>
+    </div>
+    <div class="control-group" data-filter="layout">
+      <label>間取</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="1K">1K</span>
+      <span class="chip" data-value="1R">1R</span>
+      <span class="chip" data-value="ワンルーム">ワンルーム</span>
+    </div>
+    <div class="control-group">
+      <label>ご予算</label>
+      <select id="rentcap">
+        <option value="120000" selected>12万円まで</option>
+        <option value="110000">11万円まで</option>
+        <option value="100000">10万円まで</option>
+        <option value="90000">9万円まで</option>
+      </select>
+    </div>
+    <div class="count-badge">表示中 <strong id="count">17</strong> / 17件</div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+</div>
+
+<footer class="foot">
+  ご不明点・内見のご希望はお気軽にご担当までお問い合わせください。<br>
+  ※掲載情報は2026年7月7日時点のものです。募集状況は随時変動する可能性がございます。
+</footer>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">図面プレビュー</div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <iframe id="modal-frame" src=""></iframe>
+  </div>
+</div>
+
+<script>
+const PROPERTIES = [
+  {
+    id: '01',
+    name: 'ＤＩＫマンション新橋',
+    unit: '711号室',
+    line: '都営三田線',
+    station: '御成門',
+    walk: 5,
+    size: 25.62,
+    layout: 'ワンルーム',
+    rent: 92000,
+    kanri: 5000,
+    total: 97000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 1977,
+    structure: 'SRC',
+    tags: [
+      {t:'5件中最大25.62㎡', c:'new'},
+      {t:'御成門5分', c:''},
+      {t:'3路線利用可', c:''},
+      {t:'旧耐震', c:'warn'}
+    ],
+    pros: [
+      '専有面積25.62㎡・洋室12帖と5件中もっとも広いお部屋',
+      '都営三田線「御成門」駅5分、汐留・大門も徒歩10分の3路線利用可',
+      'SRC造10階建の7階、総戸数174戸の大規模マンションで管理体制が安定',
+      '専用バス・専用トイレ、エレベーター、都市ガス、電気コンロなど基本設備が揃う',
+      '保証人不要（保証会社加入要）、住宅保険加入要'
+    ],
+    cons: [
+      '築1977年8月・築49年の旧耐震物件',
+      'バルコニー方向は北東のため、朝方の採光が中心',
+      '田町・浜松町の徒歩5分エリアからは外れます（御成門駅の最寄り）'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1ErDRPO9t_83UswHtB9ek3Zicfs9MyJdj'
+  },
+  {
+    id: '02',
+    name: '東新橋ビル',
+    unit: '501号室',
+    line: '都営大江戸線',
+    station: '汐留',
+    walk: 5,
+    size: 22.94,
+    layout: '1R',
+    rent: 90000,
+    kanri: 6000,
+    total: 96000,
+    deposit: '敷なし',
+    reikin: '礼1ヶ月',
+    year: 1978,
+    structure: 'RC',
+    tags: [
+      {t:'汐留5分', c:''},
+      {t:'南東バルコニー', c:''},
+      {t:'3路線利用可', c:''},
+      {t:'旧耐震', c:'warn'},
+      {t:'定期借家', c:'warn'}
+    ],
+    pros: [
+      '都営大江戸線「汐留」駅徒歩5分、JR「新橋」駅8分・都営三田線「御成門」駅6分の3路線利用可',
+      '南東向きバルコニーで午前中〜昼過ぎまで日当たり良好',
+      '専有面積22.94㎡・洋室6.5帖の1R、RC造10階建の5階',
+      '敷金なしで初期費用が抑えやすい設計',
+      '入居時期は目安2026年9月中旬（現況：賃貸中のため要調整）'
+    ],
+    cons: [
+      '築1978年12月・築47年の旧耐震物件',
+      '定期借家契約（2年）のため、契約満了時は再契約手続きが必要（更新料1ヶ月）',
+      '礼金1ヶ月＋保険1.8万円/2年など契約時費用にご留意ください'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1OEU0i1V2sBWN6MUiK005VWDj95c9vyYV'
+  },
+  {
+    id: '03',
+    name: '東京ベイビュウ',
+    unit: '720号室',
+    line: '山手線',
+    station: '田町',
+    walk: 10,
+    size: 16.5,
+    layout: '1R',
+    rent: 83000,
+    kanri: 6000,
+    total: 89000,
+    deposit: '敷なし',
+    reikin: '礼なし',
+    year: 1980,
+    structure: 'SRC',
+    tags: [
+      {t:'敷礼ゼロ', c:'new'},
+      {t:'即入居可', c:'new'},
+      {t:'3沿線5駅利用可', c:''},
+      {t:'通風良好', c:''},
+      {t:'バストイレ同室', c:'warn'},
+      {t:'旧耐震', c:'warn'}
+    ],
+    pros: [
+      '敷金・礼金がゼロで、5件中もっとも初期費用が抑えやすい物件',
+      '専有面積16.5㎡・洋室6.5帖のコンパクトな1R、SRC造13階建の7階',
+      'JR山手線「田町」駅徒歩10分ほか、5駅3路線利用可・駅まで平坦',
+      '光インターネット接続可・エレベータ2基・分譲タイプ・耐火構造・敷地内ゴミ置き場',
+      '通風良好で開放感あり、即時入居可・8月入居のスケジュールが立てやすい'
+    ],
+    cons: [
+      '設備欄に「バストイレ同室」の明記あり（＝ユニットバス）、ご希望の「バストイレ別」の条件を満たしません',
+      '築1980年1月・築46年の旧耐震物件',
+      '駅徒歩10分と、ご希望の徒歩5分エリア外、主要採光面は西向きで夕方の西日にご留意',
+      '1年未満の解約は違約金1ヶ月分／セントラル給湯・宅配ボックス使用は有料'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1r9985HHIW7nRUntP6tDva67UA0irTrC2'
+  },
+  {
+    id: '04',
+    name: '東京ベイビュウ',
+    unit: '718号室',
+    line: '山手線',
+    station: '田町',
+    walk: 10,
+    size: 16.5,
+    layout: '1R',
+    rent: 82000,
+    kanri: 5000,
+    total: 87000,
+    deposit: '敷なし',
+    reikin: '礼1ヶ月',
+    year: 1980,
+    structure: 'SRC',
+    tags: [
+      {t:'5件中最安87,000円', c:'new'},
+      {t:'3沿線5駅利用可', c:''},
+      {t:'通風良好', c:''},
+      {t:'バストイレ同室', c:'warn'},
+      {t:'旧耐震', c:'warn'}
+    ],
+    pros: [
+      '管込87,000円で5件中もっとも家賃負担が軽い物件',
+      '専有面積16.5㎡・洋室6.5帖のコンパクトな1R、SRC造13階建の7階',
+      'JR山手線「田町」駅徒歩10分ほか、5駅3路線利用可・駅まで平坦で通風良好',
+      '光インターネット接続可・24時間換気システム・エレベータ2基・分譲タイプの安定設備',
+      '敷金ゼロ・保証人不要（エポス保証会社利用可）、法人契約・海外家賃相談も可能'
+    ],
+    cons: [
+      '設備欄に「バストイレ同室」の記載あり（=ユニットバス）、ご希望の「バストイレ別」の条件を満たしません',
+      '築1980年1月・築46年の旧耐震物件',
+      '駅徒歩10分と、ご希望の徒歩5分エリア外／1年未満の解約は違約金1ヶ月分'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1kaFH7Z9A4XsUD3nH5gittQXGYcGO8vkd'
+  },
+  {
+    id: '05',
+    name: 'アルティローサ芝浦',
+    unit: '501号室',
+    line: 'ゆりかもめ',
+    station: '日の出',
+    walk: 7,
+    size: 11.32,
+    layout: '1R',
+    rent: 84000,
+    kanri: 13000,
+    total: 97000,
+    deposit: '敷なし',
+    reikin: '礼なし',
+    year: 2025,
+    structure: 'RC',
+    tags: [
+      {t:'新築1年・唯一の新耐震', c:'new'},
+      {t:'設備一式・バス別', c:'new'},
+      {t:'8月上旬入居可', c:'new'},
+      {t:'東向き・角部屋', c:''},
+      {t:'エレベーターなし', c:'warn'}
+    ],
+    pros: [
+      '築2025年6月・築1年の新築物件、5件中唯一の新耐震・築浅物件',
+      '2026年8月上旬入居可能で、平尾様のご希望入居時期と合致',
+      'バス・トイレ別／オートロック／宅配BOX／温水洗浄便座／モニタ付インターホン／防犯カメラ／IH／インターネット無料など現代設備一式',
+      '東向き・角部屋・日当り良好で採光条件も◎、5階建の最上階',
+      '敷金・礼金ゼロ、デザイナーズ物件、ペット相談可'
+    ],
+    cons: [
+      '★建物にエレベーターがなく、5階まで階段のみでのご移動になります',
+      '専有面積11.32㎡と5件中もっともコンパクト（他物件は16〜25㎡）',
+      '最寄りは「日の出」駅（ゆりかもめ）徒歩7分、山手線「田町」駅は徒歩14分',
+      '管理費13,000円＋24Hサポート19,800円・室内清掃50,000円・火災保険20,000円/2年など契約時費用が発生'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1wMpQ91TblDljgQMkW61dIVYH-ZmWaf8R'
+  },
+  {
+    id: '06',
+    name: 'クレイシア芝浦',
+    unit: '404号室',
+    line: '山手線',
+    station: '田町',
+    walk: 9,
+    size: 20.47,
+    layout: '1K',
+    rent: 98000,
+    kanri: 12000,
+    total: 110000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2014,
+    structure: 'RC',
+    tags: [
+      {t:'田町9分・3路線', c:''},
+      {t:'都市ガス・バス別', c:''},
+      {t:'築11年', c:'new'},
+      {t:'2026年7月下旬入居可', c:'new'}
+    ],
+    pros: [
+      '専有面積20.47㎡・1K洋室6畳、RC造10階建の4階（北西バルコニー）',
+      'JR山手線「田町」9分、ゆりかもめ「日の出」9分、都営三田線「三田」9分の3路線利用可',
+      '築2014年7月・築11年で平尾様「築20年以内」ご希望に合致',
+      'バス・トイレ別、都市ガス、浴室乾燥機、モニター付きオートロック、宅配ボックス完備',
+      '賃料9.8万円＋管理費1.2万円＝管込11万円で予算内'
+    ],
+    cons: [
+      '主要採光面が北西向きのため、日中の日照は限定的',
+      '365日以内の解約は短期解約違約金（管込1ヶ月分）が発生',
+      '入居時費用に除菌消臭 8,800円・鍵交換代 35,200円・FAST ASSIST24 1,100円/月が発生'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1gcthT9TS5m9fOuXYW4gjrKNUqM8xWp3O'
+  },
+  {
+    id: '07',
+    name: 'ビルディング芝',
+    unit: '',
+    line: '山手線',
+    station: '田町',
+    walk: 9,
+    size: 16.16,
+    layout: 'ワンルーム',
+    rent: 59000,
+    kanri: 15000,
+    total: 74000,
+    deposit: '敷なし',
+    reikin: '礼なし',
+    year: 2022,
+    structure: 'SRC',
+    tags: [
+      {t:'管込7.4万円で最安', c:'new'},
+      {t:'田町9分・三田5分', c:''},
+      {t:'都市ガス・IH', c:''},
+      {t:'敷礼ゼロ', c:'new'},
+      {t:'竣工1981年・旧耐震', c:'warn'},
+      {t:'シャワーのみ', c:'warn'}
+    ],
+    pros: [
+      '専有面積16.16㎡・ワンルーム洋室6.2畳、SRC造11階建の8階',
+      '山手線・京浜東北線「田町」9分、都営三田線・浅草線「三田」5分の4路線利用可',
+      'フルリフォーム済み・ミニキッチン・IHクッキングヒーター・都市ガス',
+      '敷金・礼金ゼロで初期費用を大幅圧縮',
+      '管込7.4万円で候補中もっとも家賃負担が軽い物件'
+    ],
+    cons: [
+      '★竣工1981年3月・実質築44年の旧耐震物件（築年月表示はリノベート年）',
+      '★浴室はシャワールームのみ（バスタブなし）',
+      '★詳細設備欄に「室内洗濯機置場」の記載がなく、洗濯設備は要確認',
+      '室内クリーニング負担金 5万円（税別）・火災保険 18,000円/2年など初期費用が別途発生'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1pMaYPcN28bK8jOQsAe07DiwgIVILU58x'
+  },
+  {
+    id: '08',
+    name: 'ガリシア浜松町',
+    unit: '903号室',
+    line: '京浜東北線',
+    station: '浜松町',
+    walk: 1,
+    size: 22.93,
+    layout: '1K',
+    rent: 110000,
+    kanri: 10000,
+    total: 120000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2006,
+    structure: 'RC',
+    tags: [
+      {t:'浜松町駅徒歩1分', c:'new'},
+      {t:'全希望条件クリア', c:'new'},
+      {t:'分譲タイプ・設備最強', c:''},
+      {t:'築19年', c:'new'},
+      {t:'コンビニ・スーパー徒歩3分圏', c:''}
+    ],
+    pros: [
+      '★平尾様の全条件（バストイレ別・都市ガス・独立洗面台・室内洗濯機置場・2階以上・築20年以内）を全項目クリア',
+      'JR京浜東北・山手線「浜松町」徒歩1分、大江戸線「大門」4分、都営三田線「芝公園」7分の4路線利用可',
+      '専有面積22.93㎡・1K洋室6.5畳、RC造14階建の9階、バルコニー2.57㎡付',
+      '分譲タイプの充実設備：システムキッチン・浴室乾燥機・温水洗浄便座・独立洗面台・24時間換気・オートロック・宅配BOX・24hセキュリティ・ディンプルキー',
+      '築2006年8月・築19年で「築20年以内」条件にぴったり合致',
+      '周辺にファミマ39m、マルエツプチ93m、まいばすけっと168m、セブン169mと生活便利'
+    ],
+    cons: [
+      'バルコニーが西向きのため、夏場の西日にご留意',
+      '現況「居住中」、退去予定2026年6月30日→入居時期は2026年7月中旬予定',
+      '「BRIプライムプラス」（火災保険＋24hサポート）月額2,530円が加入必須',
+      '鍵交換代 38,500円・更新事務手数料（新賃料0.5ヶ月）が発生'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1sPOcVPAgOdBmjuBlLTUUzpJ7eQwMlDVg'
+  },
+  {
+    id: '09',
+    name: '中銀第２新橋マンシオン',
+    unit: '403号室',
+    line: '山手線',
+    station: '新橋',
+    walk: 8,
+    size: 18.82,
+    layout: '1R',
+    rent: 110000,
+    kanri: 9000,
+    total: 119000,
+    deposit: '敷なし',
+    reikin: '礼1ヶ月',
+    year: 1982,
+    structure: 'SRC',
+    tags: [
+      {t:'新橋・汐留・大門3路線', c:''},
+      {t:'即入居可', c:'new'},
+      {t:'旧耐震', c:'warn'},
+      {t:'シャワーのみ', c:'warn'}
+    ],
+    pros: [
+      'JR山手線「新橋」8分、都営大江戸線「汐留」4分、都営浅草線「大門」6分の3路線利用可',
+      '専有面積18.82㎡・1R、SRC造10階建の4階',
+      '敷金ゼロ・礼金1ヶ月、即入居可能で入居スケジュールが柔軟',
+      '港区東新橋2-10-7の好立地、新橋・汐留のオフィス街に至近'
+    ],
+    cons: [
+      '★築1982年5月・築44年の旧耐震物件（平尾様の「築20年以内」条件を満たしません）',
+      '★浴室はシャワールームのみ（バスタブなし）',
+      '設備詳細は図面参照・要お問い合わせ'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1XXwWy5nkmg_8t206OiO3-TXhTWDJ189f'
+  },
+  {
+    id: '10',
+    name: 'グランド・ガーラ芝公園',
+    unit: '509号室',
+    line: '都営三田線',
+    station: '芝公園',
+    walk: 2,
+    size: 22.4,
+    layout: '1K',
+    rent: 110000,
+    kanri: 10000,
+    total: 120000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2002,
+    structure: 'SRC',
+    tags: [
+      {t:'芝公園2分・赤羽橋6分', c:''},
+      {t:'角部屋・二面採光', c:'new'},
+      {t:'分譲タイプ', c:''},
+      {t:'159戸大規模', c:''},
+      {t:'築24年（20年超）', c:'warn'}
+    ],
+    pros: [
+      '都営三田線「芝公園」2分、大江戸線「赤羽橋」6分の2路線利用可',
+      '専有面積22.4㎡・1K、SRC造地下1階/15階建・159戸の大規模分譲マンション',
+      '角部屋・二面採光で明るく開放感あり',
+      '設備：室内洗濯機置場・2口ガスコンロ・オートロック・エレベーター・外壁タイル張り'
+    ],
+    cons: [
+      '★築2002年6月・築24年で平尾様「築20年以内」ご希望から少しオーバー',
+      '現況入居中（6月末解約予定）、入居時期は相談',
+      'くらしード24 15,000円・火災保険 18,000円/2年・更新事務手数料5,000円が発生'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '17HEcQFR5eYJiOyCbAujqpCQjW6bqFDfN'
+  },
+  {
+    id: '11',
+    name: 'フェニックス芝公園',
+    unit: '601号室',
+    line: '都営三田線',
+    station: '芝公園',
+    walk: 2,
+    size: 19.38,
+    layout: '1K',
+    rent: 104000,
+    kanri: 0,
+    total: 104000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 1997,
+    structure: 'RC',
+    tags: [
+      {t:'管理費なし・管込10.4万', c:'new'},
+      {t:'芝公園2分・田町10分', c:''},
+      {t:'最上階', c:''},
+      {t:'築29年（20年超）', c:'warn'}
+    ],
+    pros: [
+      '都営三田線「芝公園」2分、JR山手線・京浜東北線「田町」10分の3路線利用可',
+      '専有面積19.38㎡・1K、RC造6階建の6階（最上階）・28戸',
+      '管理費・共益費なしで管込10.4万円と予算内で家賃負担が軽い',
+      '2026年9月14日入居可・9月1日から内見可能'
+    ],
+    cons: [
+      '★築1997年6月・築29年で平尾様「築20年以内」ご希望から大きくオーバー',
+      '敷引償却1ヶ月・更新事務手数料22,000円・火災保険料20,000円が発生',
+      '設備詳細は図面参照・要お問い合わせ'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1G5Ml9htxUdsd5ZfBgEYBbSGiJoACUant'
+  },
+  {
+    id: '12',
+    name: 'パレステュディオ芝浦トウキョウベイ',
+    unit: '5階',
+    line: '都営三田線',
+    station: '三田',
+    walk: 7,
+    size: 21.6,
+    layout: '1K',
+    rent: 90000,
+    kanri: 15000,
+    total: 105000,
+    deposit: '敷なし',
+    reikin: '礼2万円',
+    year: 2003,
+    structure: 'SRC',
+    tags: [
+      {t:'三田7分・田町9分', c:''},
+      {t:'南東バルコニー', c:'new'},
+      {t:'分譲タイプ・112戸', c:''},
+      {t:'全設備完備', c:'new'},
+      {t:'築22年（20年超）', c:'warn'}
+    ],
+    pros: [
+      '都営三田線「三田」7分、JR山手線「田町」9分の2路線利用可',
+      '専有面積21.6㎡・1K、SRC造13階建の5階・112戸の大規模分譲マンション',
+      '主要採光面南東向き・バルコニー付、日当たり良好',
+      '★設備充実：バス・トイレ別、都市ガス、システムキッチン、室内洗濯機置場、オートロック、宅配BOX、モニター付インターホン、防犯カメラ、温水洗浄便座、浴室乾燥機、シューズボックス',
+      '敷金ゼロ・礼金2万円で初期費用を抑えられる'
+    ],
+    cons: [
+      '★築2003年8月・築22年で平尾様「築20年以内」ご希望から少しオーバー',
+      '保証金1ヶ月（契約時償却）・更新料1.1ヶ月・2年未満解約は違約金1ヶ月',
+      '24時間生活サポート16,500円・契約事務手数料11,000円・鍵交換33,000円が発生',
+      '現況居住中で入居時期は相談'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1sBhSRrWaPgp6BGp5lPleIkdT12StQN0X'
+  },
+  {
+    id: '13',
+    name: 'エスコート芝浦',
+    unit: '803号室',
+    line: '都営浅草線',
+    station: '三田',
+    walk: 9,
+    size: 22.74,
+    layout: '1K',
+    rent: 98000,
+    kanri: 10000,
+    total: 108000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2002,
+    structure: 'SRC',
+    tags: [
+      {t:'三田9分・田町10分・日の出10分', c:''},
+      {t:'東南角部屋・2面採光', c:'new'},
+      {t:'分譲タイプ', c:''},
+      {t:'陽当たり良好', c:'new'},
+      {t:'築24年（20年超）', c:'warn'}
+    ],
+    pros: [
+      '都営浅草線「三田」9分、JR山手線「田町」10分、ゆりかもめ「日の出」10分の3路線利用可',
+      '専有面積22.74㎡・1K、SRC造9階建の8階（東南角部屋・2面採光・陽当たり良好）',
+      '★設備充実：システムキッチン、2口ガスコンロ、バス・トイレ別、温水洗浄便座、シャワー、エアコン全室、TVインターホン、オートロック、モニタ付オートロック、室内洗濯機置場、宅配BOX',
+      '南東向き・外壁タイル張り、分譲タイプで管理が安定'
+    ],
+    cons: [
+      '★築2002年2月・築24年で平尾様「築20年以内」ご希望から少しオーバー',
+      'MEIKOライフサポート倶楽部（保険付帯）3,300円/月加入必須、見守りサービス4,000円/月別途',
+      '契約事務手数料22,000円・鍵交換代55,000円・一時金49,500円が発生',
+      '入居時期は2026年9月6日以降〜10月上旬まで空き・1年未満解約は違約金1ヶ月分'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '11wkLM83rbl8579FQid7jWiWAA5zd1Ddf'
+  },
+  {
+    id: '14',
+    name: '田町サンハイツ',
+    unit: '502号室',
+    line: '山手線',
+    station: '田町',
+    walk: 4,
+    size: 20.15,
+    layout: '1R',
+    rent: 85000,
+    kanri: 9000,
+    total: 94000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 1976,
+    structure: 'RC',
+    tags: [
+      {t:'田町4分・三田5分', c:'new'},
+      {t:'管込9.4万で予算に余裕', c:'new'},
+      {t:'南東向き', c:''},
+      {t:'旧耐震（築50年）', c:'warn'}
+    ],
+    pros: [
+      'JR山手線・京浜東北線「田町」4分、都営三田線「三田」5分の3路線利用可・駅近好立地',
+      '専有面積20.15㎡・1R、RC造10階建の5階、南東向き',
+      '管込9.4万円で予算に余裕、設備充実：バス・トイレ別、IHクッキングヒーター、室内洗濯機置場、モニタ付インターホン、温水洗浄便座、浴室乾燥機、エレベーター、宅配BOX',
+      '事務所使用可'
+    ],
+    cons: [
+      '★築1976年4月・築50年の旧耐震物件（平尾様の「築20年以内」条件を大きく満たしません）',
+      '給湯基本料月額2,600円 別途給湯料・水道料あり',
+      'ルームクリーニング費用が退去時に発生'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1ePh3NUKWs06i6oKY1Vcsw93JocZ2dxPM'
+  },
+  {
+    id: '15',
+    name: 'アーツ芝浦',
+    unit: '605号室',
+    line: 'ゆりかもめ',
+    station: '日の出',
+    walk: 8,
+    size: 24.0,
+    layout: '1K',
+    rent: 100000,
+    kanri: 9000,
+    total: 109000,
+    deposit: '敷なし',
+    reikin: '礼なし',
+    year: 1998,
+    structure: 'SRC',
+    tags: [
+      {t:'敷礼ゼロ', c:'new'},
+      {t:'24㎡の広さ', c:'new'},
+      {t:'都市ガス・全設備完備', c:''},
+      {t:'ゆりかもめ日の出8分', c:''},
+      {t:'築28年（20年超）', c:'warn'}
+    ],
+    pros: [
+      'ゆりかもめ「日の出」8分、「竹芝」9分、JR山手線「浜松町」14分',
+      '専有面積24.0㎡・1K、SRC造11階建の6階、候補中もっとも広いお部屋',
+      '★設備充実：バス・トイレ別、都市ガス、システムキッチン、IHクッキングヒーター、室内洗濯機置場、オートロック、宅配BOX、モニタ付インターホン、防犯カメラ、温水洗浄便座、シャワー、24時間ゴミ出し可、シューズボックス、インターネット対応',
+      '敷金・礼金ゼロで初期費用を大幅圧縮'
+    ],
+    cons: [
+      '★築1998年2月・築28年で平尾様「築20年以内」ご希望から大きくオーバー',
+      '主要採光面が西向きのため、夏場の西日にご留意',
+      '契約時費用が多め：事務手数料11,000円・除菌消臭22,000円・くらしーど24 16,500円・室内清掃55,000円・鍵交換38,500円',
+      '保険23,000円加入要'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1hOib27ogic3ODsyo0R9LExqYz6_SUJL3'
+  },
+  {
+    id: '16',
+    name: 'プレール・ドゥーク東京ベイⅢ',
+    unit: '703号室',
+    line: 'ゆりかもめ',
+    station: '芝浦ふ頭',
+    walk: 11,
+    size: 22.19,
+    layout: '1K',
+    rent: 104000,
+    kanri: 5000,
+    total: 109000,
+    deposit: '敷なし',
+    reikin: '礼1ヶ月',
+    year: 2005,
+    structure: 'RC',
+    tags: [
+      {t:'築20年ちょうど', c:'new'},
+      {t:'角部屋・分譲タイプ', c:'new'},
+      {t:'独立洗面台・都市ガス', c:''},
+      {t:'2026年8月上旬入居可', c:'new'}
+    ],
+    pros: [
+      '築2005年12月・築20年ちょうどで平尾様「築20年以内」条件に合致',
+      'ゆりかもめ「芝浦ふ頭」11分、JR山手線「田町」18分',
+      '専有面積22.19㎡・1K、RC造9階建の7階、角部屋',
+      '★設備充実：独立洗面台、都市ガス、システムキッチン、2口コンロ、室内洗濯機置場、オートロック、24時間セキュリティ、モニタ付インターホン、防犯カメラ、収納スペース、シューズボックス、分譲タイプ',
+      '2026年8月上旬入居可、敷金ゼロで初期費用を抑えられる'
+    ],
+    cons: [
+      '主要採光面が西向きのため、夏場の西日にご留意',
+      '駅からやや遠め（ゆりかもめ芝浦ふ頭11分・山手線田町18分）',
+      '更新料 新賃料1.5ヶ月・鍵交換33,000円・クリーニング80,000円・抗菌16,500円・24hサポート16,500円が発生',
+      '保証料 総賃料100%（年間保証料15,000円）'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1om9Ay-8crAMLNjdVXpeyV9OteqNHKg2c'
+  },
+  {
+    id: '17',
+    name: 'シャルム・ローゼ',
+    unit: '102号室',
+    line: '山手線',
+    station: '田町',
+    walk: 5,
+    size: 24.4,
+    layout: '1K',
+    rent: 105000,
+    kanri: 5000,
+    total: 110000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2002,
+    structure: '鉄骨造',
+    tags: [
+      {t:'田町5分・三田4分', c:'new'},
+      {t:'24.4㎡・角部屋', c:'new'},
+      {t:'バス別・独立洗面台・都市ガス', c:''},
+      {t:'女性・単身限定', c:'warn'},
+      {t:'1階', c:'warn'},
+      {t:'築24年（20年超）', c:'warn'}
+    ],
+    pros: [
+      'JR山手線・京浜東北線「田町」5分、都営三田線「三田」4分の3路線利用可',
+      '専有面積24.4㎡・1K、鉄骨造3階建の1階（角部屋・東向き・閑静な住宅街）',
+      '★平尾様条件マッチ：バス・トイレ別、独立洗面台、都市ガス、室内洗濯機置場、オートロック',
+      'シャッター付・使いやすい間取り'
+    ],
+    cons: [
+      '★1階のお部屋（平尾様「2階以上」ご希望を満たしません）',
+      '★女性・単身者限定物件（姉妹・親子不可）',
+      '★築2002年1月・築24年で平尾様「築20年以内」ご希望から少しオーバー',
+      '禁煙・民泊不可・外国籍不可・事務所使用不可',
+      '退去時ルームクリーニング費用およびエアコンクリーニング費用は借主負担'
+    ],
+    addedAt: '2026-07-07',
+    driveId: '1VoMRRyc_GrnLKL4zY0L4zGDC3LpJb1Rz'
+  }
+];
+
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+
+function fmt(n) { return n.toLocaleString('ja-JP'); }
+
+const NEW_SINCE = '2026-07-07';
+
+function cardHtml(p) {
+  const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
+  const unitStr = p.unit ? ` ${p.unit}` : '';
+  const isNew = p.addedAt && p.addedAt >= NEW_SINCE;
+  const newBadge = isNew ? '<span class="new-badge">NEW</span>' : '';
+  const dateStr = p.addedAt ? p.addedAt.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1年$2月$3日') : '';
+  return `
+    <div class="card" data-id="${p.id}" data-line="${p.line}" data-layout="${p.layout}" data-total="${p.total}" data-size="${p.size}" data-walk="${p.walk}" data-year="${p.year}">
+      <div class="card-header">
+        <div>
+          <div class="card-name">${newBadge}${p.name}${unitStr}</div>
+          <div class="card-name-sub">${p.line} ${p.station}駅 徒歩${p.walk}分</div>
+        </div>
+        <div class="card-price">
+          <div class="total">${fmt(p.total)}<span style="font-size:11px">円</span></div>
+          <div class="breakdown">賃料 ${fmt(p.rent)} + 管理 ${fmt(p.kanri)}</div>
+        </div>
+      </div>
+      <div class="tags">${tagsHtml}</div>
+      <div class="meta-row">
+        <div><span>広さ</span><span>${p.size}㎡</span></div>
+        <div><span>間取り</span><span>${p.layout}</span></div>
+        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
+        <div><span>構造</span><span>${p.structure}</span></div>
+        <div><span>敷金</span><span>${p.deposit}</span></div>
+        <div><span>礼金</span><span>${p.reikin}</span></div>
+      </div>
+      <div class="notes">
+        <strong>おすすめポイント</strong>
+        <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
+        ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+      </div>
+      ${p.driveId ? `
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
+        <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>
+      </div>` : `
+      <div class="contact-note">
+        図面・詳細情報・内見のご希望は<strong>ご担当までLINE等でお問い合わせ</strong>ください
+      </div>`}
+      ${dateStr ? `<div class="added-date">物件情報の登録日：${dateStr}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderAll() {
+  grid.innerHTML = PROPERTIES.map(cardHtml).join('');
+  applyFilters();
+}
+
+const state = {
+  line: 'all',
+  layout: 'all',
+  sort: 'rent-asc',
+  rentcap: 100000,
+};
+
+document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.line = c.dataset.value;
+    applyFilters();
+  });
+});
+document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.layout = c.dataset.value;
+    applyFilters();
+  });
+});
+document.getElementById('sort').addEventListener('change', e => {
+  state.sort = e.target.value;
+  applyFilters();
+});
+document.getElementById('rentcap').addEventListener('change', e => {
+  state.rentcap = parseInt(e.target.value, 10);
+  applyFilters();
+});
+
+function applyFilters() {
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const filtered = cards.filter(card => {
+    if (state.line !== 'all' && card.dataset.line !== state.line) return false;
+    if (state.layout !== 'all' && card.dataset.layout !== state.layout) return false;
+    if (parseInt(card.dataset.total, 10) > state.rentcap) return false;
+    return true;
+  });
+  filtered.sort((a, b) => {
+    const ka = a.dataset, kb = b.dataset;
+    switch (state.sort) {
+      case 'rent-asc': return (+ka.total) - (+kb.total);
+      case 'size-desc': return (+kb.size) - (+ka.size);
+      case 'walk-asc': return (+ka.walk) - (+kb.walk);
+      case 'age-asc': return (+kb.year) - (+ka.year);
+    }
+    return 0;
+  });
+  cards.forEach(c => c.classList.add('hidden'));
+  filtered.forEach(c => {
+    c.classList.remove('hidden');
+    grid.appendChild(c);
+  });
+  countEl.textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    if (!grid.querySelector('.empty')) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = '条件に合う物件がありません。フィルタを緩めてお試しください。';
+      grid.appendChild(empty);
+    }
+  } else {
+    const existing = grid.querySelector('.empty');
+    if (existing) existing.remove();
+  }
+}
+
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalFrame = document.getElementById('modal-frame');
+
+function openPreview(driveId, name) {
+  modalTitle.textContent = '図面プレビュー：' + name;
+  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+  modal.classList.add('on');
+}
+document.getElementById('modal-close').addEventListener('click', () => {
+  modal.classList.remove('on');
+  modalFrame.src = '';
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) {
+    modal.classList.remove('on');
+    modalFrame.src = '';
+  }
+});
+
+renderAll();
+</script>
+</body>
+</html>
