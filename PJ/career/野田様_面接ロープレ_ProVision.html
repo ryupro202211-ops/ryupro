@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面接ロープレ資料 | 野田様 × ProVision</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+    background: linear-gradient(180deg, #FFF5F7 0%, #F4F9FC 40%, #EEF3F8 100%);
+    color: #2c3e50;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #E8B4C8 0%, #B4C8E8 100%);
+    color: white;
+    padding: 32px 28px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(180, 200, 232, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🌸";
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 60px;
+    opacity: 0.3;
+  }
+  .hero .kicker { font-size: 12px; opacity: 0.9; margin-bottom: 6px; letter-spacing: 0.1em; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .hero .info {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .hero .info div { padding: 3px 0; }
+  .hero .info strong { display: inline-block; min-width: 65px; opacity: 0.9; font-weight: 500; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 18px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed #F4C6D5;
+  }
+  .section-header .icon { font-size: 24px; }
+  .section-header h2 {
+    font-size: 18px;
+    color: #4A6FA5;
+    font-weight: 700;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-item .time {
+    color: #E67E22;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .timeline-item .content { font-size: 13px; }
+  .timeline-item .content strong { color: #2c3e50; font-size: 14px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 13px;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: #4A6FA5;
+    font-size: 20px;
+  }
+  .checklist li strong { color: #2c3e50; }
+  .checklist li .note { font-size: 11px; color: #7f8c8d; display: block; margin-top: 2px; }
+
+  /* Q&A */
+  .qa {
+    margin-bottom: 22px;
+    padding: 18px;
+    background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%);
+    border-radius: 12px;
+    border-left: 4px solid #F4C6D5;
+  }
+  .qa-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A6FA5;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .qa-q .qmark {
+    background: #4A6FA5;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    font-size: 13px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 8px;
+    color: #444;
+  }
+  .qa-a strong { color: #2c3e50; }
+  .qa-a em {
+    background: #FFF3E0;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 600;
+    color: #B7480B;
+  }
+  .qa-tip {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid #F4C6D5;
+  }
+
+  /* NG list */
+  .ng-list {
+    background: #FFEBEE;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #EF5350;
+  }
+  .ng-list h3 { font-size: 14px; color: #C62828; margin-bottom: 10px; }
+  .ng-list ul { list-style: none; }
+  .ng-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .ng-list li::before {
+    content: "❌";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Good list */
+  .good-list {
+    background: #F0FFF4;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #48BB78;
+  }
+  .good-list h3 { font-size: 14px; color: #276749; margin-bottom: 10px; }
+  .good-list ul { list-style: none; }
+  .good-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .good-list li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Callout */
+  .callout {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFF9F0 100%);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #F39C12;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #555;
+  }
+  .callout strong { color: #B7480B; }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #95a5a6;
+    font-size: 11px;
+  }
+
+  /* Reverse Q */
+  .reverse-q {
+    background: #EEF3F8;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border-left: 4px solid #4A6FA5;
+  }
+  .reverse-q strong { color: #4A6FA5; }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section, .hero { break-inside: avoid; box-shadow: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    .hero { padding: 24px 20px; }
+    .section { padding: 20px; }
+    .timeline-item { grid-template-columns: 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="kicker">📝 面接ロープレ資料【ProVision 版】</div>
+  <h1>ProVision 一次面接 対策</h1>
+  <div style="font-size:12px;opacity:0.95;margin-top:6px">前回の面接の学びを活かして、"次こそ通過" を目指しましょう🌸</div>
+  <div class="info">
+    <div><strong>📅 日時</strong>2026-07-13 (月) 18:05〜19:00(実開始は18:05)</div>
+    <div><strong>💻 形式</strong>オンライン (Google Meet)</div>
+    <div><strong>⏱ 所要時間</strong>約55分</div>
+    <div><strong>🏢 企業</strong>株式会社ProVision / IT特化型エンジニア職</div>
+    <div><strong>🎥 その他</strong>カメラON必須・企業側で録画あり</div>
+    <div><strong>📞 緊急連絡</strong>柿澤様 080-2017-5503</div>
+  </div>
+</div>
+
+<!-- 前回面接の学び -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#F4F9FC 100%);border:2px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F1C40F">
+    <span class="icon">💡</span>
+    <h2>前回(ラクスパートナーズ)面接からの学び</h2>
+  </div>
+
+  <div style="background:white;padding:14px 18px;border-radius:10px;margin-bottom:12px">
+    <div style="font-weight:700;color:#276749;margin-bottom:6px">✅ うまくいった点</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li>ロープレ資料の想定質問には落ち着いて答えられた</li>
+      <li>面接官との対話でリラックスして話せた(自信になった)</li>
+      <li>企業側からも「熱意は感じられた」と評価あり</li>
+    </ul>
+  </div>
+
+  <div style="background:white;padding:14px 18px;border-radius:10px">
+    <div style="font-weight:700;color:#B7480B;margin-bottom:6px">⚠️ 次に活かしたい点</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li><strong>転職理由の "深掘り"</strong>: 「現職で特定領域の技術を深められないと感じた理由」を具体エピソード付きで語れるように</li>
+      <li><strong>論理的思考の見せ方</strong>: 大学時代・数学のような "考え方のプロセス" を問う質問への準備</li>
+      <li><strong>相対比較で勝つ差別化</strong>: エピソードを数字化(テスト仕様書○本、指摘削減○%など)して具体性UP</li>
+    </ul>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <strong>💌 ProVisionからの書類選考時の評価</strong><br>
+    「<em>ITリテラシー(現職経験)</em>」と「<em>学習意欲(資格取得実績)</em>」を魅力として感じているとのこと。<br>
+    → この2点は<strong>すでに評価されている</strong>ので、面接ではこれを裏付ける <strong>具体エピソード</strong> を用意しよう。
+  </div>
+</div>
+
+<!-- 事前対応リマインド -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#FFFDF5 100%);border-left:6px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F4D03F">
+    <span class="icon">⚠️</span>
+    <h2>面接前(7/12 日 正午まで)にお願い</h2>
+  </div>
+  <ul class="checklist">
+    <li><strong>①適性検査「ミキワメ」約10分</strong><span class="note">Chrome/Edge推奨・離席不可・合否判定なし → 率直に回答でOK</span></li>
+    <li><strong>②事前アンケート 約3分</strong></li>
+    <li><strong>③面接前日までに Google Meet 動作テスト</strong><span class="note">https://meet.google.com/upk-iuri-soc に一度アクセスしてマイク・カメラ許可</span></li>
+    <li><strong>④職務経歴書・履歴書を手元に</strong><span class="note">画面共有される可能性あり</span></li>
+  </ul>
+  <div class="callout" style="margin-top:14px">
+    <strong>📝 面接後(3日以内)</strong>: 企業から送られるアンケート(約5分)も忘れずに。マイページの青いボックスからアクセス可能。
+  </div>
+</div>
+
+<!-- 1. タイムライン -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🕐</span>
+    <h2>1時間の面接の流れ(想定)</h2>
+  </div>
+
+  <div class="timeline-item">
+    <div class="time">17:55</div>
+    <div class="content">
+      <strong>入室準備</strong><br>
+      Google Meet URL(<a href="https://meet.google.com/upk-iuri-soc" target="_blank">https://meet.google.com/upk-iuri-soc</a>)を開き、カメラ・マイクの最終確認。カメラONで待機。飲み物を手元に。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:00</div>
+    <div class="content">
+      <strong>Google Meet入室 → 待機</strong><br>
+      予約枠の時刻に入室。企業側は18:05から開始します(予約時刻+5分後の仕様)。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:05</div>
+    <div class="content">
+      <strong>面接開始 / アイスブレイク (5分)</strong><br>
+      挨拶、面接官の自己紹介。ProVisionは録画されるので、姿勢・表情を意識。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:10</div>
+    <div class="content">
+      <strong>自己紹介・職務経歴 (10〜15分)</strong><br>
+      候補者から1〜3分で自己紹介。企業評価済みの<em>ITリテラシー・学習意欲</em>を裏付けるエピソード付きで。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:25</div>
+    <div class="content">
+      <strong>志望動機・転職理由 (10分)</strong><br>
+      <em>ここが前回の弱点</em>。深掘り版の準備で挑む(Q3〜Q3-bを参照)。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:35</div>
+    <div class="content">
+      <strong>スキル・強み・思考プロセス (10〜15分)</strong><br>
+      技術質問+人物質問+<em>論理的思考(Q5)</em>の確認。CCNA/LinuCの学習プロセスも聞かれる可能性。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:50</div>
+    <div class="content">
+      <strong>逆質問 (5〜10分)</strong><br>
+      候補者から企業への質問。3つ用意。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:58</div>
+    <div class="content">
+      <strong>クロージング</strong><br>
+      次回選考の案内、お礼の挨拶。<em>面接官が退出するまで映像を切らない</em>。
+    </div>
+  </div>
+</div>
+
+<!-- 2. 事前チェックリスト -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">✅</span>
+    <h2>オンライン面接 直前チェックリスト</h2>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:12px 0 6px">🔌 環境・機材</h3>
+  <ul class="checklist">
+    <li><strong>Google Meet 動作確認</strong><span class="note">前日までに https://meet.google.com/upk-iuri-soc に一度アクセスし、カメラ・マイク権限を許可しておく</span></li>
+    <li><strong>ヘッドセット・イヤホン</strong><span class="note">スピーカー音は反響しやすい。イヤホン推奨</span></li>
+    <li><strong>ネット回線</strong><span class="note">Wi-Fi不安定なら有線 or スマホ4G/5Gテザリング検討</span></li>
+    <li><strong>充電100%+電源接続</strong><span class="note">面接中に充電切れは絶対NG</span></li>
+    <li><strong>カメラ位置</strong><span class="note">目線の高さに調整。本や箱で高さ出す</span></li>
+    <li><strong>照明</strong><span class="note">正面(顔が明るく映る位置)からライト。逆光NG</span></li>
+    <li><strong>背景</strong><span class="note">シンプルな壁 or Google Meetの背景ぼかし機能ON</span></li>
+    <li><strong>録画への意識</strong><span class="note">ProVisionは面接を録画します。姿勢・表情・話す速度を意識</span></li>
+    <li><strong>通知OFF</strong><span class="note">PC・スマホの通知音を全て切る</span></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">👔 身だしなみ</h3>
+  <ul class="checklist">
+    <li><strong>服装</strong><span class="note">スーツ推奨(ジャケット+襟付きシャツ・ブラウス)。上半身のみ映るがボトムスも念のため</span></li>
+    <li><strong>髪型</strong><span class="note">顔にかからないようまとめる。カメラで暗く見えないよう明るめに</span></li>
+    <li><strong>メイク</strong><span class="note">カメラは実物より色薄く映るので、いつもより少し濃いめでちょうどいい</span></li>
+    <li><strong>アクセサリー</strong><span class="note">大きなイヤリング・光る時計は避ける</span></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">📝 手元準備</h3>
+  <ul class="checklist">
+    <li><strong>職務経歴書・履歴書</strong><span class="note">印刷 or 別画面で開いておく</span></li>
+    <li><strong>企業HPと求人票</strong><span class="note">別タブで開いておく(調べておくべきポイント)</span></li>
+    <li><strong>逆質問メモ</strong><span class="note">3つ準備。優先順位も決めておく</span></li>
+    <li><strong>ペン・メモ</strong><span class="note">面接官の名前や重要な情報をメモ</span></li>
+    <li><strong>水</strong><span class="note">緊張で喉が渇きやすい。手元に</span></li>
+  </ul>
+</div>
+
+<!-- 3. 想定質問 & 回答例 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💬</span>
+    <h2>想定質問 & 回答方針</h2>
+  </div>
+
+  <div class="callout">
+    <strong>💡 回答の基本原則</strong>: 「結論→根拠→具体例」の順で1〜2分。長すぎ厳禁。<br>
+    面接官のリアクションを見ながら、掘り下げてほしそうなら追加で説明する。
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q1</span>簡単に自己紹介をお願いします。</div>
+    <div class="qa-a">
+      <strong>回答例(1〜1.5分):</strong><br>
+      「野田麻菜美と申します。愛知工業大学の情報科学部を卒業後、2025年6月にエンライズソリューション株式会社へ入社し、<em>ITインフラエンジニアとして約1年間従事</em>しております。<br><br>
+      現在は<em>情報開示システムのバックエンド機能再構築プロジェクト</em>に参画し、単体テスト・結合テストの実施やテスト仕様書・運用手順書の作成を担当しています。並行して、<em>情報照会システムの更改案件</em>で基本設計書の修正にも携わっております。<br><br>
+      業務外では入社後3ヶ月でCCNA、6ヶ月でLinuC Level1を取得するなど、継続的な学習を心がけております。本日は貴重なお時間をいただき、ありがとうございます。よろしくお願いいたします。」
+    </div>
+    <div class="qa-tip">💡 数字(1年・3ヶ月・6ヶ月)と固有名詞(CCNA・LinuC)を必ず入れる。挨拶で締める。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q2</span>現職での具体的な業務内容を教えてください。</div>
+    <div class="qa-a">
+      <strong>回答方針:</strong> テスト工程を中心に、成果を数値・行動レベルで説明。<br><br>
+      <strong>回答例:</strong><br>
+      「主に2つの案件を並行しています。<br>
+      1つ目は情報開示システムのバックエンド機能再構築PJで、<em>単体テスト仕様書の作成・実施</em>を担当し、バグ検出や運用手順書の作成まで一気通貫で対応しております。<br>
+      2つ目は情報照会システムの更改案件で、<em>基本設計書の修正</em>を担当。要件変更に伴う影響範囲を既存設計書から分析し、変更箇所の抽出から修正まで一貫して対応しております。<br>
+      使用技術はLinux・Windows Server・Cisco IOSで、資格取得を通じて体系的な知識を補強しながら実務に活かしています。」
+    </div>
+    <div class="qa-tip">💡 「〜を担当している」だけでなく「〜まで一貫して対応」等、責任範囲を明示すると評価UP</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3</span>なぜ転職を考えているのですか?(転職理由)★前回の弱点</div>
+    <div class="qa-a">
+      <strong>⚠️ 前回の反省:</strong> ラクスパートナーズ面接では「特定領域を深められない理由」への深掘りで詰まった。<strong>今回は具体エピソードで固めておく</strong>。<br><br>
+      <strong>回答例(60〜75秒):</strong><br>
+      「現職では約1年間、ITインフラエンジニアとしてテスト工程や設計書修正など、<em>幅広い基礎経験</em>を積ませていただきました。<br><br>
+      一方で、より<em>計画的にキャリアを積み上げていきたい</em>という思いが強くなりました。具体的には、<em>現在担当している工程がテスト中心のため、設計・構築などの意思決定に関わる機会や、クラウド・自動化ツールに継続的に触れる機会</em>が限定的でした。<br><br>
+      "広く浅く"の状態から一歩進んで、<em>特定領域を深く掘り下げる段階</em>に進みたい。そのために、より体系的にスキルを積める環境を求めて、転職を決意いたしました。」
+    </div>
+    <div class="qa-tip">💡 前回の弱点だった「特定領域を深められない理由」を、"担当工程がテスト中心" + "設計/クラウドに触れる機会が限定的" と<strong>具体エピソード付き</strong>で固める。「広く浅く → 特定領域を深く」がキラーフレーズ。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3-a</span>(深掘り) "特定領域を深く掘り下げる" とは具体的にどういう意味ですか?</div>
+    <div class="qa-a">
+      <strong>回答例:</strong><br>
+      「大きく3ステップを考えております。<br>
+      <em>①短期(1〜2年)</em>: 現在のテスト経験を土台に、単体・結合テストの<em>自動化ツール(Selenium・pytest等)</em>や、テスト設計手法(境界値分析・状態遷移テスト)を深めたい。<br>
+      <em>②中期(2〜4年)</em>: 上流工程(要件定義・基本設計)を担当し、システム全体を俯瞰できるエンジニアへ。<br>
+      <em>③長期(5年〜)</em>: クラウド(AWS・Azure)領域の知見を加え、インフラ設計・PMも視野に。<br>
+      現職で身につけた<em>品質意識と、CCNA・LinuCで培った基礎知識</em>をベースに、段階的に進んでいきたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>3段階のロードマップ</strong>で語ると、「その場しのぎではなく本気」に映る。ProVisionでの1ヶ月研修に触れると◎。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3-b</span>(深掘り) 現職での "計画的でない" と感じた具体的な出来事は?</div>
+    <div class="qa-a">
+      <strong>⚠️ 罠質問注意:</strong> 現職の批判はNG。「制度」ではなく「自分の希望」の話にすり替える。<br><br>
+      <strong>回答例:</strong><br>
+      「現職のチームには非常に良くしていただいており、感謝しております。<br>
+      ただ<em>私自身が</em>、この1年で幅広い工程に触れる中で、<em>「もっとこの領域を深く極めたい」という気持ちが強くなった</em>という側面が大きいです。<br>
+      例えば、テスト仕様書の作成時、単なる項目網羅ではなく<em>「境界値・異常系」に踏み込んだテスト設計</em>を試したことで面白さを感じた経験がありました。そういった "深掘り" の機会を、より計画的に積める環境で挑戦したいと考えております。」
+    </div>
+    <div class="qa-tip">💡 「現職が悪い」ではなく「<strong>私の気持ちが変わった</strong>」と主語をずらす。<strong>具体エピソード(境界値・異常系のテスト設計)</strong>を1つ添えて説得力UP。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4</span>なぜ弊社(ProVision)を志望されたのですか?</div>
+    <div class="qa-a">
+      <strong>回答方針:</strong> ProVision独自の特徴(IT特化・研修1ヶ月・選考プロセスの丁寧さ)と自分の希望を紐付ける。<br><br>
+      <strong>回答例(60秒):</strong><br>
+      「大きく3つの理由がございます。<br>
+      1つ目は、<em>IT特化型のエンジニア企業</em>であること。私のITインフラでの基礎経験と、CCNA・LinuCの学習を、より深く<em>技術に特化した環境</em>で活かしたいと考えました。<br>
+      2つ目は、<em>入社時1ヶ月の研修制度</em>です。中途入社であっても丁寧な立ち上げをサポートいただける点は、体系的に成長したい私にとって非常に魅力的です。<br>
+      3つ目は、<em>選考プロセスから感じた社風</em>です。今回、適性検査や事前アンケートで<em>個人の特性・志向をしっかり見ていただいた</em>プロセスは、社員一人ひとりを大切にする社風を感じ、長く働きたいと思える会社だと確信いたしました。」
+    </div>
+    <div class="qa-tip">💡 <strong>「選考プロセスから感じた社風」の切り口は非常に強力</strong>。「調べた情報」ではなく「体験から感じた」ので説得力抜群。他候補者との差別化にも効く。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5</span>ご自身の強みを教えてください。</div>
+    <div class="qa-a">
+      <strong>回答例(数字入り):</strong><br>
+      「私の強みは<em>「細部まで注意を払い、課題を見つけて仕組み化で改善する力」</em>です。<br><br>
+      現職の情報開示システム再構築PJでは、<em>単体テスト仕様書を約○本作成</em>し、バグを約○件検出しました。手順書や成果物の作成時には、罫線の乱れや表記ゆれといった細部までセルフチェックを徹底しております。<br><br>
+      さらに、<em>独自にセルフレビューチェックシートを作成・運用</em>することで、確認項目を可視化し、再現性の高いドキュメント作成を実現。結果として、<em>レビュー時の指摘を約○%削減</em>し、チーム内の作業効率向上に貢献しております。<br><br>
+      この<em>「課題発見→仕組み化→品質改善」</em>のアプローチは、貴社のIT特化型業務でも十分活かせると考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>数字(○本・○件・○%)を必ず入れる</strong>(前回不足)。実際の値がわからなくても<em>「約」を付けて具体化</em>。「セルフレビューチェックシート」は必ず入れる。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5-a</span>★重要 論理的思考プロセス(業務課題への向き合い方)を教えてください。</div>
+    <div class="qa-a">
+      <strong>⚠️ 前回の学び:</strong> ラクスパートナーズで「大学時代・数学」を聞かれた。<em>思考プロセスの見せ方</em>を準備しておく。<br><br>
+      <strong>回答例:</strong><br>
+      「業務で課題に直面した時、<em>「仮説→検証→改善」</em>のステップで対応することを意識しています。<br><br>
+      例えば、レビュー指摘が多く発生していた際、<em>①仮説として "確認漏れが属人化しているのでは"</em> と考え、<em>②直近3ヶ月の指摘内容を分類・集計して "表記ゆれ・罫線・数値ミス" の3類型が7割を占めることを確認</em>、<em>③その3類型を網羅するチェックシートを作成</em>し、レビュー前に毎回セルフチェックする運用に変えました。<br>
+      このように、感覚ではなく<em>データや事実を元に仮説を立て、検証してから改善する</em>思考プロセスを大切にしております。」
+    </div>
+    <div class="qa-tip">💡 <strong>ラクスパで聞かれた「数学」への回答準備</strong>。「仮説→検証→改善」の3ステップで<em>実際のエピソードに当てはめて</em>語ると、論理的思考力が伝わる。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q6</span>逆に、弱みや今後改善したい点は?</div>
+    <div class="qa-a">
+      <strong>⚠️ 注意:</strong> 「弱み=直せない欠点」ではなく「成長中の伸びしろ」として答える。<br><br>
+      <strong>回答例:</strong><br>
+      「<em>細部の確認を徹底するあまり、作業に時間がかかってしまう</em>ことがある点だと認識しております。<br>
+      現在は<em>チェック項目に優先順位を付ける</em>、<em>時間を区切って作業する</em>ことで、質と効率のバランスを取れるよう意識して取り組んでおります。今後はレビュー精度を保ちながらもスピードを両立できるよう、さらに成長していきたいと考えています。」
+    </div>
+    <div class="qa-tip">💡 「弱み+それに対する改善行動」を必ずセットで。自己認識+成長意欲をアピール。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q7</span>CCNAとLinuC Level1を短期間で取得された背景を教えてください。</div>
+    <div class="qa-a">
+      <strong>回答例:</strong><br>
+      「ITインフラエンジニアとして、業務での経験だけでなく<em>体系的な知識の土台</em>を作りたいと考え、計画的に学習しました。<br>
+      現職ではLinux・Windows Server・Ciscoに触れる機会が多かったため、業務で扱う内容と資格学習の内容を<em>相互に関連付けて理解する</em>ことを意識しました。<br>
+      入社3ヶ月でCCNA、6ヶ月でLinuC Level1を取得しましたが、単に合格を目指すのではなく、業務にすぐ反映できる知識として身につけることを重視しました。今後もLinuC Level2やクラウド系(AWS)の資格取得にも挑戦していきたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 単なる暗記ではなく「業務と関連付けた学習」姿勢を強調。次の学習計画まで触れると◎。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q8</span>5年後・10年後のキャリアプランは?</div>
+    <div class="qa-a">
+      <strong>回答例:</strong><br>
+      「5年後は、現在のテスト・運用保守経験をベースに<em>上流工程(要件定義・基本設計)まで担当できるインフラエンジニア</em>として活躍したいと考えております。<br>
+      10年後は、<em>クラウド領域(AWS・Azureなど)への知見を深め</em>、プロジェクトマネジメントやリーダー的な役割も担いたいと思います。<br>
+      特に貴社であれば、IT特化型の環境で研修〜実務まで一貫して技術を深められるため、そのキャリアパスをたどりやすいと考えております。」
+    </div>
+    <div class="qa-tip">💡 応募先で描けるキャリアパスであることを最後に必ず添える。</div>
+  </div>
+
+</div>
+
+<!-- 4. 逆質問 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">❓</span>
+    <h2>逆質問(3つ準備・優先順位付き)</h2>
+  </div>
+
+  <div class="callout">
+    <strong>💡 逆質問の基本</strong>: <br>
+    ・「特にありません」は絶対NG(志望度が低いと見られる)<br>
+    ・給与・福利厚生の質問は最終面接に取っておく<br>
+    ・企業HPに載っている情報は聞かない<br>
+    ・「〜について事前に調べて理解していますが、〜についてもう少し詳しく伺えますか?」の形式が◎
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥇 第1優先(必ず聞く)</strong><br>
+    「入社時の1ヶ月研修について、私のようなITインフラ1年経験者に対して、特に伸ばしてほしいスキル領域があれば教えてください。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ ProVisionの研修制度を調べ済み+自分の状況を客観視+成長意欲アピール</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥈 第2優先</strong><br>
+    「貴社ではテスト・運用経験から上流工程(設計・要件定義)へキャリアを広げた事例はどのくらいありますか? 平均的に何年目でそのステップに進めるものでしょうか?」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 転職理由(特定領域を深掘り→上流工程)と一貫。キャリアパスの実現可能性を確認する姿勢を見せる</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥉 第3優先</strong><br>
+    「配属される案件・チームは、面接での適性検査やアンケート結果を踏まえて決められるという理解で正しいでしょうか? 選考プロセスから、貴社が個々の適性を丁寧に見ている印象を強く持ちました。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ ProVision独自の選考プロセスを"体験から評価"していることを伝える。志望動機のQ4と一貫</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>💡 予備(時間があれば)</strong><br>
+    「入社後のクラウド領域(AWS・Azure)への学習機会や、資格取得支援制度について教えてください。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 継続学習意欲アピール(ProVisionが評価しているポイント)+次のステップも意識している姿勢</span>
+  </div>
+</div>
+
+<!-- 5. NGワード -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">⚠️</span>
+    <h2>絶対NGワード集</h2>
+  </div>
+
+  <div class="ng-list">
+    <h3>面接で言ってはいけない表現</h3>
+    <ul>
+      <li>「現職はマネジメントがずさんで...」<br><span style="font-size:11px;color:#888">→ 前職の悪口は品性を疑われる。「より体系的な環境で」に言い換え</span></li>
+      <li>「特にありません」(逆質問の返答として)<br><span style="font-size:11px;color:#888">→ 志望度が低いと判断される</span></li>
+      <li>「なんとなく」「〜な感じで」<br><span style="font-size:11px;color:#888">→ 具体性がなく、思考の浅さと取られる</span></li>
+      <li>「御社の〇〇に興味がありまして」(あいまい)<br><span style="font-size:11px;color:#888">→ 何に興味があるのか具体的に</span></li>
+      <li>「勉強したいです」で終わる<br><span style="font-size:11px;color:#888">→ 「勉強させてもらう」姿勢はNG。「貢献しながら成長」が正解</span></li>
+      <li>「〜って言われました」(他人任せの表現)<br><span style="font-size:11px;color:#888">→ 自分の意思・判断で語る</span></li>
+    </ul>
+  </div>
+
+  <div class="good-list" style="margin-top:14px">
+    <h3>逆に、使うと印象が良い表現</h3>
+    <ul>
+      <li>「〜を担当いたしました」「〜を実現いたしました」(能動態)</li>
+      <li>「具体的には〜」で数字や事例を必ずセットで</li>
+      <li>「〜と認識しております」「〜と伺い」(調べている姿勢+謙虚さ)</li>
+      <li>「〜に貢献したい/挑戦したい」(意欲+行動意識)</li>
+      <li>「本日は貴重なお時間をいただき、ありがとうございます」(冒頭・締めの挨拶)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. オンライン面接の心得 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💻</span>
+    <h2>オンライン面接ならではの注意点</h2>
+  </div>
+
+  <ul class="checklist">
+    <li><strong>カメラを見て話す</strong><span class="note">画面の面接官を見たくなるが、視線が下がる。カメラレンズを見る意識を</span></li>
+    <li><strong>普段より1.5倍ゆっくり・大きく話す</strong><span class="note">通信ラグと聞き取りやすさのため</span></li>
+    <li><strong>相槌は少し大袈裟に</strong><span class="note">「はい」「なるほど」+うなずきで、聞いている感を伝える</span></li>
+    <li><strong>笑顔を意識</strong><span class="note">カメラ越しは表情が読みにくいので、口角を上げる意識</span></li>
+    <li><strong>音声トラブル時の対応</strong><span class="note">「音声が途切れているようです、もう一度お願いできますか」で堂々と再確認</span></li>
+    <li><strong>面接終了後は最後まで映像を切らない</strong><span class="note">面接官が退出するまで笑顔で待機</span></li>
+  </ul>
+</div>
+
+<!-- 直前 -->
+<div class="section" style="background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%)">
+  <div class="section-header">
+    <span class="icon">🌸</span>
+    <h2>面接30分前 最終チェック</h2>
+  </div>
+  <ul class="checklist">
+    <li><strong>トイレを済ませる</strong></li>
+    <li><strong>飲み物を用意</strong></li>
+    <li><strong>Google Meetで接続テスト</strong><span class="note">https://meet.google.com/upk-iuri-soc → カメラ映像・マイク音量確認・カメラON</span></li>
+    <li><strong>職務経歴書・逆質問メモを目の届く場所に</strong></li>
+    <li><strong>深呼吸を5回</strong><span class="note">緊張を落ち着ける</span></li>
+    <li><strong>笑顔の練習</strong><span class="note">カメラ越しに1回試してみる</span></li>
+    <li><strong>「大丈夫、伝えるだけ」と口に出す</strong><span class="note">セルフトーク重要</span></li>
+  </ul>
+  <div style="text-align:center;font-size:14px;color:#4A6FA5;font-weight:700;margin-top:16px;padding:12px;background:white;border-radius:10px">
+    🌸 野田さん、これまでの積み重ねを信じて、自分らしく話せば大丈夫です。応援しています🌸
+  </div>
+</div>
+
+<div class="footer">
+  📝 UCHIAGE キャリアアドバイザー特製ロープレ資料 / 質問があればいつでも担当CAへ🌷
+</div>
+
+</div>
+</body>
+</html>
