@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>木村様専用 物件一覧 – 全15件</title>
+<title>木村様専用 物件一覧 – 全12件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -325,7 +325,6 @@ footer.foot {
   font-size: 11.5px;
 }
 
-/* Modal for PDF preview */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -380,25 +379,26 @@ footer.foot {
 
 <header class="hero">
   <h1>木村様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年7月6日</div>
+  <div class="sub">条件全面リニューアル版｜最終更新 2026年7月8日</div>
 </header>
 
 <div class="container">
 
   <section class="criteria">
-    <h2>木村様のご希望条件</h2>
+    <h2>木村様のご希望条件（新条件）</h2>
     <div class="criteria-grid">
-      <div><span>ご予算</span><span>家賃込 8万円 / 初期費用40万円</span></div>
-      <div><span>入居時期</span><span>2026年8月中旬</span></div>
-      <div><span>職場</span><span>六本木（30分以内）</span></div>
-      <div><span>エリア</span><span>都内 or 都内寄り千葉</span></div>
-      <div><span>間取り</span><span>1DK / 1LDK</span></div>
-      <div><span>広さ・築年</span><span>築5年以内・駅徒歩15分以内</span></div>
-      <div><span>必須設備</span><span>バストイレ別・2階以上・独立洗面台・2口以上コンロ・オートロック・室内洗濯機置場</span></div>
+      <div><span>ご予算</span><span>家賃・管理費込 7万円 / 初期費用 40万円</span></div>
+      <div><span>入居時期</span><span>2026年8月中旬〜8月末</span></div>
+      <div><span>職場</span><span>六本木（新宿・南青山・二子玉川の可能性あり）</span></div>
+      <div><span>通勤時間</span><span>1時間30分以内</span></div>
+      <div><span>エリア</span><span>都内・千葉・埼玉・神奈川</span></div>
+      <div><span>間取り</span><span>ワンルーム / 1K / 1DK</span></div>
+      <div><span>広さ・築年</span><span>築20年以内・駅徒歩15分以内</span></div>
+      <div><span>必須設備</span><span>バストイレ別・2階以上・独立洗面台・オートロック・インターホン・室内洗濯機置場</span></div>
       <div><span>ご希望構造</span><span>鉄筋コンクリート（可能ならば）</span></div>
     </div>
     <div class="priorities">
-      <strong>優先順位：</strong>設備の充実度 &gt; 部屋の広さ &gt; 家賃の安さ
+      <strong>優先順位：</strong>家賃の安さ &gt; 設備の充実度 &gt; 通勤時間の短さ
     </div>
   </section>
 
@@ -415,32 +415,30 @@ footer.foot {
     <div class="control-group" data-filter="line">
       <label>沿線</label>
       <span class="chip on" data-value="all">すべて</span>
-      <span class="chip" data-value="常磐">常磐線</span>
-      <span class="chip" data-value="東西">東西線</span>
-      <span class="chip" data-value="TX">つくばEX</span>
+      <span class="chip" data-value="伊勢崎">東武伊勢崎線</span>
+      <span class="chip" data-value="大師">東武大師線</span>
+      <span class="chip" data-value="池袋">西武池袋線</span>
+      <span class="chip" data-value="大江戸">大江戸線</span>
       <span class="chip" data-value="京成">京成本線</span>
-      <span class="chip" data-value="京成松戸">京成松戸線</span>
-      <span class="chip" data-value="千代田">千代田線</span>
-      <span class="chip" data-value="北総">北総線</span>
+      <span class="chip" data-value="南北">南北線</span>
+      <span class="chip" data-value="新宿">西武新宿線</span>
     </div>
     <div class="control-group" data-filter="layout">
       <label>間取</label>
       <span class="chip on" data-value="all">すべて</span>
       <span class="chip" data-value="1R">1R</span>
-      <span class="chip" data-value="1DK">1DK</span>
-      <span class="chip" data-value="1LDK">1LDK</span>
-      <span class="chip" data-value="1LDK+ロフト">1LDK+ロフト</span>
+      <span class="chip" data-value="1K">1K</span>
     </div>
     <div class="control-group">
       <label>ご予算</label>
       <select id="rentcap">
-        <option value="100000" selected>家賃込10万円まで</option>
-        <option value="90000">家賃込9万円まで</option>
-        <option value="85000">家賃込8.5万円まで</option>
-        <option value="80000">家賃込8万円まで（絶対上限）</option>
+        <option value="70000" selected>家賃込7万円まで（絶対上限）</option>
+        <option value="68000">家賃込6.8万円まで</option>
+        <option value="66000">家賃込6.6万円まで</option>
+        <option value="64000">家賃込6.4万円まで（最安）</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">15</strong> / 15件</div>
+    <div class="count-badge">表示中 <strong id="count">12</strong> / 12件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -466,756 +464,558 @@ footer.foot {
 const PROPERTIES = [
   {
     id: '01',
-    name: 'アピチェ南千住B棟',
-    unit: '402号室',
-    line: '常磐',
-    station: '南千住',
-    walk: 11,
-    size: 20.00,
-    layout: '1DK',
-    rent: 90000,
-    kanri: 10000,
-    total: 100000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2024,
-    structure: '鉄筋コンクリート',
-    tags: [
-      {t:'RC造', c:'new'},
-      {t:'4階', c:''},
-      {t:'六本木27分', c:''},
-      {t:'築2年', c:''},
-    ],
-    pros: [
-      'ご希望のRC造・4階の高層階、南東向きで日当たり良好',
-      '日比谷線 三ノ輪駅（徒歩13分）から六本木まで直通約27分、通勤最短',
-      '築2024年8月で築2年、最新設備',
-      'オートロック・宅配BOX・防犯カメラ・浴室乾燥機・温水洗浄便座・モニター付インターホン完備',
-      'インターネット無料、更新料0ヶ月',
-    ],
-    cons: [
-      '家賃込10万円で予算8万円から+2万円',
-      '専有面積20㎡（他候補と比較して狭め）',
-      '定期借家契約（再契約可・大手法人相談可）、短期解約違約金1年未満2ヶ月',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1hI-k2VhvE7yEyLimfOfDjQRJD5dFhIOS',
-  },
-  {
-    id: '02',
-    name: 'FOREST M24',
-    unit: '205号室',
-    line: '東西',
-    station: '妙典',
-    walk: 13,
-    size: 27.50,
-    layout: '1DK',
-    rent: 82000,
-    kanri: 3000,
-    total: 85000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2019,
-    structure: '鉄骨造',
-    tags: [
-      {t:'鉄骨造', c:''},
-      {t:'2階', c:''},
-      {t:'六本木35分', c:''},
-      {t:'南西向き', c:''},
-    ],
-    pros: [
-      '東京メトロ東西線 妙典駅から六本木まで約35分',
-      '独立洗面台・2口ガスコンロ・オートロック・宅配BOX完備',
-      'バス・トイレ別、室内洗濯機置場、インターネット無料',
-      '広さ27.5㎡、DK6.9帖＋洋室4.5帖でゆったり',
-      '鉄骨造マンション（2階/3階建）で防音・耐震性能◎',
-    ],
-    cons: [
-      '定期借家契約2年（再契約可、法人契約時は普通借家への変更を要相談）',
-      '3年未満の解約時は違約金あり（賃料+管理費の1ヶ月分）',
-      'その他費用：鍵交換24,200円・室内消毒16,500円・退去時クリーニング66,000円',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1lo47h6infeKeAw3BURksbyRMFSzazcW-',
-  },
-  {
-    id: '03',
-    name: 'RIZE柏たなかⅠ',
-    unit: '303号室',
-    line: 'TX',
-    station: '柏たなか',
-    walk: 14,
-    size: 33.62,
-    layout: '1LDK',
-    rent: 80000,
-    kanri: 3000,
-    total: 83000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2025,
-    structure: '木造',
-    tags: [
-      {t:'家賃最安', c:'new'},
-      {t:'3階', c:''},
-      {t:'築1年', c:'new'},
-      {t:'33.62㎡', c:''},
-    ],
-    pros: [
-      '家賃込8.3万円（予算+3千円）',
-      '築2025年6月の築1年、最新設備が揃っている',
-      'オートロック・宅配BOX・防犯カメラ・24時間換気システム・温水洗浄便座',
-      '独立洗面台（シャンプードレッサー）・2口ガス・浴室暖房換気乾燥機',
-      '広さ33.62㎡（LDK 8.36帖＋洋室4.23帖）、1LDKでゆったり',
-      'インターネット無料 J:COM 1ギガ、敷金・礼金ゼロ、都市ガス（経済的）',
-    ],
-    cons: [
-      '木造3階建（ご希望のRC造ではありません）',
-      'つくばEX柏たなか駅から六本木まで乗り換え複数、約55分',
-      '駐車場なし（駐輪1世帯1台のみ）',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1klaFfxEbgdUZR--VvZ-3ORXr_k0kKmT9',
-  },
-  {
-    id: '04',
-    name: 'Lotus Gran松戸',
-    unit: '301号室',
-    line: '常磐',
-    station: '松戸',
-    walk: 8,
-    size: 31.17,
-    layout: '1LDK+ロフト',
-    rent: 80000,
-    kanri: 5000,
-    total: 85000,
-    deposit: 'なし',
-    reikin: '礼0.5ヶ月',
-    year: 2024,
-    structure: '木造',
-    tags: [
-      {t:'南角部屋', c:''},
-      {t:'築2年', c:'new'},
-      {t:'松戸8分', c:''},
-      {t:'ロフト付き', c:''},
-    ],
-    pros: [
-      '築2024年3月の築2年、最新設備',
-      'JR常磐線＆新京成線 松戸駅から徒歩8分の好立地（複数路線利用可）',
-      '南角部屋で採光良好、内廊下・宅配BOX',
-      'オートロック・防犯カメラ・独立洗面台・浴室乾燥機・モニター付インターホン',
-      '1LDK+ロフト（LDK9.9帖＋洋室3.7帖）で収納力大、31.17㎡',
-    ],
-    cons: [
-      '木造3階建（ご希望のRC造ではありません）',
-      '六本木まで乗換複数で約45分',
-      'プロパンガス（都市ガスより高くなる可能性）',
-      '解約違約金：1年未満2ヶ月、2年未満1ヶ月／契約時ハウスクリーニング71,500円',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1CwY3mOLw77qBzIovRoIPPMkrktjPG2cJ',
-  },
-  {
-    id: '05',
-    name: 'モルゲンレーテ',
+    name: 'メルディア竹ノ塚2丁目Ⅱ',
     unit: '202号室',
-    line: '常磐',
-    station: '松戸',
-    walk: 13,
-    size: 29.01,
-    layout: '1LDK',
-    rent: 82000,
-    kanri: 4000,
-    total: 86000,
-    deposit: '敷1ヶ月',
-    reikin: '礼1ヶ月',
-    year: 2020,
-    structure: '木造',
-    tags: [
-      {t:'全戸角部屋', c:''},
-      {t:'築6年', c:''},
-      {t:'2駅利用可', c:''},
-      {t:'単身限定', c:''},
-    ],
-    pros: [
-      'JR常磐線 松戸駅徒歩13分／京成松戸線 上本郷駅徒歩10分の2駅利用可',
-      '全戸角部屋でプライバシー確保、隣り合う面が少ない間取り',
-      'オートロック・宅配BOX・温水洗浄便座・防犯カメラ・シャンプードレッサー',
-      'ウォークインクローゼット、バス・トイレ別、2口ガス、浴室換気乾燥機',
-      'インターネット無料 J:COM、徒歩圏内にファミマ・すし銚子丸・ステーキのあさくま',
-    ],
-    cons: [
-      '木造3階建（ご希望のRC造ではありません）',
-      '単身入居限定、禁煙物件（電子タバコ・加熱式タバコも含む）',
-      '2年未満解約時に違約金あり（2年未満1ヶ月／1年未満2ヶ月）',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1zUyhhVhDduY05fwSeLBFxdGm9_WikKeb',
-  },
-  {
-    id: '07',
-    name: 'Starlight Home',
-    unit: '301号室',
-    line: '京成',
-    station: '千住大橋',
-    walk: 9,
-    size: 17.42,
-    layout: '1R',
-    rent: 72000,
-    kanri: 4000,
-    total: 76000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2023,
-    structure: '木造',
-    tags: [
-      {t:'予算内◎', c:'new'},
-      {t:'3階', c:''},
-      {t:'築3年', c:'new'},
-      {t:'足立区', c:''},
-    ],
-    pros: [
-      '家賃込7.6万円で予算内',
-      '築2023年3月の築3年、新しい設備が揃っている',
-      '京成本線 千住大橋駅から徒歩9分の都内立地（足立区）',
-      'オートロック・独立洗面台・2口キッチン・浴室乾燥機・TVモニターホン完備',
-      'IoT機能搭載・Wi-Fi完備・室内洗濯機置場・ウォシュレット・シューズBOX',
-      '敷金・礼金ゼロ、インターネット月額無料',
-    ],
-    cons: [
-      '間取り1R（ご希望の1DK/1LDKではありません）、住戸面積17.42㎡でコンパクト',
-      '木造3階建（ご希望のRC造ではありません）',
-      '京成本線→六本木まで乗換複数で約40-50分（ご希望30分は超過）',
-      'IoT物件のためスマホ必須（スマホを持っていないと入退出不可）',
-      'LPガス指定、単身限定、生活保護・水商売・留学生は申込不可',
-      '短期解約違約金：1年未満2ヶ月／1年以上2年未満1ヶ月、解約予告2ヶ月前',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1EN3rVeY4txkOMZXkC_JAf88sgu9GFyjR',
-  },
-  {
-    id: '08',
-    name: 'ラ ヴェリタ',
-    unit: '201号室',
-    line: '京成',
-    station: '千住大橋',
-    walk: 11,
-    size: 14.28,
-    layout: '1R',
-    rent: 73000,
-    kanri: 4000,
-    total: 77000,
-    deposit: '敷1ヶ月',
-    reikin: '礼1ヶ月',
-    year: 2019,
-    structure: '木造',
-    tags: [
-      {t:'予算内◎', c:'new'},
-      {t:'2階', c:''},
-      {t:'足立区', c:''},
-      {t:'築7年', c:''},
-    ],
-    pros: [
-      '家賃込7.7万円で予算内',
-      '京成本線 千住大橋駅 徒歩11分／JR常磐線 北千住駅 徒歩18分の2路線利用可',
-      '築2019年2月（築7年）の木造3階建/2階',
-      'オートロック・ディンプルキー・ダブルロックドア・宅配ボックス完備',
-      '独立洗面台・室内洗濯機置場・IHクッキング・都市ガス',
-      'TVモニターホン・光ネット無料・角部屋',
-    ],
-    cons: [
-      '間取り1R（ご希望の1DK/1LDKではありません）、専有面積14.28㎡でコンパクト',
-      '木造3階建（ご希望のRC造ではありません）',
-      '京成本線→六本木まで乗換複数で約45-50分（30分は超過）',
-      '再契約型定期借家1年契約、再契約料 新賃料の0.5ヶ月分',
-      '1年未満解約時違約金1ヶ月分（賃料+共益費）',
-      '外国籍の方は敷金+1ヶ月、鍵交換代33,000円',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1tEo47o7O6rpP-fdWCxNs1T8cRyHkQbZA',
-  },
-  {
-    id: '09',
-    name: 'オーガスタコート堀切菖蒲園',
-    unit: '301号室',
-    line: '京成',
-    station: '堀切菖蒲園',
-    walk: 5,
-    size: 18.16,
-    layout: '1K',
-    rent: 76000,
-    kanri: 3000,
-    total: 79000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2026,
-    structure: '木造',
-    tags: [
-      {t:'予算内◎', c:'new'},
-      {t:'3階最上階', c:''},
-      {t:'新築同然', c:'new'},
-      {t:'徒歩5分', c:''},
-    ],
-    pros: [
-      '家賃込7.9万円で予算内',
-      '京成本線 堀切菖蒲園駅から徒歩5分の駅近',
-      '築2026年2月＝築1年、事実上新築、南向きで日当たり良好',
-      '木造3階建/3階（最上階）',
-      '普通借家（定期借家ではない）、更新可',
-      '間取り1K（洋室6.8畳）、専有面積18.16㎡',
-      '損保 1.8万円/2年、敷金なし',
-    ],
-    cons: [
-      '間取り1K（ご希望の1DK/1LDKに近いですがK部分は独立）',
-      '木造3階建（ご希望のRC造ではありません）',
-      '京成本線→六本木まで乗換複数で約45-50分',
-      '2人入居不可（単身限定）',
-      '鍵交換費用25,200円、室内清掃費用37,400円（入居時）',
-      '更新料 1ヶ月',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1bcJxR7fQ7ei3hPtJ5ww3iZhs1OqFLBRq',
-  },
-  {
-    id: '10',
-    name: 'リブリ・アーク',
-    unit: '301号室',
-    line: '京成松戸',
-    station: '薬園台',
-    walk: 12,
-    size: 30.01,
-    layout: '1DK',
-    rent: 73000,
-    kanri: 4000,
-    total: 77000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2012,
-    structure: '鉄骨造',
-    tags: [
-      {t:'鉄骨造', c:''},
-      {t:'1DK広め', c:'new'},
-      {t:'3階最上階', c:''},
-      {t:'予算内◎', c:'new'},
-    ],
-    pros: [
-      '家賃込7.7万円で予算内、間取り1DKでご希望に合致',
-      '専有面積30.01㎡と広く、DK7.8畳＋洋室3畳',
-      '鉄骨造3階建/3階（最上階）で防音性能◎',
-      '京成松戸線 薬園台徒歩12分・東葉高速線 飯山満徒歩15分の2路線利用可',
-      'オートロック・モニター付インターホン・24時間セキュリティ・宅配BOX',
-      'システムキッチン2口コンロ・独立洗面台・追い焚き機能・室内洗濯機置場',
-      '駐車場あり（月7,700円）、二人入居可、東向き',
-    ],
-    cons: [
-      '築2012年（築14年）でご希望の築5年以内から大きく外れる',
-      '京成松戸線→六本木まで乗換複数で約60分',
-      '定期借家契約2年（法人契約時のみ普通借家への変更相談可）',
-      '3年未満の解約時違約金1ヶ月分、再契約料 新賃料1ヶ月',
-      'プロパンガス、その他費用：鍵交換24,200円・室内消毒16,500円・退去時クリーニング57,200円',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1Uy6iqWRRLoixuMzKVyZhjo7oiTKXcqtT',
-  },
-  {
-    id: '11',
-    name: 'ドルフK-3',
-    unit: '203号室',
-    line: '千代田',
-    station: '北松戸',
-    walk: 4,
-    size: 29.59,
-    layout: '1DK',
-    rent: 75000,
-    kanri: 3000,
-    total: 78000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2012,
-    structure: '軽量鉄骨',
-    tags: [
-      {t:'軽量鉄骨', c:''},
-      {t:'1DK広め', c:'new'},
-      {t:'駅超近', c:'new'},
-      {t:'普通借家', c:''},
-    ],
-    pros: [
-      '家賃込7.8万円で予算内、間取り1DKでご希望に合致',
-      '**千代田線・常磐緩行線 北松戸駅から徒歩4分**の駅超近立地',
-      '専有面積29.59㎡（DK7.9畳＋洋室3.1畳）と広め',
-      '軽量鉄骨2階建/2階（最上階）',
-      '普通借家契約2年（定期借家ではない）',
-      '千代田線直通で表参道→半蔵門線・大江戸線乗換で六本木まで約45分',
-      '2026年7月11日退去予定＝入居可能時期がご希望の8月中旬に合致',
-      '総戸数6戸の小規模物件、住居専用',
-    ],
-    cons: [
-      '築2012年12月（築14年）でご希望の築5年以内から大きく外れる',
-      '木造ではないが軽量鉄骨（ご希望のRC造ではありません）',
-      '主要採光面：西向き（西日あり）',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '16S9jSOhPQl67zQCNaXXN2yvHJBnHIo-S',
-  },
-  {
-    id: '12',
-    name: 'プレステージ矢切',
-    unit: '303号室',
-    line: '北総',
-    station: '矢切',
-    walk: 8,
-    size: 33.03,
-    layout: '1LDK',
-    rent: 75500,
-    kanri: 4500,
-    total: 80000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2023,
-    structure: '木造',
-    tags: [
-      {t:'築2年◎', c:'new'},
-      {t:'1LDK', c:'new'},
-      {t:'3階最上階', c:''},
-      {t:'予算内◎', c:'new'},
-    ],
-    pros: [
-      '家賃込8.0万円で予算ぴったり、間取り1LDKでご希望に合致',
-      '**築2023年9月（築2年）**、ご希望の築5年以内◎',
-      '専有面積33.03㎡（LDK12畳＋洋室3.1畳）と広い',
-      '木造3階建/3階（最上階）、南西向きで日当たり良好',
-      '普通借家契約2年（定期借家ではない）',
-      '北総鉄道北総線 矢切駅から徒歩8分',
-      '入居可能時期 2026年8月3日でご希望の8月中旬に合致◎',
-      '宅配BOX完備、総戸数9戸の小規模物件',
-    ],
-    cons: [
-      '木造3階建（ご希望のRC造ではありません）',
-      '北総線→六本木まで乗換複数で約55-60分',
-      '広告費なし・取引態様専任媒介',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1x_P3i3x-TZ-86qt9g3au_wow6Xr_a9rf',
-  },
-  {
-    id: '13',
-    name: 'ハルティーニ',
-    unit: '0202号室',
-    line: '京成',
-    station: '京成小岩',
+    line: '伊勢崎',
+    station: '竹ノ塚',
     walk: 10,
-    size: 16.87,
+    size: 16.7,
     layout: '1K',
-    rent: 74000,
-    kanri: 4000,
-    total: 78000,
-    deposit: '敷1ヶ月',
-    reikin: '礼2ヶ月',
-    year: 2023,
-    structure: '木造',
-    tags: [
-      {t:'予算内◎', c:'new'},
-      {t:'築2年◎', c:'new'},
-      {t:'2階最上階', c:''},
-      {t:'IoT物件', c:''},
-    ],
-    pros: [
-      '家賃込7.8万円で予算内',
-      '築2023年11月（築2年）でご希望の築5年以内◎',
-      '京成本線 京成小岩徒歩10分・北総鉄道 新柴又徒歩15分の2路線利用可（葛飾区）',
-      '木造2階建/2階（最上階）、南向きで日当たり良好',
-      '専有面積16.87㎡＋ロフト4.5畳の広め感',
-      'エアコン・温水洗浄便座・モニター付インターホン・2口コンロ・独立洗面台完備',
-      '鍵交換代0円、インターネット無料（ファミリーネットジャパン）、IoT導入物件',
-    ],
-    cons: [
-      '間取り1K（ご希望の1DK/1LDKに近いですがK部分は独立）',
-      '木造2階建（ご希望のRC造ではありません）',
-      '京成本線→六本木まで乗換複数で約45-50分',
-      '礼金2ヶ月と高め、更新料 新賃料の1.5ヶ月',
-      '短期解約違約金：1年未満2ヶ月、解約予告2ヶ月前',
-      'プレミアデスク（2年/税込）：22,000円、町内会費300円',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1GOVrMREuzMVXCW95Zm3J6Q7e7xE9MNpq',
-  },
-  {
-    id: '14',
-    name: 'ベレッツァ',
-    unit: '205号室',
-    line: '東西',
-    station: '葛西',
-    walk: 9,
-    size: 18.24,
-    layout: '1K',
-    rent: 73000,
-    kanri: 4000,
-    total: 77000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2018,
-    structure: '木造',
-    tags: [
-      {t:'予算内◎', c:'new'},
-      {t:'通勤◎', c:'new'},
-      {t:'敷礼ゼロ', c:'new'},
-      {t:'2階最上階', c:''},
-    ],
-    pros: [
-      '家賃込7.7万円で予算内、敷金・礼金ゼロ◎',
-      '**東京メトロ東西線 葛西駅から徒歩9分**の都内立地（江戸川区）',
-      '築2018年12月（築7年）、専有面積18.24㎡＋ロフト5.5畳',
-      '木造2階建/2階（最上階）、**南向き**で日当たり良好',
-      '普通借家契約2年（定期借家ではない）',
-      '**東西線→大手町→千代田線→表参道→銀座線経由で六本木まで約35-40分**',
-      '独立洗面台・浴室乾燥機・2口コンロ・追焚機能・光ファイバー完備',
-      'モニター付インターホン・室内洗濯機置場・角部屋・最上階・デザイナーズ',
-    ],
-    cons: [
-      '間取り1K（ご希望の1DK/1LDKに近いですがK部分は独立）',
-      '木造2階建（ご希望のRC造ではありません）',
-      'プロパンガス（都市ガスより高くなる可能性）',
-      '鍵交換代：27,500円、退去時清掃費：55,000円、町会費110円',
-      '家財保険：加入必要（2,700円）、外国籍・保証人不要',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1CuOBlM4YBjMcv2qMSr1ldSBcHSS3RgMN',
-  },
-  {
-    id: '15',
-    name: '江戸川ダイクストラ',
-    unit: '203号室',
-    line: '京成',
-    station: '江戸川',
-    walk: 9,
-    size: 20.01,
-    layout: '1K',
-    rent: 69000,
+    rent: 61000,
     kanri: 3000,
-    total: 72000,
-    deposit: 'なし',
-    reikin: '礼1ヶ月',
-    year: 2024,
-    structure: '木造',
-    tags: [
-      {t:'家賃最安◎', c:'new'},
-      {t:'築2年◎', c:'new'},
-      {t:'即入居可', c:'new'},
-      {t:'都内', c:''},
-    ],
-    pros: [
-      '**家賃込7.2万円**、月々予算から8千円余裕◎',
-      '築2024年7月（築2年）でご希望の築5年以内◎',
-      '**京成本線 江戸川駅徒歩9分**の都内立地（江戸川区北小岩）',
-      '木造3階建/2階、専有面積20.01㎡（洋室4.9畳＋K 4.3畳）',
-      '普通借家契約2年（定期借家ではない）',
-      '**即入居可**でご希望の8月中旬に十分間に合う◎',
-      '京成本線→押上→浅草線→大門→大江戸線→六本木で約40-45分',
-    ],
-    cons: [
-      '間取り1K（ご希望の1DK/1LDKに近いですがK部分は独立）',
-      '木造3階建（ご希望のRC造ではありません）',
-      '主要採光面：西向き（西日あり）',
-      '取引態様：専任媒介',
-    ],
-    addedAt: '2026-07-06',
-    driveId: '1rdAUNWBy9XbF3RLDeK5nFskNmvk1Otl-',
-  },
-  {
-    id: '06',
-    name: 'LUXIA柏',
-    unit: '304号室',
-    line: '常磐',
-    station: '柏',
-    walk: 9,
-    size: 31.34,
-    layout: '1LDK',
-    rent: 82000,
-    kanri: 5000,
-    total: 87000,
+    total: 64000,
     deposit: 'なし',
     reikin: 'なし',
     year: 2021,
-    structure: '木造',
+    structure: '木造3階建て',
     tags: [
-      {t:'角住戸最上階', c:''},
-      {t:'築5年', c:''},
-      {t:'柏9分', c:''},
-      {t:'二人入居可', c:''},
+      {t:'家賃込6.4万', c:'new'},
+      {t:'築5年', c:'new'},
+      {t:'2階', c:''},
+      {t:'敷礼ゼロ', c:''},
     ],
     pros: [
-      '築2021年2月の築5年、比較的新しい',
-      '常磐線・常磐緩行線 柏駅から徒歩9分の好立地',
-      '角住戸で採光良好、3階建の3階（最上階）',
-      '独立洗面台・システムキッチン・2口ガス・浴室乾燥・光ファイバー',
-      'ウォークインクローゼット、二人入居可',
-      '敷金・礼金ゼロ',
+      '家賃込6.4万円（ご予算7万円から-6千円）',
+      '東武伊勢崎線 竹ノ塚駅 徒歩10分、日比谷線直通で六本木まで約45分',
+      '築5年、パストイレ別・独立洗面台・オートロック・TV付ドアインターホン・室内洗濯機置場すべて完備',
+      '敷金・礼金ゼロ、シェアサイクル設置済み',
     ],
     cons: [
-      '木造3階建（ご希望のRC造ではありません）',
-      '向き：北西（日照は控えめ）',
-      '更新料 1ヶ月、その他費用：抗菌施工16,500円・消毒剤12,100円・ダスキン16,500円',
+      '木造3階建て（ご希望のRC造ではありません）',
+      '再契約型定期借家契約2年（1ヶ月前通知）',
+      'その他費用：Art Club月額1,320円・鍵交換22,000円・諸経費3,300円',
     ],
-    addedAt: '2026-07-06',
-    driveId: '1fdYR7omgUsedXwicvCsJeFOytKO_3RJ5',
+    addedAt: '2026-07-08',
+    driveId: '1KH_-ovURso2Qtayo7AuLaoKo03U4MDwz',
+  },
+  {
+    id: '02',
+    name: 'メルディア竹ノ塚2丁目Ⅱ',
+    unit: '204号室',
+    line: '伊勢崎',
+    station: '竹ノ塚',
+    walk: 10,
+    size: 16.7,
+    layout: '1K',
+    rent: 61000,
+    kanri: 3000,
+    total: 64000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2021,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.4万', c:'new'},
+      {t:'築5年', c:'new'},
+      {t:'2階', c:''},
+      {t:'敷礼ゼロ', c:''},
+    ],
+    pros: [
+      '家賃込6.4万円（202と同スペック・別室）',
+      '東武伊勢崎線 竹ノ塚駅 徒歩10分',
+      'パストイレ別・独立洗面台・オートロック・TV付ドアインターホン・室内洗濯機置場完備',
+      '2026年8月上旬入居可能目安',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '再契約型定期借家契約2年（1ヶ月前通知）',
+      'その他費用：Art Club月額1,320円・鍵交換22,000円・諸経費3,300円',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1HaVZXB_6RQ1JVxsKsTYU8oWG_JAE4atU',
+  },
+  {
+    id: '03',
+    name: 'メルディア竹ノ塚2丁目Ⅱ',
+    unit: '303号室',
+    line: '伊勢崎',
+    station: '竹ノ塚',
+    walk: 10,
+    size: 16.7,
+    layout: '1K',
+    rent: 63000,
+    kanri: 3000,
+    total: 66000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2021,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.6万', c:''},
+      {t:'築5年', c:'new'},
+      {t:'3階', c:''},
+      {t:'敷礼ゼロ', c:''},
+    ],
+    pros: [
+      '同じメルディア竹ノ塚2丁目Ⅱの3階のお部屋',
+      '3階のため陽当たり・眺望・防犯面で有利',
+      'パストイレ別・独立洗面台・オートロック・TV付ドアインターホン・室内洗濯機置場完備',
+      '2026年8月上旬入居可能目安',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '同一物件の2階（6.4万）より+2千円',
+      '再契約型定期借家契約2年（1ヶ月前通知）',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1XLl3Nfq2eeYMcgNQkIXPFqhEXQsqFkJ1',
+  },
+  {
+    id: '04',
+    name: 'エルプレミア梅島',
+    unit: '304号室',
+    line: '伊勢崎',
+    station: '梅島',
+    walk: 7,
+    size: 16.69,
+    layout: '1R',
+    rent: 61000,
+    kanri: 3000,
+    total: 64000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2013,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.4万', c:'new'},
+      {t:'梅島7分', c:''},
+      {t:'3階＋ロフト1.7㎡', c:''},
+      {t:'敷礼ゼロ', c:''},
+    ],
+    pros: [
+      '家賃込6.4万円、東武伊勢崎線 梅島駅 徒歩7分の駅近',
+      '3階のお部屋＋ロフト1.7㎡付きで収納力大',
+      'バストイレ別・独立洗面台・オートロック・TVモニター付インターホン・室内洗濯機置場・浴室乾燥機',
+      'ミニ冷蔵庫付き、フリーレント1ヶ月キャンペーン中（退去予定は対象外）',
+    ],
+    cons: [
+      '築2013年5月で築13年',
+      '木造3階建て（ご希望のRC造ではありません）',
+      '契約時入居契約料 賃料1ヶ月分',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '12usKGWHFtxlyzgGDka6cKbWySnZtTLbf',
+  },
+  {
+    id: '05',
+    name: 'コモンプラザ江古田',
+    unit: '201号室',
+    line: '大江戸',
+    station: '新江古田',
+    walk: 13,
+    size: 12.37,
+    layout: '1R',
+    rent: 61000,
+    kanri: 3000,
+    total: 64000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2011,
+    structure: '木造2階建て',
+    tags: [
+      {t:'家賃込6.4万', c:'new'},
+      {t:'大江戸線', c:'new'},
+      {t:'2階＋ロフト3.2J', c:''},
+      {t:'江古田8分', c:''},
+    ],
+    pros: [
+      '家賃込6.4万円、ご希望の大江戸線 新江古田駅 徒歩13分',
+      '西武池袋線 江古田駅 徒歩8分と2路線利用可',
+      '大江戸線で六本木まで乗換なし・約20分（最短通勤）',
+      'バストイレ別・独立洗面台・オートロック・室内洗濯機置場・浴室乾燥機・大型ロフト3.2帖',
+    ],
+    cons: [
+      '専有面積12.37㎡と狭め（ロフト3.2J別途）',
+      '築2011年で築15年（希望上限内）',
+      '木造2階建て、敷1・礼1が別途必要（初期費用に影響）',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1DJUwHIV4Na9UFFyUGnZrrYMfAuWlnEnZ',
+  },
+  {
+    id: '06',
+    name: 'TIZ CARROT',
+    unit: '204号室',
+    line: '伊勢崎',
+    station: '梅島',
+    walk: 12,
+    size: 18.11,
+    layout: '1R',
+    rent: 62000,
+    kanri: 3000,
+    total: 65000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2021,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.5万', c:''},
+      {t:'築4年', c:'new'},
+      {t:'2階', c:''},
+      {t:'18.11㎡', c:''},
+    ],
+    pros: [
+      '築2021年10月の築4年、専有18.11㎡と広め',
+      'バストイレ別・独立洗面台・オートロック・モニター付インターホン・室内洗濯機置場完備',
+      'IHクッキングヒーター・システムキッチン・宅配ボックス・CATVインターネット',
+      '2026年7月8日退去予定→8月中旬入居に最適',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      'その他費用：メンテナンス費用62,000円・鍵登録料20,000円・室内消毒20,000円',
+      '梅島駅徒歩12分・西新井駅徒歩14分',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1-ujfXvm19HGQkAbKX-hp076X631YMeXz',
+  },
+  {
+    id: '07',
+    name: 'TIZ CARROT',
+    unit: '201号室',
+    line: '伊勢崎',
+    station: '梅島',
+    walk: 12,
+    size: 16.10,
+    layout: '1R',
+    rent: 62000,
+    kanri: 3000,
+    total: 65000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2021,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.5万', c:''},
+      {t:'築4年', c:'new'},
+      {t:'2階', c:''},
+      {t:'16.10㎡', c:''},
+    ],
+    pros: [
+      '同建物TIZ CARROTの201号室、洋室4.5帖',
+      '築2021年10月の築4年、設備充実',
+      'バストイレ別・独立洗面台・オートロック・モニター付インターホン・室内洗濯機置場完備',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '専有面積16.10㎡と若干狭め（同建物204号室は18.11㎡）',
+      'その他費用：メンテナンス費用62,000円・鍵登録料20,000円・室内消毒20,000円',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1W0poj6HyMx2isXXsgqD08Z1jBr69ztfL',
+  },
+  {
+    id: '08',
+    name: 'Spazio Rilassante 高砂',
+    unit: '301号室',
+    line: '京成',
+    station: '高砂',
+    walk: 4,
+    size: 17.14,
+    layout: '1K',
+    rent: 63000,
+    kanri: 3000,
+    total: 66000,
+    deposit: '敷1ヶ月',
+    reikin: '礼1ヶ月',
+    year: 2021,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.6万', c:''},
+      {t:'築5年', c:'new'},
+      {t:'3階', c:''},
+      {t:'高砂4分', c:''},
+    ],
+    pros: [
+      '京成本線 高砂駅 徒歩4分の駅チカ',
+      '築2021年2月の築5年、3階のお部屋',
+      'バストイレ別・独立洗面台・オートロック・TV/モニターホン付・室内洗濯機置場完備',
+      'インターネット利用無料',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '敷1・礼1が別途必要',
+      '保証：エポス保証加入必須（賃料50%）、鍵交換22,000円、消毒殺菌19,800円',
+      '京成本線から六本木まで乗換2〜3回',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1x_untn3jkeSS4ks6l2NDbhDVacuoAPKq',
+  },
+  {
+    id: '09',
+    name: 'Beau (ボウ)',
+    unit: '303号室',
+    line: '大師',
+    station: '大師前',
+    walk: 15,
+    size: 19.25,
+    layout: '1R',
+    rent: 59000,
+    kanri: 8000,
+    total: 67000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2021,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.7万', c:''},
+      {t:'築5年', c:'new'},
+      {t:'3階角部屋', c:'new'},
+      {t:'19.25㎡', c:''},
+    ],
+    pros: [
+      '築2021年9月の築5年、3階の角部屋で採光良好',
+      '専有19.25㎡と広め',
+      'モニター付インターフォン・オートロック・宅配BOX・独立洗面台・室内洗濯機置場',
+      'ダブルロックディンプルキー・24h換気付浴室乾燥＆追い焚き付バス',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '大師前駅徒歩15分・西新井駅徒歩17分',
+      'その他費用：24Hサポート15,000円/2年・家財保険18,000円/2年',
+      '保証会社任意加入22,000円（税別）',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '10v8r-kfTFS-bwZ25hJAm4wCvj7aVpdwJ',
+  },
+  {
+    id: '10',
+    name: 'エル・グレコ',
+    unit: '204号室',
+    line: '伊勢崎',
+    station: '五反野',
+    walk: 6,
+    size: 17.49,
+    layout: '1K',
+    rent: 65000,
+    kanri: 3000,
+    total: 68000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2015,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.8万', c:''},
+      {t:'五反野6分', c:''},
+      {t:'2階', c:''},
+      {t:'敷礼ゼロ', c:''},
+    ],
+    pros: [
+      '東武伊勢崎線 五反野駅 徒歩6分の駅近',
+      '敷金・礼金ゼロ、フリーレント1ヶ月キャンペーン中（退去予定は対象外）',
+      'バストイレ別・オートロック・TVモニターインターホン・室内洗濯機置場・浴室乾燥機',
+      '日比谷線直通で六本木まで約35分',
+    ],
+    cons: [
+      '築2015年8月で築11年',
+      '木造3階建て（ご希望のRC造ではありません）',
+      '契約時入居契約料 賃料1ヶ月分、保証保険料GLパートナーズ賃料合計60%',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1xQO4wTA1F4oGqUfUz_DYAvPaj5_q1k21',
+  },
+  {
+    id: '11',
+    name: 'セレーノ新田',
+    unit: '305号室',
+    line: '南北',
+    station: '志茂',
+    walk: 14,
+    size: 19.92,
+    layout: '1R',
+    rent: 60000,
+    kanri: 8000,
+    total: 68000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2019,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.8万', c:''},
+      {t:'築6年', c:'new'},
+      {t:'3階', c:''},
+      {t:'19.92㎡', c:''},
+    ],
+    pros: [
+      '専有19.92㎡、築2019年11月の築6年',
+      '3階のお部屋、南北線 志茂駅 徒歩14分',
+      '敷金・礼金・保証金なし',
+      'バストイレ別・独立洗面台・オートロック・室内洗濯機置場・システムキッチン・宅配ボックス・防犯カメラ・照明器具付',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '王子神谷駅徒歩15分・東十条駅徒歩23分',
+      '保証会社：初回100%（最低44,000円）、月額家賃×880円、事務所利用等の場合40%増',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '12O0MnGHPcLNIm4hqcUWqQu17MSFUFwjT',
+  },
+  {
+    id: '12',
+    name: 'フォレスト石神井台',
+    unit: '202号室',
+    line: '新宿',
+    station: '武蔵関',
+    walk: 8,
+    size: 18.35,
+    layout: '1R',
+    rent: 65000,
+    kanri: 5000,
+    total: 70000,
+    deposit: '敷1ヶ月',
+    reikin: 'なし',
+    year: 2007,
+    structure: '鉄骨2階建て',
+    tags: [
+      {t:'家賃込7.0万', c:''},
+      {t:'鉄骨造', c:'new'},
+      {t:'武蔵関8分', c:''},
+      {t:'単身者限定', c:'warn'},
+    ],
+    pros: [
+      '西武新宿線 武蔵関駅 徒歩8分、上石神井駅徒歩18分',
+      '鉄骨造で木造よりも耐震・防音性に優れる',
+      'バストイレ別・独立洗面台・オートロック・室内洗濯機置場・エアコン・フローリング',
+      '都市ガス（プロパンより経済的）',
+    ],
+    cons: [
+      '築2007年3月で築18年（希望上限内）',
+      '家賃込7.0万円で予算上限ぴったり',
+      '単身者限定物件、敷金1ヶ月別途',
+      '事務手数料22,000円・損害・消毒9,900円・ライフサポート19,800円',
+    ],
+    addedAt: '2026-07-08',
+    driveId: '1SY1Khnh5HzrGh0I5ckL5QAo1zoDl_fkU',
   },
 ];
 
-// ---------- Rendering ----------
-const grid = document.getElementById('grid');
-const countEl = document.getElementById('count');
+const NEW_SINCE = '2026-07-08';
 
-function fmt(n) { return n.toLocaleString('ja-JP'); }
-
-// CUSTOMIZE: Set to the date of the latest batch of properties. Any property
-// whose addedAt is >= this date shows a "NEW" badge. Update this whenever you
-// add a new batch so the previous batch stops being NEW.
-const NEW_SINCE = '2026-07-06';
-
-function cardHtml(p) {
-  const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
-  const unitStr = p.unit ? ` ${p.unit}` : '';
-  const isNew = p.addedAt && p.addedAt >= NEW_SINCE;
-  const newBadge = isNew ? '<span class="new-badge">NEW</span>' : '';
-  const dateStr = p.addedAt ? p.addedAt.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1年$2月$3日') : '';
-  return `
-    <div class="card" data-id="${p.id}" data-line="${p.line}" data-layout="${p.layout}" data-total="${p.total}" data-size="${p.size}" data-walk="${p.walk}" data-year="${p.year}">
-      <div class="card-header">
-        <div>
-          <div class="card-name">${newBadge}${p.name}${unitStr}</div>
-          <div class="card-name-sub">${p.line}線 ${p.station}駅 徒歩${p.walk}分</div>
-        </div>
-        <div class="card-price">
-          <div class="total">${fmt(p.total)}<span style="font-size:11px">円</span></div>
-          <div class="breakdown">賃料 ${fmt(p.rent)} + 管理 ${fmt(p.kanri)}</div>
-        </div>
-      </div>
-      <div class="tags">${tagsHtml}</div>
-      <div class="meta-row">
-        <div><span>広さ</span><span>${p.size}㎡</span></div>
-        <div><span>間取り</span><span>${p.layout}</span></div>
-        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
-        <div><span>構造</span><span>${p.structure}</span></div>
-        <div><span>敷金</span><span>${p.deposit}</span></div>
-        <div><span>礼金</span><span>${p.reikin}</span></div>
-      </div>
-      <div class="notes">
-        <strong>おすすめポイント</strong>
-        <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
-        ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
-      </div>
-      <div class="actions">
-        ${p.driveId ? `
-        <button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
-        <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>
-        ` : `
-        <div class="btn btn-secondary" style="cursor:default;">図面はご担当までお問い合わせください</div>
-        `}
-      </div>
-      ${dateStr ? `<div class="added-date">物件情報の登録日：${dateStr}</div>` : ''}
-    </div>
-  `;
+function isNew(dateStr) {
+  return dateStr >= NEW_SINCE;
 }
 
-function renderAll() {
-  grid.innerHTML = PROPERTIES.map(cardHtml).join('');
-  applyFilters();
+function formatRent(n) {
+  return n.toLocaleString();
 }
 
-// ---------- Filtering + Sorting ----------
-const state = {
-  line: 'all',
-  layout: 'all',
-  sort: 'rent-asc',
-  rentcap: 100000,
-};
+function renderCards() {
+  const grid = document.getElementById('grid');
+  const sort = document.getElementById('sort').value;
+  const rentcap = parseInt(document.getElementById('rentcap').value);
+  const lineChip = document.querySelector('[data-filter="line"] .chip.on').dataset.value;
+  const layoutChip = document.querySelector('[data-filter="layout"] .chip.on').dataset.value;
 
-document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
-  c.addEventListener('click', () => {
-    document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(x => x.classList.remove('on'));
-    c.classList.add('on');
-    state.line = c.dataset.value;
-    applyFilters();
-  });
-});
-document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(c => {
-  c.addEventListener('click', () => {
-    document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(x => x.classList.remove('on'));
-    c.classList.add('on');
-    state.layout = c.dataset.value;
-    applyFilters();
-  });
-});
-document.getElementById('sort').addEventListener('change', e => {
-  state.sort = e.target.value;
-  applyFilters();
-});
-document.getElementById('rentcap').addEventListener('change', e => {
-  state.rentcap = parseInt(e.target.value, 10);
-  applyFilters();
-});
-
-function applyFilters() {
-  const cards = Array.from(grid.querySelectorAll('.card'));
-  const filtered = cards.filter(card => {
-    if (state.line !== 'all' && card.dataset.line !== state.line) return false;
-    if (state.layout !== 'all' && card.dataset.layout !== state.layout) return false;
-    if (parseInt(card.dataset.total, 10) > state.rentcap) return false;
+  let list = PROPERTIES.filter(p => {
+    if (p.total > rentcap) return false;
+    if (lineChip !== 'all' && p.line !== lineChip) return false;
+    if (layoutChip !== 'all' && p.layout !== layoutChip) return false;
     return true;
   });
-  // sort
-  filtered.sort((a, b) => {
-    const ka = a.dataset, kb = b.dataset;
-    switch (state.sort) {
-      case 'rent-asc': return (+ka.total) - (+kb.total);
-      case 'size-desc': return (+kb.size) - (+ka.size);
-      case 'walk-asc': return (+ka.walk) - (+kb.walk);
-      case 'age-asc': return (+kb.year) - (+ka.year);
-    }
+
+  list.sort((a, b) => {
+    if (sort === 'rent-asc') return a.total - b.total;
+    if (sort === 'size-desc') return b.size - a.size;
+    if (sort === 'walk-asc') return a.walk - b.walk;
+    if (sort === 'age-asc') return b.year - a.year;
     return 0;
   });
-  // apply visibility & order
-  cards.forEach(c => c.classList.add('hidden'));
-  filtered.forEach(c => {
-    c.classList.remove('hidden');
-    grid.appendChild(c);
-  });
-  countEl.textContent = filtered.length;
 
-  if (filtered.length === 0) {
-    if (!grid.querySelector('.empty')) {
-      const empty = document.createElement('div');
-      empty.className = 'empty';
-      empty.textContent = '条件に合う物件がありません。フィルタを緩めてお試しください。';
-      grid.appendChild(empty);
-    }
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = '<div class="empty">条件に合う物件がありません。フィルターを調整してください。</div>';
   } else {
-    const existing = grid.querySelector('.empty');
-    if (existing) existing.remove();
+    for (const p of list) {
+      grid.appendChild(renderCard(p));
+    }
   }
+  document.getElementById('count').textContent = list.length;
 }
 
-// ---------- Preview modal ----------
+function renderCard(p) {
+  const div = document.createElement('div');
+  div.className = 'card';
+  const newBadge = isNew(p.addedAt) ? '<span class="new-badge">NEW</span>' : '';
+  div.innerHTML = `
+    <div class="card-header">
+      <div>
+        <div class="card-name">${newBadge}${p.name}</div>
+        <div class="card-name-sub">${p.unit}｜${p.line}線 ${p.station}駅 徒歩${p.walk}分</div>
+      </div>
+      <div class="card-price">
+        <div class="total">${formatRent(p.total)}円</div>
+        <div class="breakdown">家賃${formatRent(p.rent)}＋管理${formatRent(p.kanri)}</div>
+      </div>
+    </div>
+    <div class="tags">
+      ${p.tags.map(t => `<span class="tag ${t.c}">${t.t}</span>`).join('')}
+    </div>
+    <div class="meta-row">
+      <div><span>広さ・間取</span><span>${p.size}㎡ ${p.layout}</span></div>
+      <div><span>築年</span><span>${p.year}年</span></div>
+      <div><span>構造</span><span>${p.structure}</span></div>
+      <div><span>敷金／礼金</span><span>${p.deposit}／${p.reikin}</span></div>
+    </div>
+    <ul class="pros-list">
+      ${p.pros.map(t => `<li>${t}</li>`).join('')}
+    </ul>
+    <div class="notes">
+      <strong>ご注意点：</strong><br>
+      ${p.cons.map(t => '・' + t).join('<br>')}
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" data-drive="${p.driveId}" data-name="${p.name} ${p.unit}">図面を見る</button>
+    </div>
+    <div class="added-date">追加日: ${p.addedAt}</div>
+  `;
+  return div;
+}
+
+// Filter chip toggle
+document.querySelectorAll('.control-group[data-filter]').forEach(group => {
+  group.addEventListener('click', e => {
+    if (!e.target.classList.contains('chip')) return;
+    group.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    e.target.classList.add('on');
+    renderCards();
+  });
+});
+
+document.getElementById('sort').addEventListener('change', renderCards);
+document.getElementById('rentcap').addEventListener('change', renderCards);
+
+// Modal
 const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalFrame = document.getElementById('modal-frame');
-
-function openPreview(driveId, name) {
-  modalTitle.textContent = '図面プレビュー：' + name;
-  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+document.getElementById('grid').addEventListener('click', e => {
+  const btn = e.target.closest('[data-drive]');
+  if (!btn) return;
+  const id = btn.dataset.drive;
+  const name = btn.dataset.name;
+  document.getElementById('modal-title').textContent = name + ' 図面プレビュー';
+  document.getElementById('modal-frame').src = `https://drive.google.com/file/d/${id}/preview`;
   modal.classList.add('on');
-}
+});
 document.getElementById('modal-close').addEventListener('click', () => {
   modal.classList.remove('on');
-  modalFrame.src = '';
+  document.getElementById('modal-frame').src = '';
 });
 modal.addEventListener('click', e => {
   if (e.target === modal) {
     modal.classList.remove('on');
-    modalFrame.src = '';
+    document.getElementById('modal-frame').src = '';
   }
 });
 
-renderAll();
+renderCards();
 </script>
 </body>
 </html>
