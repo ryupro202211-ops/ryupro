@@ -698,11 +698,17 @@ const DATA = {
         round: '一次面接',
         format: 'オンライン (Google Meet)',
         date: '2026-07-13 (月)',
-        time: '18:00〜19:00',
-        duration: '1時間程度',
+        time: '18:05〜19:00',
+        duration: '約55分',
         meetingUrl: 'https://meet.google.com/upk-iuri-soc',
-        changeContact: '前日まで:面接調整メールから変更 / 当日体調不良等:採用事務局 070-7498-6841',
-        note: '⚠️ 面接開始は予約時間+5分後(18:05〜)です。事前対応メールは予約完了から1〜3営業日で届きます。',
+        changeContact: '当日体調不良等:柿澤様 080-2017-5503(緊急連絡先)',
+        note: '⚠️ 実開始は18:05〜(予約枠+5分)。カメラON必須・企業側で録画されます。',
+        preInterviewTasks: [
+          { title: '①適性検査「ミキワメ」(約10分)', url: 'https://app.mikiwame.com/recruitment/b3276242-ea5c-40ca-9806-7a409b32b28e/examinees/new?link=2', note: 'Chrome/Edge推奨、離席不可、合否判定なし' },
+          { title: '②事前アンケート (約3分)', url: 'https://app.rekma.hrbrain.jp/room/6643f0d2-1018-4a3f-8c85-87a46893a570?step_id=9ac8eddc-af87-4b12-a412-90863caa01d5', note: '' },
+        ],
+        preInterviewDeadline: '2026-07-12 (日) 正午まで',
+        postInterviewTask: { title: '面接後アンケート (約5分)', url: 'https://app.rekma.hrbrain.jp/room/6643f0d2-1018-4a3f-8c85-87a46893a570?step_id=dc143ce0-e7f1-48b7-856f-58d22ee2575a', deadline: '面接日から3日以内' },
       },
       timeline: [
         { date: '2026-07-02', event: '案件をご提案しました' },
@@ -1035,6 +1041,25 @@ function renderInterviews() {
             <div style="font-size:12px;color:#4A6FA5;font-weight:700;margin-bottom:8px">📝 面接前にぜひご一読ください</div>
             <a href="${iv.prepGuideUrl}" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">🌸 面接ロープレ対策資料を開く</a>
             <div style="font-size:11px;color:#7f8c8d;margin-top:8px">想定質問・回答例・逆質問・NGワードなど収録</div>
+          </div>` : ''}
+          ${iv.preInterviewTasks && iv.preInterviewTasks.length ? `
+          <div style="margin-top:12px;padding:14px 16px;background:#FFF9E7;border:2px solid #F1C40F;border-radius:12px">
+            <div style="font-size:13px;color:#B7950B;font-weight:800;margin-bottom:6px">⚠️ 事前対応が必要です</div>
+            ${iv.preInterviewDeadline ? `<div style="font-size:12px;color:#7D6608;font-weight:700;margin-bottom:10px">⏰ 期限:${iv.preInterviewDeadline}</div>` : ''}
+            ${iv.preInterviewTasks.map(t => `
+              <div style="background:white;padding:10px 12px;border-radius:8px;margin-bottom:6px">
+                <div style="font-size:13px;font-weight:700;color:#2c3e50;margin-bottom:4px">${t.title}</div>
+                ${t.note ? `<div style="font-size:11px;color:#7f8c8d;margin-bottom:6px">${t.note}</div>` : ''}
+                <a href="${t.url}" target="_blank" class="btn btn-primary" style="font-size:12px;padding:6px 14px">▶ 対応する</a>
+              </div>
+            `).join('')}
+            <div style="font-size:11px;color:#7f8c8d;margin-top:6px">※完了報告不要(企業側で確認できます)</div>
+          </div>` : ''}
+          ${iv.postInterviewTask ? `
+          <div style="margin-top:10px;padding:12px 16px;background:#EAF3FB;border-left:4px solid #3498DB;border-radius:8px">
+            <div style="font-size:12px;color:#2874A6;font-weight:700;margin-bottom:6px">📮 面接後のアンケート(${iv.postInterviewTask.deadline})</div>
+            <div style="font-size:12px;color:#555;margin-bottom:6px">${iv.postInterviewTask.title}</div>
+            <a href="${iv.postInterviewTask.url}" target="_blank" style="font-size:11px;color:#3498DB;text-decoration:underline;word-break:break-all">▶ 面接後にこちらから回答</a>
           </div>` : ''}` : ''}
       </div>
     `;
