@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>木村様専用 物件一覧 – 全11件</title>
+<title>木村様専用 物件一覧 – Beau類似セレクション 全6件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -379,23 +379,22 @@ footer.foot {
 
 <header class="hero">
   <h1>木村様専用 物件セレクション</h1>
-  <div class="sub">条件全面リニューアル版｜最終更新 2026年7月9日</div>
+  <div class="sub">Beau + 類似5件セレクション｜最終更新 2026年7月10日</div>
 </header>
 
 <div class="container">
 
   <section class="criteria">
-    <h2>木村様のご希望条件（新条件）</h2>
+    <h2>木村様のご希望条件</h2>
     <div class="criteria-grid">
       <div><span>ご予算</span><span>家賃・管理費込 7万円 / 初期費用 40万円</span></div>
       <div><span>入居時期</span><span>2026年8月中旬〜8月末</span></div>
       <div><span>職場</span><span>六本木（新宿・南青山・二子玉川の可能性あり）</span></div>
-      <div><span>通勤時間</span><span>1時間30分以内</span></div>
-      <div><span>エリア</span><span>都内・千葉・埼玉・神奈川</span></div>
-      <div><span>間取り</span><span>ワンルーム / 1K / 1DK</span></div>
-      <div><span>広さ・築年</span><span>築20年以内・駅徒歩15分以内</span></div>
-      <div><span>必須設備</span><span>バストイレ別・2階以上・独立洗面台・オートロック・インターホン・室内洗濯機置場</span></div>
-      <div><span>ご希望構造</span><span>鉄筋コンクリート（可能ならば）</span></div>
+      <div><span>通勤時間</span><span>1時間30分以内（距離は遠くてもOK）</span></div>
+      <div><span>間取り</span><span>ワンルーム / 1K</span></div>
+      <div><span>広さ・築年</span><span>築5年以内・駅徒歩15分以内・広め19㎡〜</span></div>
+      <div><span>必須設備</span><span>バストイレ別・2階以上・独立洗面台・オートロック・モニター付インターホン・室内洗濯機置場</span></div>
+      <div><span>その他</span><span>Beau類似の築浅・広め・全設備を重視</span></div>
     </div>
     <div class="priorities">
       <strong>優先順位：</strong>家賃の安さ &gt; 設備の充実度 &gt; 通勤時間の短さ
@@ -415,13 +414,8 @@ footer.foot {
     <div class="control-group" data-filter="line">
       <label>沿線</label>
       <span class="chip on" data-value="all">すべて</span>
-      <span class="chip" data-value="伊勢崎">東武伊勢崎線</span>
       <span class="chip" data-value="大師">東武大師線</span>
-      <span class="chip" data-value="池袋">西武池袋線</span>
-      <span class="chip" data-value="大江戸">大江戸線</span>
-      <span class="chip" data-value="京成">京成本線</span>
-      <span class="chip" data-value="南北">南北線</span>
-      <span class="chip" data-value="新宿">西武新宿線</span>
+      <span class="chip" data-value="東上">東武東上線</span>
     </div>
     <div class="control-group" data-filter="layout">
       <label>間取</label>
@@ -433,12 +427,12 @@ footer.foot {
       <label>ご予算</label>
       <select id="rentcap">
         <option value="70000" selected>家賃込7万円まで（絶対上限）</option>
-        <option value="68000">家賃込6.8万円まで</option>
         <option value="66000">家賃込6.6万円まで</option>
-        <option value="64000">家賃込6.4万円まで（最安）</option>
+        <option value="63000">家賃込6.3万円まで</option>
+        <option value="55000">家賃込5.5万円まで（最安）</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">11</strong> / 11件</div>
+    <div class="count-badge">表示中 <strong id="count">6</strong> / 6件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -464,258 +458,6 @@ footer.foot {
 const PROPERTIES = [
   {
     id: '01',
-    name: 'メルディア竹ノ塚2丁目Ⅱ',
-    unit: '202号室',
-    line: '伊勢崎',
-    station: '竹ノ塚',
-    walk: 10,
-    size: 16.7,
-    layout: '1K',
-    rent: 61000,
-    kanri: 3000,
-    total: 64000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2021,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.4万', c:'new'},
-      {t:'築5年', c:'new'},
-      {t:'2階', c:''},
-      {t:'敷礼ゼロ', c:''},
-    ],
-    pros: [
-      '家賃込6.4万円（ご予算7万円から-6千円）',
-      '東武伊勢崎線 竹ノ塚駅 徒歩10分、日比谷線直通で六本木まで約45分',
-      '築5年、パストイレ別・独立洗面台・オートロック・TV付ドアインターホン・室内洗濯機置場すべて完備',
-      '敷金・礼金ゼロ、シェアサイクル設置済み',
-    ],
-    cons: [
-      '木造3階建て（ご希望のRC造ではありません）',
-      '再契約型定期借家契約2年（1ヶ月前通知）',
-      'その他費用：Art Club月額1,320円・鍵交換22,000円・諸経費3,300円',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '1KH_-ovURso2Qtayo7AuLaoKo03U4MDwz',
-  },
-  {
-    id: '02',
-    name: 'メルディア竹ノ塚2丁目Ⅱ',
-    unit: '204号室',
-    line: '伊勢崎',
-    station: '竹ノ塚',
-    walk: 10,
-    size: 16.7,
-    layout: '1K',
-    rent: 61000,
-    kanri: 3000,
-    total: 64000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2021,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.4万', c:'new'},
-      {t:'築5年', c:'new'},
-      {t:'2階', c:''},
-      {t:'敷礼ゼロ', c:''},
-    ],
-    pros: [
-      '家賃込6.4万円（202と同スペック・別室）',
-      '東武伊勢崎線 竹ノ塚駅 徒歩10分',
-      'パストイレ別・独立洗面台・オートロック・TV付ドアインターホン・室内洗濯機置場完備',
-      '2026年8月上旬入居可能目安',
-    ],
-    cons: [
-      '木造3階建て（ご希望のRC造ではありません）',
-      '再契約型定期借家契約2年（1ヶ月前通知）',
-      'その他費用：Art Club月額1,320円・鍵交換22,000円・諸経費3,300円',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '1HaVZXB_6RQ1JVxsKsTYU8oWG_JAE4atU',
-  },
-  {
-    id: '03',
-    name: 'メルディア竹ノ塚2丁目Ⅱ',
-    unit: '303号室',
-    line: '伊勢崎',
-    station: '竹ノ塚',
-    walk: 10,
-    size: 16.7,
-    layout: '1K',
-    rent: 63000,
-    kanri: 3000,
-    total: 66000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2021,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.6万', c:''},
-      {t:'築5年', c:'new'},
-      {t:'3階', c:''},
-      {t:'敷礼ゼロ', c:''},
-    ],
-    pros: [
-      '同じメルディア竹ノ塚2丁目Ⅱの3階のお部屋',
-      '3階のため陽当たり・眺望・防犯面で有利',
-      'パストイレ別・独立洗面台・オートロック・TV付ドアインターホン・室内洗濯機置場完備',
-      '2026年8月上旬入居可能目安',
-    ],
-    cons: [
-      '木造3階建て（ご希望のRC造ではありません）',
-      '同一物件の2階（6.4万）より+2千円',
-      '再契約型定期借家契約2年（1ヶ月前通知）',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '1XLl3Nfq2eeYMcgNQkIXPFqhEXQsqFkJ1',
-  },
-  {
-    id: '04',
-    name: 'エルプレミア梅島',
-    unit: '304号室',
-    line: '伊勢崎',
-    station: '梅島',
-    walk: 7,
-    size: 16.69,
-    layout: '1R',
-    rent: 61000,
-    kanri: 3000,
-    total: 64000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2013,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.4万', c:'new'},
-      {t:'梅島7分', c:''},
-      {t:'3階＋ロフト1.7㎡', c:''},
-      {t:'敷礼ゼロ', c:''},
-    ],
-    pros: [
-      '家賃込6.4万円、東武伊勢崎線 梅島駅 徒歩7分の駅近',
-      '3階のお部屋＋ロフト1.7㎡付きで収納力大',
-      'バストイレ別・独立洗面台・オートロック・TVモニター付インターホン・室内洗濯機置場・浴室乾燥機',
-      'ミニ冷蔵庫付き、フリーレント1ヶ月キャンペーン中（退去予定は対象外）',
-    ],
-    cons: [
-      '築2013年5月で築13年',
-      '木造3階建て（ご希望のRC造ではありません）',
-      '契約時入居契約料 賃料1ヶ月分',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '12usKGWHFtxlyzgGDka6cKbWySnZtTLbf',
-  },
-  {
-    id: '05',
-    name: 'コモンプラザ江古田',
-    unit: '201号室',
-    line: '大江戸',
-    station: '新江古田',
-    walk: 13,
-    size: 12.37,
-    layout: '1R',
-    rent: 61000,
-    kanri: 3000,
-    total: 64000,
-    deposit: '敷1ヶ月',
-    reikin: '礼1ヶ月',
-    year: 2011,
-    structure: '木造2階建て',
-    tags: [
-      {t:'家賃込6.4万', c:'new'},
-      {t:'大江戸線', c:'new'},
-      {t:'2階＋ロフト3.2J', c:''},
-      {t:'江古田8分', c:''},
-    ],
-    pros: [
-      '家賃込6.4万円、ご希望の大江戸線 新江古田駅 徒歩13分',
-      '西武池袋線 江古田駅 徒歩8分と2路線利用可',
-      '大江戸線で六本木まで乗換なし・約20分（最短通勤）',
-      'バストイレ別・独立洗面台・オートロック・室内洗濯機置場・浴室乾燥機・大型ロフト3.2帖',
-    ],
-    cons: [
-      '専有面積12.37㎡と狭め（ロフト3.2J別途）',
-      '築2011年で築15年（希望上限内）',
-      '木造2階建て、敷1・礼1が別途必要（初期費用に影響）',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '1DJUwHIV4Na9UFFyUGnZrrYMfAuWlnEnZ',
-  },
-  {
-    id: '06',
-    name: 'TIZ CARROT',
-    unit: '201号室',
-    line: '伊勢崎',
-    station: '梅島',
-    walk: 12,
-    size: 16.10,
-    layout: '1R',
-    rent: 62000,
-    kanri: 3000,
-    total: 65000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2021,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.5万', c:''},
-      {t:'築4年', c:'new'},
-      {t:'2階', c:''},
-      {t:'16.10㎡', c:''},
-    ],
-    pros: [
-      '同建物TIZ CARROTの201号室、洋室4.5帖',
-      '築2021年10月の築4年、設備充実',
-      'バストイレ別・独立洗面台・オートロック・モニター付インターホン・室内洗濯機置場完備',
-    ],
-    cons: [
-      '木造3階建て（ご希望のRC造ではありません）',
-      '専有面積16.10㎡と若干狭め（同建物204号室は18.11㎡）',
-      'その他費用：メンテナンス費用62,000円・鍵登録料20,000円・室内消毒20,000円',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '1W0poj6HyMx2isXXsgqD08Z1jBr69ztfL',
-  },
-  {
-    id: '07',
-    name: 'Spazio Rilassante 高砂',
-    unit: '301号室',
-    line: '京成',
-    station: '高砂',
-    walk: 4,
-    size: 17.14,
-    layout: '1K',
-    rent: 63000,
-    kanri: 3000,
-    total: 66000,
-    deposit: '敷1ヶ月',
-    reikin: '礼1ヶ月',
-    year: 2021,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.6万', c:''},
-      {t:'築5年', c:'new'},
-      {t:'3階', c:''},
-      {t:'高砂4分', c:''},
-    ],
-    pros: [
-      '京成本線 高砂駅 徒歩4分の駅チカ',
-      '築2021年2月の築5年、3階のお部屋',
-      'バストイレ別・独立洗面台・オートロック・TV/モニターホン付・室内洗濯機置場完備',
-      'インターネット利用無料',
-    ],
-    cons: [
-      '木造3階建て（ご希望のRC造ではありません）',
-      '敷1・礼1が別途必要',
-      '保証：エポス保証加入必須（賃料50%）、鍵交換22,000円、消毒殺菌19,800円',
-      '京成本線から六本木まで乗換2〜3回',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '1x_untn3jkeSS4ks6l2NDbhDVacuoAPKq',
-  },
-  {
-    id: '08',
     name: 'Beau (ボウ)',
     unit: '303号室',
     line: '大師',
@@ -732,8 +474,8 @@ const PROPERTIES = [
     structure: '木造3階建て',
     tags: [
       {t:'家賃込6.7万', c:''},
-      {t:'築5年', c:'new'},
-      {t:'3階角部屋', c:'new'},
+      {t:'築5年', c:''},
+      {t:'3階角部屋', c:''},
       {t:'19.25㎡', c:''},
     ],
     pros: [
@@ -752,118 +494,203 @@ const PROPERTIES = [
     driveId: '10v8r-kfTFS-bwZ25hJAm4wCvj7aVpdwJ',
   },
   {
-    id: '09',
-    name: 'エル・グレコ',
-    unit: '301号室',
-    line: '伊勢崎',
-    station: '五反野',
-    walk: 6,
-    size: 17.56,
-    layout: '1K',
-    rent: 65000,
-    kanri: 3000,
-    total: 68000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2015,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.8万', c:'new'},
-      {t:'五反野6分', c:''},
-      {t:'3階', c:'new'},
-      {t:'敷礼ゼロ', c:''},
-    ],
-    pros: [
-      '東武伊勢崎線 五反野駅 徒歩6分の駅近',
-      '3階のお部屋、17.56㎡',
-      '敷金・礼金ゼロ、フリーレント1ヶ月キャンペーン中（退去予定は対象外）',
-      'バストイレ別・オートロック・TVモニターインターホン・室内洗濯機置場・浴室乾燥機',
-      '日比谷線直通で六本木まで約35分',
-    ],
-    cons: [
-      '築2015年8月で築11年',
-      '木造3階建て（ご希望のRC造ではありません）',
-      '契約時入居契約料 賃料1ヶ月分、保証保険料GLパートナーズ賃料合計60%',
-    ],
-    addedAt: '2026-07-09',
-    driveId: '1xQO4wTA1F4oGqUfUz_DYAvPaj5_q1k21',
-  },
-  {
-    id: '10',
-    name: 'セレーノ新田',
-    unit: '305号室',
-    line: '南北',
-    station: '志茂',
-    walk: 14,
-    size: 19.92,
-    layout: '1R',
-    rent: 60000,
-    kanri: 8000,
-    total: 68000,
-    deposit: 'なし',
-    reikin: 'なし',
-    year: 2019,
-    structure: '木造3階建て',
-    tags: [
-      {t:'家賃込6.8万', c:''},
-      {t:'築6年', c:'new'},
-      {t:'3階', c:''},
-      {t:'19.92㎡', c:''},
-    ],
-    pros: [
-      '専有19.92㎡、築2019年11月の築6年',
-      '3階のお部屋、南北線 志茂駅 徒歩14分',
-      '敷金・礼金・保証金なし',
-      'バストイレ別・独立洗面台・オートロック・室内洗濯機置場・システムキッチン・宅配ボックス・防犯カメラ・照明器具付',
-    ],
-    cons: [
-      '木造3階建て（ご希望のRC造ではありません）',
-      '王子神谷駅徒歩15分・東十条駅徒歩23分',
-      '保証会社：初回100%（最低44,000円）、月額家賃×880円、事務所利用等の場合40%増',
-    ],
-    addedAt: '2026-07-08',
-    driveId: '12O0MnGHPcLNIm4hqcUWqQu17MSFUFwjT',
-  },
-  {
-    id: '11',
-    name: 'フォレスト石神井台',
-    unit: '202号室',
-    line: '新宿',
-    station: '武蔵関',
+    id: '02',
+    name: 'CRANE GARDEN鶴瀬',
+    unit: '304号室',
+    line: '東上',
+    station: '鶴瀬',
     walk: 8,
-    size: 18.35,
-    layout: '1R',
-    rent: 65000,
-    kanri: 5000,
-    total: 70000,
-    deposit: '敷1ヶ月',
+    size: 20.00,
+    layout: '1K',
+    rent: 64000,
+    kanri: 2000,
+    total: 66000,
+    deposit: 'なし',
     reikin: 'なし',
-    year: 2007,
-    structure: '鉄骨2階建て',
+    year: 2026,
+    structure: '木造3階建て',
     tags: [
-      {t:'家賃込7.0万', c:''},
-      {t:'鉄骨造', c:'new'},
-      {t:'武蔵関8分', c:''},
-      {t:'単身者限定', c:'warn'},
+      {t:'家賃込6.6万', c:'new'},
+      {t:'新築2026年5月', c:'new'},
+      {t:'3階', c:''},
+      {t:'鶴瀬8分', c:''},
     ],
     pros: [
-      '西武新宿線 武蔵関駅 徒歩8分、上石神井駅徒歩18分',
-      '鉄骨造で木造よりも耐震・防音性に優れる',
-      'バストイレ別・独立洗面台・オートロック・室内洗濯機置場・エアコン・フローリング',
-      '都市ガス（プロパンより経済的）',
+      '2026年5月新築・築浅の最上階3階',
+      '東武東上線 鶴瀬駅 徒歩8分の駅近',
+      'バストイレ別・独立洗面台・オートロック・TVモニター付インターフォン・室内洗濯機置場',
+      '宅配BOX・浴室乾燥機・システムキッチン・二重ガラス・24H換気・シャンプードレッサー',
+      'インターネット無料・敷金礼金ゼロ・フリーレント1ヶ月',
     ],
     cons: [
-      '築2007年3月で築18年（希望上限内）',
-      '家賃込7.0万円で予算上限ぴったり',
-      '単身者限定物件、敷金1ヶ月別途',
-      '事務手数料22,000円・損害・消毒9,900円・ライフサポート19,800円',
+      '木造3階建て（ご希望のRC造ではありません）',
+      'プロパンガス（都市ガスより高めになる可能性）',
+      'その他費用：ハウスクリーニング42,500円（退去時）・鍵交換・入居パック・防災セット等',
+      '鶴瀬→池袋→六本木 約1時間',
     ],
-    addedAt: '2026-07-08',
-    driveId: '1SY1Khnh5HzrGh0I5ckL5QAo1zoDl_fkU',
+    addedAt: '2026-07-10',
+    driveId: '1WqiGFetX1w_kKwjNjk9UDl-hdvSl83hU',
+  },
+  {
+    id: '03',
+    name: 'エフプレスト末広町',
+    unit: '305号室',
+    line: '東上',
+    station: '北坂戸',
+    walk: 5,
+    size: 25.77,
+    layout: '1K',
+    rent: 61000,
+    kanri: 5000,
+    total: 66000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2025,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.6万', c:'new'},
+      {t:'築1年', c:'new'},
+      {t:'25.77㎡広め', c:'new'},
+      {t:'角部屋・最上階', c:''},
+    ],
+    pros: [
+      '築2025年2月の築1年、25.77㎡と非常に広め',
+      '東武東上線 北坂戸駅 徒歩5分の駅近',
+      '角部屋・最上階3階・ルーフバルコニー',
+      'バストイレ別・独立洗面台・オートロック・TVモニター付インターホン・室内洗濯機置場',
+      '2口IHコンロ・システムキッチン・浴室乾燥機・温水洗浄便座・宅配BOX',
+      'インターネット使用料無料・24H換気システム・敷金礼金ゼロ',
+      '徒歩5分圏内にセブン・サンディ・ベルクあり',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '北坂戸→池袋→六本木 約1時間15分',
+      'その他費用：鍵交換22,000円・Lサポート月2,200円・クリーニング退去時44,000円',
+      '短期解約違約金 1年未満2ヶ月・2年未満1ヶ月',
+    ],
+    addedAt: '2026-07-10',
+    driveId: '1j76u_RCXelFGcae0AjtzjjA2C_wXBF6p',
+  },
+  {
+    id: '04',
+    name: 'ツルテラス',
+    unit: '303号室',
+    line: '東上',
+    station: '鶴ヶ島',
+    walk: 10,
+    size: 23.34,
+    layout: '1K',
+    rent: 57000,
+    kanri: 4000,
+    total: 61000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2026,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.1万', c:'new'},
+      {t:'新築2026年6月', c:'new'},
+      {t:'23.34㎡', c:''},
+      {t:'3階', c:''},
+    ],
+    pros: [
+      '2026年6月新築の3階、洋室6.8帖＋K3帖で広め',
+      '東武東上線 鶴ヶ島駅 徒歩10分',
+      'バストイレ別・独立洗面化粧台・オートロック・室内洗濯機置場',
+      '宅配BOX・浴室乾燥・追い焚き・システムキッチン・温水洗浄便座',
+      'インターネット無料・Wi-Fiモデム付き',
+      '家賃込6.1万円と予算7万から-9千円',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      'プロパンガス（都市ガスより高めになる可能性）',
+      'その他初期費用：安心入居サポート19,800円・室内抗菌5,500円・ハウスクリーニング40,700円',
+      '鶴ヶ島→池袋→六本木 約1時間15分',
+    ],
+    addedAt: '2026-07-10',
+    driveId: '1mzXNJU_Cz2glMHsgSSHJbtktar0D74VZ',
+  },
+  {
+    id: '05',
+    name: 'スフィーダみずほ台Ⅰ',
+    unit: '205号室',
+    line: '東上',
+    station: 'みずほ台',
+    walk: 9,
+    size: 19.99,
+    layout: '1K',
+    rent: 60000,
+    kanri: 4000,
+    total: 65100,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2025,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込6.5万', c:'new'},
+      {t:'築1年', c:'new'},
+      {t:'みずほ台9分', c:''},
+      {t:'2階', c:''},
+    ],
+    pros: [
+      '築2025年3月の築1年、Beau並みの広さ19.99㎡',
+      '東武東上線 みずほ台駅 徒歩9分',
+      'バストイレ別・独立洗面化粧台・オートロック・モニター付インターホン・室内洗濯機置場',
+      '宅配BOX・スマートロック・防犯カメラ・浴室乾燥機・温水洗浄便座',
+      '無料インターネット設備(Wi-Fi兼用)・システムキッチン(ガスコンロ2口)',
+      '敷金・礼金ゼロ、プロパンではなくプロパンガス',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      '共益費4,000円 + 24時間安心サポート月1,100円 → 実質家賃込65,100円',
+      '仲介手数料1.1ヶ月・鍵交換33,000円・室内清掃退去時44,000円',
+      'みずほ台→池袋→六本木 約1時間10分',
+    ],
+    addedAt: '2026-07-10',
+    driveId: '1yG8CR4sQTv3iCHYjZcy4qGS12DwCWwXd',
+  },
+  {
+    id: '06',
+    name: 'MELDIA新河岸',
+    unit: '202号室',
+    line: '東上',
+    station: '新河岸',
+    walk: 9,
+    size: 19.24,
+    layout: '1K',
+    rent: 50000,
+    kanri: 3000,
+    total: 53000,
+    deposit: 'なし',
+    reikin: 'なし',
+    year: 2023,
+    structure: '木造3階建て',
+    tags: [
+      {t:'家賃込5.3万', c:'new'},
+      {t:'築2年', c:''},
+      {t:'19.24㎡', c:''},
+      {t:'2階', c:''},
+    ],
+    pros: [
+      '家賃込5.3万円と全候補中最安（予算7万から-1.7万）',
+      '築2023年8月の築2年、Beau並みの広さ19.24㎡',
+      '東武東上線 新河岸駅 徒歩9分',
+      'バストイレ別・独立洗面化粧台・オートロック・カラーモニタードアホン・室内洗濯機置場',
+      '追い焚き機能付バス・浴室乾燥機・温水洗浄便座・IHコンロ・システムキッチン',
+      '全窓Low-eガラス・24H換気・ディンプルキー・宅配BOX・敷金礼金ゼロ',
+    ],
+    cons: [
+      '木造3階建て（ご希望のRC造ではありません）',
+      'その他費用：火災保険20,000円/2年・24時間サポート27,500円/3年',
+      '短期解約違約金 1年未満賃料1ヶ月',
+      '新河岸→池袋→六本木 約1時間',
+    ],
+    addedAt: '2026-07-10',
+    driveId: '1_AqNcYSLnqfxxjgY499SIFrDO1Oq9yVp',
   },
 ];
 
-const NEW_SINCE = '2026-07-08';
+const NEW_SINCE = '2026-07-10';
 
 function isNew(dateStr) {
   return dateStr >= NEW_SINCE;
@@ -945,7 +772,6 @@ function renderCard(p) {
   return div;
 }
 
-// Filter chip toggle
 document.querySelectorAll('.control-group[data-filter]').forEach(group => {
   group.addEventListener('click', e => {
     if (!e.target.classList.contains('chip')) return;
@@ -958,7 +784,6 @@ document.querySelectorAll('.control-group[data-filter]').forEach(group => {
 document.getElementById('sort').addEventListener('change', renderCards);
 document.getElementById('rentcap').addEventListener('change', renderCards);
 
-// Modal
 const modal = document.getElementById('modal');
 document.getElementById('grid').addEventListener('click', e => {
   const btn = e.target.closest('[data-drive]');
