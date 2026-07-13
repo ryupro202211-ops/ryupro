@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仲宗根様専用 物件一覧 – 全2件</title>
+<style>
+:root {
+  --bg: #f6f4ef;
+  --card: #ffffff;
+  --ink: #232629;
+  --ink-sub: #6a6d72;
+  --line: #e4e2dc;
+  --accent: #1f6f5c;
+  --accent-soft: #dcece6;
+  --gold: #b7891f;
+  --warn: #c94a3f;
+  --tag-a: #eaf3ee;
+  --tag-b: #efe9d9;
+  --tag-c: #ecd8d5;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+header.hero {
+  background: linear-gradient(135deg, #1f6f5c 0%, #2a8a72 100%);
+  color: white;
+  padding: 30px 20px 24px;
+  text-align: center;
+}
+header.hero h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+header.hero .sub {
+  font-size: 13px;
+  opacity: 0.92;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.criteria {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.criteria h2 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px 20px;
+  font-size: 13px;
+}
+.criteria-grid div span:first-child {
+  color: var(--ink-sub);
+  font-size: 11px;
+  display: block;
+}
+.criteria-grid div span:last-child {
+  font-weight: 600;
+}
+.priorities {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12.5px;
+  color: var(--ink-sub);
+}
+.priorities strong { color: var(--ink); }
+
+.controls {
+  background: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+}
+.controls > * { flex: 0 0 auto; }
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+}
+.control-group label {
+  color: var(--ink-sub);
+  font-size: 12px;
+}
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+.chip:hover { border-color: var(--accent); }
+.chip.on {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+select {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.count-badge {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--ink-sub);
+  font-weight: 500;
+}
+.count-badge strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 18px 14px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+}
+.card.hidden { display: none; }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.card-name-sub {
+  font-size: 11.5px;
+  color: var(--ink-sub);
+  margin-top: 2px;
+}
+.card-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+.card-price .total {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.card-price .breakdown {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  margin-top: 3px;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.tag {
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tag-a);
+  color: var(--accent);
+  font-weight: 500;
+}
+.tag.new { background: var(--tag-b); color: var(--gold); }
+.tag.warn { background: var(--tag-c); color: var(--warn); }
+
+.meta-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: #faf9f4;
+  border-radius: 8px;
+}
+.meta-row div span:first-child {
+  color: var(--ink-sub);
+  font-size: 10.5px;
+  display: block;
+}
+.meta-row div span:last-child {
+  font-weight: 600;
+  font-size: 12.5px;
+}
+.notes {
+  font-size: 12px;
+  color: var(--ink-sub);
+  line-height: 1.55;
+  padding: 8px 0 12px;
+  border-top: 1px dashed var(--line);
+  margin-top: auto;
+}
+.notes strong { color: var(--ink); }
+.pros-list {
+  margin: 6px 0 12px;
+  padding-left: 20px;
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.pros-list li {
+  margin-bottom: 4px;
+}
+.pros-list li::marker {
+  color: var(--accent);
+}
+.new-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff5252, #d63a3a);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(214,58,58,0.35);
+}
+.added-date {
+  font-size: 10.5px;
+  color: var(--ink-sub);
+  text-align: right;
+  padding-top: 6px;
+  border-top: 1px dashed var(--line);
+  margin-top: 8px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.btn {
+  flex: 1;
+  text-align: center;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+.btn-primary:hover { background: #175a4a; }
+.btn-secondary {
+  background: white;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--ink-sub);
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+  grid-column: 1 / -1;
+}
+
+footer.foot {
+  text-align: center;
+  padding: 24px 20px 40px;
+  color: var(--ink-sub);
+  font-size: 11.5px;
+}
+
+/* Modal for PDF preview */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+.modal-backdrop.on { display: flex; }
+.modal {
+  background: white;
+  border-radius: 12px;
+  width: min(1000px, 100%);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title { font-weight: 600; font-size: 14px; }
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--ink-sub);
+  padding: 0 6px;
+}
+.modal iframe {
+  flex: 1;
+  border: none;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  header.hero h1 { font-size: 18px; }
+  .card { padding: 14px 14px 12px; }
+  .card-price .total { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>仲宗根様専用 物件セレクション</h1>
+  <div class="sub">最終更新 2026年7月13日</div>
+</header>
+
+<div class="container">
+
+  <section class="criteria">
+    <h2>仲宗根様のご希望条件</h2>
+    <div class="criteria-grid">
+      <div><span>ご予算</span><span>管理費込み 12万円以内</span></div>
+      <div><span>初期費用</span><span>30万円以内</span></div>
+      <div><span>エリア</span><span>浜松町駅周辺</span></div>
+      <div><span>お勤め先</span><span>新宿・竹芝（片道1時間以内）</span></div>
+      <div><span>沿線</span><span>中央線／京浜東北線／山手線</span></div>
+      <div><span>駅徒歩</span><span>15分以内</span></div>
+      <div><span>間取り</span><span>1K〜3LDK以上</span></div>
+      <div><span>築年数</span><span>築20年以内</span></div>
+      <div><span>設備</span><span>バス・トイレ別／独立洗面台／2階以上</span></div>
+    </div>
+    <div class="priorities">
+      <strong>優先順位：</strong>設備の充実度 ＞ 家賃の安さ ＞ お部屋の広さ
+    </div>
+  </section>
+
+  <section class="controls">
+    <div class="control-group">
+      <label>並び順</label>
+      <select id="sort">
+        <option value="rent-asc">家賃が安い順</option>
+        <option value="size-desc">広さが大きい順</option>
+        <option value="walk-asc">駅から近い順</option>
+        <option value="age-asc">築が新しい順</option>
+      </select>
+    </div>
+    <div class="control-group" data-filter="line">
+      <label>沿線</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="銀座">銀座線</span>
+      <span class="chip" data-value="ゆりかもめ">ゆりかもめ</span>
+    </div>
+    <div class="control-group" data-filter="layout">
+      <label>間取</label>
+      <span class="chip on" data-value="all">すべて</span>
+      <span class="chip" data-value="ワンルーム">ワンルーム</span>
+      <span class="chip" data-value="1K">1K</span>
+    </div>
+    <div class="control-group">
+      <label>ご予算</label>
+      <select id="rentcap">
+        <option value="120000">管理費込 12万円以内</option>
+        <option value="100000">管理費込 10万円以内</option>
+        <option value="150000">管理費込 15万円以内</option>
+      </select>
+    </div>
+    <div class="count-badge">表示中 <strong id="count">2</strong> / 2件</div>
+  </section>
+
+  <div class="grid" id="grid"></div>
+
+</div>
+
+<footer class="foot">
+  ご不明点はお気軽にLINEまたはメールにてお問い合わせください。<br>
+  ※図面は仲介業者向け内部資料を元にお客様向けに加工したものです。
+</footer>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">図面プレビュー</div>
+      <button class="modal-close" id="modal-close">×</button>
+    </div>
+    <iframe id="modal-frame" src=""></iframe>
+  </div>
+</div>
+
+<script>
+const PROPERTIES = [
+  {
+    id: '01', name: 'メゾンドズレッタ', unit: '角部屋（4階）',
+    line: '銀座', station: '虎ノ門', walk: 7,
+    size: 21.79, layout: 'ワンルーム',
+    rent: 110000, kanri: 10000, total: 120000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2008, structure: 'RC造',
+    tags: [
+      {t:'虎ノ門7分', c:''},
+      {t:'3路線利用可', c:''},
+      {t:'角部屋・南東向き', c:'new'},
+    ],
+    pros: [
+      '銀座線 虎ノ門 徒歩7分／都営三田線 内幸町 徒歩6分／JR山手線 新橋 徒歩9分の3路線利用可',
+      '港区西新橋の好立地。新橋駅から浜松町・竹芝方面へも歩ける距離感',
+      '4階の角部屋、南東向きバルコニーで採光良好・洋室10帖のワンルーム',
+      '築2008年・鉄筋コンクリート造（RC）で遮音性能も安心',
+      'バス・トイレ別／独立洗面台／IHクッキングヒーター／宅配ボックス／オートロック完備',
+    ],
+    cons: [
+      '契約形態は定期借家3年（再契約相談可）',
+      '温水洗浄便座と浴室乾燥機は付いていません',
+      '保証会社の利用が必須（初回40％、月額1,000円＋事務手数料330円）',
+    ],
+    addedAt: '2026-07-13',
+    driveId: '1BNh-QWHtnUYQEg2rjVuf5P7JNyHSRuy-',
+  },
+  {
+    id: '02', name: 'シーフォレシティ芝浦', unit: '405号室',
+    line: 'ゆりかもめ', station: '芝浦ふ頭', walk: 11,
+    size: 21.65, layout: '1K',
+    rent: 87000, kanri: 8000, total: 95000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2006, structure: 'RC造',
+    tags: [
+      {t:'管理費込9.5万', c:'new'},
+      {t:'竹芝すぐ・海が近い', c:''},
+      {t:'分譲賃貸マンション', c:''},
+    ],
+    pros: [
+      '管理費込み総額9.5万円と、ご予算を大きく下回る家賃で月々の負担が軽い',
+      '港区海岸で竹芝エリア徒歩圏内。海が近く開放感のあるロケーション',
+      'ゆりかもめ「芝浦ふ頭」徒歩11分。JR田町・浜松町方面も生活圏',
+      '鉄筋コンクリート13階建の4階、分譲仕様の賃貸マンション',
+      'バス・トイレ別／独立洗面台／浴室乾燥機／宅配ボックス／モニター付きオートロック／防犯カメラ完備',
+    ],
+    cons: [
+      '契約形態は定期借家2年（再契約相談可・大手法人相談可）',
+      '入居時にSYLAプレミアムクラブ加入料 24,200円／2年が別途発生',
+      '退去時に室内清掃費 52,800円・エアコン清掃費が発生します',
+    ],
+    addedAt: '2026-07-13',
+    driveId: '1le_JSj-Nlk8fwf_3UUxRdC0EN8xeB-hj',
+  },
+];
+
+// ---------- Rendering ----------
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+
+function fmt(n) { return n.toLocaleString('ja-JP'); }
+
+// CUSTOMIZE: Set to the date of the latest batch of properties. Any property
+// whose addedAt is >= this date shows a "NEW" badge. Update this whenever you
+// add a new batch so the previous batch stops being NEW.
+const NEW_SINCE = '2026-07-13';
+
+function cardHtml(p) {
+  const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
+  const unitStr = p.unit ? ` ${p.unit}` : '';
+  const isNew = p.addedAt && p.addedAt >= NEW_SINCE;
+  const newBadge = isNew ? '<span class="new-badge">NEW</span>' : '';
+  const dateStr = p.addedAt ? p.addedAt.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1年$2月$3日') : '';
+  return `
+    <div class="card" data-id="${p.id}" data-line="${p.line}" data-layout="${p.layout}" data-total="${p.total}" data-size="${p.size}" data-walk="${p.walk}" data-year="${p.year}">
+      <div class="card-header">
+        <div>
+          <div class="card-name">${newBadge}${p.name}${unitStr}</div>
+          <div class="card-name-sub">${p.line}線 ${p.station}駅 徒歩${p.walk}分</div>
+        </div>
+        <div class="card-price">
+          <div class="total">${fmt(p.total)}<span style="font-size:11px">円</span></div>
+          <div class="breakdown">賃料 ${fmt(p.rent)} + 管理 ${fmt(p.kanri)}</div>
+        </div>
+      </div>
+      <div class="tags">${tagsHtml}</div>
+      <div class="meta-row">
+        <div><span>広さ</span><span>${p.size}㎡</span></div>
+        <div><span>間取り</span><span>${p.layout}</span></div>
+        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
+        <div><span>構造</span><span>${p.structure}</span></div>
+        <div><span>敷金</span><span>${p.deposit}</span></div>
+        <div><span>礼金</span><span>${p.reikin}</span></div>
+      </div>
+      <div class="notes">
+        <strong>おすすめポイント</strong>
+        <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
+        ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
+        <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>
+      </div>
+      ${dateStr ? `<div class="added-date">物件情報の登録日：${dateStr}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderAll() {
+  grid.innerHTML = PROPERTIES.map(cardHtml).join('');
+  applyFilters();
+}
+
+// ---------- Filtering + Sorting ----------
+const state = {
+  line: 'all',
+  layout: 'all',
+  sort: 'rent-asc',
+  rentcap: 120000,
+};
+
+document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.line = c.dataset.value;
+    applyFilters();
+  });
+});
+document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+    state.layout = c.dataset.value;
+    applyFilters();
+  });
+});
+document.getElementById('sort').addEventListener('change', e => {
+  state.sort = e.target.value;
+  applyFilters();
+});
+document.getElementById('rentcap').addEventListener('change', e => {
+  state.rentcap = parseInt(e.target.value, 10);
+  applyFilters();
+});
+
+function applyFilters() {
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  const filtered = cards.filter(card => {
+    if (state.line !== 'all' && card.dataset.line !== state.line) return false;
+    if (state.layout !== 'all' && card.dataset.layout !== state.layout) return false;
+    if (parseInt(card.dataset.total, 10) > state.rentcap) return false;
+    return true;
+  });
+  // sort
+  filtered.sort((a, b) => {
+    const ka = a.dataset, kb = b.dataset;
+    switch (state.sort) {
+      case 'rent-asc': return (+ka.total) - (+kb.total);
+      case 'size-desc': return (+kb.size) - (+ka.size);
+      case 'walk-asc': return (+ka.walk) - (+kb.walk);
+      case 'age-asc': return (+kb.year) - (+ka.year);
+    }
+    return 0;
+  });
+  // apply visibility & order
+  cards.forEach(c => c.classList.add('hidden'));
+  filtered.forEach(c => {
+    c.classList.remove('hidden');
+    grid.appendChild(c);
+  });
+  countEl.textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    if (!grid.querySelector('.empty')) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = '条件に合う物件がありません。フィルタを緩めてお試しください。';
+      grid.appendChild(empty);
+    }
+  } else {
+    const existing = grid.querySelector('.empty');
+    if (existing) existing.remove();
+  }
+}
+
+// ---------- Preview modal ----------
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalFrame = document.getElementById('modal-frame');
+
+function openPreview(driveId, name) {
+  modalTitle.textContent = '図面プレビュー：' + name;
+  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+  modal.classList.add('on');
+}
+document.getElementById('modal-close').addEventListener('click', () => {
+  modal.classList.remove('on');
+  modalFrame.src = '';
+});
+modal.addEventListener('click', e => {
+  if (e.target === modal) {
+    modal.classList.remove('on');
+    modalFrame.src = '';
+  }
+});
+
+renderAll();
+</script>
+</body>
+</html>
