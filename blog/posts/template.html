@@ -6,36 +6,41 @@
   <title>{{TITLE}} | ryupro ブログ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --color-bg: #0a0a0a;
-      --color-bg-card: #141414;
-      --color-text: #f0f0f0;
-      --color-text-muted: #999;
-      --color-text-light: #555;
-      --color-accent: #39FF14;
-      --color-accent-2: #FF6B2B;
-      --color-border: #2a2a2a;
+      --color-bg: #111110;
+      --color-bg-soft: #161514;
+      --color-bg-card: #1a1918;
+      --color-text: #a99f92;
+      --color-text-strong: #e8e2d8;
+      --color-text-dim: #6b655c;
+      --color-gold: #dbc5a4;
+      --color-gold-dim: rgba(219,197,164,0.4);
+      --color-border: #2a2825;
       --font-ja: 'Noto Sans JP', sans-serif;
+      --font-serif: 'Shippori Mincho', serif;
       --font-en: 'Outfit', sans-serif;
       --max-width: 1080px;
-      --glow-green: 0 0 20px rgba(57,255,20,0.4);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-ja);
+      font-weight: 300;
       color: var(--color-text);
       background: var(--color-bg);
-      line-height: 1.8;
+      line-height: 2;
+      letter-spacing: 0.04em;
       -webkit-font-smoothing: antialiased;
     }
+    ::selection { background: var(--color-gold); color: #111110; }
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--color-border);
+      background: rgba(17,17,16,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(42,40,37,0.6);
     }
     .nav-inner {
       max-width: var(--max-width);
@@ -44,83 +49,132 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 72px;
     }
     .nav-logo {
       font-family: var(--font-en);
-      font-weight: 800;
-      font-size: 1.4rem;
-      color: var(--color-accent);
-      text-shadow: var(--glow-green);
+      font-weight: 400;
+      font-size: 1.25rem;
+      letter-spacing: 0.28em;
+      color: var(--color-gold);
       text-decoration: none;
-      letter-spacing: -0.02em;
     }
     .nav-back {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--color-text);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.4s;
     }
-    .nav-back:hover { color: var(--color-accent); text-shadow: var(--glow-green); }
+    .nav-back:hover { color: var(--color-gold); }
     .article-wrapper {
       max-width: 720px;
       margin: 0 auto;
-      padding: 7rem 2rem 4rem;
+      padding: 9rem 2rem 5rem;
     }
     .article-date {
-      font-size: 0.85rem;
-      color: var(--color-text-muted);
-      margin-bottom: 0.75rem;
+      font-family: var(--font-en);
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--color-gold);
+      margin-bottom: 1.25rem;
     }
     .article-title {
-      font-size: 1.6rem;
-      font-weight: 800;
-      line-height: 1.5;
-      margin-bottom: 2.5rem;
-      letter-spacing: -0.01em;
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      line-height: 2;
+      letter-spacing: 0.08em;
+      color: var(--color-gold);
+      margin-bottom: 3rem;
+    }
+    .article-hero-img {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      border: 1px solid var(--color-border);
+    }
+    .article-hero-img img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
     .article-body {
-      font-size: 0.95rem;
-      line-height: 2;
-      color: var(--color-text-muted);
+      font-size: 0.92rem;
+      line-height: 2.4;
+      color: var(--color-text);
     }
-    .article-body p { margin-bottom: 1.5rem; }
-    .article-body strong { color: var(--color-accent); font-weight: 700; }
+    .article-body p { margin-bottom: 1.75rem; }
+    .article-body strong { color: var(--color-gold); font-weight: 500; }
+    .article-body h2 {
+      font-family: var(--font-serif);
+      color: var(--color-text-strong);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin: 3.5rem 0 1.5rem;
+      padding-left: 1.1rem;
+      border-left: 1px solid var(--color-gold);
+      line-height: 1.9;
+    }
+    .article-body blockquote {
+      border-left: 1px solid var(--color-gold-dim);
+      padding: 0.75rem 1.5rem;
+      margin: 1.25rem 0;
+      background: var(--color-bg-soft);
+      color: var(--color-text-strong);
+      font-style: normal;
+      font-size: 0.9rem;
+    }
+    .article-body a {
+      color: var(--color-gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-gold-dim);
+      transition: border-color 0.4s;
+    }
+    .article-body a:hover { border-color: var(--color-gold); }
     .article-back {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 3rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.9rem;
-      color: var(--color-accent);
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 3.5rem;
+      padding: 1rem 2.75rem;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      color: var(--color-gold);
       text-decoration: none;
-      font-weight: 500;
-      border: 1px solid var(--color-accent);
-      border-radius: 100px;
-      transition: all 0.2s;
+      border: 1px solid var(--color-gold-dim);
+      transition: background 0.5s var(--ease), color 0.5s var(--ease), border-color 0.5s var(--ease);
     }
     .article-back:hover {
-      background: var(--color-accent);
-      color: #0a0a0a;
-      box-shadow: var(--glow-green);
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: #111110;
     }
     footer {
-      padding: 3rem 2rem;
+      padding: 4rem 2rem 3.5rem;
       text-align: center;
       border-top: 1px solid var(--color-border);
     }
     .footer-logo {
       font-family: var(--font-en);
-      font-weight: 800;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--color-accent);
-      text-shadow: var(--glow-green);
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.32em;
+      margin-bottom: 1rem;
+      color: var(--color-gold);
     }
     .footer-copy {
-      font-size: 0.75rem;
-      color: var(--color-text-light);
+      font-family: var(--font-en);
+      font-weight: 300;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
     }
   </style>
 </head>
