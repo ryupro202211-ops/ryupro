@@ -48,6 +48,59 @@
     ::-webkit-scrollbar-thumb { background: #2e2b27; border-radius: 8px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--color-gold-dim); }
 
+    /* --- LOADER --- */
+    #loader {
+      position: fixed; inset: 0; z-index: 300;
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.75rem;
+      transition: opacity 1.1s var(--ease), visibility 1.1s;
+    }
+    #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-logo {
+      font-family: var(--font-en);
+      font-weight: 400;
+      font-size: 1.3rem;
+      letter-spacing: 0.5em;
+      text-indent: 0.5em;
+      color: var(--color-gold);
+      opacity: 0;
+      animation: loaderIn 1.5s var(--ease) 0.15s forwards;
+    }
+    .loader-line {
+      width: 130px; height: 1px;
+      background: var(--color-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .loader-line::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--color-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: loadBar 1.7s var(--ease) 0.25s forwards;
+    }
+    @keyframes loaderIn {
+      from { opacity: 0; letter-spacing: 0.9em; text-indent: 0.9em; }
+      to { opacity: 1; letter-spacing: 0.5em; text-indent: 0.5em; }
+    }
+    @keyframes loadBar { to { transform: scaleX(1); } }
+
+    /* --- SCROLL PROGRESS --- */
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-gold), rgba(219,197,164,0.45));
+      transform: scaleX(0);
+      transform-origin: left;
+      z-index: 200;
+      pointer-events: none;
+    }
+
     /* --- SCROLL ANIMATIONS --- */
     .fade-in {
       opacity: 0;
@@ -62,7 +115,9 @@
       background: rgba(17,17,16,0.82);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(42,40,37,0.6);
+      transition: transform 0.6s var(--ease);
     }
+    nav.nav-hidden { transform: translateY(-100%); }
     .nav-inner {
       max-width: var(--max-width);
       margin: 0 auto;
@@ -82,6 +137,7 @@
     }
     .nav-links { display: flex; gap: 2.25rem; list-style: none; }
     .nav-links a {
+      position: relative;
       font-size: 0.8rem;
       font-weight: 400;
       color: var(--color-text);
@@ -89,7 +145,21 @@
       letter-spacing: 0.12em;
       transition: color 0.4s;
     }
-    .nav-links a:hover { color: var(--color-text-strong); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 100%; height: 1px;
+      background: var(--color-gold);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s var(--ease);
+    }
+    .nav-links a:hover { color: var(--color-gold); }
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
 
     .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
     .hamburger span { display: block; width: 24px; height: 1px; background: var(--color-gold); margin: 6px 0; transition: 0.3s; }
@@ -122,16 +192,21 @@
       color: var(--color-gold);
       margin-bottom: 3rem;
     }
-    .hero h1 .line {
-      display: block;
+    .hero h1 .line { display: block; }
+    .hero h1 .ch {
+      display: inline-block;
       opacity: 0;
-      transform: translateY(24px);
-      animation: heroLine 1.6s var(--ease) forwards;
+      transform: translateY(0.75em);
+      filter: blur(6px);
+      transition:
+        opacity 0.9s var(--ease) var(--d, 0s),
+        transform 1.15s var(--ease) var(--d, 0s),
+        filter 0.9s var(--ease) var(--d, 0s);
     }
-    .hero h1 .line:nth-child(2) { animation-delay: 0.35s; }
-    .hero h1 .line:nth-child(3) { animation-delay: 0.7s; }
-    @keyframes heroLine {
-      to { opacity: 1; transform: translateY(0); }
+    body.loaded .hero h1 .ch {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
     }
     .hero-sub {
       font-size: 0.9rem;
@@ -140,8 +215,10 @@
       line-height: 2.4;
       margin-bottom: 3.5rem;
       opacity: 0;
-      animation: heroLine 1.6s 1.1s var(--ease) forwards;
+      transform: translateY(24px);
+      transition: opacity 1.3s var(--ease) 1.5s, transform 1.3s var(--ease) 1.5s;
     }
+    body.loaded .hero-sub { opacity: 1; transform: none; }
     .hero-credit {
       position: absolute;
       bottom: 2.5rem;
@@ -154,21 +231,26 @@
       color: var(--color-text-dim);
       z-index: 2;
       opacity: 0;
-      animation: heroLine 1.6s 1.6s var(--ease) forwards;
+      transition: opacity 1.3s var(--ease) 2.1s;
     }
+    body.loaded .hero-credit { opacity: 1; }
     .hero-cta-row {
       display: flex;
       gap: 1.25rem;
       flex-wrap: wrap;
       opacity: 0;
-      animation: heroLine 1.6s 1.35s var(--ease) forwards;
+      transform: translateY(24px);
+      transition: opacity 1.3s var(--ease) 1.75s, transform 1.3s var(--ease) 1.75s;
     }
+    body.loaded .hero-cta-row { opacity: 1; transform: none; }
 
     .scroll-hint {
       position: absolute;
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 1.4s var(--ease) 2.3s;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -188,6 +270,7 @@
       background: linear-gradient(to bottom, var(--color-gold-dim), transparent);
       animation: scrollLine 2.4s ease-in-out infinite;
     }
+    body.loaded .scroll-hint { opacity: 1; }
     @keyframes scrollLine {
       0% { transform: scaleY(0); transform-origin: top; }
       45% { transform: scaleY(1); transform-origin: top; }
@@ -197,6 +280,9 @@
 
     /* --- BUTTONS --- */
     .btn {
+      position: relative;
+      z-index: 0;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -209,19 +295,29 @@
       border: 1px solid var(--color-gold-dim);
       color: var(--color-gold);
       background: transparent;
-      transition: background 0.5s var(--ease), color 0.5s var(--ease), border-color 0.5s var(--ease);
+      transition: color 0.5s var(--ease), border-color 0.5s var(--ease);
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--color-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.55s var(--ease);
+      z-index: -1;
     }
     .btn:hover {
-      background: var(--color-gold);
       border-color: var(--color-gold);
       color: #111110;
     }
+    .btn:hover::before { transform: scaleX(1); }
     .btn-ghost {
       border-color: var(--color-border);
       color: var(--color-text);
     }
+    .btn-ghost::before { content: none; }
     .btn-ghost:hover {
-      background: transparent;
       border-color: var(--color-gold);
       color: var(--color-gold);
     }
@@ -434,6 +530,7 @@
       line-height: 2.3;
     }
     .community-img {
+      position: relative;
       margin-bottom: 2.75rem;
       overflow: hidden;
       border: 1px solid var(--color-border);
@@ -545,6 +642,80 @@
       color: var(--color-text-dim);
     }
 
+    /* --- SCROLL REVEAL DETAILS --- */
+    .fade-in .section-label {
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity 1s var(--ease) 0.05s, transform 1s var(--ease) 0.05s;
+    }
+    .fade-in.visible .section-label { opacity: 1; transform: none; }
+    .fade-in .section-label::before {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.1s var(--ease) 0.3s;
+    }
+    .fade-in.visible .section-label::before { transform: scaleX(1); }
+
+    .section-title, .contact-heading, .philosophy-quote { overflow: hidden; }
+    .st-inner {
+      display: block;
+      transform: translateY(115%);
+      transition: transform 1.25s var(--ease) 0.2s;
+    }
+    .fade-in.visible .st-inner { transform: none; }
+
+    .fade-in .founder-photo::before,
+    .fade-in .community-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, #191713, #221e17);
+      z-index: 3;
+      transform: scaleX(1);
+      transform-origin: right;
+      transition: transform 1.3s var(--ease) 0.35s;
+    }
+    .fade-in.visible .founder-photo::before,
+    .fade-in.visible .community-img::before { transform: scaleX(0); }
+    .fade-in .founder-photo img,
+    .fade-in .community-img img { transform: scale(1.12); }
+    .fade-in.visible .founder-photo img,
+    .fade-in.visible .community-img img { transform: scale(1); }
+    .fade-in.visible .founder-photo:hover img { transform: scale(1.04); }
+    .fade-in.visible .community-img:hover img { transform: scale(1.025); }
+
+    .service-card {
+      transition: background 0.6s var(--ease), opacity 1s var(--ease), transform 1s var(--ease);
+    }
+    .fade-in .service-card { opacity: 0; transform: translateY(30px); }
+    .fade-in.visible .service-card { opacity: 1; transform: none; }
+    .fade-in.visible .service-card:nth-child(1) { transition-delay: 0s, 0.1s, 0.1s; }
+    .fade-in.visible .service-card:nth-child(2) { transition-delay: 0s, 0.22s, 0.22s; }
+    .fade-in.visible .service-card:nth-child(3) { transition-delay: 0s, 0.34s, 0.34s; }
+    .fade-in.visible .service-card:nth-child(4) { transition-delay: 0s, 0.46s, 0.46s; }
+
+    .founder-tag {
+      transition: border-color 0.4s, color 0.4s, opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+    .fade-in .founder-tag { opacity: 0; transform: translateY(14px); }
+    .fade-in.visible .founder-tag { opacity: 1; transform: none; }
+    .fade-in.visible .founder-tag:nth-child(1) { transition-delay: 0s, 0s, 0.5s, 0.5s; }
+    .fade-in.visible .founder-tag:nth-child(2) { transition-delay: 0s, 0s, 0.62s, 0.62s; }
+    .fade-in.visible .founder-tag:nth-child(3) { transition-delay: 0s, 0s, 0.74s, 0.74s; }
+    .fade-in.visible .founder-tag:nth-child(4) { transition-delay: 0s, 0s, 0.86s, 0.86s; }
+
+    .fade-in .company-table tr {
+      opacity: 0;
+      transform: translateX(-22px);
+      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+    .fade-in.visible .company-table tr { opacity: 1; transform: none; }
+    .fade-in.visible .company-table tr:nth-child(1) { transition-delay: 0.1s; }
+    .fade-in.visible .company-table tr:nth-child(2) { transition-delay: 0.2s; }
+    .fade-in.visible .company-table tr:nth-child(3) { transition-delay: 0.3s; }
+    .fade-in.visible .company-table tr:nth-child(4) { transition-delay: 0.4s; }
+    .fade-in.visible .company-table tr:nth-child(5) { transition-delay: 0.5s; }
+
     /* --- RESPONSIVE --- */
     @media (max-width: 900px) {
       .scroll-hint { display: none; }
@@ -577,6 +748,15 @@
   </style>
 </head>
 <body>
+
+<!-- LOADER -->
+<div id="loader" aria-hidden="true">
+  <div class="loader-logo">ryupro</div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="progress" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav>
@@ -781,14 +961,66 @@
 </footer>
 
 <script>
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ヒーロー見出しを1文字ずつのspanに分割（文字ごとに遅延を設定）
+  document.querySelectorAll('.hero h1 .line').forEach((line, li) => {
+    const text = line.textContent;
+    line.textContent = '';
+    [...text].forEach((ch, i) => {
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = ch;
+      s.style.setProperty('--d', (0.15 + li * 0.3 + i * 0.045).toFixed(3) + 's');
+      line.appendChild(s);
+    });
+  });
+
+  // 見出しをマスク付きスライド表示にするためのラッパー
+  document.querySelectorAll('.section-title, .contact-heading, .philosophy-quote').forEach(el => {
+    el.innerHTML = '<span class="st-inner">' + el.innerHTML + '</span>';
+  });
+
+  // オープニング（ロゴ → カーテンが明けて本編へ）
+  const loader = document.getElementById('loader');
+  let revealed = false;
+  const reveal = () => {
+    if (revealed) return;
+    revealed = true;
+    document.body.classList.add('loaded');
+    loader.classList.add('done');
+    setTimeout(() => loader.remove(), 1300);
+  };
+  window.addEventListener('load', () => setTimeout(reveal, prefersReduced ? 0 : 1100));
+  setTimeout(reveal, 2800); // 読み込みが遅い場合のフォールバック
+
+  // スクロール連動の段階的表示
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ナビの表示制御・プログレスバー・ヒーローのパララックス
+  const nav = document.querySelector('nav');
+  const progress = document.getElementById('progress');
+  const heroInner = document.querySelector('.hero-inner');
+  let lastY = 0;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    nav.classList.toggle('nav-hidden', y > lastY && y > 360);
+    lastY = y;
+    const h = document.documentElement;
+    progress.style.transform = 'scaleX(' + (y / (h.scrollHeight - h.clientHeight)) + ')';
+    if (!prefersReduced && y < innerHeight * 1.2) {
+      heroInner.style.transform = 'translateY(' + (y * 0.16) + 'px)';
+      heroInner.style.opacity = Math.max(0, 1 - y / (innerHeight * 1.1));
+    }
+  }, { passive: true });
 </script>
 
 </body>
