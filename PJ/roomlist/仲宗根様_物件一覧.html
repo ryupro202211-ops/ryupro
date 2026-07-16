@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>仲宗根様専用 物件一覧 – 全2件</title>
+<title>仲宗根様専用 物件一覧 – 全12件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -380,7 +380,7 @@ footer.foot {
 
 <header class="hero">
   <h1>仲宗根様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年7月13日</div>
+  <div class="sub">最終更新 2026年7月16日｜条件を拡大し10件追加しました</div>
 </header>
 
 <div class="container">
@@ -389,13 +389,13 @@ footer.foot {
     <h2>仲宗根様のご希望条件</h2>
     <div class="criteria-grid">
       <div><span>ご予算</span><span>管理費込み 12万円以内</span></div>
-      <div><span>初期費用</span><span>30万円以内</span></div>
-      <div><span>エリア</span><span>浜松町駅周辺</span></div>
+      <div><span>初期費用</span><span>30万円以内（要ご相談）</span></div>
+      <div><span>エリア</span><span>浜松町・田町・品川・大森まで拡大</span></div>
       <div><span>お勤め先</span><span>新宿・竹芝（片道1時間以内）</span></div>
-      <div><span>沿線</span><span>中央線／京浜東北線／山手線</span></div>
-      <div><span>駅徒歩</span><span>15分以内</span></div>
+      <div><span>沿線</span><span>山手線／京浜東北線／ほか</span></div>
+      <div><span>駅徒歩</span><span>20分以内に緩和</span></div>
       <div><span>間取り</span><span>1K〜3LDK以上</span></div>
-      <div><span>築年数</span><span>築20年以内</span></div>
+      <div><span>築年数</span><span>築25年以内に緩和</span></div>
       <div><span>設備</span><span>バス・トイレ別／独立洗面台／2階以上</span></div>
     </div>
     <div class="priorities">
@@ -416,8 +416,12 @@ footer.foot {
     <div class="control-group" data-filter="line">
       <label>沿線</label>
       <span class="chip on" data-value="all">すべて</span>
-      <span class="chip" data-value="銀座">銀座線</span>
+      <span class="chip" data-value="JR山手">JR山手線</span>
+      <span class="chip" data-value="JR京浜東北">JR京浜東北線</span>
       <span class="chip" data-value="ゆりかもめ">ゆりかもめ</span>
+      <span class="chip" data-value="銀座">銀座線</span>
+      <span class="chip" data-value="都営浅草">都営浅草線</span>
+      <span class="chip" data-value="京急">京急</span>
     </div>
     <div class="control-group" data-filter="layout">
       <label>間取</label>
@@ -433,7 +437,7 @@ footer.foot {
         <option value="150000">管理費込 15万円以内</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">2</strong> / 2件</div>
+    <div class="count-badge">表示中 <strong id="count">12</strong> / 12件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -511,6 +515,276 @@ const PROPERTIES = [
     addedAt: '2026-07-13',
     driveId: '1le_JSj-Nlk8fwf_3UUxRdC0EN8xeB-hj',
   },
+  {
+    id: '03', name: 'スカイコート浜松町', unit: '306号室（3階）',
+    line: 'JR山手', station: '浜松町', walk: 10,
+    size: 20.16, layout: '1K',
+    rent: 109000, kanri: 10000, total: 119000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2004, structure: 'RC造',
+    tags: [
+      {t:'浜松町10分・3路線', c:'new'},
+      {t:'敷金なし・保証金なし', c:''},
+      {t:'家具家電付き分譲賃貸', c:''},
+    ],
+    pros: [
+      'JR山手線「浜松町」駅徒歩10分、ゆりかもめ「日の出」駅徒歩8分、都営三田線「三田」駅徒歩9分の3路線利用可',
+      '家具家電付きの分譲賃貸マンション。転勤・引越しがすぐ落ち着く',
+      '3階、東南向きバルコニーで採光良好・RC造8階建で遮音性◎',
+      '敷金・保証金なしのシンプルな契約体系。契約は普通借家2年（更新可）',
+      '温水洗浄便座／宅配ボックス／モニター付インターホン／エレベーター完備',
+    ],
+    cons: [
+      '家具家電付きのため、既にお持ちの大型家具の持ち込みは要相談',
+      '一時金：フレックスあんしんサポート 16,500円、鍵交換代 19,800円、室内清掃費用 38,500円',
+      '入居可能時期は2026年8月中旬予定',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1OD50p_Gn19AdyPip6n8pQxlcXOkcjHgA',
+  },
+  {
+    id: '04', name: 'エスコート芝浦', unit: '602号室（6階）',
+    line: 'JR山手', station: '田町', walk: 7,
+    size: 20.16, layout: '1K',
+    rent: 105000, kanri: 5000, total: 110000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2002, structure: 'RC造',
+    tags: [
+      {t:'田町7分・3路線', c:''},
+      {t:'敷金なし', c:'new'},
+      {t:'6階', c:''},
+    ],
+    pros: [
+      '**敷金なし** で初期費用が抑えやすい、礼金1ヶ月のみ',
+      'JR山手線「田町」徒歩7分、都営三田線「三田」徒歩6分、ゆりかもめ「日の出」徒歩7分の3路線利用可',
+      '6階のお部屋、オートロック・宅配BOX・モニター付インターホンでセキュリティ安心',
+      '契約は普通借家2年（更新可）で長期居住に安心',
+      '港区芝浦の好立地。浜松町・竹芝方面も徒歩圏',
+    ],
+    cons: [
+      '独立洗面台は付いていません（室内洗面台は別途あり）',
+      '保証会社利用必須（初回50〜100%、月額400円）＋24時間サポート月額1,100円',
+      '短期解約違約金あり（1年未満2ヶ月・2年未満1ヶ月）',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1Jb5nycQ2suHgKcc0sLuVw4VNP2CUI8_o',
+  },
+  {
+    id: '05', name: 'フェニックス芝浦ベイフォート', unit: '903号室（9階）',
+    line: 'JR山手', station: '田町', walk: 8,
+    size: 20.52, layout: '1K',
+    rent: 103000, kanri: 4000, total: 107000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2005, structure: 'SRC造',
+    tags: [
+      {t:'田町8分・9階', c:'new'},
+      {t:'高層階・南西向き', c:''},
+      {t:'浴室乾燥機付', c:''},
+    ],
+    pros: [
+      '**9階の高層階**、南西向きで眺望・採光良好',
+      'JR山手線「田町」徒歩8分、都営三田線「三田」徒歩9分、ゆりかもめ「日の出」徒歩9分の3路線利用可',
+      '港区芝浦、竹芝・浜松町方面へも生活圏',
+      '**浴室換気乾燥機**付き、洋室7.10畳のゆとりある1K',
+      '築2005年、鉄骨鉄筋コンクリート造（SRC）で遮音性◎',
+    ],
+    cons: [
+      '契約形態は定期借家2年（再契約相談可）',
+      '独立洗面台の記載なし（要現地確認）',
+      '保証会社必須：初回賃料等の50%、月額1%',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1TF6UNZ2FFKXYbVy90r_p_vyKL6uepAfM',
+  },
+  {
+    id: '06', name: 'ヴェルト芝浦', unit: '201号室（2階）',
+    line: 'ゆりかもめ', station: '芝浦ふ頭', walk: 7,
+    size: 21.62, layout: '1K',
+    rent: 105000, kanri: 0, total: 105000,
+    deposit: '敷1ヶ月（償却100%）', reikin: '礼1ヶ月',
+    year: 2002, structure: 'SRC造',
+    tags: [
+      {t:'共益費0円！', c:'new'},
+      {t:'芝浦ふ頭7分・田町10分', c:''},
+      {t:'設備充実', c:''},
+    ],
+    pros: [
+      '**共益費0円！** 賃料10.5万円のみで管理費込み条件クリア',
+      'ゆりかもめ「芝浦ふ頭」徒歩7分、JR山手線・京浜東北線「田町」徒歩10分',
+      '港区芝浦、竹芝エリア徒歩圏の運河沿いのロケーション',
+      '**温水洗浄便座・浴室換気乾燥機**完備、TVモニター付インターホン、オートロック、防犯カメラ、宅配ボックス',
+      '総戸数37戸の中規模マンション、24時間ゴミ置場で暮らしやすい',
+    ],
+    cons: [
+      '契約種別が資料上で不明のため契約時に要確認',
+      '敷金1ヶ月に「償却100%」記載（退去時の返還なしの場合あり）',
+      '更新事務手数料 22,000円、24時間サポート料 18,700円が別途発生',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1dEicjSjhrZyMG5aQvHpNbkpF_Jw6cOpI',
+  },
+  {
+    id: '07', name: 'エフ高輪', unit: '204号室（2階）',
+    line: '都営浅草', station: '高輪台', walk: 1,
+    size: 23.4, layout: '1K',
+    rent: 95000, kanri: 5000, total: 100000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2002, structure: '鉄骨造',
+    tags: [
+      {t:'高輪台1分！', c:'new'},
+      {t:'管理費込10万', c:''},
+      {t:'独立洗面台あり', c:''},
+    ],
+    pros: [
+      '**都営浅草線「高輪台」駅 徒歩1分！** 港区高輪の駅チカ超好立地',
+      'JR「品川」徒歩12分、「五反田」徒歩11分でJR利用も可能',
+      '**独立洗面台・バス・トイレ別・TVモニター付インターホン・オートロック** 完備',
+      '23.4㎡・洋室6.4帖の1Kで、一人暮らしにゆとりのある広さ',
+      '管理費込み10万円と、ご予算内で余裕を残せる家賃水準',
+    ],
+    cons: [
+      '現況居住中で6月末日退去予定、入居は7月以降',
+      '鉄骨造のため、RCと比較すると遮音性はやや劣る場合あり',
+      '非喫煙者希望・ペット/楽器不可の条件付き',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1v5Nvkop3T6AXeelhVnMbar0cERzgomn3',
+  },
+  {
+    id: '08', name: 'セリュークス大森', unit: '204号室（2階）',
+    line: 'JR京浜東北', station: '大森', walk: 8,
+    size: 22.34, layout: '1K',
+    rent: 104000, kanri: 10000, total: 114000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2024, structure: 'RC造',
+    tags: [
+      {t:'築2024年・新築級', c:'new'},
+      {t:'全設備完備', c:''},
+      {t:'大森8分', c:''},
+    ],
+    pros: [
+      '**築2024年1月の新築マンション！** 全設備最新・室内も新しい',
+      'JR京浜東北線「大森」徒歩8分、京急「大森海岸」徒歩13分',
+      '**温水洗浄便座・独立洗面台・浴室換気乾燥機・宅配ボックス・防犯カメラ・セコム** 完備',
+      '22.34㎡・南向きで採光良好、洋室ゆとりの間取り',
+      '契約期間2年（更新可）の**普通借家**で長期居住可能',
+    ],
+    cons: [
+      'ライフサポート加入必須（16,500円/2年）',
+      '保証会社更新料 年間10,000円が継続コスト',
+      '鍵交換 38,500円（相場よりやや高め）',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1AIO_Et1tHe9ovFobctPSanihvYubUkHg',
+  },
+  {
+    id: '09', name: 'カスタリア大森II', unit: '609号室（6階）',
+    line: 'JR京浜東北', station: '大森', walk: 3,
+    size: 20.6, layout: '1K',
+    rent: 102000, kanri: 10000, total: 112000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2009, structure: 'RC造',
+    tags: [
+      {t:'大森3分・6階', c:'new'},
+      {t:'設備充実度トップクラス', c:'new'},
+      {t:'インターネット無料', c:''},
+    ],
+    pros: [
+      '**JR京浜東北線「大森」駅 徒歩3分の駅チカ！** 京急「大森海岸」も徒歩10分',
+      '**温水洗浄便座・独立洗面台・浴室乾燥機・宅配ボックス・24時間緊急対応・防犯カメラ・機械警備** — 今回リストの設備充実度トップクラス',
+      '**インターネット使用料無料**、CATV・BS・CS対応',
+      '総戸数108戸の大規模マンション、外観タイル張りで高級感のある佇まい',
+      '普通借家2年（更新可）、6階のお部屋で人気の駅前立地',
+    ],
+    cons: [
+      '保証会社月額1%が継続コストに',
+      '退去時に室内清掃33,000円＋エアコン清掃11,000円が確定発生',
+      '入居可能は2026年7月下旬〜',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1nOB5FMhw9wKKkoON-EmIhKLLXectsley',
+  },
+  {
+    id: '10', name: 'バレーヌ大森山王', unit: '205号室 or 306号室',
+    line: 'JR京浜東北', station: '大森', walk: 7,
+    size: 27.24, layout: '1K',
+    rent: 110000, kanri: 8000, total: 118000,
+    deposit: '敷1ヶ月', reikin: '礼なし',
+    year: 2008, structure: 'RC造',
+    tags: [
+      {t:'27㎡と広め', c:'new'},
+      {t:'礼金なし！', c:'new'},
+      {t:'温水洗浄便座付', c:''},
+    ],
+    pros: [
+      '**27.24㎡と広め、洋室約9帖の1K** — 今回リスト最大級の広さ',
+      '**礼金なし！** 敷金1ヶ月のみで初期費用を圧縮できる',
+      'JR京浜東北線「大森」徒歩7分、駅までの平坦路',
+      '**温水洗浄便座・独立洗面台・浴室換気乾燥機・宅配BOX・オートロック・エレベーター** 完備',
+      '契約は普通借家2年（更新可）、鉄骨コンクリート造で遮音性◎',
+    ],
+    cons: [
+      '205号室は6/29解約予定のため、内見・入居時期は要相談',
+      '1年以内解約の場合、総賃料1ヶ月分の違約金',
+      'エポスウェルスター加入必須（初回50%、月額1.3%）',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1vyP9WEPgV7jZDDrpqPqmppYIEaIBDKFq',
+  },
+  {
+    id: '11', name: 'ランベール', unit: '202号室（2階）',
+    line: 'JR京浜東北', station: '大森', walk: 11,
+    size: 26.92, layout: '1K',
+    rent: 109000, kanri: 9500, total: 118500,
+    deposit: '敷1ヶ月', reikin: '礼2ヶ月',
+    year: 2022, structure: '軽量気泡コンクリート造',
+    tags: [
+      {t:'築2022年・へーベル', c:'new'},
+      {t:'WIC付き', c:''},
+      {t:'追い焚き付き', c:''},
+    ],
+    pros: [
+      '**築2022年3月**、旭化成へーベルメゾン（耐震・耐火に優れる）',
+      '**ウォークインクロゼット（WIC）1.3帖付き！** 収納力たっぷり',
+      '26.92㎡・洋室6.4帖＋K2.5帖のゆとりある1K',
+      '**温水洗浄便座・独立洗面所・浴室乾燥機・追い焚き機能・宅配BOX・オートロック** 完備',
+      '即入居可・現況空家ですぐご検討可能',
+    ],
+    cons: [
+      '礼金2ヶ月と、初期費用が他物件よりやや高め',
+      '退去時清掃費用 57,200円が確定発生',
+      '大森駅から徒歩11分、大井町方面へはやや距離あり',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '13oFfuR7VEZI7Os9PdmdGEhLrU2H3MvaF',
+  },
+  {
+    id: '12', name: 'プロスペクト大森海岸', unit: '211号室（2階）',
+    line: '京急', station: '大森海岸', walk: 3,
+    size: 25.32, layout: '1K',
+    rent: 111000, kanri: 6000, total: 117000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2003, structure: 'RC造',
+    tags: [
+      {t:'大森海岸3分', c:'new'},
+      {t:'2駅2路線', c:''},
+      {t:'追い焚き付き', c:''},
+    ],
+    pros: [
+      '**京急「大森海岸」駅 徒歩3分の駅チカ！** JR京浜東北「大森」も徒歩8分の2駅2路線利用可',
+      '25.32㎡・洋室6.9帖と広めの1K',
+      '**追い焚き機能付**、TVモニター付インターホン、オートロック、宅配ボックス完備',
+      '光インターネット(VDSL)、BS・CS・CATV対応',
+      '大型商業施設（アトレ大森、Luz大森）が徒歩圏に集積・生活便利',
+    ],
+    cons: [
+      '契約種別が資料上で明示されていないため要確認',
+      '温水洗浄便座・浴室乾燥機・独立洗面台は設備リストに明記なし（要現地確認）',
+      '京急「大森海岸」→JR「大森」経由でJR新宿への通勤ルート要確認',
+    ],
+    addedAt: '2026-07-16',
+    driveId: '1rsfha5cJ3LEY5fE34DLkY2eXyTBuCRrr',
+  },
 ];
 
 // ---------- Rendering ----------
@@ -522,7 +796,7 @@ function fmt(n) { return n.toLocaleString('ja-JP'); }
 // CUSTOMIZE: Set to the date of the latest batch of properties. Any property
 // whose addedAt is >= this date shows a "NEW" badge. Update this whenever you
 // add a new batch so the previous batch stops being NEW.
-const NEW_SINCE = '2026-07-13';
+const NEW_SINCE = '2026-07-16';
 
 function cardHtml(p) {
   const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
