@@ -60,6 +60,23 @@
   body.introbg .glow{display:none;}
   body.introbg #wrap{ padding:0; max-width:none; min-height:100vh; display:flex; align-items:center; justify-content:center; }
   .heroimg{ display:block; max-width:100%; max-height:100vh; width:auto; height:auto; cursor:pointer; }
+
+  /* ====== レア度演出（SSR/SR/R/N） ====== */
+  @keyframes shimmerSweep { 0%{background-position:-160% 0} 100%{background-position:160% 0} }
+  @keyframes ssrGlow { 0%,100%{box-shadow:0 0 14px 1px rgba(255,205,60,.5)} 50%{box-shadow:0 0 26px 6px rgba(255,205,60,.85)} }
+  @keyframes sparkleFloat { 0%,100%{opacity:.35; transform:translateY(0) scale(.9)} 50%{opacity:1; transform:translateY(-2px) scale(1.15)} }
+  .rarity-pill{ display:inline-flex; align-items:center; gap:6px; font-weight:900; padding:7px 18px;
+                border-radius:999px; letter-spacing:.3px; white-space:nowrap; }
+  .rarity-SSR{ background:linear-gradient(100deg,#fff3c4 0%,#ffd569 22%,#fff9dc 45%,#ffcf5c 68%,#fff3c4 100%);
+               background-size:220% 100%; animation:shimmerSweep 2.4s linear infinite, ssrGlow 1.5s ease-in-out infinite;
+               color:#7a5200; border:1.5px solid #f0c04a; font-size:14px; }
+  .rarity-SR{ background:linear-gradient(135deg,#eef1f8,#d3dbec); color:#48546e; border:1.5px solid #b7c2dc; font-size:13px; }
+  .rarity-R{ background:linear-gradient(135deg,#f4e3cd,#dcb37f); color:#7a4a1e; border:1.5px solid #d3a870; font-size:12.5px; }
+  .rarity-N{ background:rgba(0,0,0,.05); color:#8a8a96; border:1px solid transparent; font-size:12px; font-weight:700; }
+  .sparkle-deco{ display:inline-block; animation:sparkleFloat 1.4s ease-in-out infinite; }
+  .sparkle-deco:nth-child(2){ animation-delay:.25s; }
+  .ssr-prize-box{ margin-top:10px; padding:13px 16px; border-radius:14px; background:linear-gradient(135deg,#fffbea,#fff1c2);
+                  border:1.5px dashed #e8b93a; text-align:center; animation:pop .6s ease both; }
 </style>
 </head>
 <body>
@@ -2389,82 +2406,98 @@ const TYPES = {
     taiko:"あなたは、誰も通っていない道を最初に走れる人だ。",
     susumekata:"スキルを武器に、まだ誰もやっていない領域へ自分から飛び込むのが勝ち筋です。求人を待つより、業務委託や案件単位で関わって実績を作り、そこから次の機会へ広げていくのが向いています。気になる分野は完璧に備えるより、まず小さく試して手応えを確かめましょう。動きながら学ぶほど、あなたの強みは加速していきます。",
     ippo:"自分のスキルで挑戦したい分野を今日1つ決めて、発信してみる。",
-    jirai:"走り出しが速すぎて、土台づくりを飛ばしてしまうこと。"},
+    jirai:"走り出しが速すぎて、土台づくりを飛ばしてしまうこと。",
+    hikaku:"歴史でたとえるなら坂本龍馬タイプ。誰も通っていない道を、迷わず最初に走り出す。"},
   QCSO: {bunseki:"迷う前に動ける、抜群の決断スピードが持ち味。新しい環境や成長企業に飛び込むことを恐れず、自分のスキルを引っさげてどんどん挑戦していくタイプです。一人で抱え込むより、組織やチームの中で力を発揮したい人。エネルギーが高く、停滞した空気を変える起爆剤になれます。条件よりも伸びしろや面白さで進路を選ぶ傾向があり、その嗅覚は鋭い。周囲からは「フットワークが軽くて頼れる」「いるだけで場が前に進む」と見られているはず。ただ勢いで決めて、入社後に思っていたのと違ったとなりやすいのが注意点。一社だけでも深く調べる時間を持てば、その行動力が最高の結果に結びつきます。", emoji:"⚡", name:"稲妻チャレンジャー型", accent:"#e8893a",
     taiko:"迷う前に動ける。その決断スピードが最大の才能だ。",
     susumekata:"自分のスキルを引っさげ、思い切って異業種や成長企業へ飛び込むのが合います。安定した大企業より、勢いのあるベンチャーや裁量の大きい環境を選ぶと力を発揮できます。求人は条件より“伸びしろ”や面白さで選ぶのが当たり。気になる会社が見つかったら、迷う前にまず応募し、面接で直接温度感を確かめにいきましょう。",
     ippo:"気になる業界の求人を今日3件見て、1件だけ応募してみる。",
-    jirai:"勢いで決めて入社後に「思ってたのと違う」となること。1社は深掘りを。"},
+    jirai:"勢いで決めて入社後に「思ってたのと違う」となること。1社は深掘りを。",
+    hikaku:"歴史でたとえるなら織田信長タイプ。石橋を叩く前に、もう渡っている決断の速さ。"},
   QCHM: {bunseki:"人を巻き込み、ゼロから何かを起こせるエネルギーの持ち主。アイデアが浮かんだらすぐ動き、周りに声をかけて仲間を集めるのが得意なタイプです。スキルより人とのつながりが武器で、誰かと一緒に新しい挑戦を形にする時に最も輝きます。組織に属するより、自分の旗を立てて動きたい独立志向の人。明るく前向きで、その熱量が自然と人を惹きつけ、気づけば中心に人が集まっています。周囲からは「一緒に何かやりたくなる人」と思われているでしょう。一方、勢いだけで広げてしまい、お金や計画など足元の管理が後回しになりがち。冷静に支えてくれる相棒や仕組みを持てば、あなたの構想は一気に現実になります。", emoji:"🦁", name:"巻き込み起業家型", accent:"#d4762b",
     taiko:"人を巻き込んで、ゼロから何かを起こせる人だ。",
     susumekata:"転職そのものより、人脈を活かした独立や起業が向いています。いきなり大きく始めず、信頼できる仲間と小さくプロジェクトを立ち上げ、走りながら形にするのが正解。まずは一緒に何かやれそうな人に声をかけ、試す場を作りましょう。お金や役割分担だけは先に決めておくと、勢いを失わずに前へ進めます。",
     ippo:"一緒に何かやれそうな人に、今日アイデアを1つ話してみる。",
-    jirai:"勢いだけで広げて、足元のお金や計画が後回しになること。"},
+    jirai:"勢いだけで広げて、足元のお金や計画が後回しになること。",
+    hikaku:"歴史でたとえるなら豊臣秀吉タイプ。人を巻き込む力で、ゼロから天下を取りにいく。"},
   QCHO: {bunseki:"チャンスの波が来たら迷わず乗れる、直感とフットワークの人。新しいことが好きで、人との縁をきっかけに面白い世界へ飛び込んでいくタイプです。自分一人でというより、信頼できる仲間や組織の中で力を発揮したい人。場の空気を読み、人をつなぐのが自然と上手く、どこへ行っても可愛がられます。面白そうな人がいる場所へ動く嗅覚は抜群で、思わぬ好機を次々つかみます。周囲からは「運とご縁を引き寄せる人」に見えているはず。ただ、ノリで決めて後から条件面で後悔することも。ワクワクは大事にしつつ、最低限の確認だけは忘れないようにすると、ご縁がより良い形で実っていきます。", emoji:"🐬", name:"縁つかみダイバー型", accent:"#2fa3c0",
     taiko:"チャンスの波が来たら、迷わず乗れる人だ。",
     susumekata:"公募で探すより、人の縁から飛び込む転職が合います。“面白そうな人がいる場所”へ直感で動くと、思わぬ好機をつかめるタイプ。まずは気になる会社で働く知人に連絡し、話を聞きに行くのが第一歩です。チャンスが来たら迷わず動きつつ、給与や働き方など最低限の条件だけは事前に確認しておくと安心です。",
     ippo:"気になる会社で働く知り合いに、今日連絡を取ってみる。",
-    jirai:"ノリで決めて、後から条件面で後悔すること。最低限の確認は忘れずに。"},
+    jirai:"ノリで決めて、後から条件面で後悔すること。最低限の確認は忘れずに。",
+    hikaku:"歴史でたとえるなら一休さんタイプ。軽やかな直感とご縁で、面白い方へひょいと飛び込む。"},
   QKSM: {bunseki:"確かな腕を持ち、決めたら素早く動ける職人肌。派手な挑戦より、自分の得意分野を堅実に深めるタイプで、その専門性は十分に通用するレベルです。組織に頼らず、自分の看板で勝負したい独立志向の持ち主。一度やると決めれば行動は速く、無駄なく結果を出せます。地に足のついた現実感覚があり、危ない橋はあまり渡りません。周囲からは「この人に任せれば確実」と信頼され、頼られる場面が多いでしょう。一方で、もう少し腕を磨いてからと、踏み出しを先延ばしにする慎重さも。あなたの実力はすでに十分。小さく副業から始めるなど、一歩を出すきっかけさえあれば、一気に独り立ちできます。", emoji:"🛠", name:"早撃ち職人型", accent:"#b5862f",
     taiko:"確かな腕がある。あとは「やる」と決めるだけだ。",
     susumekata:"あなたのスキルはすでに十分。堅実に進めつつ、早めに自分の看板（フリー・個人事業）で動くのが向いています。会社を辞める前に、副業や週末の小さな案件で実績と取引先を作っておくと移行がスムーズ。いきなり独立せず、収入の一部を自分名義で得るところから始め、手応えが出たら本格的に切り替えましょう。",
     ippo:"自分のスキルで個人で受けられる仕事を今日1つリスト化する。",
-    jirai:"「まだ早い」と腕を磨き続けて、踏み出しを先延ばしにすること。"},
+    jirai:"「まだ早い」と腕を磨き続けて、踏み出しを先延ばしにすること。",
+    hikaku:"歴史でたとえるなら宮本武蔵タイプ。磨き上げた一芸を武器に、単身で勝負に出る職人肌。"},
   QKSO: {bunseki:"培ったスキルですぐ戦力になれる、頼れる即戦力タイプ。大きく冒険するより、自分の得意を活かせる場所で堅実に力を発揮する人です。組織の中でこそ輝くチームプレイヤーで、動くと決めたら素早く環境を切り替えられます。地に足のついた判断ができ、現実的なゴールを着実に達成していきます。周囲からは「安定感があって任せやすい」と評価され、どんな職場でも早くなじめるでしょう。同業や近い職種なら、短期間で次の場所が決まるはず。ただ、早く決めたい気持ちが先に立って、年収や役割の交渉を省きがちなのが惜しい点。自分の市場価値を一度きちんと確かめてから動けば、納得の好条件を引き寄せられます。", emoji:"📈", name:"即戦力スイッチ型", accent:"#5a8f3a",
     taiko:"あなたはすぐ戦力になれる。動けば結果はついてくる。",
     susumekata:"培ったスキルを活かせる組織へ、堅実かつスピーディに移るのが王道です。同業や近い職種なら、これまでの実績がそのまま評価され、短期間で次が決まります。まずは今の経験で評価される求人を数件見比べ、条件のいいものから動きましょう。早く決めたい時こそ、年収や役割の交渉だけは省かず、きちんと提示するのが得策です。",
     ippo:"今の経験で評価される求人を今日3件、条件を見比べる。",
-    jirai:"早く決めたい気持ちで、年収や役割の交渉を省いてしまうこと。"},
+    jirai:"早く決めたい気持ちで、年収や役割の交渉を省いてしまうこと。",
+    hikaku:"歴史でたとえるなら黒田官兵衛タイプ。どの陣営でもすぐ頭角を現す、頼れる参謀肌。"},
   QKHM: {bunseki:"あなたの周りには、もう次のチャンスが揃っている人望家。派手さより堅実さを好み、人脈を頼りに自分の道を歩んでいくタイプです。スキル単体より、信頼できる人とのつながりが最大の資産で、知人経由の仕事から無理なく独立へ進めます。決断は意外と早く、良い話が来たらすっと動ける軽やかさも。穏やかで誠実な人柄が、自然と人を引き寄せます。周囲からは「あの人になら頼みたい」と思われ、声がかかりやすいでしょう。ただ、仲のいい相手だからと遠慮して、条件や約束をなあなあにしてしまいがち。親しい間柄でも最低限の取り決めをきちんとしておくことが、長く良い関係を続ける秘訣です。", emoji:"🦊", name:"つて頼り独立型", accent:"#c77f4a",
     taiko:"あなたの周りには、もう次のチャンスが揃っている。",
     susumekata:"人脈を頼りに、堅実に独立・個人で動くのが合います。いきなり大勝負を仕掛けるより、知人経由の仕事から少しずつ始めると安全です。まずは信頼できる人に「個人でも仕事を受けられる」と伝え、小さな依頼を積み重ねましょう。親しい相手でも、金額や納期などの条件はきちんと取り決めておくと、長く良い関係が続きます。",
     ippo:"信頼できる人に「個人でも仕事を受けられるよ」と今日伝えてみる。",
-    jirai:"仲のいい相手に頼りすぎて、条件をなあなあにしてしまうこと。"},
+    jirai:"仲のいい相手に頼りすぎて、条件をなあなあにしてしまうこと。",
+    hikaku:"歴史でたとえるなら渋沢栄一タイプ。人とのつながりを元手に、自分の道を築いていく。"},
   QKHO: {bunseki:"信頼が次のステージへ運んでくれる、人とのつながりを大切にするタイプ。冒険より安定を好み、紹介やリファラルで堅実に新しい場所へ移っていく人です。組織やチームの中で力を発揮し、周りとの信頼関係づくりが抜群に上手い。転職を考えていると早めに周りへ伝えるほど、良い話が舞い込みます。決断は早く、信頼できる相手の紹介なら迷わず動けます。周囲からは「誠実で安心できる人」と見られ、自然と紹介が集まるでしょう。一方、紹介だからと遠慮して、自分の希望条件をはっきり言えないことも。あなたを応援したい人は多いはず。遠慮せず本音を伝えれば、もっと理想に近い場所が見つかります。", emoji:"🐕", name:"信頼でつなぐ即決型", accent:"#b56a55",
     taiko:"信頼が、あなたを次のステージへ運んでくれる。",
     susumekata:"紹介・リファラルでの堅実な転職が最短ルートです。“転職を考えている”と早めに周りへ伝えるほど、信頼できる人から良い話が舞い込みます。まずは信頼できる一人に相談し、合いそうな職場を紹介してもらいましょう。紹介だからと遠慮せず、希望する条件や働き方はきちんと伝えると、後悔のない選択につながります。",
     ippo:"信頼できる人1人に、今日「転職、考えてる」と伝えてみる。",
-    jirai:"紹介だからと遠慮して、希望条件をちゃんと言えないこと。"},
+    jirai:"紹介だからと遠慮して、希望条件をちゃんと言えないこと。",
+    hikaku:"歴史でたとえるなら西郷隆盛タイプ。厚い人望が、次のチャンスを自然と運んでくる。"},
   PCSM: {bunseki:"跳ぶ前に、ちゃんと翼を作れる戦略家。挑戦心は強いけれど勢い任せにはせず、しっかり準備してから大胆に動くタイプです。自分のスキルを軸に独立する道が似合い、収入の柱を作ってから飛ぶので、挑戦が無謀になりません。一人で構想を練り、自分の裁量で進めることに喜びを感じる人。先を見通す力と実行力を併せ持ち、周囲からは「考えが深くて頼れる」「計画が現実的だ」と一目置かれるでしょう。ただし準備が完璧主義に傾くと、いつまでも跳べなくなるのが弱点。ここまで整ったら動くという期限をあらかじめ決めておくと、入念な準備を活かして、最高のタイミングで飛び立てます。", emoji:"🦅", name:"設計派フリーランス型", accent:"#5b6ee0",
     taiko:"あなたは、跳ぶ前にちゃんと翼を作れる人だ。",
     susumekata:"じっくり準備して、大胆にスキルで独立する道が向いています。勢いで飛ぶのではなく、独立後の収入の柱になる案件やスキルを先に確保してから動くと、挑戦が無謀になりません。まずは収入源になりそうなスキルを書き出し、副業で試運転を。完璧主義になりがちなので、“ここまで整えたら動く”期限も決めておきましょう。",
     ippo:"独立後の収入源になりそうなスキル・案件を今日1つ書き出す。",
-    jirai:"準備が完璧主義になって、いつまでも跳べないこと。期限を決めよう。"},
+    jirai:"準備が完璧主義になって、いつまでも跳べないこと。期限を決めよう。",
+    hikaku:"歴史でたとえるなら伊能忠敬タイプ。長い準備を経てから、大きな挑戦に踏み出す晩成型。"},
   PCSO: {bunseki:"狙った的を、計画どおりに射抜ける戦略家。挑戦を恐れない一方で、しっかり逆算して動く慎重さも併せ持つタイプです。自分のスキルを軸に、計画的な異業種転職で大きく舵を切れる人。組織の中で力を発揮し、目標から逆算してスキルの穴を埋めるので、未経験の領域でも着実に通っていきます。分析力と行動計画の精度はピカイチで、感情より論理で進路を選べる強さがあります。周囲からは「戦略家」「この人の計画なら間違いない」と頼られるでしょう。ただ、考えすぎて応募のタイミングを逃すことも。完璧な分析より、七割見えたら動くくらいの構えでいると、その緻密さが最大の武器になります。", emoji:"🎯", name:"戦略的キャリアチェンジ型", accent:"#4e63c8",
     taiko:"あなたは、狙った的を計画どおりに射抜ける人だ。",
     susumekata:"計画的に、スキルを軸とした大胆な異業種転職が合います。行きたい業界で求められる力を調べ、足りないスキルを逆算して埋めれば、未経験でも着実に通ります。まずは目標の業界・職種を一つ定め、必要なスキルと学ぶ順番を計画化しましょう。分析しすぎて応募が遅れがちなので、“七割見えたら動く”を合言葉に。",
     ippo:"行きたい業界で求められるスキルを今日1つ調べ、学ぶ計画を立てる。",
-    jirai:"分析しすぎて、応募のタイミングを逃すこと。"},
+    jirai:"分析しすぎて、応募のタイミングを逃すこと。",
+    hikaku:"歴史でたとえるなら徳川家康タイプ。逆算と我慢で、狙った場所に着実にたどり着く。"},
   PCHM: {bunseki:"人とのつながりから、じっくり未来を作っていくタイプ。挑戦したい気持ちを持ちながら、時間をかけて人脈を育て、独立や起業へつなげていく長期戦の人です。スキル単体より、応援される関係を積み上げることが資産になります。自分の旗を立てたい独立志向で、焦らず布石を打てる計画性が強み。誠実に信頼を重ねるので、いざという時に力を貸してくれる仲間が多く、周囲からは「縁を大切にする人」と慕われるでしょう。ただ、準備と人付き合いに時間をかけすぎて、肝心の一歩が遅れがちな面も。いつ動くかの期限を決めて種をまけば、育てたご縁が大きな実りになって返ってきます。", emoji:"🕸", name:"縁を編む起業準備型", accent:"#8a6fd1",
     taiko:"あなたは、人とのつながりから未来を作れる人だ。",
     susumekata:"時間をかけて人脈を育て、独立・起業へつなげる道が向いています。今すぐ動くより、将来一緒にやりたい人との“応援される関係”を積み上げることが最大の資産です。まずは気になる人と接点を持ち、定期的に近況を交換できる関係を作りましょう。種をまく一方で、“いつ動くか”の期限も決めると、準備倒れを防げます。",
     ippo:"将来一緒にやりたい人と、今日ひとつ接点を持つ。",
-    jirai:"準備と人付き合いに時間をかけすぎて、踏み出しが遅れること。"},
+    jirai:"準備と人付き合いに時間をかけすぎて、踏み出しが遅れること。",
+    hikaku:"歴史でたとえるなら岩崎弥太郎タイプ。人脈をじっくり編みながら、自分の事業を育てる。"},
   PCHO: {bunseki:"味方を作ってから道を切り開く、根回し上手な戦略家。挑戦的な環境に飛び込みたい一方、計画的に人脈を使って足場を固めるタイプです。組織の中で力を発揮し、いきなり動くより中の人に話を聞いてから進むので、ミスマッチがほとんど起きません。人間関係の機微を読むのが得意で、敵を作らず物事を前に進められます。慎重さと挑戦心のバランスが絶妙で、周囲からは「調整が上手い」「安心して任せられる」と評価されるでしょう。ただ、根回しに丁寧になりすぎて、肝心の一歩が遅れることも。情報が十分集まったと感じたら、思い切って踏み込む勇気を持つと、準備が確かな成果に変わります。", emoji:"🧭", name:"根回し開拓型", accent:"#7a5fc0",
     taiko:"あなたは、味方を作ってから道を切り開ける人だ。",
     susumekata:"計画的に人脈を使い、挑戦的な組織へ移るのが合います。いきなり応募するより、興味のある会社の“中の人”に話を聞いてから動くと、ミスマッチがほぼ消えます。まずはその会社で働く人とカジュアルに話す機会を作り、社風や実情を確かめましょう。情報が十分集まったら、根回しに時間をかけすぎず思い切って踏み込むのが鍵です。",
     ippo:"興味のある会社の中の人に、今日カジュアルに話を聞く約束をする。",
-    jirai:"根回しに慎重になりすぎて、肝心の一歩が遅れること。"},
+    jirai:"根回しに慎重になりすぎて、肝心の一歩が遅れること。",
+    hikaku:"歴史でたとえるなら大久保利通タイプ。周到な根回しで、静かに物事を前へ進める調整役。"},
   PKSM: {bunseki:"焦らず、確実に独り立ちできる慎重派。大きな冒険より、自分のスキルを堅実に育て、少しずつ自分の道へ進んでいくタイプです。組織に依存せず自律して働きたい気持ちが強く、副業で実績と収入を作ってから本移行するので、まず失敗しません。地道な努力を続けられる粘り強さと、現実的な計画力が持ち味。リスクを冷静に見極められる賢さがあり、周囲からは「堅実で信頼できる」と見られるでしょう。一方で、安全を優先しすぎて、いつまでも準備中のまま終わってしまうのが弱点。小さくてもいいので一度実際に動いてみると、自信がつき、独立への助走がぐっと加速していきます。", emoji:"🌿", name:"助走ひとり立ち型", accent:"#3a9a5c",
     taiko:"焦らなくていい。あなたは確実に独り立ちできる。",
     susumekata:"堅実に準備し、スキルで少しずつ自分の道へ進むのが向いています。会社に在籍したまま副業で実績と収入を作り、手応えが出てから本格移行するのが、いちばん失敗しません。まずは副業として始められる小さな仕事を一つ探し、実際にやってみましょう。安全を優先して止まらないよう、“準備中”を卒業する期限も決めておくと安心です。",
     ippo:"副業として始められる小さな仕事を今日1つ探してみる。",
-    jirai:"安全を優先しすぎて、いつまでも「準備中」で終わること。"},
+    jirai:"安全を優先しすぎて、いつまでも「準備中」で終わること。",
+    hikaku:"歴史でたとえるなら二宮金次郎タイプ。地道な努力を積み重ね、着実に独り立ちしていく。"},
   PKSO: {bunseki:"着実に積み上げる力が最大の強み、王道タイプ。派手な冒険はせず、自分のスキルを軸に計画的にキャリアアップしていく堅実な人です。組織の中で力を発揮し、資格や実績で足場を固めてから、より良い場所へ一段ずつ上がっていきます。計画性と継続力があり、約束を守る誠実さで周囲の信頼も厚い。長期的な視点でキャリアを設計でき、周りからは「真面目で安定感がある」と一目置かれるでしょう。ただ、準備を重ねるうちに動くタイミングを逃しがちな面も。この実績がついたら動くと期限を決めておくと、せっかくの好機を逃さず、理想のステップアップを実現できます。", emoji:"🪜", name:"王道ステップアップ型", accent:"#c8922b",
     taiko:"あなたの強みは、着実に積み上げる力だ。",
     susumekata:"スキルを軸に、計画的なキャリアアップ転職が王道です。資格や実績で足場をしっかり固めてから、より良い条件・環境の組織へ一段ずつ堅実に移っていきましょう。まずは次の転職で武器になる実績や資格を一つ書き出し、達成までの計画を立てるのが第一歩。準備中に好機を逃さないよう、動く時期も先に決めておきましょう。",
     ippo:"次の転職で武器になる実績・資格を今日1つ書き出す。",
-    jirai:"準備し続けて動かず、好機を逃すこと。期限を決めよう。"},
+    jirai:"準備し続けて動かず、好機を逃すこと。期限を決めよう。",
+    hikaku:"歴史でたとえるなら上杉鷹山タイプ。一段ずつの改革を積み重ね、着実に組織を立て直す。"},
   PKHM: {bunseki:"ご縁を、時間をかけるほど強くしていくタイプ。焦って動くより、信頼の貯金をじっくり増やし、将来の独立や自分の道につなげていく人です。スキル以上に人とのつながりが資産で、穏やかに関係を温めるのが得意。自律して働きたい気持ちを持ちつつ、堅実に布石を打てる計画性があります。誠実で聞き上手なので、人から自然と信頼され、相談を持ちかけられることも多いでしょう。周囲からは「そばにいると安心する人」と思われているはず。ただ、縁を温めることに満足して、踏み出す機会を自分で作らないのが惜しい点。育てた信頼にお願いを一つ添えれば、温めたご縁が次の扉を開いてくれます。", emoji:"🌾", name:"ご縁熟成型", accent:"#8f9a3a",
     taiko:"あなたのご縁は、時間をかけるほど強くなる。",
     susumekata:"焦らず人脈を温め、将来の独立につなげる道が合います。今すぐ転職するより、信頼の貯金を増やしておくことが最大の準備になります。まずは久しく連絡していない信頼できる人に、ひとこと近況を送るところから。関係を温めるだけで満足せず、機が熟したら“こんなことをやりたい”と相談すれば、温めたご縁が次の扉を開きます。",
     ippo:"久しく連絡していない信頼できる人に、今日ひとこと連絡する。",
-    jirai:"縁を温めるだけで満足して、踏み出す機会を作らないこと。"},
+    jirai:"縁を温めるだけで満足して、踏み出す機会を作らないこと。",
+    hikaku:"歴史でたとえるなら良寛タイプ。急がず人との縁を温め、じんわり信頼を育てていく。"},
   PKHO: {bunseki:"信頼できる場所でこそ、力を発揮できる安心重視タイプ。冒険より安定を好み、人の縁を頼りに計画的に動いていく人です。組織やチームの中で持ち味が出て、紹介ベースなら入る前に内情が分かるので、後悔のない選択ができます。和を大切にし、周りと協力して着実に物事を進められるのが強み。誠実で穏やかな人柄が、長く続く信頼関係を生み、周囲からは「一緒にいて落ち着く」「場を和ませる人」と慕われるでしょう。一方、安心を求めるあまり、新しい一歩や変化に二の足を踏みがちな面も。信頼できる人にどんな職場が合うか相談することから始めれば、安心と納得を両立した転職ができます。", emoji:"🧶", name:"安心つながり型", accent:"#b07a92",
     taiko:"あなたは、信頼できる場所でこそ力を発揮できる人だ。",
     susumekata:"計画的に、人の縁で安心できる組織へ移るのが向いています。紹介ベースなら入る前に内情や人間関係が分かり、後悔のない転職ができます。まずは信頼できる人に、自分にどんな職場が合いそうか相談してみましょう。安心を求めて動けなくならないよう、気になる紹介は一度カジュアルに会って話を聞くところから始めるのがおすすめです。",
     ippo:"信頼できる人に、どんな職場が合いそうか今日相談してみる。",
-    jirai:"安心を求めるあまり、現状維持に流れてしまうこと。"},
+    jirai:"安心を求めるあまり、現状維持に流れてしまうこと。",
+    hikaku:"歴史でたとえるなら聖徳太子タイプ。「和」を大切に、みんなが安心できる場をつくる。"},
 };
 
 /* ====== 質問（2択×8＝4軸を各2問で測定） ====== */
@@ -2744,11 +2777,18 @@ function ensureAudio(){
   try { if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==="suspended") AC.resume(); }
   catch(e){ AC=null; }
 }
-function playFanfare(rare){
+function playFanfare(tier){
   if(!AC) return;
   try {
     const now = AC.currentTime;
-    const notes = rare ? [523,659,784,1047,1319] : [523,659,784,1047];
+    // レア度が上がるほど音階が長く、高く駆け上がる
+    const notesByTier = {
+      SSR: [523,659,784,1047,1319,1568,2093],
+      SR:  [523,659,784,1047,1319],
+      R:   [523,659,784,1047],
+      N:   [523,659,784]
+    };
+    const notes = notesByTier[tier] || notesByTier.N;
     notes.forEach((f,i)=>{
       const o=AC.createOscillator(), g=AC.createGain();
       o.type="triangle"; o.frequency.value=f;
@@ -2765,15 +2805,35 @@ function playFanfare(rare){
     const lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=220;
     const bg=AC.createGain(); bg.gain.value=0.5;
     src.connect(lp).connect(bg).connect(AC.destination); src.start(now);
+    // SSR限定：キラキラした特別なベル音を追加で重ねる
+    if(tier==="SSR"){
+      [1568,2093,2637].forEach((f,i)=>{
+        const o=AC.createOscillator(), g=AC.createGain();
+        o.type="sine"; o.frequency.value=f;
+        const t0=now+0.55+i*0.09;
+        g.gain.setValueAtTime(0.0001,t0);
+        g.gain.exponentialRampToValueAtTime(0.22,t0+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001,t0+0.42);
+        o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0+0.44);
+      });
+    }
   } catch(e){}
 }
-function launchConfetti(accent, intense){
+function launchConfetti(accent, tier){
   try {
     const cv=document.createElement("canvas");
     cv.style.cssText="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;";
     document.body.appendChild(cv);
     const ctx=cv.getContext("2d"), W=cv.width=innerWidth, H=cv.height=innerHeight;
-    const colors=[accent,"#e6b450","#e0411f","#ffffff","#3a9a5c"], N=intense?180:120, P=[];
+    // SSRだけ金色メインのゴージャスな紙吹雪、それ以外はアクセントカラー中心
+    const goldColors=["#ffd700","#fff3c0","#e8b93a","#ffffff","#ffbf00"];
+    const normalColors=[accent,"#e6b450","#e0411f","#ffffff","#3a9a5c"];
+    const colors = (tier==="SSR") ? goldColors : normalColors;
+    const countByTier = {SSR:220, SR:160, R:130, N:100};
+    const framesByTier = {SSR:220, SR:170, R:150, N:140};
+    const N = countByTier[tier] || 120;
+    const maxFrames = framesByTier[tier] || 160;
+    const P=[];
     for(let i=0;i<N;i++) P.push({x:Math.random()*W,y:-20-Math.random()*H*0.4,w:6+Math.random()*8,h:8+Math.random()*10,
       c:colors[(Math.random()*colors.length)|0],vx:(Math.random()-0.5)*3,vy:3+Math.random()*4,rot:Math.random()*6.28,vr:(Math.random()-0.5)*0.4});
     let frames=0;
@@ -2781,7 +2841,7 @@ function launchConfetti(accent, intense){
       ctx.clearRect(0,0,W,H);
       P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.rot+=p.vr;
         ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
-      if(++frames<160) requestAnimationFrame(loop);
+      if(++frames<maxFrames) requestAnimationFrame(loop);
       else { cv.style.transition="opacity .6s"; cv.style.opacity="0"; setTimeout(()=>cv.remove(),700); }
     })();
   } catch(e){}
@@ -2812,6 +2872,31 @@ function getStats(code, name){
   let arr=[]; try{ arr=JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){}
   const total=arr.length, typeCount=arr.filter(r=> r.typeCode===code).length;
   return { total, typeCount, pct: total?Math.round(typeCount/total*1000)/10:0, src:"local" };
+}
+// 出現率からSSR/SR/R/Nの4段階を判定（16タイプ均等なら平均出現率は約6.25%）
+function getRarityTier(pct, total){
+  if(total < 20) return "N";     // サンプルが少ない間は演出を出さない
+  if(pct <= 3)    return "SSR";  // 平均の半分以下＝最高レア
+  if(pct <= 6.25) return "SR";   // 平均以下＝レア
+  if(pct <= 10)   return "R";    // 平均よりやや珍しい
+  return "N";                    // よくあるタイプ
+}
+// レア度バッジ（＋SSR限定の景品案内）のHTMLを生成
+function buildRarityHTML(tier, pct, sub){
+  const meta = {
+    SSR: {label:"SSR", icon:'<span class="sparkle-deco">🌟</span><span class="sparkle-deco">✨</span>', caption:`出現率 ${pct}%　最高レア！！`},
+    SR:  {label:"SR",  icon:"✨", caption:`出現率 ${pct}%　レアタイプ！`},
+    R:   {label:"R",   icon:"🔹", caption:`出現率 ${pct}%　少し珍しいタイプ`},
+    N:   {label:"N",   icon:"",   caption:`出現率 ${pct}%`}
+  }[tier];
+  const pill = `<span class="rarity-pill rarity-${tier}">${meta.icon?meta.icon+" ":""}${meta.label}／${meta.caption} <span style="font-weight:400;opacity:.75;">${sub}</span></span>`;
+  const prizeBox = tier === "SSR"
+    ? `<div class="ssr-prize-box">
+         <div style="font-size:13.5px;font-weight:900;color:#8a6200;">🎁 SSRが出た方はスタッフに見せてね！</div>
+         <div style="font-size:12px;color:#8a7040;margin-top:2px;">ちょっとした景品をご用意しています</div>
+       </div>`
+    : "";
+  return `<div style="text-align:center;margin:8px 0 2px;">${pill}</div>${prizeBox}`;
 }
 function axisMeterHTML(accent){
   const g = QUESTIONS[4].opts[state.answers[4]].g;
@@ -2847,12 +2932,9 @@ function renderResult(view){
   if(!view){ saveRecord(rec); sendToSheet(rec); }  // 閲覧モード（QRから開いた人）では保存・送信しない
   const t = TYPES[state.type];
   const st = getStats(state.type, t.name);
-  const rare = st.total >= 20 && st.pct <= 6.25;   // 平均(1/16≒6.25%)以下＝レア
+  const rarity = getRarityTier(st.pct, st.total);  // SSR / SR / R / N の4段階
   const sub = `（全${st.total}人中${st.typeCount}人）`;
-  const pill = rare
-    ? `<span style="display:inline-block;font-size:12.5px;font-weight:900;padding:6px 16px;border-radius:999px;background:${t.accent};color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.2);">✨ 出現率 ${st.pct}% のレアタイプ！</span>`
-    : `<span style="display:inline-block;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.05);color:#8a8a96;">全期間の出現率 ${st.pct}% <span style="font-weight:400;opacity:.7;">${sub}</span></span>`;
-  const rarityHTML = `<div style="text-align:center;margin:8px 0 2px;">${pill}</div>`;
+  const rarityHTML = buildRarityHTML(rarity, st.pct, sub);
   const meterHTML = axisMeterHTML(t.accent);
   // 結果持ち帰り用QR（ブースの結果画面のみ表示）
   let qrHTML = "";
@@ -2889,6 +2971,9 @@ function renderResult(view){
         <h2 style="font-family:'Zen Maru Gothic','Noto Sans CJK JP',sans-serif;font-weight:900;text-align:center;font-size:28px;margin:4px 0 2px;color:${t.accent};">${t.name}</h2>
         <div style="text-align:center;font-size:12px;letter-spacing:3px;color:#8a8a96;font-weight:700;margin-top:2px;">TYPE ${state.type}　（16種）</div>
         ${rarityHTML}
+        <div style="text-align:center;margin:10px 0 2px;">
+          <span style="display:inline-block;font-size:12.5px;font-weight:700;padding:5px 14px;border-radius:999px;background:rgba(0,0,0,.04);color:#6a6a76;">🕰️ ${esc(t.hikaku)}</span>
+        </div>
         <p style="text-align:center;font-size:16px;font-weight:700;line-height:1.6;margin:14px 4px 20px;color:#2a2a36;">「${esc(taiko)}」</p>
         ${moyaLine}
         ${meterHTML}
@@ -2922,8 +3007,8 @@ function renderResult(view){
       ${bottomHTML}
     </div>`;
   // 結果発表の演出（紙吹雪＋効果音）
-  launchConfetti(t.accent, rare);
-  playFanfare(rare);
+  launchConfetti(t.accent, rarity);
+  playFanfare(rarity);
 }
 
 /* QRから開いた閲覧者向け：結果が読めないときの案内（スタート画面には飛ばさない） */
