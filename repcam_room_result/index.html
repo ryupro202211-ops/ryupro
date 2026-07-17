@@ -143,6 +143,12 @@
   .lightbox img{max-width:100%;max-height:88vh;border-radius:16px;box-shadow:0 20px 60px -10px rgba(0,0,0,.6);}
   .lb-close{position:fixed;top:12px;right:18px;color:#fff;font-size:36px;line-height:1;font-weight:300;
     cursor:pointer;text-shadow:0 1px 4px rgba(0,0,0,.4);}
+  .reveal-msg{font-size:15px;font-weight:800;color:var(--b);min-height:22px;margin-bottom:2px;letter-spacing:.04em;}
+  .title-badge{display:inline-block;background:linear-gradient(135deg,#FFE1EA,#E2F5F1);
+    border:1.5px solid var(--b-soft);color:var(--ink);font-weight:800;font-size:14px;
+    padding:6px 15px;border-radius:999px;margin:2px 0 10px;box-shadow:0 8px 18px -10px rgba(238,124,155,.6);}
+  .score-num.pop{animation:pop .55s cubic-bezier(.2,1.4,.4,1) both;}
+  @keyframes pop{0%{transform:scale(.4);opacity:.2;}60%{transform:scale(1.18);}100%{transform:scale(1);opacity:1;}}
   .room .tname{font-weight:800;font-size:16px;line-height:1.4;}
   .room.A .tname{color:var(--a);} .room.B .tname{color:var(--b);}
   .room .ttag{font-size:12px;color:var(--ink-soft);margin:6px 0 4px;line-height:1.7;}
@@ -169,12 +175,12 @@
   .live .floorplan{font-family:var(--mono);font-size:11px;color:var(--ink-soft);
     border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin-top:12px;background:#fff;}
 
-  .share .qrwrap{display:flex;gap:16px;align-items:center;}
-  .qrbox{width:124px;height:124px;flex:0 0 auto;background:#fff;border:1px solid var(--line);
-    border-radius:12px;padding:7px;display:flex;align-items:center;justify-content:center;}
-  .qrbox svg{width:100%;height:100%;display:block;}
-  .qrcap{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.7;}
-  .qrfail{font-size:11px;color:var(--ink-soft);text-align:center;}
+  .line-cta{text-align:center;}
+  .line-lead{font-size:13.5px;color:var(--ink);margin:0 0 12px;line-height:1.7;}
+  .line-btn{display:block;width:100%;box-sizing:border-box;text-decoration:none;text-align:center;
+    background:#06C755;color:#fff;font-weight:800;font-size:16px;letter-spacing:.03em;
+    padding:14px;border-radius:999px;box-shadow:0 10px 22px -10px rgba(6,199,85,.6);}
+  .line-btn:active{transform:scale(.98);}
 
   .actions{display:grid;gap:10px;margin-top:6px;}
   footer{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:26px;font-family:var(--mono);letter-spacing:.08em;}
@@ -267,10 +273,12 @@
     </div>
 
     <div class="score-card">
+      <div class="reveal-msg" id="revealMsg"></div>
       <div class="score-label">ふたりの相性</div>
       <div class="score-num"><span id="scoreNum">0</span><small> / 100</small></div>
       <div class="hearts" id="hearts"></div>
       <div class="verdict" id="verdict"></div>
+      <div class="title-badge" id="titleBadge"></div>
       <div class="comment" id="comment"></div>
     </div>
 
@@ -295,17 +303,12 @@
       <div class="live" id="live"></div>
     </div>
 
-    <div class="panel share" id="sharePanel">
-      <h3>結果を保存・シェア</h3>
-      <div class="qrwrap">
-        <div id="qrbox" class="qrbox"></div>
-        <p class="qrcap">スマホのカメラで読み取ると、この結果ページを<b>あとから見返せます</b>。SNSに載せるのもOK！</p>
-      </div>
+    <div class="panel line-cta">
+      <h3>お部屋・引っ越しのご相談</h3>
+      <p class="line-lead">引っ越しの相談はお気軽に公式LINEから💬</p>
+      <a class="line-btn" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">公式LINEで相談する</a>
     </div>
 
-    <div class="actions">
-      <button class="btn" id="againBtn" onclick="restart()">もう一度ためす</button>
-    </div>
     <footer>Re▶CAMPUS &copy; room compatibility booth</footer>
   </section>
 </div>
@@ -2887,11 +2890,34 @@ function renderResultScreen(res){
   $('live').innerHTML=liveTogether(res.na,res.nb);
   $('verdict').textContent=vd.v;
   $('hearts').textContent=heartStr(vd.h);
+  $('titleBadge').textContent='👑 '+titleOf(res);
   $('comment').textContent=buildComment(res.fin,res.types.A,res.types.B,res.na,res.nb);
-  var viewer = IS_VIEWER || VIEWER_ONLY;
-  var sp=$('sharePanel');
-  if(viewer){ if(sp) sp.style.display='none'; }          // QRから来た画面ではQRは出さない
-  else { if(sp) sp.style.display=''; buildShare(res); }
+}
+
+/* ===================== 称号（二つ名）生成 ===================== */
+function titleOf(res){
+  var na=res.na, nb=res.nb, f=res.fin;
+  var bond = f>=90?'運命コンビ':(f>=78?'ベストコンビ':(f>=64?'なかよしコンビ':(f>=48?'発展途上コンビ':(f>=38?'凸凹コンビ':'正反対コンビ'))));
+  var AX={
+    L:{hi:'おうち大好き',lo:'アクティブ', pHi:'おうち派',pLo:'アクティブ派'},
+    C:{hi:'都会派',      lo:'自然派',     pHi:'都会派',  pLo:'自然派'},
+    M:{hi:'こだわり',    lo:'ミニマリスト', pHi:'物多め',  pLo:'ミニマル'},
+    W:{hi:'あたたか',    lo:'クール',     pHi:'あたたか',pLo:'クール'}
+  };
+  var keys=['L','C','M','W'];
+  var bestShared=null, bestSharedScore=-1, bestDiff=null, bestDiffVal=-1;
+  keys.forEach(function(k){
+    var a=na[k], b=nb[k], sameSide=(a>=50)===(b>=50), avg=(a+b)/2, d=Math.abs(a-b);
+    if(sameSide){ var s=Math.abs(avg-50); if(s>bestSharedScore){ bestSharedScore=s; bestShared=k; } }
+    if(d>bestDiffVal){ bestDiffVal=d; bestDiff=k; }
+  });
+  if(bestShared && (f>=64 || bestDiffVal<40)){
+    var info=AX[bestShared], avg=(na[bestShared]+nb[bestShared])/2;
+    return (avg>=50?info.hi:info.lo)+bond;            // 例: おうち大好き運命コンビ
+  }
+  var di=AX[bestDiff];
+  var ap=(na[bestDiff]>=50?di.pHi:di.pLo), bp=(nb[bestDiff]>=50?di.pHi:di.pLo);
+  return ap+'×'+bp+'の'+bond;                          // 例: 都会派×自然派の正反対コンビ
 }
 
 /* ===================== 共有URL & QR ===================== */
@@ -2914,17 +2940,6 @@ function decodeRes(str){
       na:{L:p.na[0],M:p.na[1],W:p.na[2],C:p.na[3]},
       nb:{L:p.nb[0],M:p.nb[1],W:p.nb[2],C:p.nb[3]}};
   }catch(e){ return null; }
-}
-function buildShare(res){
-  var base=shareBase();
-  var sep = base.indexOf('?')>=0 ? '&' : '?';
-  var url = base + sep + 'r=' + encodeRes(res);   // #ではなく?を使う（QRリーダーでの欠落対策）
-  state.shareUrl=url;
-  var box=$('qrbox'); if(!box) return;
-  try{
-    var q=qrcode(0,'M'); q.addData(url); q.make();
-    box.innerHTML=q.createSvgTag({cellSize:4,margin:2,scalable:true});
-  }catch(e){ box.innerHTML='<div class="qrfail">QRを表示できませんでした</div>'; }
 }
 
 /* ===================== スプレッドシート記録（GAS） ===================== */
@@ -3046,47 +3061,71 @@ function liveTogether(na,nb){
   var madori = M>=60?'収納たっぷりの1LDK':(M<=40?'すっきり広めのワンルーム〜1K':'メリハリのある1K〜1LDK');
   var taste = W>=60?'木のぬくもりとやさしい色でまとめた':(W<=40?'白×グレーのすっきりモダンな':'ナチュラル×モダンをミックスした');
   var life = L>=60?'おうち時間をたっぷり楽しめる':(L<=40?'外遊びの拠点にちょうどいい':'家でも外でも楽しめる');
-  var sentence='<b>'+loc+'にある'+taste+madori+'。</b><br>'
-    +life+'間取りで、ふたりの「好き」がほどよく溶け合って、'
-    +'毎日の暮らしがもっと心地よくなりそうなお部屋です。';
+  var sentence='<b>住むなら、'+loc+'がふたりにぴったり。</b><br>'
+    +'お部屋は、'+taste+madori+'にして、'+life+'間取りに。'
+    +'お気に入りの家具や小物に囲まれて、毎日を自分たちらしく彩れます。'
+    +'ふたりの「好き」がほどよく溶け合って、朝も夜も自然体で過ごせる住まい。'
+    +'休日はのんびり、平日は帰ってきてほっと一息つける、'
+    +'一緒にいる時間がもっと心地よく感じられる理想のお部屋になりそうです。';
   var fp='＿間取りメモ＿\n立地  : '+loc+'\n間取り: '+madori+'\nテイスト: '+taste.replace('でまとめた','').replace('な','').replace('をミックスした','MIX')+'\n暮らし方: '+life;
   return sentence+'<div class="floorplan">'+fp.replace(/\n/g,'<br>')+'</div>';
 }
 
 function heartStr(n){ var s=''; for(var i=0;i<5;i++){ s+= i<n?'❤️':'🤍'; } return s; }
 
-/* スコアのカウントアップ＋紙吹雪 */
+/* スコア発表：ドラムロール → ババン！ */
 function revealScore(){
-  var target=state.result.fin, cur=0, el=$('scoreNum');
-  var step=Math.max(1,Math.round(target/28));
-  var t=setInterval(function(){
-    cur+=step;
-    if(cur>=target){ cur=target; clearInterval(t); if(target>=70) confetti(); }
-    el.textContent=cur;
-  },24);
+  var target=state.result.fin, el=$('scoreNum');
+  var reveal=$('revealMsg');
+  var hideIds=['titleBadge','hearts','verdict','comment'];
+  hideIds.forEach(function(id){ var e=$(id); if(e) e.style.visibility='hidden'; });
+  if(reveal){ reveal.style.display=''; reveal.textContent='ドコドコドコ…🥁'; }
+  el.classList.remove('pop');
+  // ドラムロール：数字を高速シャッフル
+  var roll=setInterval(function(){ el.textContent=(10+Math.floor(Math.random()*90)); },60);
+  setTimeout(function(){
+    clearInterval(roll);
+    if(reveal) reveal.textContent='……';
+    setTimeout(function(){
+      // ババン！
+      el.textContent=target;
+      el.classList.add('pop');
+      hideIds.forEach(function(id){ var e=$(id); if(e) e.style.visibility=''; });
+      if(reveal) reveal.textContent = target>=90?'ババン！🎉✨' : (target>=64?'ババン！🎉' : (target>=38?'じゃじゃん！':'…！'));
+      if(target>=90) confetti(240,true);
+      else if(target>=70) confetti(150,false);
+      setTimeout(function(){ if(reveal) reveal.style.display='none'; }, 1400);
+    }, 380);
+  }, 1300);
 }
 
-/* ===================== 紙吹雪（外部ライブラリ不要） ===================== */
-function confetti(){
+/* ===================== 紙吹雪（外部ライブラリ不要・スコア連動） ===================== */
+function confetti(count,big){
+  count=count||140;
   var cv=$('fx'), ctx=cv.getContext('2d');
   cv.width=innerWidth; cv.height=innerHeight;
   var cols=['#EE7C9B','#34B3A3','#F2D27A','#F2607E','#A8E0D8'];
+  var glyphs=['❤','✨','💕','⭐'];
   var P=[];
-  for(var i=0;i<140;i++){
+  for(var i=0;i<count;i++){
+    var isG = big && Math.random()<0.3;
     P.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*0.3,
-      s:5+Math.random()*7,c:cols[i%cols.length],
+      s:isG?(14+Math.random()*14):(5+Math.random()*7),c:cols[i%cols.length],
+      g:isG?glyphs[Math.floor(Math.random()*glyphs.length)]:null,
       vy:2+Math.random()*3.5,vx:-1.5+Math.random()*3,
       a:Math.random()*6.28,va:-0.2+Math.random()*0.4});
   }
-  var frames=0;
+  var maxF = big?260:180, frames=0;
   (function loop(){
     frames++; ctx.clearRect(0,0,cv.width,cv.height);
     P.forEach(function(p){
       p.y+=p.vy; p.x+=p.vx; p.a+=p.va;
-      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a);
-      ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6); ctx.restore();
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillStyle=p.c;
+      if(p.g){ ctx.font=p.s+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(p.g,0,0); }
+      else { ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6); }
+      ctx.restore();
     });
-    if(frames<180) requestAnimationFrame(loop);
+    if(frames<maxF) requestAnimationFrame(loop);
     else ctx.clearRect(0,0,cv.width,cv.height);
   })();
 }
