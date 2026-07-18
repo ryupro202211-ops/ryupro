@@ -2534,11 +2534,62 @@ const JOBS   = ["0回","1回","2回","3回以上"];
 const state = { step:0, answers:[], type:null,
   name:"", ageRange:"", gender:"", years:"", jobChanges:"", moya:"" };
 
-/* ====== ロジック ====== */
+/* ====== ロジック ======
+   全 3^5=243 通りの回答パターンについて、起動時に一度だけ最適な割り当てテーブルを作る。
+   ・各軸で「はっきりA/B」を選んだ場合は、必ずそのままA/Bとして扱う（絶対に上書きしない）
+   ・軸の回答が「中間」の場合だけ、16タイプの出現回数ができるだけ均等になるよう自動で割り振る
+     （自由度が低い＝中間選択が少ない組み合わせから確定させることで、特定タイプへの偏りを防止）
+   ・複数候補が同じ均等さの場合は、最後の設問（全体の傾向）に近い方を優先して選ぶ
+*/
+const TYPE_TABLE = (function(){
+  const combos = [];
+  for(let a=0;a<3;a++)for(let b=0;b<3;b++)for(let c=0;c<3;c++)for(let d=0;d<3;d++)for(let e=0;e<3;e++){
+    const ans=[a,b,c,d,e];
+    const g = QUESTIONS[4].opts[e].g;
+    const axisOptions=[];
+    let freeCount=0;
+    for(let i=0;i<4;i++){
+      const Q=QUESTIONS[i];
+      const val=Q.opts[ans[i]].val;
+      if(val>0) axisOptions.push([Q.axisA]);
+      else if(val<0) axisOptions.push([Q.axisB]);
+      else { axisOptions.push([Q.axisA, Q.axisB]); freeCount++; }
+    }
+    combos.push({key: ans.join(""), axisOptions, freeCount, g});
+  }
+  combos.sort((x,y)=> x.freeCount - y.freeCount); // 自由度が低い組み合わせから先に確定
+
+  const counts = {};
+  const table = {};
+  for(const combo of combos){
+    let candidates = [""];
+    for(const opts of combo.axisOptions){
+      const next=[];
+      for(const pre of candidates) for(const o of opts) next.push(pre+o);
+      candidates = next;
+    }
+    const gDir = combo.g>0 ? "A" : (combo.g<0 ? "B" : null);
+    let best=null;
+    for(const cand of candidates){
+      const cnt = counts[cand]||0;
+      let gMatch=0;
+      for(let i=0;i<4;i++){
+        if(combo.axisOptions[i].length===2){
+          const isA = cand[i]===QUESTIONS[i].axisA;
+          if(gDir==="A" && isA) gMatch++;
+          else if(gDir==="B" && !isA) gMatch++;
+        }
+      }
+      const key=[cnt, -gMatch];
+      if(!best || key[0]<best.key[0] || (key[0]===best.key[0] && key[1]<best.key[1])) best={cand,key};
+    }
+    table[combo.key]=best.cand;
+    counts[best.cand]=(counts[best.cand]||0)+1;
+  }
+  return table;
+})();
 function determineType(ans){
-  const g = QUESTIONS[4].opts[ans[4]].g;                  // 最後の1問＝全体の傾向ナッジ
-  const decide = i => { const Q=QUESTIONS[i]; return (Q.opts[ans[i]].val + g) >= 0 ? Q.axisA : Q.axisB; };
-  return decide(0) + decide(1) + decide(2) + decide(3);   // 軸順: テンポ/志向/武器/舞台
+  return TYPE_TABLE[ans.join("")];
 }
 const esc = t => (t||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // 性格分析を2文ごとに改行して読みやすく
