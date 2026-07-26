@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>矢田貝様専用 物件一覧 – 全5件</title>
+<title>矢田貝様専用 物件一覧 – 全12件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -380,7 +380,7 @@ footer.foot {
 
 <header class="hero">
   <h1>矢田貝様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年7月27日 ／ 田町・浜松町エリア 全5件</div>
+  <div class="sub">最終更新 2026年7月27日 ／ 田町・浜松町・芝浦エリア 全12件</div>
 </header>
 
 <div class="container">
@@ -391,7 +391,7 @@ footer.foot {
       <div><span>ご予算</span><span>管理費込 120,000円</span></div>
       <div><span>希望エリア</span><span>田町・浜松町周辺</span></div>
       <div><span>駅徒歩</span><span>20分以内</span></div>
-      <div><span>広さ</span><span>28㎡以上（希望30㎡）</span></div>
+      <div><span>広さ</span><span>下限なし（ご希望の目安30㎡）</span></div>
       <div><span>間取り</span><span>ワンルーム／1K／1DK</span></div>
       <div><span>ご希望設備</span><span>バストイレ別・独立洗面台・2口以上コンロ(IH)</span></div>
     </div>
@@ -417,11 +417,13 @@ footer.foot {
       <span class="chip" data-value="都営三田線">都営三田線</span>
       <span class="chip" data-value="都営浅草線">都営浅草線</span>
       <span class="chip" data-value="南北線">南北線</span>
+      <span class="chip" data-value="ゆりかもめ">ゆりかもめ</span>
     </div>
     <div class="control-group" data-filter="layout">
       <label>間取</label>
       <span class="chip on" data-value="all">すべて</span>
       <span class="chip" data-value="ワンルーム">ワンルーム</span>
+      <span class="chip" data-value="1K">1K</span>
       <span class="chip" data-value="1DK">1DK</span>
     </div>
     <div class="control-group">
@@ -429,11 +431,11 @@ footer.foot {
       <select id="rentcap">
         <option value="135000">すべて表示</option>
         <option value="120000">管込 12万円以内（ご予算）</option>
-        <option value="125000">12.5万円まで</option>
-        <option value="130000">13万円まで</option>
+        <option value="100000">10万円以内</option>
+        <option value="90000">9万円以内</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">5</strong> / 5件</div>
+    <div class="count-badge">表示中 <strong id="count">12</strong> / 12件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -589,6 +591,194 @@ const PROPERTIES = [
     ],
     addedAt: '2026-07-27',
     driveId: '1wDKcr8GpPzJ8dz9GOrVGRyEf39lKQ1oh',
+  },
+  {
+    id: '06', name: 'ライオンズ芝公園', unit: '2階',
+    line: '山手線', station: '浜松町', walk: 8,
+    size: 17.49, layout: 'ワンルーム',
+    rent: 85000, kanri: 0, total: 85000,
+    deposit: '敷1ヶ月', reikin: '礼なし',
+    year: 1982, structure: 'RC',
+    tags: [
+      {t:'全12件で最安', c:'new'},
+      {t:'室内フルリフォーム済', c:''},
+      {t:'3駅利用可・生活至便', c:''}
+    ],
+    pros: [
+      '管理費0円・管理費込み85,000円と今回の全12件で最安、ご予算に大きく余裕',
+      '室内全面リフォーム済み（温水洗浄便座・IHコンロ・エアコン・壁紙床を新規交換）で築古でもきれい',
+      '3駅利用可（浜松町8分／芝公園7分／大門8分）・コンビニ50m・コインランドリー1分と生活至便',
+      'オートロック・ダブルロック玄関・モニタ付インターホンで防犯面も安心、オール電化',
+      '洋室6帖・浜松町エリアで家賃を最も抑えられる1件'
+    ],
+    cons: [
+      '温水洗浄便座付きの3点バスユニットで、ご希望の「バス・トイレ別」ではありません',
+      'IHコンロが1口。「2口以上」ご希望とは合いません',
+      '17.49㎡と今回では手狭。事務所・店舗・民泊・喫煙者は不可'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '1KG2l8HR1fM12MV_9sCHLLvPpvZosEAVW',
+  },
+  {
+    id: '07', name: '東京ベイビュウ', unit: '718号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 16.50, layout: 'ワンルーム',
+    rent: 82000, kanri: 5000, total: 87000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 1980, structure: 'SRC',
+    tags: [
+      {t:'敷金0・予算に余裕', c:'new'},
+      {t:'田町10分・3沿線', c:''},
+      {t:'ネット光対応', c:''}
+    ],
+    pros: [
+      '敷金0円・管理費込み87,000円と予算に大きく余裕、初期費用を抑えやすい',
+      'JR山手線「田町」駅徒歩10分、都営浅草線「三田」も利用できる3沿線利用',
+      'SRC造13階建で耐震・遮音性に期待、24時間換気システム・インターネット（光）対応',
+      'エレベーター2基・敷地内ごみ置き場・集合郵便受けと管理設備が整う',
+      '洋室6.5帖・港区芝浦アドレスで家賃を抑えたい方向け'
+    ],
+    cons: [
+      'バス・トイレ同室（3点ユニット）で、ご希望の「バス・トイレ別」ではありません',
+      'コンロが標準設置なし（電気コンロ設置可）。自炊にはコンロのご用意が必要',
+      '16.5㎡と手狭・2人入居不可・ペット不可'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '1UyzhsJK3xiPDf7itVcioq5FBjhJEuVtL',
+  },
+  {
+    id: '08', name: 'マリンロードダイヤモンドパレス', unit: '410号室',
+    line: '山手線', station: '田町', walk: 4,
+    size: 15.52, layout: 'ワンルーム',
+    rent: 84000, kanri: 5000, total: 89000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 1980, structure: 'SRC',
+    tags: [
+      {t:'田町4分・追加物件で最駅近', c:'new'},
+      {t:'バス・トイレ別／独立洗面台', c:''},
+      {t:'敷金0', c:''}
+    ],
+    pros: [
+      'JR山手線「田町」駅徒歩4分と今回の追加物件で最も駅近、管理費込み89,000円と予算に余裕',
+      'バス・トイレ別＋独立洗面台＋温水洗浄便座＋IHクッキングヒーターとご希望設備をほぼ満たす',
+      'IT重説対応・全居室フローリング・モニタ付インターホン・防犯カメラ・宅配BOXと設備充実',
+      '敷金0円で初期費用を抑えやすい、シューズボックス・収納スペースあり',
+      '室内リフォーム対応済みで築古でも快適'
+    ],
+    cons: [
+      '定期借家契約（契約期間満了時の再契約可否は要確認）',
+      'IHコンロの口数が図面上明記なし。2口ご希望のため、お申込み前に要確認',
+      '15.52㎡と手狭'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '1Pnd3kV-sNr8MSgoRF-NiyVpslyLHpg-5',
+  },
+  {
+    id: '09', name: 'アーバイルスパシエ芝浦ベイサイド', unit: '609号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 20.16, layout: '1K',
+    rent: 90000, kanri: 8000, total: 98000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2004, structure: 'RC',
+    tags: [
+      {t:'ご希望設備すべて充足', c:'new'},
+      {t:'2004年築・設備充実', c:'new'},
+      {t:'敷金0', c:''}
+    ],
+    pros: [
+      'ご希望のバス・トイレ別／独立洗面台／2口ガスコンロをすべて満たす、追加物件で設備最充実の1件',
+      '敷金0円・管理費込み98,000円で予算内、2004年築のRC造で比較的新しい建物',
+      'システムキッチン（2口コンロ・グリル）＋浴室乾燥機で自炊・入浴が快適',
+      'オートロック・モニタ付インターホン・防犯カメラ・宅配BOXとセキュリティ充実',
+      'JR「田町」駅徒歩10分、20.16㎡・洋室6.4帖のゆとりある1K'
+    ],
+    cons: [
+      '田町駅からは徒歩10分（最寄りはゆりかもめ「芝浦ふ頭」徒歩9分）',
+      '1年未満解約時に違約金あり'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '102WTFY1oz-TGEt0WPekkiWd6mLQUsmOP',
+  },
+  {
+    id: '10', name: 'グランド・ガーラ芝公園', unit: '3階',
+    line: '都営三田線', station: '芝公園', walk: 2,
+    size: 22.40, layout: '1K',
+    rent: 92000, kanri: 9000, total: 101000,
+    deposit: '敷1ヶ月', reikin: '礼2ヶ月',
+    year: 2002, structure: 'SRC',
+    tags: [
+      {t:'芝公園2分・6線5駅', c:'new'},
+      {t:'追加物件で最大22.4㎡', c:''},
+      {t:'2口ガスコンロ・浴室乾燥', c:''}
+    ],
+    pros: [
+      '都営三田線「芝公園」駅徒歩2分・6線5駅利用可（田町／浜松町／三田／大門／赤羽橋）と抜群のアクセス',
+      '角部屋・広々7帖・22.40㎡と今回の追加物件で最も広い居室、東京タワー徒歩圏',
+      '2口ガスコンロ（グリル付）＋浴室乾燥機＋シャワー付トイレで水回りが快適',
+      'インターネット使用料無料・オートロック・宅配BOX・防犯カメラと設備充実、2002年SRC造の分譲賃貸',
+      '総戸数159戸の大規模マンションで管理体制が安定'
+    ],
+    cons: [
+      '管理費込み101,000円と、追加物件では中位の価格帯',
+      '礼金2ヶ月と初期費用がやや高め',
+      '独立洗面台の有無は図面上未確認のため、内見時にご確認を'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '18Zmchf3avjUUz5WeN9yWMxI7KgTpR7EE',
+  },
+  {
+    id: '11', name: 'LA.ラルス海岸', unit: '302号室',
+    line: 'ゆりかもめ', station: '芝浦ふ頭', walk: 4,
+    size: 20.84, layout: '1K',
+    rent: 99000, kanri: 5000, total: 104000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2006, structure: 'RC',
+    tags: [
+      {t:'追加物件で最も築浅（2006）', c:'new'},
+      {t:'独立洗面台・角部屋', c:''},
+      {t:'敷金0・ペット相談可', c:''}
+    ],
+    pros: [
+      '2006年築で今回の追加物件では最も新しく、独立洗面台・角部屋のきれいな1K',
+      'ゆりかもめ「芝浦ふ頭」駅徒歩4分、20.84㎡・洋室6帖のゆとりある間取り',
+      '敷金0円で初期費用を抑えやすい、ペット飼育相談可（保証金1ヶ月償却）',
+      '電子契約対応でお手続きがスムーズ、敷地内ゴミ置場あり',
+      '港区海岸アドレスの新しめの建物'
+    ],
+    cons: [
+      '田町駅からは徒歩12分（最寄りはゆりかもめ「芝浦ふ頭」徒歩4分）',
+      'バス・トイレ別・コンロ口数が図面上未確認のため、内見時にご確認を',
+      '退去時クリーニング80,000円等の初期・退去費用あり'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '1L8qp8b7SSbdPVADz-py-iokJJo-pbNl5',
+  },
+  {
+    id: '12', name: 'フェニックス芝浦ベイフォート', unit: '903号室',
+    line: '山手線', station: '田町', walk: 8,
+    size: 20.52, layout: '1K',
+    rent: 103000, kanri: 4000, total: 107000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2005, structure: 'SRC',
+    tags: [
+      {t:'バス・トイレ別／2口ガス', c:'new'},
+      {t:'田町8分・2005年築', c:''},
+      {t:'9階・南西向き', c:''}
+    ],
+    pros: [
+      'ご希望のバス・トイレ別＋2口ガスコンロを満たし、浴室換気乾燥機も付く2005年築の1K',
+      'JR山手線「田町」駅徒歩8分＋都営三田線「三田」9分の好アクセス、南西向き9階で陽当り良好',
+      '20.52㎡・洋室7.1帖のゆとりある居室、クローゼット収納あり',
+      '鉄骨鉄筋コンクリート造11階建の9階部分で眺望・耐震性に期待',
+      '港区芝浦アドレスで設備条件を多く満たす'
+    ],
+    cons: [
+      '定期借家契約2年（再契約可だが未定）。長期居住予定なら要確認',
+      '独立洗面台の有無は図面上未確認のため、内見時にご確認を',
+      'ペット不可'
+    ],
+    addedAt: '2026-07-27',
+    driveId: '11sv50HL9UDzmq4JeN6Va-ElbNP0LC3Xs',
   },
 ];
 
