@@ -934,12 +934,19 @@ const DATA = {
         '首都圏1都3県で通勤エリア広い',
       ],
       url: 'https://circus-job.com/selections/4491588/job?jobDetailPublicToken=3f6f2837-3ec5-4da1-9be9-f3f179add459',
-      status: 'screening',
+      status: 'arrangingInterview',
       isNew: true,
-      interview: null,
+      interview: {
+        round: 'Web面接',
+        format: 'オンライン',
+        date: null,
+        duration: '未定',
+        note: '⚠️ 下記候補日からご希望の日時をお選びください。日程回答後、企業側で調整。\n・7/31(金) 15:30〜17:00開始\n・8/3(月) 10:00〜12:00 / 15:00〜16:30開始\n・8/4(火) 10:00〜13:00 / 16:00〜17:30開始\n・8/5(水) 10:00〜11:30 / 14:30〜15:00開始\n・8/6(木) 12:30 / 15:30〜17:00開始',
+      },
       timeline: [
         { date: '2026-07-15', event: '案件をご提案しました(3条件全明示・年休128日は最強クラス)' },
         { date: '2026-07-25', event: '応募済み・書類選考開始(結果待ち)' },
+        { date: '2026-07-28', event: '🎉 書類選考通過!Web面接のご案内を受領(候補日:7/31・8/3・8/4・8/5・8/6)' },
       ],
     },
     {
@@ -959,10 +966,21 @@ const DATA = {
       url: 'https://circus-job.com/selections/4491584/job?jobDetailPublicToken=1cde7660-523a-46fe-bf46-6e6a4cf858b2',
       status: 'screening',
       isNew: true,
-      interview: null,
+      interview: {
+        round: '応募手続き(個人情報同意)',
+        format: '書面(Googleフォーム)',
+        date: null,
+        duration: '数分',
+        note: '⚠️ 企業様より、応募時の個人情報取り扱いへの同意依頼あり。下記フォームからご対応ください。書類選考の前提となるため早めに完了推奨。',
+        preInterviewTasks: [
+          { title: '📝 個人情報取り扱い同意フォーム', url: 'https://forms.gle/yRB5d4F1r3Ff5tv26', note: '書類選考を進めるための前提手続き' },
+        ],
+        preInterviewDeadline: '早めに対応推奨',
+      },
       timeline: [
         { date: '2026-07-15', event: '案件をご提案しました(現職のIT基礎+提案スキルで新領域)' },
         { date: '2026-07-25', event: '応募済み・書類選考開始(結果待ち)' },
+        { date: '2026-07-28', event: '企業様より個人情報取り扱い同意フォームへの対応依頼あり(応募手続き)' },
       ],
     },
     {
@@ -980,12 +998,25 @@ const DATA = {
         '労働条件良好(残業月10h以下・夜勤なし・土日祝・都内勤務)',
       ],
       url: 'https://circus-job.com/selections/4491578/job?jobDetailPublicToken=07684dd3-9eef-4ddb-8e90-e4c26fbb7f79',
-      status: 'screening',
+      status: 'arrangingInterview',
       isNew: true,
-      interview: null,
+      interview: {
+        round: '一次選考(面接+適性検査3種)',
+        format: 'オンライン',
+        date: null,
+        duration: '90分程度',
+        note: '⚠️ 一次選考は【面接+適性検査③(30分)+適性検査④(WEB30分)+適性検査⑤(WEB時間制限なし)】の90分構成。事前に別途 適性検査①②の受検も必要。日程調整URLからご希望日時を登録後、担当CAへご報告ください。',
+        preInterviewTasks: [
+          { title: '①適性検査①(オンライン選考前・事前受検)', url: '', note: 'メールで案内が届く想定' },
+          { title: '②適性検査②(オンライン選考前・事前受検)', url: '', note: 'メールで案内が届く想定' },
+        ],
+        preInterviewDeadline: '面接前日まで',
+        schedulingUrl: 'https://app.aitemasu.me/u/keyakihr2021/CasualFirstSelection012',
+      },
       timeline: [
         { date: '2026-07-15', event: '案件をご提案しました(インフラから開発への拡張ルート)' },
         { date: '2026-07-25', event: '応募済み・書類選考開始(結果待ち)' },
+        { date: '2026-07-28', event: '🎉 書類選考通過!一次選考(90分構成:面接+適性検査3種)のご案内を受領' },
       ],
     },
     {
