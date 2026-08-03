@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>田吉様専用 物件一覧 – 全4件</title>
+<title>田吉様専用 物件一覧 – 全6件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -380,7 +380,7 @@ footer.foot {
 
 <header class="hero">
   <h1>田吉様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年8月3日 ／ 田町・浜松町エリア 全4件</div>
+  <div class="sub">最終更新 2026年8月3日 ／ 田町・浜松町エリア 全6件</div>
 </header>
 
 <div class="container">
@@ -441,7 +441,7 @@ footer.foot {
         <option value="90000">9万円以内</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">4</strong> / 4件</div>
+    <div class="count-badge">表示中 <strong id="count">6</strong> / 6件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -939,7 +939,7 @@ function cardHtml(p) {
 }
 
 function renderAll() {
-  grid.innerHTML = PROPERTIES.filter(p => p.total < 100000).map(cardHtml).join('');
+  grid.innerHTML = PROPERTIES.filter(p => p.total <= 100000).map(cardHtml).join('');
   applyFilters();
 }
 
