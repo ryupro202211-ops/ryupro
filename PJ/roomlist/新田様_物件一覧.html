@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>新田様専用 物件一覧 – 全21件</title>
+<title>新田様専用 物件一覧 – 全13件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -380,7 +380,7 @@ footer.foot {
 
 <header class="hero">
   <h1>新田様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年8月3日 ／ 浜松町・田町エリア 全21件</div>
+  <div class="sub">最終更新 2026年8月12日 ／ 浜松町・田町エリア（管理費込9万円）全13件</div>
 </header>
 
 <div class="container">
@@ -388,19 +388,19 @@ footer.foot {
   <section class="criteria">
     <h2>新田様のご希望条件</h2>
     <div class="criteria-grid">
-      <div><span>ご予算（管理費込）</span><span>11万円以内</span></div>
+      <div><span>ご予算（管理費込）</span><span>9万円以内</span></div>
       <div><span>初期費用</span><span>30万円以内</span></div>
       <div><span>ご希望エリア</span><span>浜松町・田町 徒歩15分以内</span></div>
       <div><span>お勤め先</span><span>麻布台ヒルズ</span></div>
-      <div><span>設備</span><span>バス・トイレ別／室内洗濯機置場／駐輪場</span></div>
-      <div><span>間取り</span><span>1K・1DK・ワンルーム</span></div>
+      <div><span>設備</span><span>指定なし（ご予算優先）</span></div>
+      <div><span>間取り</span><span>ワンルーム・1K中心</span></div>
     </div>
     <div class="priorities">
       <strong>優先順位：</strong>麻布台ヒルズへの通勤 ＞ 初期費用の抑制 ＞ 立地・広さ
     </div>
     <div class="notebox">
-      ※ 浜松町・田町エリアを中心に、ご予算「管理費込11万円」で集めた全21件です。並び順・ご予算・沿線・間取りで絞り込めます。<br>
-      ※ 一部の物件は募集情報にバス・トイレ別／駐輪場などの記載がなく「要確認」としています。各カードのご留意点をご確認ください。<br>
+      ※ 浜松町・田町エリアで、ご予算「管理費込9万円」に合わせた一覧です。並び順・ご予算・沿線・間取りで絞り込めます。<br>
+      ※ この価格帯は1970〜80年代築のワンルームが中心です。設備（バス・トイレ別等）や耐震は図面・詳細で要確認、各カードのご留意点もご参照ください。<br>
       ※ <strong>初期費用30万円</strong>を抑えるには、<strong>敷金・礼金の少ないお部屋</strong>が有利です（各カードの敷金・礼金欄をご参照ください）。個別のお見積りはお気軽にご相談ください。
     </div>
   </section>
@@ -420,26 +420,25 @@ footer.foot {
       <span class="chip on" data-value="all">すべて</span>
       <span class="chip" data-value="山手線">山手線</span>
       <span class="chip" data-value="三田線">都営三田線</span>
-      <span class="chip" data-value="浅草線">都営浅草線</span>
+      <span class="chip" data-value="大江戸線">大江戸線</span>
       <span class="chip" data-value="南北線">南北線</span>
       <span class="chip" data-value="ゆりかもめ">ゆりかもめ</span>
     </div>
     <div class="control-group" data-filter="layout">
       <label>間取</label>
       <span class="chip on" data-value="all">すべて</span>
-      <span class="chip" data-value="1K">1K</span>
-      <span class="chip" data-value="1DK">1DK</span>
       <span class="chip" data-value="ワンルーム">ワンルーム</span>
+      <span class="chip" data-value="1K">1K</span>
     </div>
     <div class="control-group">
       <label>ご予算</label>
       <select id="rentcap">
-        <option value="110000">11万円以内</option>
-        <option value="105000">10.5万円以内</option>
-        <option value="100000">10万円以内</option>
+        <option value="90000">9万円以内</option>
+        <option value="85000">8.5万円以内</option>
+        <option value="80000">8万円以内</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">21</strong> / 21件</div>
+    <div class="count-badge">表示中 <strong id="count">13</strong> / 13件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -462,7 +461,8 @@ footer.foot {
 </div>
 
 <script>
-const PROPERTIES = [
+// 旧バージョン（管理費込11万・全21件）は非表示。復元時は下の PROPERTIES_ARCHIVE を PROPERTIES に戻す。
+const PROPERTIES_ARCHIVE = [
   {
     id:'01', name:'ガーラ芝御成門', unit:'',
     line:'三田線', station:'御成門', walk:2,
@@ -885,13 +885,267 @@ const PROPERTIES = [
   }
 ];
 
+const PROPERTIES = [
+  {
+    id:'01', name:'日神パレステージ三田', unit:'503号室',
+    line:'南北線', station:'白金高輪', walk:8,
+    size:19.61, layout:'1K',
+    rent:79000, kanri:10000, total:89000,
+    deposit:'敷1ヶ月', reikin:'礼なし',
+    year:1997, structure:'マンション',
+    tags:[{t:'白金高輪8分',c:''},{t:'1K',c:''},{t:'オートロック',c:''}],
+    pros:[
+      '南北線「白金高輪」駅 徒歩8分。六本木一丁目まで2駅で麻布台ヒルズへアクセス良好',
+      '19.61㎡の1Kで、この価格帯では設備の整った分譲マンション',
+      'オートロック付でセキュリティ良好',
+      '礼金なしで初期費用を抑えやすい'
+    ],
+    cons:[
+      '総額8.9万円（賃料7.9万＋管理費1万）',
+      '浜松町・田町へは乗り換えになります'
+    ],
+    addedAt:'2026-08-12', driveId:'1ZImgXqcj2uuY2Jl7Ik4bPDbT6gVM_rSW'
+  },
+  {
+    id:'02', name:'藤和シティコープ芝公園', unit:'',
+    line:'大江戸線', station:'赤羽橋', walk:5,
+    size:21.42, layout:'ワンルーム',
+    rent:90000, kanri:0, total:90000,
+    deposit:'敷1ヶ月', reikin:'礼1ヶ月',
+    year:1990, structure:'マンション',
+    tags:[{t:'赤羽橋5分',c:''},{t:'21.4㎡',c:''},{t:'オートロック',c:''}],
+    pros:[
+      '大江戸線「赤羽橋」駅 徒歩5分。麻布台ヒルズへ徒歩圏の好立地',
+      '都営三田線「芝公園」6分・JR「田町」12分も利用可',
+      '21.42㎡とワンルームでゆとりの広さ',
+      'オートロック・宅配ボックス・室内洗濯機置場あり（図面記載）'
+    ],
+    cons:[
+      '総額9.0万円（管理費込）でご予算の上限',
+      '1990年築'
+    ],
+    addedAt:'2026-08-12', driveId:'173yti23c_qyJZBgpCpNvIlDVhcPhOaEf'
+  },
+  {
+    id:'03', name:'芝ビルディング', unit:'906号室',
+    line:'三田線', station:'三田', walk:5,
+    size:21.99, layout:'ワンルーム',
+    rent:80000, kanri:5000, total:85000,
+    deposit:'敷1ヶ月', reikin:'礼1ヶ月',
+    year:1981, structure:'マンション',
+    tags:[{t:'三田5分',c:''},{t:'21.99㎡',c:''},{t:'9階',c:''}],
+    pros:[
+      '都営三田線「三田」駅 徒歩5分、JR「田町」駅も徒歩9分',
+      '21.99㎡とワンルームでゆとりの広さ、9階の眺望',
+      '総額8.5万円'
+    ],
+    cons:[
+      '1981年築（旧耐震基準の時期）',
+      'ワンルームタイプ'
+    ],
+    addedAt:'2026-08-12', driveId:'16KzGByOcWKoj453_VYRVD47y2bo7Qu4l'
+  },
+  {
+    id:'04', name:'東京ベイサイド', unit:'205号室',
+    line:'山手線', station:'田町', walk:8,
+    size:18.64, layout:'ワンルーム',
+    rent:78000, kanri:4000, total:82000,
+    deposit:'敷なし', reikin:'礼1ヶ月',
+    year:1980, structure:'マンション',
+    tags:[{t:'田町8分',c:''},{t:'敷金ゼロ',c:''},{t:'18.6㎡',c:''}],
+    pros:[
+      'JR「田町」駅 徒歩8分。都営三田線・浅草線も利用圏',
+      '敷金ゼロで初期費用を抑えやすい',
+      '18.64㎡のワンルーム'
+    ],
+    cons:[
+      '1980年築（旧耐震基準）',
+      '2階のお部屋'
+    ],
+    addedAt:'2026-08-12', driveId:'1w6YwQEWKoux3DqCHL0gmzwSvwHgwhStE'
+  },
+  {
+    id:'05', name:'ライオンズプラザ芝公園', unit:'2階',
+    line:'山手線', station:'浜松町', walk:8,
+    size:17.49, layout:'ワンルーム',
+    rent:85000, kanri:0, total:85000,
+    deposit:'敷1ヶ月', reikin:'礼なし',
+    year:1982, structure:'マンション',
+    tags:[{t:'浜松町8分',c:''},{t:'礼金ゼロ',c:''},{t:'室内リフォーム',c:'new'}],
+    pros:[
+      'JR「浜松町」駅 徒歩8分、三田線「芝公園」7分・大江戸線「大門」8分の3駅利用可',
+      '礼金ゼロで初期費用を抑えやすい',
+      '室内全面リフォーム済み（温水洗浄便座・IHコンロ・エアコン新規交換）',
+      'オートロック・駐輪場あり（図面記載）'
+    ],
+    cons:[
+      '1982年築',
+      'ワンルームタイプ'
+    ],
+    addedAt:'2026-08-12', driveId:'12aJ2G0AVFTfJ8B1VgHaKqXEtTRNWvQif'
+  },
+  {
+    id:'06', name:'ハイツ芝大門', unit:'401号室',
+    line:'山手線', station:'浜松町', walk:8,
+    size:17.31, layout:'ワンルーム',
+    rent:84000, kanri:6000, total:90000,
+    deposit:'敷なし', reikin:'礼1ヶ月',
+    year:1980, structure:'マンション',
+    tags:[{t:'浜松町8分',c:''},{t:'敷金ゼロ',c:''},{t:'3駅利用可',c:''}],
+    pros:[
+      'JR「浜松町」駅 徒歩8分、三田線「三田」7分・大江戸線「大門」9分の3駅利用可',
+      '敷金ゼロで初期費用を抑えやすい',
+      '17.31㎡のワンルーム、4階'
+    ],
+    cons:[
+      '総額9.0万円（管理費込）でご予算の上限',
+      '1980年築（旧耐震基準）'
+    ],
+    addedAt:'2026-08-12', driveId:'13eMkoe1G2c-fvr6JutIAnkwJJ-bqSgi0'
+  },
+  {
+    id:'07', name:'マリンロードダイヤモンドパレス', unit:'',
+    line:'山手線', station:'田町', walk:4,
+    size:15.52, layout:'ワンルーム',
+    rent:84000, kanri:5000, total:89000,
+    deposit:'敷なし', reikin:'礼1ヶ月',
+    year:1980, structure:'マンション',
+    tags:[{t:'田町4分',c:''},{t:'敷金ゼロ',c:''},{t:'駅近',c:''}],
+    pros:[
+      'JR「田町」駅 徒歩4分の駅近立地',
+      '敷金ゼロで初期費用を抑えやすい',
+      'エレベーター・宅配ボックスあり（図面記載）'
+    ],
+    cons:[
+      '15.52㎡とコンパクトなお部屋',
+      '1980年築（旧耐震基準）'
+    ],
+    addedAt:'2026-08-12', driveId:'1dMYJeDnuWqY85kSzxBQbIOt0s5fbuO35'
+  },
+  {
+    id:'08', name:'弓和三田ビジデンス', unit:'301号室',
+    line:'山手線', station:'田町', walk:9,
+    size:20.10, layout:'ワンルーム',
+    rent:75000, kanri:10000, total:85000,
+    deposit:'敷1ヶ月', reikin:'礼1ヶ月',
+    year:1974, structure:'マンション',
+    tags:[{t:'田町9分',c:''},{t:'20.1㎡',c:''},{t:'事務所可',c:''}],
+    pros:[
+      'JR「田町」駅 徒歩9分、三田線「三田」駅も徒歩6分',
+      '20.10㎡とワンルームでゆとりの広さ',
+      '1階にコインランドリー有・事務所利用も相談可'
+    ],
+    cons:[
+      '1974年築（旧耐震基準）で築年数が経っています'
+    ],
+    addedAt:'2026-08-12', driveId:'1mjZEj9Dzefba-3hEGmKtT3k6GGBH-fZQ'
+  },
+  {
+    id:'09', name:'東京ベイビュウ', unit:'407号室',
+    line:'山手線', station:'田町', walk:8,
+    size:16.50, layout:'ワンルーム',
+    rent:80000, kanri:0, total:80000,
+    deposit:'敷1ヶ月', reikin:'礼1ヶ月',
+    year:1980, structure:'マンション',
+    tags:[{t:'田町8分',c:''},{t:'総額8万',c:''},{t:'SRC13階建',c:''}],
+    pros:[
+      'JR「田町」駅 徒歩8分',
+      '総額8.0万円',
+      'SRC造13階建の4階'
+    ],
+    cons:[
+      '16.5㎡とコンパクトなお部屋',
+      '1980年築（旧耐震基準）'
+    ],
+    addedAt:'2026-08-12', driveId:'1oJYTwFpRgYlIZTayR41eOvHyD5BK9jJp'
+  },
+  {
+    id:'10', name:'芝ビルディング', unit:'2階',
+    line:'山手線', station:'田町', walk:9,
+    size:16.16, layout:'ワンルーム',
+    rent:65000, kanri:15000, total:80000,
+    deposit:'敷なし', reikin:'礼なし',
+    year:1981, structure:'マンション',
+    tags:[{t:'田町9分',c:''},{t:'敷礼ゼロ',c:'new'},{t:'三田5分',c:''}],
+    pros:[
+      'JR「田町」駅 徒歩9分、都営三田線「三田」駅も徒歩5分',
+      '敷金・礼金ゼロで初期費用を抑えやすい（保証会社利用・清掃代負担が条件）',
+      '第一京浜沿い・芝四丁目交差点至近'
+    ],
+    cons:[
+      '16.16㎡とコンパクトなお部屋',
+      '1981年築（旧耐震基準）',
+      '2階のお部屋'
+    ],
+    addedAt:'2026-08-12', driveId:'1xsHCHLFUKL_EAusZLF-Z6vKZg7-Q2aaB'
+  },
+  {
+    id:'11', name:'大坂アパート', unit:'202号室',
+    line:'南北線', station:'白金高輪', walk:10,
+    size:15.00, layout:'ワンルーム',
+    rent:65000, kanri:0, total:65000,
+    deposit:'敷1ヶ月', reikin:'礼1ヶ月',
+    year:0, structure:'アパート',
+    tags:[{t:'総額6.5万',c:''},{t:'白金高輪10分',c:''},{t:'風呂なし',c:'warn'}],
+    pros:[
+      '総額6.5万円・管理費なしで月々を抑えやすい',
+      '南北線「白金高輪」駅 徒歩10分、都営三田線・浅草線「三田」駅 徒歩10分'
+    ],
+    cons:[
+      '風呂なし・共同トイレのお部屋（居室のみ）',
+      '築年不詳・木造アパートの2階'
+    ],
+    addedAt:'2026-08-12', driveId:'19pItt2_SIj1on6mVmqnebhA4J3GWQB00'
+  },
+  {
+    id:'12', name:'サンハイム田町', unit:'727号室',
+    line:'ゆりかもめ', station:'芝浦ふ頭', walk:7,
+    size:13.77, layout:'ワンルーム',
+    rent:60000, kanri:5000, total:65000,
+    deposit:'敷1ヶ月', reikin:'礼1ヶ月',
+    year:1975, structure:'マンション',
+    tags:[{t:'総額6.5万',c:''},{t:'芝浦ふ頭7分',c:''},{t:'7階',c:''}],
+    pros:[
+      '総額6.5万円で月々を抑えやすい',
+      'ゆりかもめ「芝浦ふ頭」駅 徒歩7分、JR「田町」駅も徒歩14分',
+      '分譲賃貸マンションの7階'
+    ],
+    cons:[
+      '13.77㎡とコンパクトなお部屋',
+      '1975年築（旧耐震基準）',
+      '麻布台ヒルズへは乗り換えが必要'
+    ],
+    addedAt:'2026-08-12', driveId:'12CvJRpYVvMT6-IbpiLHC4cvTtLgbZgrf'
+  },
+  {
+    id:'13', name:'慶応マンション', unit:'0114号室',
+    line:'三田線', station:'三田', walk:5,
+    size:7.83, layout:'ワンルーム',
+    rent:58000, kanri:5000, total:63000,
+    deposit:'敷1ヶ月', reikin:'礼なし',
+    year:1967, structure:'マンション',
+    tags:[{t:'総額6.3万',c:''},{t:'三田5分',c:''},{t:'7.83㎡ 極狭',c:'warn'}],
+    pros:[
+      '都営三田線「三田」駅 徒歩5分、JR「田町」駅も徒歩7分の好立地',
+      '総額6.3万円・礼金なしで初期費用を抑えやすい',
+      '7.83㎡ながらバス・トイレ別／温水洗浄便座／エアコン付'
+    ],
+    cons:[
+      '7.83㎡と非常にコンパクト（居室のみ・単身者向け）',
+      '1967年築（旧耐震基準）で築年数が経っています',
+      '1階のお部屋'
+    ],
+    addedAt:'2026-08-12', driveId:'1Cbwq-PBf_eWtFQovl6KFJ7bGHRRYd1RM'
+  }
+];
+
 // ---------- Rendering ----------
 const grid = document.getElementById('grid');
 const countEl = document.getElementById('count');
 
 function fmt(n) { return n.toLocaleString('ja-JP'); }
 
-const NEW_SINCE = '2026-08-03';
+const NEW_SINCE = '2026-08-12';
 
 function cardHtml(p) {
   const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
@@ -920,7 +1174,7 @@ function cardHtml(p) {
       <div class="meta-row">
         <div><span>広さ</span><span>${p.size}㎡</span></div>
         <div><span>間取り</span><span>${p.layout}</span></div>
-        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
+        <div><span>築年</span><span>${p.year ? `${p.year}年（築${2026 - p.year}年）` : '不詳'}</span></div>
         <div><span>建物種別</span><span>${p.structure}</span></div>
         <div><span>敷金</span><span>${p.deposit}</span></div>
         <div><span>礼金</span><span>${p.reikin}</span></div>
@@ -946,7 +1200,7 @@ const state = {
   line: 'all',
   layout: 'all',
   sort: 'rent-asc',
-  rentcap: 110000,
+  rentcap: 90000,
 };
 
 document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
