@@ -669,6 +669,7 @@ const DATA = {
     date: '2026-08-17 (月)',
     time: '15:45〜16:30',
     meetingUrl: 'https://meet.google.com/uzd-hjdh-rih',
+    phone: '(JP) +81 3-4545-0450  PIN: 867 747 315 0740#',
   },
   jobs: [
     {
@@ -1015,6 +1016,7 @@ function renderCaMeeting() {
         ${cm.meetingUrl ? `<a href="${cm.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:11px 22px">🎥 面談に参加する</a>` : ''}
         <button onclick="openCaCalendar()" class="btn-calendar">📅 Googleカレンダーに追加</button>
       </div>
+      ${cm.phone ? `<div style="margin-top:10px;font-size:11px;color:#7f8c8d;text-align:center">📞 電話参加: <span style="font-family:monospace;color:#5D6D7E">${cm.phone}</span></div>` : ''}
     </div>
   `;
 }
@@ -1027,7 +1029,10 @@ function openCaCalendar() {
   if (!dt) { alert('日程情報が不完全です'); return; }
   const pad = n => String(n).padStart(2, '0');
   const fmt = d => `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
-  const details = cm.meetingUrl ? `会議URL:\n${cm.meetingUrl}` : '';
+  const details = [
+    cm.meetingUrl ? `会議URL:\n${cm.meetingUrl}` : '',
+    cm.phone ? `\n\n電話参加: ${cm.phone}` : '',
+  ].filter(Boolean).join('');
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: cm.title || '担当キャリアアドバイザーとの面談',
