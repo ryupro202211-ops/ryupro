@@ -381,6 +381,34 @@
   }
   .btn-calendar:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
 
+  /* ============ CA MEETING ============ */
+  .ca-card {
+    background: linear-gradient(135deg, #FFF5F7 0%, #F4F9FC 100%);
+    border: 2px solid #F4C6D5;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(244, 198, 213, 0.25);
+  }
+  .ca-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .ca-icon { font-size: 26px; }
+  .ca-title { font-size: 15px; font-weight: 700; color: #B0416A; }
+  .ca-datetime { font-size: 14px; font-weight: 700; color: #2C3E50; margin-top: 3px; }
+  .ca-badge {
+    margin-left: auto;
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    background: #ECF0F1;
+    color: #5D6D7E;
+  }
+  .ca-badge.ca-soon { background: #FCF3CF; color: #B7950B; }
+  .ca-badge.ca-urgent { background: #FDEBD0; color: #CA6F1E; animation: countdownPulse 1.5s ease-in-out infinite; }
+  .ca-badge.ca-today { background: #E74C3C; color: white; }
+  .ca-badge.ca-past { background: #EAECEE; color: #839192; }
+
   /* ============ TOGGLE ============ */
   details { margin-top: 8px; }
   details summary {
@@ -552,6 +580,9 @@
 <!-- STATS -->
 <div class="stats" id="stats"></div>
 
+<!-- 担当キャリアアドバイザーとの面談 -->
+<div id="caMeeting"></div>
+
 <!-- 面談スケジュール -->
 <div class="section">
   <div class="section-header">
@@ -633,6 +664,12 @@ const STATUS_MAP = {
 
 const DATA = {
   candidate: { name: '福家' },
+  caMeeting: {
+    title: '定期面談(担当キャリアアドバイザーとの面談)',
+    date: '2026-08-18 (火)',
+    time: '13:00〜13:45',
+    meetingUrl: 'https://meet.google.com/uzd-hjdh-rih',
+  },
   jobs: [
     {
       id: 'fuke-1', priority: 1,
@@ -948,6 +985,60 @@ function parseInterviewDateTime(dateStr, timeStr) {
   };
 }
 
+// 担当キャリアアドバイザーとの定期面談を表示
+function renderCaMeeting() {
+  const el = document.getElementById('caMeeting');
+  if (!el) return;
+  const cm = data.caMeeting;
+  if (!cm || !cm.date) { el.innerHTML = ''; return; }
+  const days = daysUntilInterview(cm.date);
+  let badge = '';
+  if (days !== null) {
+    if (days < 0) badge = `<span class="ca-badge ca-past">面談から ${-days} 日経過</span>`;
+    else if (days === 0) badge = `<span class="ca-badge ca-today">🔔 本日 ${cm.time || ''} です!</span>`;
+    else if (days === 1) badge = `<span class="ca-badge ca-urgent">⚠️ あと 1 日</span>`;
+    else if (days <= 3) badge = `<span class="ca-badge ca-urgent">⏰ あと ${days} 日</span>`;
+    else if (days <= 7) badge = `<span class="ca-badge ca-soon">📅 あと ${days} 日</span>`;
+    else badge = `<span class="ca-badge">📅 あと ${days} 日</span>`;
+  }
+  el.innerHTML = `
+    <div class="ca-card">
+      <div class="ca-head">
+        <span class="ca-icon">🌸</span>
+        <div>
+          <div class="ca-title">${cm.title || '担当キャリアアドバイザーとの面談'}</div>
+          <div class="ca-datetime">📅 ${cm.date} ${cm.time || ''}</div>
+        </div>
+        ${badge}
+      </div>
+      <div style="margin-top:12px;text-align:center">
+        ${cm.meetingUrl ? `<a href="${cm.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:11px 22px">🎥 面談に参加する</a>` : ''}
+        <button onclick="openCaCalendar()" class="btn-calendar">📅 Googleカレンダーに追加</button>
+      </div>
+    </div>
+  `;
+}
+
+// 定期面談をGoogleカレンダーに追加
+function openCaCalendar() {
+  const cm = data.caMeeting;
+  if (!cm) return;
+  const dt = parseInterviewDateTime(cm.date, cm.time);
+  if (!dt) { alert('日程情報が不完全です'); return; }
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = d => `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  const details = cm.meetingUrl ? `会議URL:\n${cm.meetingUrl}` : '';
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: cm.title || '担当キャリアアドバイザーとの面談',
+    dates: `${fmt(dt.start)}/${fmt(dt.end)}`,
+    details: details,
+    location: 'オンライン (Google Meet)',
+    ctz: 'Asia/Tokyo',
+  });
+  window.open(`https://calendar.google.com/calendar/render?${params.toString()}`, '_blank');
+}
+
 // Googleカレンダー予約リンクを開く
 function openGoogleCalendar(jobId) {
   const job = data.jobs.find(j => j.id === jobId);
@@ -1181,6 +1272,7 @@ function render() {
   greeting();
   renderTodayBanner();
   renderStats();
+  renderCaMeeting();
   renderInterviews();
   renderJobs();
 }
