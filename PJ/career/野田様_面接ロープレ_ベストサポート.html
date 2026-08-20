@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面接ロープレ資料 | 野田様 × ベストサポートシステムズ(一次面接)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+    background: linear-gradient(180deg, #FFF5F7 0%, #F4F9FC 40%, #EEF3F8 100%);
+    color: #2c3e50;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #E8B4C8 0%, #B4C8E8 100%);
+    color: white;
+    padding: 32px 28px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(180, 200, 232, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🌸";
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 60px;
+    opacity: 0.3;
+  }
+  .hero .kicker { font-size: 12px; opacity: 0.9; margin-bottom: 6px; letter-spacing: 0.1em; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .hero .info {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .hero .info div { padding: 3px 0; }
+  .hero .info strong { display: inline-block; min-width: 65px; opacity: 0.9; font-weight: 500; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 18px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed #F4C6D5;
+  }
+  .section-header .icon { font-size: 24px; }
+  .section-header h2 {
+    font-size: 18px;
+    color: #4A6FA5;
+    font-weight: 700;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-item .time {
+    color: #E67E22;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .timeline-item .content { font-size: 13px; }
+  .timeline-item .content strong { color: #2c3e50; font-size: 14px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 13px;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: #4A6FA5;
+    font-size: 20px;
+  }
+  .checklist li strong { color: #2c3e50; }
+  .checklist li .note { font-size: 11px; color: #7f8c8d; display: block; margin-top: 2px; }
+
+  /* Q&A */
+  .qa {
+    margin-bottom: 22px;
+    padding: 18px;
+    background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%);
+    border-radius: 12px;
+    border-left: 4px solid #F4C6D5;
+  }
+  .qa-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A6FA5;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .qa-q .qmark {
+    background: #4A6FA5;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    font-size: 13px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 8px;
+    color: #444;
+  }
+  .qa-a strong { color: #2c3e50; }
+  .qa-a em {
+    background: #FFF3E0;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 600;
+    color: #B7480B;
+  }
+  .qa-tip {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid #F4C6D5;
+  }
+
+  /* NG list */
+  .ng-list {
+    background: #FFEBEE;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #EF5350;
+  }
+  .ng-list h3 { font-size: 14px; color: #C62828; margin-bottom: 10px; }
+  .ng-list ul { list-style: none; }
+  .ng-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .ng-list li::before {
+    content: "❌";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Good list */
+  .good-list {
+    background: #F0FFF4;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #48BB78;
+  }
+  .good-list h3 { font-size: 14px; color: #276749; margin-bottom: 10px; }
+  .good-list ul { list-style: none; }
+  .good-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .good-list li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Callout */
+  .callout {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFF9F0 100%);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #F39C12;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #555;
+  }
+  .callout strong { color: #B7480B; }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #95a5a6;
+    font-size: 11px;
+  }
+
+  /* Reverse Q */
+  .reverse-q {
+    background: #EEF3F8;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border-left: 4px solid #4A6FA5;
+  }
+  .reverse-q strong { color: #4A6FA5; }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section, .hero { break-inside: avoid; box-shadow: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    .hero { padding: 24px 20px; }
+    .section { padding: 20px; }
+    .timeline-item { grid-template-columns: 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="kicker">📝 面接ロープレ資料【ベストサポートシステムズ 版】一次面接</div>
+  <h1>株式会社ベストサポートシステムズ 一次面接 対策</h1>
+  <div style="font-size:12px;opacity:0.95;margin-top:6px">プリセールス・SE職への転向面接。過去6回の学びを集約し、"技術×提案の両立" をアピールします🌸</div>
+  <div class="info">
+    <div><strong>📅 日時</strong>2026-08-20 (木) 18:00〜19:00(60分)</div>
+    <div><strong>💻 形式</strong>オンライン (Microsoft Teams)</div>
+    <div><strong>🔗 会議URL</strong><a href="https://teams.microsoft.com/meet/451232729102612?p=YAFcj1HxerCwOsimJM" target="_blank" style="color:white;text-decoration:underline">teams.microsoft.com/meet/451232729102612</a></div>
+    <div><strong>🔢 会議ID</strong>451 232 729 102 612 / パスコード:tn2Zn6C5</div>
+    <div><strong>🏢 企業</strong>株式会社ベストサポートシステムズ / プリセールス・セールスエンジニア/パッケージ導入コンサル</div>
+    <div><strong>👤 面接官</strong>未定(後日連絡)</div>
+    <div><strong>👔 服装</strong>スーツ or オフィスカジュアル推奨</div>
+  </div>
+</div>
+
+<!-- 過去6回の学び -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#F4F9FC 100%);border:2px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F1C40F">
+    <span class="icon">💡</span>
+    <h2>過去6回(ラクスパ+ProVision+BREXA Tech+イノベイティア+クリーブ一次)からの重要な学び</h2>
+  </div>
+
+  <div style="background:white;padding:14px 18px;border-radius:10px;margin-bottom:12px">
+    <div style="font-weight:700;color:#276749;margin-bottom:6px">✅ 継続すべき強み・成長点(すでに実証済み)</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li>面接官との相性(全6社連続で「話しやすい」評価)</li>
+      <li>「技術を磨きたい熱意」「ITリテラシー」「学習意欲(CCNA・LinuC)」が評価済み</li>
+      <li>BREXA以降、<em>キャリアプラン(3段階×3層)を安定回答</em>できるように</li>
+      <li>クリーブ一次では<em>「強み・弱み」がうまく話せた</em>(通過!)</li>
+      <li>転職理由も一貫して安定回答</li>
+    </ul>
+  </div>
+
+  <div style="background:#FFEBEE;padding:14px 18px;border-radius:10px;border-left:4px solid #EF5350">
+    <div style="font-weight:700;color:#C62828;margin-bottom:6px">🚨 過去見送りの学び</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li><strong>ラクスパ</strong>:相対比較で差別化不足</li>
+      <li><strong>ProVision</strong>:引き出し不足(応用質問で詰まる)</li>
+      <li><strong>BREXA Tech</strong>:勤務エリア・夜勤の条件ミスマッチ</li>
+      <li><strong>イノベイティア</strong>:コミュニケーション不安・条件ミスマッチ ※非エンジニア職特有 ← <em>今回類似</em></li>
+      <li>イノベイティア:「現在の業務内容の説明」で詰まった ← <em>要注意</em></li>
+      <li>クリーブ一次:「自分が苦手・課題」への回答で詰まった ← <em>回答準備必要</em></li>
+    </ul>
+  </div>
+
+  <div style="background:#FFF3CD;padding:14px 18px;border-radius:10px;border-left:4px solid #FFA500;margin-top:12px">
+    <div style="font-weight:700;color:#856404;margin-bottom:6px">🆕 クリーブ一次からの新知見(パーソナリティ系質問)</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li>「学生時代の部活動」「アルバイト経験」「周りからどう見られるか」等、パーソナリティ系質問への準備が必要</li>
+      <li>技術質問だけでなく<em>人物像・行動特性系の質問への回答バリエーション</em>を準備</li>
+      <li>非エンジニア職(プリセールス・SE)は特にこの傾向が強いと予想</li>
+    </ul>
+  </div>
+
+  <div class="callout" style="margin-top:14px;background:linear-gradient(135deg,#E8F5E9 0%,#F1F8E9 100%);border-left:4px solid #48BB78">
+    <strong>🎯 今回(ベストサポート)の最重要ミッション</strong><br>
+    ① <strong>プリセールス職(技術×営業)への転向理由を明確化</strong> → 「インフラを土台に "顧客に技術を届ける" 役割へ」というフレーム<br>
+    ② <strong>イノベイティアの敗因(コミュニケーション不安)対策</strong> → 対顧客・対社内での "説明力・提案力" を具体エピソードで示す<br>
+    ③ <strong>パーソナリティ系質問への回答準備</strong>(クリーブから学んだ新知見)→ 部活動・アルバイト・周囲評価の3セット準備<br>
+    ④ <strong>60分の短時間なので要点を絞る</strong> → 1回答は60〜90秒目安
+  </div>
+</div>
+
+<!-- 事前対応 -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#FFFDF5 100%);border-left:6px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F4D03F">
+    <span class="icon">⚠️</span>
+    <h2>面接前(8/19 水 前日まで)にお願い</h2>
+  </div>
+  <ul class="checklist">
+    <li><strong>Microsoft Teams 動作テスト</strong><span class="note">前日までに <a href="https://teams.microsoft.com/meet/451232729102612?p=YAFcj1HxerCwOsimJM" target="_blank">Teams URL</a> にアクセスしてマイク・カメラ許可。スマホ利用時はTeamsアプリの事前インストール必須</span></li>
+    <li><strong>URL不通時の代替手段確認</strong><span class="note">Teamsアプリ →「IDで参加」→ 会議ID:451 232 729 102 612 / パスコード:tn2Zn6C5</span></li>
+    <li><strong>開始10分前(17:50)までに接続テスト完了</strong><span class="note">平日勤務日の勤務終了直後(18時)開始のため、早めの準備が命</span></li>
+    <li><strong>勤務調整のご検討</strong><span class="note">17:30終業か17:00早退で余裕を持つと◎(移動不要でも通信環境や気持ちの切り替えのため)</span></li>
+    <li><strong>職務経歴書・履歴書を手元に</strong><span class="note">業務内容の詳細説明で参照</span></li>
+    <li><strong>業務内容説明のメモ整理</strong><span class="note">前回イノベイティアの反省。プリセールス視点で "技術+提案の両立" を語れるよう準備</span></li>
+    <li><strong>逆質問メモ</strong><span class="note">3つ準備。特に "客先常駐 vs 本社勤務" の実態確認</span></li>
+    <li><strong>面接後の電話について確認</strong><span class="note">CA担当より 20:00頃電話予定。所感回収の6項目を事前準備推奨</span></li>
+  </ul>
+</div>
+
+<!-- ベストサポート企業研究 -->
+<div class="section" style="background:linear-gradient(135deg,#E8F1F9 0%,#F4F9FC 100%);border-left:6px solid #3498DB">
+  <div class="section-header" style="border-bottom-color:#3498DB">
+    <span class="icon">🏢</span>
+    <h2>株式会社ベストサポートシステムズ 情報整理</h2>
+  </div>
+
+  <div style="background:white;padding:14px 18px;border-radius:10px;margin-top:14px">
+    <div style="font-weight:700;color:#4A6FA5;margin-bottom:8px">📋 求人条件</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li><strong>職種</strong>:プリセールス・セールスエンジニア/パッケージ導入コンサル</li>
+      <li><strong>勤務地</strong>:東京都中央区銀座(本社)+ 客先常駐</li>
+      <li><strong>勤務時間</strong>:09:00〜18:00 / <em>夜勤なし明示</em></li>
+      <li><strong>年間休日</strong>:土日祝・125日</li>
+      <li><strong>残業</strong>:月20時間以下</li>
+      <li><strong>3条件</strong>:<em>土日祝・夜勤なし・転勤なし 全明示クリア</em></li>
+    </ul>
+  </div>
+
+  <div class="callout" style="margin-top:14px;background:#E8F5E9;border-left-color:#48BB78">
+    <strong>💡 書類選考時の企業評価ポイント(=面接で活かすべき強み)</strong><br>
+    ・<em>ITインフラ業界で働いており、今後も挑戦していきたい</em>点<br>
+    ・<em>IT資格を昨年取得、自己学習を継続、成長意欲が高い</em>点<br><br>
+    → この2点を面接冒頭で "証明できるエピソード" で補強する
+  </div>
+
+  <div class="callout" style="margin-top:14px;background:#FDF2E9;border-left-color:#E67E22">
+    <strong>💡 プリセールス・SE職の特徴(理解しておく)</strong><br>
+    プリセールス職は「営業活動の技術面をサポート」する役割:<br>
+    ① 顧客に対するデモ・技術説明<br>
+    ② 提案書・要件定義書の作成支援<br>
+    ③ 導入後のサポート・技術問い合わせ対応<br><br>
+    <strong>求められるスキル</strong>:技術知識(60%)+ コミュニケーション力(40%)<br>
+    <strong>野田様との相性</strong>:CCNA・LinuCで培った基礎知識 + 手順書作成での "非エンジニアへの説明力" が活きる領域
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <strong>💡 面接で使える引用フレーズ例</strong><br>
+    ・「求人内容を拝見し、<em>プリセールス・SEという技術と提案を両立する職種</em>に強く興味を持ちました」<br>
+    ・「<em>銀座本社</em>という立地は、通勤面での安心感があり、腰を据えて長期的に貢献したい私に合っております」<br>
+    ・「<em>年間休日125日・残業月20時間以下</em>という働き方は、業務に集中しつつ資格学習も継続できる環境で理想的です」<br>
+    ・「現職(インフラ)で培った<em>技術知識</em>と、手順書作成で身につけた<em>技術を非エンジニアに伝える力</em>を活かせる領域だと考えております」
+  </div>
+</div>
+
+<!-- 1. タイムライン -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🕐</span>
+    <h2>60分の面接の流れ(想定)</h2>
+  </div>
+
+  <div class="callout" style="background:#FDF2E9;border-left-color:#E67E22;margin-bottom:14px">
+    <strong>⚠️ 平日18時開始・勤務終了直後の面接</strong><br>
+    現職の勤務時間(9-18時)の終業直後です。可能なら17:30終業 or 17:00早退で余裕を持ちましょう。18:00開始厳守のため、10分前(17:50)には接続テスト完了しておくこと。
+  </div>
+
+  <div class="timeline-item">
+    <div class="time">17:50</div>
+    <div class="content">
+      <strong>接続テスト・入室準備(10分前)</strong><br>
+      Teams(<a href="https://teams.microsoft.com/meet/451232729102612?p=YAFcj1HxerCwOsimJM" target="_blank">会議URL</a>)を開き、カメラ・マイクの最終確認。<em>スーツorオフィスカジュアル</em>・飲み物・メモを手元に。URL不通時は「IDで参加」→ 会議ID:451 232 729 102 612 / パスコード:tn2Zn6C5。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:00</div>
+    <div class="content">
+      <strong>入室 / アイスブレイク (3〜5分)</strong><br>
+      挨拶、面接官の自己紹介。まずは<em>穏やかな笑顔</em>で入る。夕方時間帯なので、明るめのトーンで疲れを感じさせない意識を。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:05</div>
+    <div class="content">
+      <strong>候補者側:自己紹介 + 経験業務(10分)</strong><br>
+      1分半〜2分で自己紹介 → 現職業務の説明+CCNA・LinuC取得の背景。<em>プリセールス・SE視点で "技術×提案の両立" を強調</em>。書類選考評価ポイント(挑戦意欲・学習継続)を証明。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:15</div>
+    <div class="content">
+      <strong>Q&Aセッション:志望動機・職種転向 (15分)</strong><br>
+      なぜプリセールス職? なぜベストサポート? 現職(インフラ)からの転向理由などの核心質問。<em>1つの質問で2エピソード用意</em>(ProVision敗因対策)。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:30</div>
+    <div class="content">
+      <strong>パーソナリティ質問(想定・クリーブから学んだ傾向)</strong><br>
+      学生時代の部活動・アルバイト・周囲評価など。<em>クリーブ一次で詰まった "自分が苦手・課題" への回答もここで来る可能性大</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:40</div>
+    <div class="content">
+      <strong>企業側:会社説明・案件・キャリアパス (10分)</strong><br>
+      ベストサポートの事業説明とプリセールス職の役割説明。<em>メモを取り、逆質問に繋げる</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">18:50</div>
+    <div class="content">
+      <strong>逆質問 (5〜10分)</strong><br>
+      3つ用意。<em>プリセールス業務の実態</em>・<em>教育体制</em>・<em>キャリアパス</em>など、この求人特有の内容を聞く。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">19:00</div>
+    <div class="content">
+      <strong>クロージング</strong><br>
+      次のステップの説明を受ける。お礼の挨拶。<em>面接官が退出するまで映像を切らない</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">20:00頃</div>
+    <div class="content">
+      <strong>📞 CA担当より所感回収の電話(20〜30分)</strong><br>
+      6項目の所感を回収(併願先・魅力・懸念・転職軸・本音・即承諾可能性)。事前にメモしておくとスムーズ。
+    </div>
+  </div>
+</div>
+
+<!-- 2. 事前チェックリスト -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">✅</span>
+    <h2>オンライン面接 直前チェックリスト</h2>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:12px 0 6px">🔌 環境・機材</h3>
+  <ul class="checklist">
+    <li><strong>Microsoft Teams 動作確認</strong><span class="note">前日までに <a href="https://teams.microsoft.com/meet/451232729102612?p=YAFcj1HxerCwOsimJM" target="_blank">Teams URL</a> に一度アクセスし、カメラ・マイク権限を許可</span></li>
+    <li><strong>Teamsアプリのインストール確認</strong><span class="note">スマホ利用時は必須。PCでもアプリ版のほうが安定</span></li>
+    <li><strong>URL不通時の代替手段確認</strong><span class="note">「IDで参加」→ 会議ID:451 232 729 102 612 / パスコード:tn2Zn6C5</span></li>
+    <li><strong>ヘッドセット・イヤホン</strong><span class="note">スピーカー音は反響しやすい。イヤホン推奨</span></li>
+    <li><strong>ネット回線</strong><span class="note">Wi-Fi不安定なら有線 or スマホ4G/5Gテザリング検討</span></li>
+    <li><strong>充電100%+電源接続</strong><span class="note">面接中に充電切れは絶対NG</span></li>
+    <li><strong>カメラ位置</strong><span class="note">目線の高さに調整。本や箱で高さ出す</span></li>
+    <li><strong>照明</strong><span class="note">正面(顔が明るく映る位置)からライト。逆光NG。夕方18時開始なので窓からの光は期待できない → 室内照明必須</span></li>
+    <li><strong>背景</strong><span class="note">シンプルな壁 or Teamsの背景ぼかし機能ON</span></li>
+    <li><strong>飲み物</strong><span class="note">夕方の面接で喉が渇きやすい。手元に</span></li>
+    <li><strong>通知OFF</strong><span class="note">PC・スマホの通知音を全て切る</span></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">👔 身だしなみ</h3>
+  <ul class="checklist">
+    <li><strong>服装</strong><span class="note">スーツ推奨(ジャケット+襟付きシャツ・ブラウス)。上半身のみ映るがボトムスも念のため</span></li>
+    <li><strong>髪型</strong><span class="note">顔にかからないようまとめる。カメラで暗く見えないよう明るめに</span></li>
+    <li><strong>メイク</strong><span class="note">カメラは実物より色薄く映るので、いつもより少し濃いめでちょうどいい</span></li>
+    <li><strong>アクセサリー</strong><span class="note">大きなイヤリング・光る時計は避ける</span></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">📝 手元準備</h3>
+  <ul class="checklist">
+    <li><strong>職務経歴書・履歴書</strong><span class="note">印刷 or 別画面で開いておく</span></li>
+    <li><strong>企業HPと求人票</strong><span class="note">別タブで開いておく(調べておくべきポイント)</span></li>
+    <li><strong>逆質問メモ</strong><span class="note">3つ準備。優先順位も決めておく</span></li>
+    <li><strong>ペン・メモ</strong><span class="note">面接官の名前や重要な情報をメモ</span></li>
+    <li><strong>水</strong><span class="note">緊張で喉が渇きやすい。手元に</span></li>
+  </ul>
+</div>
+
+<!-- 3. 想定質問 & 回答例 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💬</span>
+    <h2>想定質問 & 回答方針</h2>
+  </div>
+
+  <div class="callout">
+    <strong>💡 回答の基本原則</strong>: 「結論→根拠→具体例」の順で1〜2分。長すぎ厳禁。<br>
+    面接官のリアクションを見ながら、掘り下げてほしそうなら追加で説明する。
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q1</span>簡単に自己紹介をお願いします。</div>
+    <div class="qa-a">
+      <strong>回答例(1〜1.5分):</strong><br>
+      「野田麻菜美と申します。愛知工業大学の情報科学部を卒業後、2025年6月にエンライズソリューション株式会社へ入社し、<em>ITインフラエンジニアとして約1年間従事</em>しております。<br><br>
+      現在は<em>情報開示システムのバックエンド機能再構築プロジェクト</em>に参画し、単体テスト・結合テストの実施やテスト仕様書・運用手順書の作成を担当しています。並行して、<em>情報照会システムの更改案件</em>で基本設計書の修正にも携わっております。<br><br>
+      業務外では入社後3ヶ月でCCNA、6ヶ月でLinuC Level1を取得するなど、継続的な学習を心がけております。本日は貴重なお時間をいただき、ありがとうございます。よろしくお願いいたします。」
+    </div>
+    <div class="qa-tip">💡 数字(1年・3ヶ月・6ヶ月)と固有名詞(CCNA・LinuC)を必ず入れる。挨拶で締める。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q2</span>★最重要 現職での具体的な業務内容を教えてください。(前回イノベイティアで詰まった箇所)</div>
+    <div class="qa-a">
+      <strong>⚠️ イノベイティア敗因の核心:</strong> 前回所感で「現在の業務内容の説明で詰まった」と自覚あり。今回は<em>「プリセールス視点で語る=技術×対顧客・対社内説明力」</em>アプローチで整理。<br><br>
+      <strong>💡 応募職種(プリセールス・SE)向けの語り方3層構造:</strong><br>
+      ① <em>WHAT(何をしているか)</em> — 案件の内容と自分の担当<br>
+      ② <em>HOW(どう取り組んでいるか)</em> — 品質・伝わりやすさの工夫<br>
+      ③ <em>WHY-PreSales(プリセールス職とどう繋がるか)</em> — 技術+説明力の橋渡し<br><br>
+      <strong>回答例(90秒):</strong><br>
+      「主に2つの案件を並行しております。<br><br>
+      <em>【1案件目・情報開示システムのバックエンド機能再構築PJ】</em><br>
+      「単体テスト仕様書の作成・実施」と、<em>「運用手順書の整備」</em>を担当しております。運用手順書は<em>非エンジニアの運用担当者にも伝わる表現</em>を意識しており、技術内容を平易な言葉に翻訳する工夫を続けております。<br><br>
+      <em>【2案件目・情報照会システム更改】</em><br>
+      「基本設計書の修正」を担当しております。要件変更の影響範囲を既存設計書から分析し、<em>関係者に変更内容を説明・調整</em>する場面も多く、"技術内容を相手のレベルに合わせて伝える" スキルが磨かれております。<br><br>
+      使用技術はLinux・Windows Server・Cisco IOSが中心で、CCNA・LinuC取得で体系的な知識も補強。<em>この "技術理解 + 伝える力" の両輪は、貴社のプリセールス職でこそ活かせる</em>と考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「運用手順書=非エンジニアへの技術翻訳」への読み替えが核心</strong>。プリセールス職は「技術力+対顧客/対社内の説明力」なので、この2つを結びつけて語る。数字(2案件並行)も忘れずに。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q2-a</span>(深掘り) 具体的に、"技術を平易に伝える" 工夫の例はありますか?</div>
+    <div class="qa-a">
+      <strong>💡 プリセールス職特有の深掘り質問:</strong> 「対顧客説明力」を確認する質問が来る可能性大。<br><br>
+      <strong>回答例:</strong><br>
+      「運用手順書の作成では、<em>3つの工夫</em>を意識しております。<br>
+      ①<em>専門用語には必ず注釈</em>を付ける(例:『デプロイ』→『本番環境への配置』のように併記)<br>
+      ②<em>画面キャプチャや図</em>を積極的に使用(文字だけの説明より、視覚情報の方が誤解が少ない)<br>
+      ③<em>「もし〜だったら」のケース別記述</em>(想定外の事態への対処が明記されているか)<br>
+      これらの工夫により、運用担当者から<em>「手順書だけで作業が完結できる」</em>とのフィードバックをいただいた経験があります。<br>
+      この "相手の目線で技術を翻訳する力" は、貴社のプリセールス業務でも役立つと考えております。」
+    </div>
+    <div class="qa-tip">💡 <em>「3つの工夫」+「相手からのフィードバック」</em>で "手を動かしている感" が伝わる。プリセールス視点(相手の目線に立つ)を含めると評価UP。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3</span>なぜ転職を考えているのですか?(転職理由)★前回の弱点</div>
+    <div class="qa-a">
+      <strong>⚠️ 前回の反省:</strong> ラクスパートナーズ面接では「特定領域を深められない理由」への深掘りで詰まった。<strong>今回は具体エピソードで固めておく</strong>。<br><br>
+      <strong>回答例(60〜75秒):</strong><br>
+      「現職では約1年間、ITインフラエンジニアとしてテスト工程や設計書修正など、<em>幅広い基礎経験</em>を積ませていただきました。<br><br>
+      一方で、より<em>計画的にキャリアを積み上げていきたい</em>という思いが強くなりました。具体的には、<em>現在担当している工程がテスト中心のため、設計・構築などの意思決定に関わる機会や、クラウド・自動化ツールに継続的に触れる機会</em>が限定的でした。<br><br>
+      "広く浅く"の状態から一歩進んで、<em>特定領域を深く掘り下げる段階</em>に進みたい。そのために、より体系的にスキルを積める環境を求めて、転職を決意いたしました。」
+    </div>
+    <div class="qa-tip">💡 前回の弱点だった「特定領域を深められない理由」を、"担当工程がテスト中心" + "設計/クラウドに触れる機会が限定的" と<strong>具体エピソード付き</strong>で固める。「広く浅く → 特定領域を深く」がキラーフレーズ。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3-a</span>(深掘り) "特定領域を深く掘り下げる" とは具体的にどういう意味ですか?</div>
+    <div class="qa-a">
+      <strong>回答例:</strong><br>
+      「大きく3ステップを考えております。<br>
+      <em>①短期(1〜2年)</em>: 現在のテスト経験を土台に、単体・結合テストの<em>自動化ツール(Selenium・pytest等)</em>や、テスト設計手法(境界値分析・状態遷移テスト)を深めたい。<br>
+      <em>②中期(2〜4年)</em>: 上流工程(要件定義・基本設計)を担当し、システム全体を俯瞰できるエンジニアへ。<br>
+      <em>③長期(5年〜)</em>: クラウド(AWS・Azure)領域の知見を加え、インフラ設計・PMも視野に。<br>
+      現職で身につけた<em>品質意識と、CCNA・LinuCで培った基礎知識</em>をベースに、段階的に進んでいきたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>3段階のロードマップ</strong>で語ると、「その場しのぎではなく本気」に映る。ProVisionでの1ヶ月研修に触れると◎。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3-b</span>(深掘り) 現職での "計画的でない" と感じた具体的な出来事は?</div>
+    <div class="qa-a">
+      <strong>⚠️ 罠質問注意:</strong> 現職の批判はNG。「制度」ではなく「自分の希望」の話にすり替える。<br><br>
+      <strong>回答例:</strong><br>
+      「現職のチームには非常に良くしていただいており、感謝しております。<br>
+      ただ<em>私自身が</em>、この1年で幅広い工程に触れる中で、<em>「もっとこの領域を深く極めたい」という気持ちが強くなった</em>という側面が大きいです。<br>
+      例えば、テスト仕様書の作成時、単なる項目網羅ではなく<em>「境界値・異常系」に踏み込んだテスト設計</em>を試したことで面白さを感じた経験がありました。そういった "深掘り" の機会を、より計画的に積める環境で挑戦したいと考えております。」
+    </div>
+    <div class="qa-tip">💡 「現職が悪い」ではなく「<strong>私の気持ちが変わった</strong>」と主語をずらす。<strong>具体エピソード(境界値・異常系のテスト設計)</strong>を1つ添えて説得力UP。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4</span>★重要 なぜ弊社(ベストサポートシステムズ)を志望されたのですか?</div>
+    <div class="qa-a">
+      <strong>回答方針:</strong> ベストサポートの求人条件(銀座本社・年休125日・3条件クリア)と自分の希望を紐付ける。プリセールス職への転向理由も添える。<br><br>
+      <strong>回答例(60〜75秒):</strong><br>
+      「大きく3つの理由がございます。<br>
+      1つ目は、<em>プリセールス・SEという "技術と提案を両立する職種"</em> が、私の目指すキャリア方向性と一致している点です。現職(ITインフラ)で培った技術力に加えて、"技術を相手に伝える力" を活かせる環境を求めており、まさに貴社の職種は理想的だと感じました。<br>
+      2つ目は、<em>ITインフラ業界での経験を活かせるパッケージ導入コンサルの要素</em>です。単なる営業ではなく、実際のシステム導入まで一気通貫で関われる体制に、深いやりがいを感じました。<br>
+      3つ目は、<em>銀座本社という立地と、年間休日125日・残業月20時間以下の働き方</em>です。腰を据えて長期的に貢献しつつ、資格学習も継続できる環境が、私の希望と一致しております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「技術と提案の両立」への言及は必須</strong>。プリセールス職の本質を候補者が理解していることを示す。イノベイティアの敗因(条件明示しすぎ)対策として、"貴社の条件と一致" という穏やかな表現で伝える。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4-a</span>★最重要 インフラからプリセールス・SEへの職種転向理由は?</div>
+    <div class="qa-a">
+      <strong>⚠️ この質問は必ず聞かれる:</strong> 現職(ITインフラエンジニア)からプリセールス(技術営業)への職種転向の意図を、<em>「培ってきた技術力を "顧客に届ける役割" へ発展」</em>視点で説明。<br><br>
+      <strong>回答例(60〜75秒):</strong><br>
+      「現職での約1年間、テスト工程や運用手順書作成を通じて、<em>「技術内容を非エンジニアの方にも伝わる形で表現する」経験</em>を積み重ねてまいりました。<br>
+      その中で、<em>単に技術を実装するだけでなく、「顧客や現場が本当に必要としているものを理解し、技術を最適な形で提案する」役割にやりがいを感じる</em>ようになりました。<br>
+      現職で培った<em>①インフラ視点でのシステム全体の把握力 ②手順書作成での技術翻訳スキル ③CCNA・LinuCで培った基礎知識</em>は、プリセールス・SEとして<em>「顧客の課題に技術で応える」</em>役割で最大限活かせると考えております。<br>
+      インフラ経験を土台に、"技術×提案" の領域へと専門性を広げていきたいと考え、貴社を志望いたしました。」
+    </div>
+    <div class="qa-tip">💡 <strong>「インフラを辞める」ではなく「インフラを土台に "顧客に技術を届ける" 役割へ」</strong>というフレーム。イノベイティアの「サポート職」と違い、プリセールスは "技術力+提案力" 両輪の職種なので、"技術者としての深化" 方向で語れる。</div>
+  </div>
+
+  <!-- パーソナリティ質問 -->
+  <div class="qa" style="background:linear-gradient(135deg,#FFF3CD 0%,#FFFDF5 100%);border-left:4px solid #FFA500;padding:14px 18px;border-radius:10px">
+    <div class="qa-q"><span class="qmark" style="background:#FFA500">🆕</span>【クリーブ新知見】パーソナリティ系質問への準備</div>
+    <div class="qa-a">
+      <strong>⚠️ クリーブ一次面接での気づき:</strong> 「学生時代の部活動」「アルバイト」「周りからどう見られるか」など、パーソナリティ質問が中心だった。ベストサポートのプリセールス職も対人スキルを見るため同傾向の可能性大。<br><br>
+      <strong>📝 事前準備すべき3セット:</strong>
+    </div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4-b</span>学生時代に力を入れた活動(部活動・サークル・アルバイト等)は?</div>
+    <div class="qa-a">
+      <strong>回答例(1分):</strong><br>
+      「大学時代、<em>○○(部活動 or アルバイト等)</em>に力を入れておりました。<br>
+      具体的には、<em>①最初は○○という状況で困難がありましたが、②○○を工夫することで、③○○という結果に繋げることができました</em>。<br>
+      この経験から、<em>○○(粘り強さ・コミュニケーション・チームワーク等)</em>の大切さを学び、現職や今後の仕事にも活かしていきたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「①困難 → ②工夫 → ③結果」のSTAR法で語る</strong>。プリセールス職で活きる要素(対人・提案・粘り強さ)を意識して選ぶ。実際のエピソードは野田様ご自身の経験で置き換えて準備。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4-c</span>周りからどのような人と言われますか?(第三者評価)</div>
+    <div class="qa-a">
+      <strong>回答例(45秒):</strong><br>
+      「大きく2つ、よく言われることがございます。<br>
+      1つ目は、<em>「細かいところまで気が付く」</em>という点です。手順書作成や成果物レビューで、他の方が気づかない表記の揺れや潜在的な問題を指摘することが多く、上司からも評価いただいております。<br>
+      2つ目は、<em>「人当たりが柔らかく、話しかけやすい」</em>という点です。前職・現職ともに、初対面の方や年次の離れた方とも自然に会話できる点を評価いただいており、この "対人の穏やかさ" は、顧客対応や社内調整でも活かせるものだと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「2つの評価 × 各具体例」</strong>で語ると "自己認識が明確" な印象。プリセールス職向けに "細部への注意力" と "対人の柔らかさ" の2軸がおすすめ。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4-d</span>★注意 自分が苦手・課題だと感じていることは?(クリーブで詰まった質問)</div>
+    <div class="qa-a">
+      <strong>⚠️ クリーブ一次面接で詰まった質問:</strong> Q6「弱み」の別角度質問。<em>単なる弱み+改善行動ではなく、"自己認識の深さ・内省力" を見られている</em>。<br><br>
+      <strong>💡 回答テンプレ(4層構造):</strong><br>
+      ① 具体的な苦手/課題(1つ)<br>
+      ② その課題に気づいたきっかけ(具体エピソード)<br>
+      ③ 現在取り組んでいる改善行動<br>
+      ④ 少しずつ変化を感じている手応え<br><br>
+      <strong>回答例(60秒):</strong><br>
+      「<em>①即興でのアドリブ対応</em>に、少し苦手意識がございます。<br>
+      <em>②現職で、想定外の質問を受けた際に、その場で最適な答えを出せず、後から「もっと良い回答があったな」と反省することがありました</em>。<br>
+      <em>③現在は、業務の中で頻繁に出そうな質問パターンを事前にリストアップし、想定回答を用意しておくことを習慣にしております</em>。また、"わからないときは正直に "確認します" と伝えて時間をいただく" ことも意識しております。<br>
+      <em>④少しずつではありますが、想定外の場面でも落ち着いて "整理してから話す" ことができるようになってきた実感があります</em>。」
+    </div>
+    <div class="qa-tip">💡 <strong>4層構造で語る</strong>のがポイント。単なる弱みではなく、<em>「弱みへの向き合い方」</em>を見せる。プリセールス職では "想定外への対応力" が問われるので、この課題+改善アクションはむしろ好印象。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5</span>ご自身の強みを教えてください。</div>
+    <div class="qa-a">
+      <strong>回答例(数字入り):</strong><br>
+      「私の強みは<em>「細部まで注意を払い、課題を見つけて仕組み化で改善する力」</em>です。<br><br>
+      現職の情報開示システム再構築PJでは、<em>単体テスト仕様書を約○本作成</em>し、バグを約○件検出しました。手順書や成果物の作成時には、罫線の乱れや表記ゆれといった細部までセルフチェックを徹底しております。<br><br>
+      さらに、<em>独自にセルフレビューチェックシートを作成・運用</em>することで、確認項目を可視化し、再現性の高いドキュメント作成を実現。結果として、<em>レビュー時の指摘を約○%削減</em>し、チーム内の作業効率向上に貢献しております。<br><br>
+      この<em>「課題発見→仕組み化→品質改善」</em>のアプローチは、貴社のプリセールス・SE業務においても、提案書作成での品質向上・顧客からの問い合わせ対応の効率化・技術ドキュメントの整備といった場面で直接活かせると考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>数字(○本・○件・○%)を必ず入れる</strong>(前回不足)。実際の値がわからなくても<em>「約」を付けて具体化</em>。「セルフレビューチェックシート」は必ず入れる。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5-b</span>★重要(引き出し強化) その強みを、別の場面でも発揮したエピソードはありますか?</div>
+    <div class="qa-a">
+      <strong>⚠️ ProVision敗因対策の核心:</strong> 「用意したエピソード以外の引き出し」を1つ準備しておく。<br><br>
+      <strong>回答例(サブエピソード):</strong><br>
+      「もう1つございます。<em>資格取得の学習でも同じアプローチを取りました</em>。<br>
+      CCNAの学習を始めた当初、単に問題を解くだけでは知識が定着しないと感じ、<em>①よく間違える分野を分類</em>し、<em>②その分野の類問を集めた自作の弱点ノートを作成</em>、<em>③週1回そのノートで見直す</em>という運用に変えました。<br>
+      結果、入社3ヶ月でCCNA、6ヶ月でLinuCと計画通り取得できたのは、この "課題可視化→仕組み化" のアプローチが機能したためだと考えております。<br>
+      業務でも学習でも、この <em>"仕組み化する力"</em> は共通して発揮できております。」
+    </div>
+    <div class="qa-tip">💡 <strong>1つの強みで2つ以上のエピソードを用意</strong>。「もう一つあります」と<em>自然に第2エピソードに繋げる</em>と "引き出し多い" 印象。<em>これができなかったのがProVision敗因</em>。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5-a</span>★重要 論理的思考プロセス(業務課題への向き合い方)を教えてください。</div>
+    <div class="qa-a">
+      <strong>⚠️ 前回の学び:</strong> ラクスパートナーズで「大学時代・数学」を聞かれた。<em>思考プロセスの見せ方</em>を準備しておく。<br><br>
+      <strong>回答例:</strong><br>
+      「業務で課題に直面した時、<em>「仮説→検証→改善」</em>のステップで対応することを意識しています。<br><br>
+      例えば、レビュー指摘が多く発生していた際、<em>①仮説として "確認漏れが属人化しているのでは"</em> と考え、<em>②直近3ヶ月の指摘内容を分類・集計して "表記ゆれ・罫線・数値ミス" の3類型が7割を占めることを確認</em>、<em>③その3類型を網羅するチェックシートを作成</em>し、レビュー前に毎回セルフチェックする運用に変えました。<br>
+      このように、感覚ではなく<em>データや事実を元に仮説を立て、検証してから改善する</em>思考プロセスを大切にしております。」
+    </div>
+    <div class="qa-tip">💡 <strong>ラクスパで聞かれた「数学」への回答準備</strong>。「仮説→検証→改善」の3ステップで<em>実際のエピソードに当てはめて</em>語ると、論理的思考力が伝わる。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q6</span>逆に、弱みや今後改善したい点は?</div>
+    <div class="qa-a">
+      <strong>⚠️ 注意:</strong> 「弱み=直せない欠点」ではなく「成長中の伸びしろ」として答える。<br><br>
+      <strong>回答例:</strong><br>
+      「<em>細部の確認を徹底するあまり、作業に時間がかかってしまう</em>ことがある点だと認識しております。<br>
+      現在は<em>チェック項目に優先順位を付ける</em>、<em>時間を区切って作業する</em>ことで、質と効率のバランスを取れるよう意識して取り組んでおります。今後はレビュー精度を保ちながらもスピードを両立できるよう、さらに成長していきたいと考えています。」
+    </div>
+    <div class="qa-tip">💡 「弱み+それに対する改善行動」を必ずセットで。自己認識+成長意欲をアピール。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q7</span>CCNAとLinuC Level1を短期間で取得された背景を教えてください。</div>
+    <div class="qa-a">
+      <strong>回答例:</strong><br>
+      「ITインフラエンジニアとして、業務での経験だけでなく<em>体系的な知識の土台</em>を作りたいと考え、計画的に学習しました。<br>
+      現職ではLinux・Windows Server・Ciscoに触れる機会が多かったため、業務で扱う内容と資格学習の内容を<em>相互に関連付けて理解する</em>ことを意識しました。<br>
+      入社3ヶ月でCCNA、6ヶ月でLinuC Level1を取得しましたが、単に合格を目指すのではなく、業務にすぐ反映できる知識として身につけることを重視しました。<em>今後はプリセールス業務での提案力強化に向け、AWS Solutions Architect Associate等のクラウド系資格や、ITストラテジスト系の資格</em>取得にも挑戦していきたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 単なる暗記ではなく「業務と関連付けた学習」姿勢を強調。<em>次の学習計画をプリセールス系(AWS SAA・IT系上位資格)にしておく</em>と、応募職種との整合性UP。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q8</span>★最重要 5年後・10年後のキャリアプランは?(BREXA・イノベイティア・クリーブで克服済み)</div>
+    <div class="qa-a">
+      <strong>✅ 前回克服済みの質問:</strong> BREXA・イノベイティア・クリーブの面接で安定回答。<em>ベストサポート向けにプリセールス軸で再構成</em>して臨む。<br><br>
+      <strong>回答例(90秒):</strong><br>
+      <em>【3年後】</em>「現在のインフラ×手順書作成経験を土台に、<em>プリセールス・SEとして顧客との商談・提案書作成を自立して回せる状態</em>を目指します。技術的には、貴社の主力パッケージ・ソリューションの深い理解と、<em>顧客業務プロセスへの提案スキル</em>を身につけたいと考えております。<br><br>
+      <em>【5年後】</em>「複数の大型案件を主担当で回せる<em>プリセールスのスペシャリスト</em>として、要件定義から導入・運用支援まで一気通貫で担当できる状態を目指します。同時に、<em>後輩のメンター役</em>も担い、自分が受けてきた学びを次に還元したいです。<br><br>
+      <em>【10年後】</em>「<em>プリセールス部門のリーダー</em>や、複数チームを束ねる立場も視野に入れております。技術者としての専門性を保ちながら、<em>顧客企業のIT戦略に踏み込んだ提案ができるコンサルタント型のプリセールス</em>になりたいと考えております。<br><br>
+      特に貴社であれば、<em>銀座本社+客先常駐という体制で多様な業種の顧客に触れられる環境</em>が整っており、このキャリアパスを実現しやすいと感じております。」
+    </div>
+    <div class="qa-tip">💡 BREXA・イノベイティア・クリーブで克服した3段階構造を、<strong>プリセールス軸(顧客対応力→スペシャリスト→リーダー)</strong>で再構成。「インフラ土台+提案スキル」で貴社の職種に接続。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q8-a</span>(深掘り) そのキャリアを実現するために、今何をしていますか?</div>
+    <div class="qa-a">
+      <strong>回答例:</strong><br>
+      「大きく3つ実践しております。<br>
+      ①<em>資格学習の継続</em>: CCNA・LinuC取得後、次は<em>AWS SAAとIT系上位資格</em>を目標に、毎週決まった時間を学習に充てております。<br>
+      ②<em>業務での意識的な役割拡大</em>: 手順書作成の際にも、<em>「非エンジニアが読んで理解できるか」の視点で自問</em>することを意識し、"技術翻訳スキル" を継続的に磨いております。<br>
+      ③<em>セルフチェックシートの継続改善</em>: 品質意識を組織的な仕組みに落とし込む練習として、シート内容を月次で見直し・アップデートしております。<br>
+      これらを継続することで、次のキャリアステップ(プリセールス・SE)に繋げていきたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「言うだけの人 vs 行動している人」の差</strong>を明確に。「〜したい」ではなく<em>「今〜している」</em>で語る。3つ挙げると引き出しの多さも印象付けられる。</div>
+  </div>
+
+</div>
+
+<!-- 4. 逆質問 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">❓</span>
+    <h2>逆質問(3つ準備・優先順位付き)</h2>
+  </div>
+
+  <div class="callout">
+    <strong>💡 逆質問の基本</strong>: <br>
+    ・「特にありません」は絶対NG(志望度が低いと見られる)<br>
+    ・給与・福利厚生の質問は最終面接に取っておく<br>
+    ・企業HPに載っている情報は聞かない<br>
+    ・「〜について事前に調べて理解していますが、〜についてもう少し詳しく伺えますか?」の形式が◎
+  </div>
+
+  <div class="callout" style="background:#EAF3FB;border-left-color:#3498DB;margin-bottom:14px">
+    <strong>💡 ベストサポートの逆質問戦略</strong><br>
+    企業側から会社説明・案件・キャリアパスの説明があるので、<em>「先ほどご説明いただいた〜について」</em>という繋げ方が自然。特に <strong>プリセールス業務の実態</strong>・<strong>教育体制</strong>・<strong>キャリアパス</strong>など、"未経験からプリセールス職への転向者としての誠実な姿勢" が伝わる質問が有効。
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥇 第1優先(必ず聞く・業務内容の実態)</strong><br>
+    「プリセールス・SEとして入社した場合、<em>1日の業務の流れ</em>はどのようなものになりますでしょうか? 顧客との商談・提案書作成・技術検証など、それぞれの割合や、案件によっての違いなどがあれば教えていただきたく存じます。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ プリセールス職の実態確認。応募者の業務理解の深さを示す</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥈 第2優先(教育体制・転向者への支援)</strong><br>
+    「私は現在インフラエンジニアからプリセールス職への転向を考えており、<em>入社後のプリセールス業務習得のサポート体制(OJT・研修・先輩社員同行など)</em>について教えていただけますでしょうか。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 学ぶ姿勢+具体的な支援体制確認。転向者としての誠実さを示す</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥉 第3優先(キャリア形成・パッケージ理解)</strong><br>
+    「パッケージ導入コンサルとして関わる<em>主要な製品やソリューションの領域</em>を教えていただけますでしょうか? また、入社後にどのようなペースで製品知識を身につけていくのか、実例があれば伺いたく存じます。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 事業理解+学習意欲を示す。プリセールスに必要な "製品知識" への意識を伝える</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>💡 予備(時間があれば)</strong><br>
+    「<em>銀座本社+客先常駐</em>という体制ですが、本社勤務と客先常駐の割合や、案件が変わるタイミングでの本社勤務期間などがあれば教えていただきたく存じます。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 働き方の実態確認+腰を据えて長期貢献したい姿勢を伝える</span>
+  </div>
+</div>
+
+<!-- 5. NGワード -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">⚠️</span>
+    <h2>絶対NGワード集</h2>
+  </div>
+
+  <div class="ng-list">
+    <h3>面接で言ってはいけない表現</h3>
+    <ul>
+      <li>「現職はマネジメントがずさんで...」<br><span style="font-size:11px;color:#888">→ 前職の悪口は品性を疑われる。「より体系的な環境で」に言い換え</span></li>
+      <li>「特にありません」(逆質問の返答として)<br><span style="font-size:11px;color:#888">→ 志望度が低いと判断される</span></li>
+      <li>「なんとなく」「〜な感じで」<br><span style="font-size:11px;color:#888">→ 具体性がなく、思考の浅さと取られる</span></li>
+      <li>「御社の〇〇に興味がありまして」(あいまい)<br><span style="font-size:11px;color:#888">→ 何に興味があるのか具体的に</span></li>
+      <li>「勉強したいです」で終わる<br><span style="font-size:11px;color:#888">→ 「勉強させてもらう」姿勢はNG。「貢献しながら成長」が正解</span></li>
+      <li>「〜って言われました」(他人任せの表現)<br><span style="font-size:11px;color:#888">→ 自分の意思・判断で語る</span></li>
+    </ul>
+  </div>
+
+  <div class="good-list" style="margin-top:14px">
+    <h3>逆に、使うと印象が良い表現</h3>
+    <ul>
+      <li>「〜を担当いたしました」「〜を実現いたしました」(能動態)</li>
+      <li>「具体的には〜」で数字や事例を必ずセットで</li>
+      <li>「〜と認識しております」「〜と伺い」(調べている姿勢+謙虚さ)</li>
+      <li>「〜に貢献したい/挑戦したい」(意欲+行動意識)</li>
+      <li>「本日は貴重なお時間をいただき、ありがとうございます」(冒頭・締めの挨拶)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. オンライン面接の心得 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💻</span>
+    <h2>オンライン面接ならではの注意点</h2>
+  </div>
+
+  <ul class="checklist">
+    <li><strong>カメラを見て話す</strong><span class="note">画面の面接官を見たくなるが、視線が下がる。カメラレンズを見る意識を</span></li>
+    <li><strong>普段より1.5倍ゆっくり・大きく話す</strong><span class="note">通信ラグと聞き取りやすさのため</span></li>
+    <li><strong>相槌は少し大袈裟に</strong><span class="note">「はい」「なるほど」+うなずきで、聞いている感を伝える</span></li>
+    <li><strong>笑顔を意識</strong><span class="note">カメラ越しは表情が読みにくいので、口角を上げる意識</span></li>
+    <li><strong>音声トラブル時の対応</strong><span class="note">「音声が途切れているようです、もう一度お願いできますか」で堂々と再確認</span></li>
+    <li><strong>面接終了後は最後まで映像を切らない</strong><span class="note">面接官が退出するまで笑顔で待機</span></li>
+  </ul>
+</div>
+
+<!-- 直前 -->
+<div class="section" style="background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%)">
+  <div class="section-header">
+    <span class="icon">🌸</span>
+    <h2>面接30分前 最終チェック</h2>
+  </div>
+  <ul class="checklist">
+    <li><strong>トイレを済ませる</strong></li>
+    <li><strong>飲み物を用意</strong><span class="note">夕方の面接。喉の乾き対策</span></li>
+    <li><strong>Teamsで接続テスト</strong><span class="note">面接URLで最終確認 → カメラ映像・マイク音量・スーツ着用確認</span></li>
+    <li><strong>URL不通時の代替手段確認</strong><span class="note">会議ID:451 232 729 102 612 / パスコード:tn2Zn6C5</span></li>
+    <li><strong>職務経歴書・逆質問メモ・業務内容メモを目の届く場所に</strong><span class="note">前回イノベイティア敗因対策で業務内容メモは必須</span></li>
+    <li><strong>パーソナリティ質問メモ確認</strong><span class="note">部活・アルバイト・第三者評価・苦手/課題の4セットを再確認</span></li>
+    <li><strong>照明確認</strong><span class="note">夕方18時開始で外光が期待できない → 室内照明で顔が明るく映るか</span></li>
+    <li><strong>深呼吸を5回</strong><span class="note">緊張を落ち着ける</span></li>
+    <li><strong>笑顔の練習</strong><span class="note">カメラ越しに1回試してみる</span></li>
+    <li><strong>「大丈夫、伝えるだけ」と口に出す</strong><span class="note">セルフトーク重要</span></li>
+  </ul>
+  <div style="text-align:center;font-size:14px;color:#4A6FA5;font-weight:700;margin-top:16px;padding:12px;background:white;border-radius:10px">
+    🌸 野田さん、6社の面接経験を積み、クリーブ一次を通過された今、確実に成長されています。自分らしく話せば大丈夫🌸
+  </div>
+</div>
+
+<div class="footer">
+  📝 UCHIAGE キャリアアドバイザー特製ロープレ資料 / 質問があればいつでも担当CAへ🌷
+</div>
+
+</div>
+</body>
+</html>
