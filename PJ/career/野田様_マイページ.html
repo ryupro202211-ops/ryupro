@@ -1114,12 +1114,20 @@ const DATA = {
         '転勤なし・残業ほぼなし・昇給&賞与あり',
       ],
       url: 'https://circus-job.com/selections/4649852/job?jobDetailPublicToken=ec7b83c5-099f-416e-a2d3-7adaa09a0920',
-      status: 'screening',
+      status: 'arrangingInterview',
       isNew: false,
-      interview: null,
+      interview: {
+        round: '一次面接',
+        format: 'オンライン',
+        date: null,
+        duration: '45分',
+        note: '🎉 書類選考通過!一次面接のご案内をいただきました。\n\n⚠️ 【ご対応をお願いします】野田様より面接の候補日を複数ご提示ください。直近1〜2週間で平日のご都合の良い日を3〜5件いただけますと、企業様へ回答いたします。',
+        preInterviewDeadline: '候補日を早めにご提示ください(企業様がお待ちです)',
+      },
       timeline: [
         { date: '2026-08-21', event: '案件をご提案しました(年収285〜308万・通過率50%以上)' },
         { date: '2026-08-21', event: '✅ 応募完了・書類選考開始(結果待ち)' },
+        { date: '2026-08-24', event: '🎉 書類選考通過!一次面接(オンライン・45分)のご案内を受領。候補日を複数ご提示ください' },
       ],
     },
     {
@@ -1137,13 +1145,13 @@ const DATA = {
         '転勤なし・残業ほぼなし・昇給&賞与あり',
       ],
       url: 'https://circus-job.com/selections/4649862/job?jobDetailPublicToken=dd292a3d-63ed-4b37-b6ad-b1a443848743',
-      status: 'screening',
+      status: 'closed',
       isNew: false,
       interview: null,
       timeline: [
         { date: '2026-08-21', event: '案件をご提案しました(年収285〜308万・研修充実)' },
         { date: '2026-08-21', event: '✅ 応募完了・書類選考開始(結果待ち)' },
-        { date: '2026-08-22', event: '📩 企業様より次回選考の候補日提示のご依頼あり(要ご返信)' },
+        { date: '2026-08-22', event: '🔄 企業様と調整の結果、同社の【ITヘルプデスク(POSレジ)】へ一本化することになり、こちらは案件重複のため取り下げとなりました。POSレジ側で選考が進みます' },
       ],
     },
     {
