@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>森山様専用 物件一覧 – 全12件</title>
+<title>森山様専用 物件一覧 – 全11件</title>
 <style>
 :root {
   --bg: #f6f4ef;
@@ -389,7 +389,7 @@ footer.foot {
 
 <header class="hero">
   <h1>森山様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年8月21日 ／ 全12件（在庫確認済み）</div>
+  <div class="sub">最終更新 2026年8月21日 ／ 全11件（在庫確認済み）</div>
 </header>
 
 <div class="container">
@@ -397,7 +397,7 @@ footer.foot {
   <section class="criteria">
     <h2>森山様のご希望条件</h2>
     <div class="criteria-grid">
-      <div><span>ご予算</span><span>家賃管理費込み 17万円以内（一部18万円までご紹介）</span></div>
+      <div><span>ご予算</span><span>家賃管理費込み 17万円以内</span></div>
       <div><span>間取り</span><span>1DK / 1LDK / 2K / 2DK</span></div>
     </div>
     <div class="priorities">
@@ -433,15 +433,14 @@ footer.foot {
     <div class="control-group">
       <label>ご予算</label>
       <select id="rentcap">
-        <option value="180000" selected>18万円まで</option>
-        <option value="170000">17万円まで</option>
+        <option value="170000" selected>17万円まで</option>
         <option value="160000">16万円まで</option>
         <option value="150000">15万円まで</option>
         <option value="130000">13万円まで</option>
         <option value="120000">12万円まで</option>
       </select>
     </div>
-    <div class="count-badge">表示中 <strong id="count">12</strong> / 12件</div>
+    <div class="count-badge">表示中 <strong id="count">11</strong> / 11件</div>
   </section>
 
   <div class="grid" id="grid"></div>
@@ -918,50 +917,8 @@ const PROPERTIES = [
       '図面は取り寄せ中です。入手でき次第ご案内します'
     ],
     addedAt: '2026-08-24'
-  },
-  {
-    id: '15',
-    name: 'ONE ROOF RESIDENCE TAMACHI',
-    unit: '512号室',
-    line: '山手線',
-    station: '田町',
-    walk: 7,
-    size: 25.76,
-    layout: '1DK',
-    rent: 168000,
-    kanri: 12000,
-    total: 180000,
-    deposit: '敷1ヶ月',
-    reikin: '礼なし',
-    year: 2023,
-    structure: 'RC',
-    tags: [
-      {t:'築2023年・築3年', c:'new'},
-      {t:'礼金ゼロ キャンペーン', c:'new'},
-      {t:'2人入居可・ペット相談可', c:'new'},
-      {t:'★設備すべて完備', c:'new'},
-      {t:'角部屋・ロフト付', c:'new'},
-      {t:'即入居可', c:''}
-    ],
-    pros: [
-      '★築2023年2月・築3年、総戸数243戸の大規模レジデンス。今回の候補で最上位グレードです',
-      '★バス・トイレ別／都市ガス／独立洗面台／室内洗濯機置場をすべて完備',
-      '★2人入居可・ペット相談可（小型犬or猫いずれか1匹）',
-      'JR山手線・京浜東北線「田町」7分、都営三田線・浅草線「三田」8分',
-      '専有面積25.76㎡・ダイニングキッチン約6.3帖＋ベッドルーム約3.3帖、14階建の5階・角部屋・ロフト付・室内物干し',
-      '★共用部が充実：ラウンジ・ワークラウンジ（コンセント/Wi-Fi付）、宅配BOX、24時間ゴミ出し可、太陽光発電、防犯カメラ、2重セキュリティ、各戸インターネット無料',
-      '★礼金0ヶ月キャンペーン中、即入居可。追焚・浴室乾燥・3口コンロ・シューズインクローゼット付'
-    ],
-    cons: [
-      '★管込180,000円と、ご予算17万円を1万円ほど上回ります',
-      '★定期借家契約2年（条件付き再契約可・法人契約は普通借家も相談可）',
-      '解約予告は2ヶ月前',
-      '鍵交換28,000円（税別）・火災保険18,000円/2年・保証料 総賃料の30〜40%',
-      '駐輪場4,400円／バイク置場11,000円は別途'
-    ],
-    addedAt: '2026-08-24',
-    driveId: '1c40o0YqZg_HajabCDTbe6gnMlr9rG6Ys'
   }
+
 ];
 
 const grid = document.getElementById('grid');
@@ -1025,7 +982,7 @@ const state = {
   line: 'all',
   layout: 'all',
   sort: 'rent-asc',
-  rentcap: 180000,
+  rentcap: 170000,
 };
 
 document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
