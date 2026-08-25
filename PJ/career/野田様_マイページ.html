@@ -1359,7 +1359,7 @@ function greeting() {
 
 function renderStats() {
   const active = data.jobs.filter(j => !['declined', 'accepted', 'closed'].includes(j.status));
-  const interviews = data.jobs.filter(j => j.interview);
+  const interviews = data.jobs.filter(isUpcomingInterview);
   const offers = data.jobs.filter(j => j.status === 'offer').length;
   document.getElementById('stats').innerHTML = `
     <div class="stat">
@@ -1389,6 +1389,17 @@ function daysUntilInterview(dateStr) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return Math.round((target - today) / (1000 * 60 * 60 * 24));
+}
+
+// 面談スケジュールに表示すべき案件かどうか
+//  ・「日程調整中」「面接予定」のみ対象(面接後・お見送り・募集終了は出さない)
+//  ・面接日が過ぎたものは非表示。当日は終日表示したままにする
+function isUpcomingInterview(j) {
+  if (!j.interview) return false;
+  if (!['arrangingInterview', 'interviewScheduled'].includes(j.status)) return false;
+  if (!j.interview.date) return true;              // 日程調整中
+  const d = daysUntilInterview(j.interview.date);
+  return d === null || d >= 0;
 }
 
 // カウントダウン表示HTMLを生成
@@ -1474,7 +1485,7 @@ function renderTodayBanner() {
 }
 
 function renderInterviews() {
-  const list = data.jobs.filter(j => j.interview && !['declined', 'closed'].includes(j.status));
+  const list = data.jobs.filter(isUpcomingInterview);
   const el = document.getElementById('interviewList');
   if (!list.length) {
     el.innerHTML = `
