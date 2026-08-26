@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面接ロープレ資料 | 野田様 × ベストサポートシステムズ(最終面接)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+    background: linear-gradient(180deg, #FFF5F7 0%, #F4F9FC 40%, #EEF3F8 100%);
+    color: #2c3e50;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #E8B4C8 0%, #B4C8E8 100%);
+    color: white;
+    padding: 32px 28px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(180, 200, 232, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🌸";
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 60px;
+    opacity: 0.3;
+  }
+  .hero .kicker { font-size: 12px; opacity: 0.9; margin-bottom: 6px; letter-spacing: 0.1em; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .hero .info {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .hero .info div { padding: 3px 0; }
+  .hero .info strong { display: inline-block; min-width: 65px; opacity: 0.9; font-weight: 500; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 18px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed #F4C6D5;
+  }
+  .section-header .icon { font-size: 24px; }
+  .section-header h2 {
+    font-size: 18px;
+    color: #4A6FA5;
+    font-weight: 700;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-item .time {
+    color: #E67E22;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .timeline-item .content { font-size: 13px; }
+  .timeline-item .content strong { color: #2c3e50; font-size: 14px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 13px;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: #4A6FA5;
+    font-size: 20px;
+  }
+  .checklist li strong { color: #2c3e50; }
+  .checklist li .note { font-size: 11px; color: #7f8c8d; display: block; margin-top: 2px; }
+
+  /* Q&A */
+  .qa {
+    margin-bottom: 22px;
+    padding: 18px;
+    background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%);
+    border-radius: 12px;
+    border-left: 4px solid #F4C6D5;
+  }
+  .qa-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A6FA5;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .qa-q .qmark {
+    background: #4A6FA5;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    font-size: 13px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 8px;
+    color: #444;
+  }
+  .qa-a strong { color: #2c3e50; }
+  .qa-a em {
+    background: #FFF3E0;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 600;
+    color: #B7480B;
+  }
+  .qa-tip {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid #F4C6D5;
+  }
+
+  /* NG list */
+  .ng-list {
+    background: #FFEBEE;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #EF5350;
+  }
+  .ng-list h3 { font-size: 14px; color: #C62828; margin-bottom: 10px; }
+  .ng-list ul { list-style: none; }
+  .ng-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .ng-list li::before {
+    content: "❌";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Good list */
+  .good-list {
+    background: #F0FFF4;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #48BB78;
+  }
+  .good-list h3 { font-size: 14px; color: #276749; margin-bottom: 10px; }
+  .good-list ul { list-style: none; }
+  .good-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .good-list li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Callout */
+  .callout {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFF9F0 100%);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #F39C12;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #555;
+  }
+  .callout strong { color: #B7480B; }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #95a5a6;
+    font-size: 11px;
+  }
+
+  /* Reverse Q */
+  .reverse-q {
+    background: #EEF3F8;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border-left: 4px solid #4A6FA5;
+  }
+  .reverse-q strong { color: #4A6FA5; }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section, .hero { break-inside: avoid; box-shadow: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    .hero { padding: 24px 20px; }
+    .section { padding: 20px; }
+    .timeline-item { grid-template-columns: 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="kicker">📝 面接ロープレ資料【ベストサポートシステムズ 版】🏆 最終面接</div>
+  <h1>株式会社ベストサポートシステムズ 最終面接 対策</h1>
+  <div style="font-size:12px;opacity:0.95;margin-top:6px">一次通過おめでとうございます!ここは「内定を出すか」を決める場です。来社面接ならではの準備も含めてお伝えします🌸</div>
+  <div class="info">
+    <div><strong>📅 日時</strong>日程調整中(平日10:00〜17:00 / 17:00以降も相談可・土日祝不可)</div>
+    <div><strong>🏛 形式</strong><em>来社面接</em>(60分程度)</div>
+    <div><strong>📍 場所</strong>ベストサポートシステムズ 東京支店<br>東京都中央区銀座7-16-14 銀座イーストビル3F</div>
+    <div><strong>🗺 地図</strong><a href="https://goo.gl/maps/8ZHNeM1gjeREniWw5" target="_blank" style="color:white;text-decoration:underline">Googleマップで開く</a></div>
+    <div><strong>🏢 職種</strong>プリセールス・セールスエンジニア / パッケージ導入コンサル</div>
+    <div><strong>👤 面接官</strong>役員・部門責任者クラスの想定</div>
+    <div><strong>👔 服装</strong><em>スーツ推奨</em>(来社のため一次より正式に)</div>
+  </div>
+</div>
+
+<!-- 一次の評価 -->
+<div class="section" style="background:linear-gradient(135deg,#E8F5E9 0%,#F1F8E9 100%);border:2px solid #48BB78">
+  <div class="section-header" style="border-bottom-color:#48BB78">
+    <span class="icon">🎉</span>
+    <h2>一次面接で、企業様はここを評価してくださいました</h2>
+  </div>
+  <div style="background:white;padding:14px 18px;border-radius:10px;font-size:13px;line-height:2">
+    「<em>明るいお人柄とコミュニケーション能力の高さが印象的でした。</em><br>
+    <em>ご自身の考えをしっかり伝えていただき、分かりやすい面接の場だったと感じます。</em><br>
+    <em>同業界からの転職なのでご自身のやりたいこと目指しているものが明確で行動力もあり、</em><br>
+    <em>IT資格の取得や現職の経験を活かし、早期から十分に活躍ができる方だと感じました。</em>」
+  </div>
+  <div class="callout" style="margin-top:14px;background:#FFF9E7;border-left-color:#F1C40F">
+    <strong>💡 この評価から読み取れること</strong><br>
+    企業様はすでに<strong>「能力・人柄・意欲」は合格</strong>と判断しています。<br>
+    最終面接で確かめられるのは、そこではなく——<br>
+    <strong>「本当にうちに来てくれるのか」「長く続けてくれるのか」</strong>です。<br><br>
+    つまり<em>能力の証明はもう終わっており、あとは "意思" を見せる場</em>だと考えてください。
+  </div>
+</div>
+
+<!-- 過去6回の学び -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#F4F9FC 100%);border:2px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F1C40F">
+    <span class="icon">💡</span>
+    <h2>一次面接と最終面接は、まったく別物です</h2>
+  </div>
+
+  <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:14px">
+    <tr style="background:#F4F9FC">
+      <th style="padding:10px;border:1px solid #D6E4F0;text-align:left;width:22%"></th>
+      <th style="padding:10px;border:1px solid #D6E4F0;text-align:left">一次面接(8/20・通過済)</th>
+      <th style="padding:10px;border:1px solid #D6E4F0;text-align:left;background:#FFF9E7">最終面接(今回)</th>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D6E4F0;font-weight:700">面接官</td>
+      <td style="padding:10px;border:1px solid #D6E4F0">人事・採用担当</td>
+      <td style="padding:10px;border:1px solid #D6E4F0;background:#FFFDF5"><strong>役員・部門責任者</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D6E4F0;font-weight:700">見ていること</td>
+      <td style="padding:10px;border:1px solid #D6E4F0">この人を次に進めるか<br>(能力・人柄・適性)</td>
+      <td style="padding:10px;border:1px solid #D6E4F0;background:#FFFDF5"><strong>この人に内定を出すか</strong><br>(入社意欲・定着性・カルチャーフィット)</td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D6E4F0;font-weight:700">質問の中心</td>
+      <td style="padding:10px;border:1px solid #D6E4F0">経歴・強み弱み・人柄</td>
+      <td style="padding:10px;border:1px solid #D6E4F0;background:#FFFDF5"><strong>志望度・他社状況・入社時期・条件</strong></td>
+    </tr>
+    <tr>
+      <td style="padding:10px;border:1px solid #D6E4F0;font-weight:700">落ちる理由</td>
+      <td style="padding:10px;border:1px solid #D6E4F0">能力不足・相性</td>
+      <td style="padding:10px;border:1px solid #D6E4F0;background:#FFFDF5"><strong>「辞退されそう」「早期離職しそう」</strong></td>
+    </tr>
+  </table>
+
+  <div class="callout" style="background:#FFEBEE;border-left-color:#EF5350;margin-bottom:14px">
+    <strong>🚨 最終面接で最も危険な答え方</strong><br>
+    ・「<em>他社もいくつか受けているので、比較して決めたいです</em>」→ 正直だが、内定を出す動機を削ぐ<br>
+    ・「<em>まだ迷っています</em>」→ 辞退リスクが高いと判断される<br>
+    ・「<em>研修制度が充実しているので</em>」だけ → 与えてもらう側の姿勢に聞こえる<br><br>
+    併願は隠さなくて大丈夫です。ただし<strong>「その上で御社が第一希望です」と言い切る</strong>ことが、最終面接では極めて重要です。
+  </div>
+
+  <div class="callout" style="background:linear-gradient(135deg,#E8F5E9 0%,#F1F8E9 100%);border-left:4px solid #48BB78">
+    <strong>🎯 最終面接の最重要ミッション</strong><br>
+    ① <strong>「御社が第一希望です」と明確に伝える</strong> → 理由は<em>一次面接で感じたこと</em>を根拠にする(後述Q1)<br>
+    ② <strong>入社後の姿を具体的に語る</strong> → 「入りたい」ではなく「入って何をするか」<br>
+    ③ <strong>長く働く意思を示す</strong> → 第二新卒採用で企業が最も恐れるのは早期離職<br>
+    ④ <strong>来社マナーで減点されない</strong> → 受付・入退室・お礼(後述)<br>
+    ⑤ <strong>条件面の質問には正直に、ただし柔軟に</strong> → 年収・入社時期は事前にCAと擦り合わせを
+  </div>
+</div>
+
+<!-- 事前対応 -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#FFFDF5 100%);border-left:6px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F4D03F">
+    <span class="icon">⚠️</span>
+    <h2>前日までの準備(来社面接ならではの項目があります)</h2>
+  </div>
+  <ul class="checklist">
+    <li><strong>🔴 有給休暇の申請</strong><span class="note">平日10:00〜17:00の来社です。半休では移動時間を含めて厳しい可能性があるため、全休が安全。旅人様(9/3朝)と同じ週に重ならないようご注意ください</span></li>
+    <li><strong>経路と所要時間の確認</strong><span class="note"><a href="https://goo.gl/maps/8ZHNeM1gjeREniWw5" target="_blank">銀座イーストビル3F</a>(中央区銀座7-16-14)。最寄駅からの徒歩ルートを事前に地図で確認</span></li>
+    <li><strong>10〜15分前に到着できる時間で逆算</strong><span class="note">早すぎる到着(20分以上前)も迷惑になります。近くのカフェ等で時間調整を</span></li>
+    <li><strong>スーツ・靴・かばんの準備</strong><span class="note">来社面接なのでスーツ推奨。靴は磨いておく。A4が入るビジネスバッグ(床に置いて自立するもの)</span></li>
+    <li><strong>持ち物</strong><span class="note">履歴書・職務経歴書(印刷して1部ずつ)/ 筆記用具 / メモ帳 / 企業からの案内メール(スマホで開けるように)</span></li>
+    <li><strong>☎️ 緊急連絡先の登録</strong><span class="note">遅延・道に迷った場合の連絡先。CA担当の番号もスマホに入れておく</span></li>
+    <li><strong>「第一希望である理由」の整理</strong><span class="note">最重要。一次面接で感じたことを根拠に、自分の言葉で言えるように</span></li>
+    <li><strong>希望年収・入社可能時期の擦り合わせ</strong><span class="note">最終面接では必ず聞かれます。事前にCA担当と認識を合わせておいてください</span></li>
+    <li><strong>逆質問メモ</strong><span class="note">3つ準備。最終面接では「入社後」目線の質問が有効(後述)</span></li>
+  </ul>
+</div>
+
+<!-- 来社マナー -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#FFFDF5 100%);border-left:6px solid #E67E22">
+  <div class="section-header" style="border-bottom-color:#E67E22">
+    <span class="icon">🏛</span>
+    <h2>来社面接のマナー(オンラインとは別物です)</h2>
+  </div>
+
+  <div class="callout" style="background:#FDF2E9;border-left-color:#E67E22;margin-bottom:14px">
+    野田様はこれまで<strong>すべてオンライン面接</strong>でした。来社は初めてになりますので、
+    ここは「知っていれば減点されない」領域です。ひと通り目を通しておいてください。
+  </div>
+
+  <div class="timeline-item">
+    <div class="time">到着前</div>
+    <div class="content">
+      <strong>建物に入る前にコートを脱ぐ</strong><br>
+      冬季の場合。また、<em>スマホはマナーモードではなく電源OFF</em>が安全です(バイブ音も響きます)。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">10〜15分前</div>
+    <div class="content">
+      <strong>受付</strong><br>
+      「<em>本日◯時から面接のお約束をいただいております、野田麻菜美と申します。ご担当の◯◯様をお願いいたします</em>」<br>
+      受付が無人の内線式の場合もあるため、案内メールに記載の内線番号・担当者名を確認しておく。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">待機中</div>
+    <div class="content">
+      <strong>案内された席で待つ</strong><br>
+      <em>「こちらにおかけください」と言われてから座る</em>。かばんは椅子の脇の床に置く(机や隣の席には置かない)。スマホは触らない。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">入室</div>
+    <div class="content">
+      <strong>ノック3回 → 「失礼いたします」 → 一礼</strong><br>
+      面接官が入室してくる場合は<em>立ち上がって挨拶</em>。「本日はお時間をいただき、ありがとうございます」。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">面接中</div>
+    <div class="content">
+      <strong>姿勢と視線</strong><br>
+      背もたれに寄りかからず、浅めに腰掛ける。手は膝の上か机の上で軽く組む。<em>複数名いる場合は、質問した方を中心に、時々全員に視線を配る</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">退室</div>
+    <div class="content">
+      <strong>「本日はありがとうございました」 → 一礼 → ドアの前でもう一度一礼</strong><br>
+      建物を出るまでが面接です。<em>エレベーター内や1階ロビーでも気を抜かない</em>(社員の方が同乗している可能性あり)。
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:14px;background:#EAF3FB;border-left-color:#3498DB">
+    <strong>💡 遅れそうなときは、必ず「わかった時点で」電話</strong><br>
+    到着してから謝るのではなく、<em>遅れると判明した瞬間に企業様とCA担当へ電話</em>してください。
+    交通遅延は誰にでも起こります。<strong>連絡が遅いことのほうが減点されます。</strong>
+  </div>
+</div>
+
+<!-- ベストサポート企業研究 -->
+<div class="section" style="background:linear-gradient(135deg,#E8F1F9 0%,#F4F9FC 100%);border-left:6px solid #3498DB">
+  <div class="section-header" style="border-bottom-color:#3498DB">
+    <span class="icon">🏢</span>
+    <h2>株式会社ベストサポートシステムズ 情報整理</h2>
+  </div>
+
+  <div style="background:white;padding:14px 18px;border-radius:10px;margin-top:14px">
+    <div style="font-weight:700;color:#4A6FA5;margin-bottom:8px">📋 求人条件</div>
+    <ul style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li><strong>職種</strong>:プリセールス・セールスエンジニア/パッケージ導入コンサル</li>
+      <li><strong>勤務地</strong>:東京都中央区銀座(本社)+ 客先常駐</li>
+      <li><strong>勤務時間</strong>:09:00〜18:00 / <em>夜勤なし明示</em></li>
+      <li><strong>年間休日</strong>:土日祝・125日</li>
+      <li><strong>残業</strong>:月20時間以下</li>
+      <li><strong>3条件</strong>:<em>土日祝・夜勤なし・転勤なし 全明示クリア</em></li>
+    </ul>
+  </div>
+
+  <div class="callout" style="margin-top:14px;background:#E8F5E9;border-left-color:#48BB78">
+    <strong>💡 書類選考時の企業評価ポイント(=面接で活かすべき強み)</strong><br>
+    ・<em>ITインフラ業界で働いており、今後も挑戦していきたい</em>点<br>
+    ・<em>IT資格を昨年取得、自己学習を継続、成長意欲が高い</em>点<br><br>
+    → この2点を面接冒頭で "証明できるエピソード" で補強する
+  </div>
+
+  <div class="callout" style="margin-top:14px;background:#FDF2E9;border-left-color:#E67E22">
+    <strong>💡 プリセールス・SE職の特徴(理解しておく)</strong><br>
+    プリセールス職は「営業活動の技術面をサポート」する役割:<br>
+    ① 顧客に対するデモ・技術説明<br>
+    ② 提案書・要件定義書の作成支援<br>
+    ③ 導入後のサポート・技術問い合わせ対応<br><br>
+    <strong>求められるスキル</strong>:技術知識(60%)+ コミュニケーション力(40%)<br>
+    <strong>野田様との相性</strong>:CCNA・LinuCで培った基礎知識 + 手順書作成での "非エンジニアへの説明力" が活きる領域
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <strong>💡 面接で使える引用フレーズ例</strong><br>
+    ・「求人内容を拝見し、<em>プリセールス・SEという技術と提案を両立する職種</em>に強く興味を持ちました」<br>
+    ・「<em>銀座本社</em>という立地は、通勤面での安心感があり、腰を据えて長期的に貢献したい私に合っております」<br>
+    ・「<em>年間休日125日・残業月20時間以下</em>という働き方は、業務に集中しつつ資格学習も継続できる環境で理想的です」<br>
+    ・「現職(インフラ)で培った<em>技術知識</em>と、手順書作成で身につけた<em>技術を非エンジニアに伝える力</em>を活かせる領域だと考えております」
+  </div>
+</div>
+
+<!-- 1. タイムライン -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🕐</span>
+    <h2>60分の最終面接の流れ(想定)</h2>
+  </div>
+
+  <div class="callout" style="background:#FDF2E9;border-left-color:#E67E22;margin-bottom:14px">
+    <strong>⚠️ 最終面接は「前半で勝負が決まる」ことが多いです</strong><br>
+    役員面接では、冒頭の<em>志望度の伝わり方</em>で心証がほぼ固まります。序盤で「この人は来てくれそうだ」と
+    思っていただけるかどうかが鍵です。
+  </div>
+
+  <div class="timeline-item">
+    <div class="time">-15分</div>
+    <div class="content">
+      <strong>到着・受付</strong><br>
+      10〜15分前に受付。「本日◯時から面接のお約束をいただいております、野田麻菜美と申します」。
+      案内された席で静かに待機。<em>スマホは電源OFF</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:00</div>
+    <div class="content">
+      <strong>入室・挨拶 (2〜3分)</strong><br>
+      立ち上がって挨拶。「本日はお時間をいただき、ありがとうございます」。
+      <em>一次で評価された「明るさ」を、第一印象で再現する</em>のがここでの仕事です。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:03</div>
+    <div class="content">
+      <strong>自己紹介 (2分)</strong><br>
+      最終面接の面接官は<em>一次の内容を詳しくは知らない</em>ことが多いため、改めて簡潔に。
+      経歴 → 現職の業務 → 資格 → 志望の一言、で1分半〜2分。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:05</div>
+    <div class="content">
+      <strong>★核心:志望動機・志望度の確認 (15分)</strong><br>
+      「なぜ当社か」「他社の選考状況は」「当社は何番目か」。<em>ここが最終面接の本丸</em>。
+      Q1〜Q3を重点的に準備してください。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:20</div>
+    <div class="content">
+      <strong>入社後の活躍イメージ・キャリア (15分)</strong><br>
+      「入社したら何をしたいか」「5年後どうなっていたいか」「未経験職種への不安は」。
+      <em>"入りたい" ではなく "入って何をするか"</em> を語る。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:35</div>
+    <div class="content">
+      <strong>条件面の確認 (5〜10分)</strong><br>
+      希望年収・入社可能時期・勤務地。<em>事前にCA担当と擦り合わせた内容</em>を、正直かつ柔軟に伝える。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:45</div>
+    <div class="content">
+      <strong>企業側:事業説明・質疑 (5〜10分)</strong><br>
+      役員から会社の方向性や期待役割の話がある想定。<em>メモを取り、逆質問に繋げる</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">0:52</div>
+    <div class="content">
+      <strong>逆質問 (5分)</strong><br>
+      最終面接では<em>「入社後」目線の質問</em>が有効。3つ用意し、時間を見て2つに絞る。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">1:00</div>
+    <div class="content">
+      <strong>クロージング・退室</strong><br>
+      結果連絡の時期を確認。「本日はありがとうございました」→ 一礼 → ドア前でもう一度一礼。
+      <em>建物を出るまでが面接</em>。
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="time">面接後</div>
+    <div class="content">
+      <strong>📞 CA担当へ所感のご共有</strong><br>
+      手応え・印象的だった質問・答えにくかった点をお知らせください。企業様へのフォローに使います。
+    </div>
+  </div>
+</div>
+
+<!-- 2. 当日の持ち物・身だしなみ -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">✅</span>
+    <h2>当日の持ち物・身だしなみ</h2>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:12px 0 6px">🎒 持ち物</h3>
+  <ul class="checklist">
+    <li><strong>履歴書・職務経歴書(各1部)</strong><span class="note">印刷してクリアファイルに。企業に提出済みでも、面接官が手元に持っていない場合に備える</span></li>
+    <li><strong>筆記用具・メモ帳</strong><span class="note">役員の話をメモする姿勢は好印象。ただし書きすぎて目を見ないのはNG</span></li>
+    <li><strong>企業からの案内メール</strong><span class="note">スマホですぐ開けるように。住所・担当者名・内線番号</span></li>
+    <li><strong>スマホ(電源OFFにする)</strong><span class="note">受付後に電源OFF。マナーモードでもバイブ音が響きます</span></li>
+    <li><strong>腕時計</strong><span class="note">スマホで時間を見るのは避けたいため。派手でないもの</span></li>
+    <li><strong>ハンカチ・ティッシュ</strong></li>
+    <li><strong>飲み物</strong><span class="note">移動中の水分補給用。面接室では出されたものだけ</span></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">👔 身だしなみ(来社なので一次より正式に)</h3>
+  <ul class="checklist">
+    <li><strong>服装</strong><span class="note">スーツ推奨。シワ・毛玉がないか前日に確認し、ハンガーにかけておく</span></li>
+    <li><strong>靴</strong><span class="note">磨いておく。意外と見られています。歩きやすいものを</span></li>
+    <li><strong>かばん</strong><span class="note">A4が入るビジネスバッグ。<em>床に置いて自立するもの</em>が理想</span></li>
+    <li><strong>髪型</strong><span class="note">顔にかからないようまとめる。お辞儀のときに崩れないか確認</span></li>
+    <li><strong>メイク</strong><span class="note">オンラインと違い、対面は実物の印象。ナチュラルで清潔感のある仕上がりに</span></li>
+    <li><strong>アクセサリー・香水</strong><span class="note">大ぶりなものは避ける。香水は<em>つけない</em>のが無難</span></li>
+    <li><strong>ネイル</strong><span class="note">派手な色・長さは避ける。書類を扱う仕事なので短めが好印象</span></li>
+  </ul>
+
+  <div class="callout" style="margin-top:14px;background:#EAF3FB;border-left-color:#3498DB">
+    <strong>💡 対面はオンラインより「全身」が見られます</strong><br>
+    オンライン面接では上半身しか映りませんでしたが、来社面接では<em>歩き方・姿勢・お辞儀・靴・かばんの扱い</em>まで
+    自然と目に入ります。とはいえ、完璧である必要はありません。<strong>清潔感と、丁寧に扱おうとしている姿勢</strong>が伝われば十分です。
+  </div>
+</div>
+
+<!-- 3. 想定質問 & 回答例 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💬</span>
+    <h2>最終面接の想定質問 & 回答方針</h2>
+  </div>
+
+  <div class="callout">
+    <strong>💡 最終面接の回答原則</strong>: <br>
+    ・<em>結論を先に、理由は2つまで</em>。役員は忙しく、長い説明を好みません<br>
+    ・<em>「一次面接で〜と伺い」「求人票で〜と拝見し」</em>と、具体を根拠にすると説得力が段違いになります<br>
+    ・迷ったら<strong>「入社後に何をするか」</strong>に話を戻す。それが最終面接で一番聞きたいことです
+  </div>
+
+  <div class="qa" style="border:2px solid #EF5350">
+    <div class="qa-q"><span class="qmark" style="background:#EF5350">Q1</span>🚨 最重要 当社を志望される理由を、改めて教えてください。</div>
+    <div class="qa-a">
+      <strong>⚠️ 一次と同じ回答では通用しません。</strong> 一次は「求人票を読んでの志望動機」でしたが、
+      最終面接では<em>「一次面接を経て、さらに志望度が上がった理由」</em>が求められます。<br><br>
+      <strong>回答例(60〜75秒):</strong><br>
+      「大きく2つございます。<br>
+      1つ目は、<em>プリセールス・SEという "技術と提案を両立する職種"</em> が、私の目指す方向と一致している点です。
+      現職のITインフラで培った技術理解に加えて、運用手順書の作成を通じて身につけた<em>"技術を相手に伝わる形に翻訳する力"</em>を、
+      両方活かせる仕事だと考えております。<br>
+      2つ目は、<em>一次面接を通じて感じた御社の雰囲気</em>です。
+      面接の場でも、私の話をしっかり聞いた上で言葉を返してくださり、<em>相手の理解を大切にされる会社だ</em>と感じました。
+      お客様に技術を届ける仕事において、その姿勢は非常に重要だと思います。
+      御社であれば、自分の強みを正しく評価していただきながら成長できると確信し、志望度がさらに高まりました。」
+    </div>
+    <div class="qa-tip">💡 <strong>2つ目が勝負どころです。</strong>「一次面接で実際に感じたこと」を根拠にできるのは、通過した人だけの特権。
+    <em>求人票からは書けない内容</em>なので、志望度の本気度が伝わります。実際に感じたことに置き換えて話してください。</div>
+  </div>
+
+  <div class="qa" style="border:2px solid #EF5350">
+    <div class="qa-q"><span class="qmark" style="background:#EF5350">Q2</span>🚨 最重要 他社の選考状況を教えてください。当社は何番目ですか?</div>
+    <div class="qa-a">
+      <strong>⚠️ 最終面接で必ず聞かれます。</strong> ここでの答え方が、内定を出すかどうかに直結します。<br><br>
+      <strong>💡 大原則</strong><br>
+      ・<em>併願は隠さない</em>(隠しても後で分かり、不誠実になる)<br>
+      ・ただし<strong>「その上で御社が第一希望です」と言い切る</strong><br>
+      ・「比較して決めたい」は<em>絶対に言わない</em><br><br>
+      <strong>回答例(45〜60秒):</strong><br>
+      「はい、正直に申し上げますと、IT系の企業を数社受けております。<br>
+      ただ、<em>御社が第一希望です</em>。<br>
+      理由は、他社様は開発職やインフラ職が中心なのに対し、<em>御社のプリセールス・SEは
+      "技術を理解した上で、お客様に伝える" という私が一番やりたい形</em>だからです。<br>
+      技術を深めることも大切だと思いますが、私は<em>技術と人の間に立つ役割</em>にこそ自分の力が活きると考えております。
+      その意味で、御社は他社様と代替のきかない存在です。<br>
+      御社からご縁をいただけましたら、迷わず入社を決めたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「代替のきかない」がキーワード。</strong>他社を下げるのではなく、
+    <em>職種の違いを理由に第一希望であることを説明</em>すると、嘘がなく説得力があります。
+    最後の一文「迷わず入社を決めたい」は、言えるのであれば必ず入れてください。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3</span>★重要 入社されたら、どのように貢献したいですか?</div>
+    <div class="qa-a">
+      <strong>💡 「入りたい」ではなく「入って何をするか」を語るパート。</strong>
+      最終面接の面接官は、<em>入社後の姿がイメージできる人</em>に内定を出します。<br><br>
+      <strong>回答例(60秒):</strong><br>
+      「<em>短期・中期</em>の2段階で考えております。<br>
+      まず入社後の1年間は、<em>御社が扱われている製品・ソリューションを徹底的に理解すること</em>に集中します。
+      プリセールスは技術がわからなければ提案できませんので、ここは近道をせず積み上げます。
+      現職でCCNAを3ヶ月、LinuCを6ヶ月で取得した学習の進め方は、そのまま活かせると考えております。<br>
+      その上で<em>2年目以降</em>は、<em>お客様との打ち合わせに同席し、提案資料の作成を任せていただける</em>状態を目指します。
+      現職で運用手順書を作成した際、<em>「手順書だけで作業が完結できる」</em>と評価いただいた経験があります。
+      "相手が理解して動ける資料をつくる" という点で、必ずお役に立てると考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「近道をせず積み上げます」</strong>は、第二新卒採用で企業が最も安心する言葉です。
+    背伸びした宣言より、<em>地に足のついた計画</em>のほうが最終面接では評価されます。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4</span>★重要 未経験の職種ですが、不安はありませんか?</div>
+    <div class="qa-a">
+      <strong>💡 「不安はありません」と言い切らないでください。</strong>
+      <em>自覚した上で対策を持っている</em>ほうが、はるかに信頼されます。<br><br>
+      <strong>回答例(45〜50秒):</strong><br>
+      「不安がないと申し上げると嘘になります。特に<em>お客様と直接向き合う経験</em>は、現職では多くありませんでした。<br>
+      ただ、そこは<em>製品知識をきちんと固めること</em>と、<em>先輩の方の提案の場に同席させていただき、学ばせていただくこと</em>で
+      早く追いつきたいと考えております。<br>
+      一方で、<em>技術を非エンジニアの方に伝える</em>という点については、現職の運用手順書作成で経験を積んできました。
+      専門用語に注釈を付ける、図やキャプチャを使う、想定されるケースを分けて書く——そうした工夫を重ねてきた部分は、
+      入社初日から活かせると思っております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「不安を認める → 対策 → ただし既にある強み」</strong>の3段構成。
+    最後を強みで締めることで、不安の話が弱さの印象で終わりません。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5</span>ご希望の年収を教えてください。</div>
+    <div class="qa-a">
+      <strong>⚠️ 事前にCA担当と擦り合わせてから臨んでください。</strong>
+      その場で思いつきの数字を出すと、後戻りできなくなります。<br><br>
+      <strong>回答方針:</strong> <em>具体的な数字を先に出さず、企業規定に委ねる姿勢</em>が無難です。
+      第二新卒での職種転換であり、強気の交渉が有利に働く場面ではありません。<br><br>
+      <strong>回答例(30秒):</strong><br>
+      「現在は年収300万円ほどですが、<em>今回は職種を変えての挑戦になりますので、貴社の規定に従わせていただければ</em>と考えております。<br>
+      入社直後から大きく上げていただきたいという考えはございません。
+      それよりも、<em>成果を出した分を評価いただける環境</em>であれば、しっかり結果でお返ししたいと思っております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「貴社の規定に従わせていただければ」</strong>+<em>「成果で返したい」</em>の組み合わせが最も安全です。
+    ただし<strong>提示額が現年収を大きく下回った場合</strong>は、その場で承諾せず「持ち帰らせてください」と伝え、CA担当にご相談ください。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q6</span>入社可能な時期はいつ頃になりますか?</div>
+    <div class="qa-a">
+      <strong>⚠️ こちらも事前にCA担当と認識を合わせてください。</strong> 現職の就業規則(退職申告の期限)を確認しておく必要があります。<br><br>
+      <strong>回答例(30秒):</strong><br>
+      「現職の引き継ぎを考慮しますと、<em>内定をいただいてから1〜2ヶ月程度</em>をいただければと考えております。<br>
+      ただ、<em>御社のご都合に可能な限り合わせたい</em>と思っておりますので、
+      ご希望の時期がございましたらお聞かせいただけますでしょうか。」
+    </div>
+    <div class="qa-tip">💡 <strong>「御社のご都合に合わせたい」</strong>の一言があると、入社意欲の高さが伝わります。
+    逆に「まだ考えていません」は、本気度を疑われるので避けてください。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q7</span>長く働いていただけますか?(定着性の確認)</div>
+    <div class="qa-a">
+      <strong>💡 第二新卒採用で企業が最も恐れるのは「早期離職」です。</strong>
+      野田様は現職1年での転職なので、<em>ここは必ず確認されます</em>。<br><br>
+      <strong>回答例(50秒):</strong><br>
+      「はい、長く勤めたいと考えております。<br>
+      今回の転職は、<em>現職が嫌だから</em>ではなく、<em>技術を人に届ける仕事を専門にしたい</em>という前向きな理由によるものです。
+      その意味で、御社のプリセールス・SEは<em>私がやりたいことそのもの</em>ですので、
+      短期間で次を探すという発想がそもそもありません。<br>
+      また、私はコツコツ積み上げるタイプで、資格取得も業務改善も<em>時間をかけて成果を出してきた</em>経験があります。
+      腰を据えて働ける環境でこそ力を発揮できると自覚しておりますので、
+      御社で長期的にキャリアを築かせていただきたいです。」
+    </div>
+    <div class="qa-tip">💡 <strong>「現職が嫌だからではなく」</strong>と明示的に否定するのが効きます。
+    ネガティブな転職理由でないことを、こちらから先に潰しておく。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q8</span>最後に、何か伝えておきたいことはありますか?</div>
+    <div class="qa-a">
+      <strong>💡 最終面接の締めの定番。ここで「特にありません」は非常にもったいないです。</strong>
+      <em>最後にもう一度、入社意欲を伝える枠</em>だと考えてください。<br><br>
+      <strong>回答例(40秒):</strong><br>
+      「本日はお時間をいただき、ありがとうございました。<br>
+      お話を伺い、<em>御社で働きたいという気持ちがさらに強くなりました</em>。<br>
+      未経験の職種への挑戦にはなりますが、<em>技術を学ぶことも、人に伝えることも、どちらも自分が続けてきたこと</em>です。
+      ご縁をいただけましたら、一日も早く戦力になれるよう努めてまいります。<br>
+      本日は誠にありがとうございました。」
+    </div>
+    <div class="qa-tip">💡 <strong>最後は必ず「入社意欲」で締める。</strong>
+    ここまで良い面接ができていても、締めが弱いと印象が薄れます。この40秒は暗記しておいて損はありません。</div>
+  </div>
+
+  <div class="callout" style="background:#FFF3CD;border-left-color:#FFA500;margin-top:16px">
+    <strong>📌 一次で聞かれた質問も、もう一度聞かれる可能性があります</strong><br>
+    最終面接の面接官は一次の内容を詳しく把握していないことが多く、
+    <em>自己紹介・転職理由・強み弱み・キャリアプラン</em>は再度問われる前提でご準備ください。<br>
+    <a href="https://ryupro202211-ops.github.io/ryupro/PJ/career/野田様_面接ロープレ_ベストサポート.html" target="_blank">▶ 一次面接版の資料はこちら</a>(Q1〜Q8をひと通り復習しておくと安心です)
+  </div>
+</div>
+
+<!-- 4. 逆質問 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">❓</span>
+    <h2>逆質問(最終面接は「入社後」目線で)</h2>
+  </div>
+
+  <div class="callout">
+    <strong>💡 最終面接の逆質問は、一次とは狙いが変わります</strong><br>
+    一次は「業務内容を知るための質問」でしたが、最終面接は<em>「入社する前提で聞いている」</em>と伝わる質問が有効です。<br>
+    <strong>相手は役員クラス</strong>なので、現場の細かい運用より<em>会社の方向性や期待役割</em>を聞くほうが噛み合います。
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥇 第1優先(期待役割 — 最も入社意欲が伝わる)</strong><br>
+    「入社させていただいた場合、<em>1年目にどこまでできるようになっていてほしい</em>とお考えでしょうか?
+    期待していただく水準を伺った上で、入社までの期間に準備を進めたいと考えております。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 「入社までに準備したい」= 内定を受ける前提の質問。役員に最も響きます</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥈 第2優先(活躍している人の共通点)</strong><br>
+    「御社のプリセールス・SEとして<em>活躍されている方に共通する資質や行動</em>があれば、
+    ぜひ教えていただけますでしょうか。目指す姿を具体的に持ちたいと思っております。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 役員が語りたいテーマ。かつ「自分もそうなりたい」という意思表示になる</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>🥉 第3優先(会社の方向性)</strong><br>
+    「今後、御社が<em>特に力を入れていかれる領域やサービス</em>があれば伺いたく存じます。
+    その方向性の中で、自分がどう貢献できるかを考えたいと思っております。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 役員面接向き。中長期で会社に関わる意思が伝わる</span>
+  </div>
+
+  <div class="reverse-q">
+    <strong>💡 予備(入社までの準備)</strong><br>
+    「入社までの期間に<em>学習しておいたほうがよい分野や、取得しておくとよい資格</em>があれば教えてください。」<br>
+    <span style="font-size:11px;color:#7f8c8d">→ 学習意欲の再確認。野田様のCCNA・LinuC実績とも一貫します</span>
+  </div>
+
+  <div class="reverse-q" style="background:#FFF3CD;border-left-color:#FFA500">
+    <strong>⚠️ 最終面接で聞かないほうがよい質問</strong><br>
+    ・<em>残業・休日・有給の取得率</em> → 条件面はCA担当経由で確認してください<br>
+    ・<em>「研修はどのくらいありますか」</em> → 受け身に聞こえます。「準備しておくことは」に言い換えを<br>
+    ・<em>「特にありません」</em> → 最終面接では致命的。必ず1つは聞いてください<br>
+    <span style="font-size:11px;color:#7f8c8d">気になる条件面は、面接後に私(CA)から企業様へ確認いたします</span>
+  </div>
+</div>
+
+<!-- 5. NGワード -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">⚠️</span>
+    <h2>絶対NGワード集</h2>
+  </div>
+
+  <div class="ng-list">
+    <h3>面接で言ってはいけない表現</h3>
+    <ul>
+      <li>「現職はマネジメントがずさんで...」<br><span style="font-size:11px;color:#888">→ 前職の悪口は品性を疑われる。「より体系的な環境で」に言い換え</span></li>
+      <li>「特にありません」(逆質問の返答として)<br><span style="font-size:11px;color:#888">→ 志望度が低いと判断される</span></li>
+      <li>「なんとなく」「〜な感じで」<br><span style="font-size:11px;color:#888">→ 具体性がなく、思考の浅さと取られる</span></li>
+      <li>「御社の〇〇に興味がありまして」(あいまい)<br><span style="font-size:11px;color:#888">→ 何に興味があるのか具体的に</span></li>
+      <li>「勉強したいです」で終わる<br><span style="font-size:11px;color:#888">→ 「勉強させてもらう」姿勢はNG。「貢献しながら成長」が正解</span></li>
+      <li>「〜って言われました」(他人任せの表現)<br><span style="font-size:11px;color:#888">→ 自分の意思・判断で語る</span></li>
+    </ul>
+  </div>
+
+  <div class="good-list" style="margin-top:14px">
+    <h3>逆に、使うと印象が良い表現</h3>
+    <ul>
+      <li>「〜を担当いたしました」「〜を実現いたしました」(能動態)</li>
+      <li>「具体的には〜」で数字や事例を必ずセットで</li>
+      <li>「〜と認識しております」「〜と伺い」(調べている姿勢+謙虚さ)</li>
+      <li>「〜に貢献したい/挑戦したい」(意欲+行動意識)</li>
+      <li>「本日は貴重なお時間をいただき、ありがとうございます」(冒頭・締めの挨拶)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 6. 対面面接ならではの心得 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🏛</span>
+    <h2>対面面接ならではの注意点</h2>
+  </div>
+
+  <ul class="checklist">
+    <li><strong>目を見て話す</strong><span class="note">オンラインではカメラを見る意識でしたが、対面は<em>相手の目(または眉間)</em>を自然に見る</span></li>
+    <li><strong>複数名いる場合の視線配分</strong><span class="note">質問した方を中心に、時々全員へ視線を配る。役員が2名以上のことも</span></li>
+    <li><strong>相槌は控えめに</strong><span class="note">オンラインでは大袈裟な相槌が有効でしたが、<em>対面では大きすぎると落ち着きがない印象</em>になります</span></li>
+    <li><strong>声量は普通でOK</strong><span class="note">オンラインでは大きめに話す必要がありましたが、対面では普段通りで十分伝わります</span></li>
+    <li><strong>手元のメモは見すぎない</strong><span class="note">メモを取るのは良いが、答えるときは顔を上げる。カンペを読む印象はNG</span></li>
+    <li><strong>出された飲み物</strong><span class="note">「いただきます」と一言添えてから。口をつけなくても失礼ではありません</span></li>
+    <li><strong>沈黙を怖がらない</strong><span class="note">考える時間を取ってOK。「少し考えさせてください」と言えば誠実に伝わります</span></li>
+  </ul>
+
+  <div class="callout" style="margin-top:14px;background:#E8F5E9;border-left-color:#48BB78">
+    <strong>💡 野田様の場合、対面はむしろ有利です</strong><br>
+    一次面接で<em>「明るいお人柄」</em>と評価いただきました。
+    その明るさや表情は、<strong>画面越しより対面のほうが確実に伝わります</strong>。
+    オンラインで伝わったものが、対面で伝わらないことはありません。安心して臨んでください。
+  </div>
+</div>
+
+<!-- 直前 -->
+<div class="section" style="background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%)">
+  <div class="section-header">
+    <span class="icon">🌸</span>
+    <h2>当日 最終チェック</h2>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:12px 0 6px">🏠 出発前</h3>
+  <ul class="checklist">
+    <li><strong>持ち物の最終確認</strong><span class="note">履歴書・職務経歴書・筆記用具・メモ帳・案内メール・腕時計</span></li>
+    <li><strong>経路と到着時刻の再確認</strong><span class="note">遅延に備えて1本早い電車で。10〜15分前到着を目標に</span></li>
+    <li><strong>身だしなみ</strong><span class="note">スーツのシワ・靴・髪型を鏡で最終確認</span></li>
+    <li><strong>スマホの充電</strong><span class="note">連絡が必要になった場合に備えて</span></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">🚶 到着後・受付前</h3>
+  <ul class="checklist">
+    <li><strong>お手洗いで身だしなみを整える</strong><span class="note">髪の乱れ・汗・メイク直し</span></li>
+    <li><strong>スマホを電源OFF</strong><span class="note">受付前に。バイブ音も響きます</span></li>
+    <li><strong>「第一希望です」を心の中で1回言う</strong><span class="note">最終面接で最も大切な一言。迷いなく言えるように</span></li>
+    <li><strong>深呼吸を5回</strong></li>
+    <li><strong>口角を上げる</strong><span class="note">評価いただいた「明るさ」を、第一印象から</span></li>
+  </ul>
+
+  <div style="text-align:center;font-size:14px;color:#4A6FA5;font-weight:700;margin-top:16px;padding:14px;background:white;border-radius:10px;line-height:2">
+    🌸 野田さん、ここまで7社の面接を重ねてこられました。<br>
+    そして企業様は、すでに野田さんの<strong>能力も人柄も認めてくださっています</strong>。<br>
+    最終面接で伝えるべきことは、たった一つ——<br>
+    <strong>「ここで働きたい」という気持ち</strong>だけです。<br>
+    いつも通り、自分らしく話せば大丈夫です🌸
+  </div>
+</div>
+
+<div class="footer">
+  📝 UCHIAGE キャリアアドバイザー特製ロープレ資料 / 質問があればいつでも担当CAへ🌷
+</div>
+
+</div>
+</body>
+</html>
