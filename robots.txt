@@ -1,3 +1,14 @@
+# 注意: GitHub Pages のプロジェクトサイトでは、クローラが読むのは
+#   https://ryupro202211-ops.github.io/robots.txt （ドメイン直下）だけで、
+#   このファイル（/ryupro/robots.txt）は参照されない。
+#   PJ/ 配下の検索避けは各HTMLの <meta name="robots" content="noindex"> で担保している。
+#   独自ドメインに移行した際はこのファイルが有効になる。
+
 User-agent: *
 Allow: /
+
+# 顧客・候補者向けの個別ページ（実名を含むため検索対象外）
+Disallow: /PJ/
+Disallow: /ryupro/PJ/
+
 Sitemap: https://ryupro202211-ops.github.io/ryupro/sitemap.xml

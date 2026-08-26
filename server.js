@@ -1,6 +1,8 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+// 記事HTMLの組み立ては tools/new-post.js と共通化してある（出力ズレ防止）
+const { renderPost } = require('./tools/render-post');
 const app = express();
 const PORT = 3001;
 
@@ -23,10 +25,7 @@ function generatePostHtml(post, callback) {
             return;
         }
 
-        let html = template
-            .replace(/{{TITLE}}/g, post.title)
-            .replace(/{{DATE}}/g, post.date)
-            .replace(/{{CONTENT}}/g, post.content || "");
+        const html = renderPost(template, post);
 
         // Determine filename
         let fileName = post.url.split('/').pop();

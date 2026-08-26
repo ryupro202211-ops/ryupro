@@ -13,14 +13,13 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const { SITE, DEFAULT_IMAGE, renderPost } = require('./render-post');
 
 const ROOT = path.join(__dirname, '..');
 const PLAN_PATH = path.join(ROOT, 'blog', 'data', 'theme-plan.json');
 const POSTS_PATH = path.join(ROOT, 'blog', 'data', 'posts.json');
 const TEMPLATE_PATH = path.join(ROOT, 'blog', 'posts', 'template.html');
 const SITEMAP_PATH = path.join(ROOT, 'sitemap.xml');
-const SITE = 'https://ryupro202211-ops.github.io/ryupro';
-const DEFAULT_IMAGE = '/assets/images/default-blog.jpg';
 const NL = '\n';
 
 function readJSON(p) { return JSON.parse(fs.readFileSync(p, 'utf8')); }
@@ -137,14 +136,6 @@ function main() {
   const body = fs.readFileSync(bodyPath, 'utf8').trim();
   if (!body) { console.error('エラー: 本文が空です: ' + bodyPath); process.exit(1); }
 
-  const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
-  const html = template
-    .split('{{TITLE}}').join(w.title)
-    .split('{{DATE}}').join(w.date_display)
-    .split('{{CONTENT}}').join(body);
-  fs.writeFileSync(path.join(ROOT, 'blog', 'posts', w.slug + '.html'), html, 'utf8');
-
-  const posts = readJSON(POSTS_PATH);
   const entry = {
     id: w.slug,
     title: w.title,
@@ -155,6 +146,12 @@ function main() {
     image: (typeof args.image === 'string' ? args.image : DEFAULT_IMAGE),
     url: 'posts/' + w.slug + '.html',
   };
+
+  const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
+  fs.writeFileSync(path.join(ROOT, 'blog', 'posts', w.slug + '.html'),
+    renderPost(template, entry), 'utf8');
+
+  const posts = readJSON(POSTS_PATH);
   const idx = posts.findIndex(function (p) { return p.id === entry.id; });
   if (idx >= 0) { posts[idx] = entry; } else { posts.unshift(entry); }
   posts.sort(function (a, b) { return b.date.localeCompare(a.date); });

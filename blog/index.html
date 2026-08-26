@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ブログ | 合同会社ryupro</title>
   <meta name="description" content="合同会社ryuproのブログ。イベント情報やコラムをお届けします。">
+  <link rel="canonical" href="https://ryupro202211-ops.github.io/ryupro/blog/">
+  <meta property="og:type" content="blog">
+  <meta property="og:site_name" content="合同会社ryupro">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:title" content="ブログ | 合同会社ryupro">
+  <meta property="og:description" content="合同会社ryuproのブログ。イベント情報やコラムをお届けします。">
+  <meta property="og:url" content="https://ryupro202211-ops.github.io/ryupro/blog/">
+  <meta property="og:image" content="https://ryupro202211-ops.github.io/ryupro/assets/images/ogp.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ブログ | 合同会社ryupro">
+  <meta name="twitter:description" content="合同会社ryuproのブログ。イベント情報やコラムをお届けします。">
+  <meta name="twitter:image" content="https://ryupro202211-ops.github.io/ryupro/assets/images/ogp.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
@@ -230,7 +242,7 @@
         return `
         <a href="${basePath}/blog/${post.url}" class="blog-card">
           <div class="blog-card-img">
-            <img src="${imgSrc}" alt="${post.title}" onerror="this.src='${defaultImg}'">
+            <img src="${imgSrc}" alt="${post.title}" loading="lazy" decoding="async" onerror="this.src='${defaultImg}'">
           </div>
           <div>
             <div class="blog-card-date">${post.date}</div>

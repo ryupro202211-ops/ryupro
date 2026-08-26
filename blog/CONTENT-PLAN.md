@@ -91,12 +91,22 @@ noteの元テーマは大塚個人の日々の記録がベースで、社内向�
 ```bash
 node tools/new-post.js --next          # 次に書く週のテーマを表示
 node tools/new-post.js --week 2 --body drafts/w02.html   # 記事を生成して公開
+node tools/rebuild-posts.js                              # テンプレ変更後に全記事を作り直す
 ```
 
 1. `--next` で今週のテーマ・切り口・CTAを確認する
 2. 本文を `<h2>` / `<p>` / `<blockquote>` / `<strong>` のみで書く（既存CSSがそのまま効きます）
 3. `--week N --body <file>` で `blog/posts/` に記事を生成し、`blog/data/posts.json` の先頭に追加
 4. `git commit && git push` → GitHub Actions が自動デプロイ
+
+## ツールの構成
+
+- `tools/_themes.py` … 40テーマのマスターデータ。テーマを増やす／直すのはここ
+- `tools/gen-theme-plan.py` … `_themes.py` から theme-plan.json と本ファイルを生成（公開済みstatusは引き継ぐ）
+- `tools/render-post.js` … テンプレートへの流し込み。new-post.js と server.js の両方がこれを使う
+- `tools/new-post.js` … 週次投稿。記事生成／posts.json／sitemap.xml をまとめて更新
+- `tools/rebuild-posts.js` … posts.json の content から全記事を再生成（サーバー起動不要）
+- `tools/add-noindex.py` … PJ/ 配下の顧客向けページに noindex を付与（冪等）
 
 ## 記事の型（1本あたり1,200〜1,800字）
 
