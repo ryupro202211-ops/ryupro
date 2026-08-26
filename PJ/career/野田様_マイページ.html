@@ -1125,20 +1125,24 @@ const DATA = {
         '転勤なし・残業ほぼなし・昇給&賞与あり',
       ],
       url: 'https://circus-job.com/selections/4649852/job?jobDetailPublicToken=ec7b83c5-099f-416e-a2d3-7adaa09a0920',
-      status: 'arrangingInterview',
+      status: 'interviewScheduled',
       isNew: false,
       interview: {
         round: '一次面接',
-        format: 'オンライン',
-        date: null,
+        format: 'オンライン (Zoom)',
+        date: '2026-09-03 (木)',
+        time: '09:00〜09:45',
         duration: '45分',
-        note: '🎉 書類選考通過!一次面接のご案内をいただきました。\n\n⚠️ 【ご対応をお願いします】野田様より面接の候補日を複数ご提示ください。直近1〜2週間で平日のご都合の良い日を3〜5件いただけますと、企業様へ回答いたします。',
-        preInterviewDeadline: '候補日を早めにご提示ください(企業様がお待ちです)',
+        meetingUrl: 'https://us02web.zoom.us/j/86547029148?pwd=ZZnlKx38dLMaTV4B17UbZdRxoTVRS8.1',
+        emergencyContact: '070-2298-9174',
+        note: '⚠️ 【最重要】朝9:00開始です。現在のお勤めの始業時刻と重なるため、有給休暇または午前半休の取得が必須です。早めに勤務先へご申請ください。\n\n・8:50までにZoom接続テストを完了してください\n・Zoomアプリの事前インストールを推奨します\n・当日つながらない場合の緊急連絡先:070-2298-9174\n\n【企業評価ポイント(書類選考時)】\n・書類選考通過率50%以上の案件を突破されました',
+        preInterviewDeadline: '2026-09-02 (水) までに有休申請とZoom動作確認を',
       },
       timeline: [
         { date: '2026-08-21', event: '案件をご提案しました(年収285〜308万・通過率50%以上)' },
         { date: '2026-08-21', event: '✅ 応募完了・書類選考開始(結果待ち)' },
-        { date: '2026-08-24', event: '🎉 書類選考通過!一次面接(オンライン・45分)のご案内を受領。候補日を複数ご提示ください' },
+        { date: '2026-08-24', event: '🎉 書類選考通過!一次面接(オンライン・45分)のご案内を受領' },
+        { date: '2026-08-24', event: '⭐ 一次面接日程確定:2026-09-03(木) 09:00〜 (Zoom・45分)' },
       ],
     },
     {
@@ -1275,7 +1279,7 @@ const DATA = {
         '応募条件は20〜32歳・学歴不問・インフラ経験1年以上(すべてクリア)',
       ],
       url: 'https://circus-job.com/selections/4491592/job?jobDetailPublicToken=6f790b8b-f110-48f8-add0-da6873cdfad2',
-      status: 'proposed',
+      status: 'screening',
       isNew: true,
       interview: null,
       timeline: [
@@ -1297,7 +1301,7 @@ const DATA = {
         '歓迎スキルに「顧客折衝・提案の経験」→ ベストサポート面接で高評価だった対人力が活きる',
       ],
       url: 'https://circus-job.com/selections/4341457/job?jobDetailPublicToken=82fc3b29-315c-4cc1-a1ff-bc5752d1d3d5',
-      status: 'proposed',
+      status: 'screening',
       isNew: true,
       interview: null,
       timeline: [
@@ -1319,7 +1323,7 @@ const DATA = {
         '東京勤務可',
       ],
       url: 'https://circus-job.com/selections/4341618/job?jobDetailPublicToken=1491bd90-0da4-47a7-9cc2-ef9b48135fdb',
-      status: 'proposed',
+      status: 'screening',
       isNew: true,
       interview: null,
       timeline: [
@@ -1339,9 +1343,10 @@ const DATA = {
         '富士通グループという安定基盤',
         '年収288〜600万円・採用予定15名以上',
         '首都圏勤務(東京・埼玉・千葉・神奈川)',
-      ],
+              { date: '2026-08-24', event: '✅ 応募完了・書類選考開始(結果待ち)' },
+],
       url: 'https://circus-job.com/selections/4341596/job?jobDetailPublicToken=3b53de95-e5b2-4d9c-a6d2-0272db98e9c9',
-      status: 'proposed',
+      status: 'screening',
       isNew: true,
       interview: null,
       timeline: [
@@ -1349,7 +1354,10 @@ const DATA = {
         { date: '2026-08-22', event: '⚠️ 必須条件が「インフラ設計・構築経験1年以上」のため、テスト工程中心の現状では書類選考がやや厳しい可能性があります' },
       ],
     },
-  ],
+          { date: '2026-08-24', event: '✅ 応募完了・書類選考開始(結果待ち)' },
+        { date: '2026-08-24', event: '✅ 応募完了・書類選考開始(結果待ち)' },
+        { date: '2026-08-24', event: '✅ 応募完了・書類選考開始(結果待ち)' },
+],
 };
 
 // ========== INIT ==========
