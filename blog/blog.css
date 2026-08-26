@@ -1,0 +1,326 @@
+/* ryupro ブログ 共通スタイル
+ *
+ * blog/index.html（一覧）と blog/posts/*.html（記事）が読み込む。
+ * 以前は同じCSSが全ページにインラインで重複していて、
+ * デザインを変えるたびに全記事の再生成が必要だった。
+ *
+ * 記事側から参照するパスは ../blog.css、一覧側は blog.css。
+ * 相対パスにしてあるのは、ローカル（/）でも GitHub Pages（/ryupro/）でも
+ * 同じように解決させるため。
+ */
+
+/* ---------- 共通: リセット・トークン・ナビ・フッター ---------- */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --color-bg: #111110;
+  --color-bg-soft: #161514;
+  --color-bg-card: #1a1918;
+  --color-text: #a99f92;
+  --color-text-strong: #e8e2d8;
+  --color-text-dim: #6b655c;
+  --color-gold: #dbc5a4;
+  --color-gold-dim: rgba(219,197,164,0.4);
+  --color-border: #2a2825;
+  --font-ja: 'Noto Sans JP', sans-serif;
+  --font-serif: 'Shippori Mincho', serif;
+  --font-en: 'Outfit', sans-serif;
+  --max-width: 1080px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-ja);
+  font-weight: 300;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 2;
+  letter-spacing: 0.04em;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-gold); color: #111110; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(17,17,16,0.82);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(42,40,37,0.6);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nav-logo {
+  font-family: var(--font-en);
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 0.28em;
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+.nav-back {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.4s;
+}
+
+.nav-back:hover { color: var(--color-gold); }
+
+footer {
+  padding: 4rem 2rem 3.5rem;
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-logo {
+  font-family: var(--font-en);
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.32em;
+  margin-bottom: 1rem;
+  color: var(--color-gold);
+}
+
+.footer-copy {
+  font-family: var(--font-en);
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+/* ---------- 一覧ページ ---------- */
+
+.page-header {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 9.5rem 2rem 3.5rem;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  color: var(--color-text-dim);
+  margin-bottom: 1.75rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--color-gold-dim);
+}
+
+.section-label .en {
+  font-family: var(--font-en);
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+  letter-spacing: 0.12em;
+  color: var(--color-gold);
+}
+
+.blog-list {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.blog-card {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+}
+
+.blog-card:first-child { border-top: 1px solid var(--color-border); }
+
+.blog-card-img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: var(--color-bg-card);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.blog-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85);
+  transition: transform 1.2s var(--ease), filter 1.2s var(--ease);
+}
+
+.blog-card:hover .blog-card-img img { transform: scale(1.05); filter: saturate(1); }
+
+.blog-card-date {
+  font-family: var(--font-en);
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--color-gold);
+  margin-bottom: 0.75rem;
+}
+
+.blog-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-text-strong);
+  margin-bottom: 0.75rem;
+  line-height: 1.9;
+  transition: color 0.5s;
+}
+
+.blog-card:hover .blog-card-title { color: var(--color-gold); }
+
+.blog-card-excerpt {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  line-height: 2.1;
+}
+
+@media (max-width: 768px) {
+  .blog-card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 2rem 0;
+  }
+  .blog-card-img { max-width: 100%; }
+  .page-header { padding: 8rem 1.5rem 2.5rem; }
+  .blog-list { padding: 0 1.5rem 4.5rem; }
+}
+
+/* ---------- 記事ページ ---------- */
+
+.article-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 9rem 2rem 5rem;
+}
+
+.article-date {
+  font-family: var(--font-en);
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--color-gold);
+  margin-bottom: 1.25rem;
+}
+
+.article-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  line-height: 2;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  margin-bottom: 3rem;
+}
+
+.article-hero-img {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  border: 1px solid var(--color-border);
+}
+
+.article-hero-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-body {
+  font-size: 0.92rem;
+  line-height: 2.4;
+  color: var(--color-text);
+}
+
+.article-body p { margin-bottom: 1.75rem; }
+
+.article-body strong { color: var(--color-gold); font-weight: 500; }
+
+.article-body h2 {
+  font-family: var(--font-serif);
+  color: var(--color-text-strong);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  margin: 3.5rem 0 1.5rem;
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--color-gold);
+  line-height: 1.9;
+}
+
+.article-body blockquote {
+  border-left: 1px solid var(--color-gold-dim);
+  padding: 0.75rem 1.5rem;
+  margin: 1.25rem 0;
+  background: var(--color-bg-soft);
+  color: var(--color-text-strong);
+  font-style: normal;
+  font-size: 0.9rem;
+}
+
+.article-body a {
+  color: var(--color-gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-gold-dim);
+  transition: border-color 0.4s;
+}
+
+.article-body a:hover { border-color: var(--color-gold); }
+
+.article-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 3.5rem;
+  padding: 1rem 2.75rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: var(--color-gold);
+  text-decoration: none;
+  border: 1px solid var(--color-gold-dim);
+  transition: background 0.5s var(--ease), color 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+
+.article-back:hover {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #111110;
+}

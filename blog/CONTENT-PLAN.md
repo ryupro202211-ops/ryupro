@@ -101,6 +101,7 @@ node tools/rebuild-posts.js                              # テンプレ変更後
 
 ## ツールの構成
 
+- `blog/blog.css` … 一覧・記事の共通スタイル。**デザイン変更はここだけを直す**
 - `tools/_themes.py` … 40テーマのマスターデータ。テーマを増やす／直すのはここ
 - `tools/gen-theme-plan.py` … `_themes.py` から theme-plan.json と本ファイルを生成（公開済みstatusは引き継ぐ）
 - `tools/render-post.js` … テンプレートへの流し込み。new-post.js と server.js の両方がこれを使う
@@ -122,6 +123,8 @@ node tools/rebuild-posts.js                              # テンプレ変更後
 - 実在の個人を特定できる書き方をしない（「30代のエンジニアの方」まで）
 - 収益・利回り・投資成果を断定しない
 - 「絶対」「必ず」で読者を煽らない
+
+- 記事本文に `<style>` タグやインラインの style 属性を書かない（スタイルは blog/blog.css に集約している）
 
 ## 重要な注意: server.js は起動時に記事HTMLを再生成する
 
