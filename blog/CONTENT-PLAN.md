@@ -104,9 +104,9 @@ node tools/rebuild-posts.js                              # テンプレ変更後
 - `blog/blog.css` … 一覧・記事の共通スタイル。**デザイン変更はここだけを直す**
 - `tools/_themes.py` … 40テーマのマスターデータ。テーマを増やす／直すのはここ
 - `tools/gen-theme-plan.py` … `_themes.py` から theme-plan.json と本ファイルを生成（公開済みstatusは引き継ぐ）
-- `tools/render-post.js` … テンプレートへの流し込み。new-post.js と server.js の両方がこれを使う
+- `tools/render-post.js` … テンプレートへの流し込み。new-post.js と rebuild-posts.js が共有
 - `tools/new-post.js` … 週次投稿。記事生成／posts.json／sitemap.xml をまとめて更新
-- `tools/rebuild-posts.js` … posts.json の content から全記事を再生成（サーバー起動不要）
+- `tools/rebuild-posts.js` … posts.json の content から全記事を再生成（テンプレ／CSS変更後に実行）
 - `tools/add-noindex.py` … PJ/ 配下の顧客向けページに noindex を付与（冪等）
 
 ## 記事の型（1本あたり1,200〜1,800字）
@@ -126,14 +126,21 @@ node tools/rebuild-posts.js                              # テンプレ変更後
 
 - 記事本文に `<style>` タグやインラインの style 属性を書かない（スタイルは blog/blog.css に集約している）
 
-## 重要な注意: server.js は起動時に記事HTMLを再生成する
+## 記事の更新経路は tools/ に一本化されています
 
-`node server.js`（ローカル開発サーバー／管理画面）は、起動のたびに `blog/data/posts.json` の
-`content` フィールドから `blog/posts/*.html` を作り直します。
-そのため **`content` を持たない記事は、サーバーを起動しただけで本文が消えます**。
+以前は `server.js` + `/admin` の管理画面と `tools/new-post.js` の2系統が同じ `posts.json` を書き換えており、
+`server.js` は起動のたびに `content` から記事HTMLを全再生成していました。
+そのため `content` を持たない手書き記事は、サーバーを起動しただけで本文が消えていました。
 
-- `tools/new-post.js` は必ず `content` を posts.json に書き込みます（対策済み）
-- `server.js` にも「`content` が空の記事はスキップする」ガードを入れてあります（対策済み）
-- HTMLを直接手で編集した場合は、同じ内容を posts.json の `content` にも反映すること
+現在は次のようになっています。
 
-`blog/posts/2026-05-16-gyoza.html` はヒーロー画像を含む手書き記事のため posts.json に `content` を持たない例外で、上記ガードで保護されています。
+- `server.js` は表示確認だけの静的サーバー。**ファイルを一切書き換えません**
+- 管理画面（`/admin`）と記事API、画像アップロードは廃止（実体のHTMLも存在しませんでした）
+- 記事の追加は `node tools/new-post.js`、再生成は `node tools/rebuild-posts.js` だけ
+
+`posts.json` の `content` は残してあります。テンプレートや `blog.css` を変えたあとに
+`rebuild-posts.js` で記事を作り直すための元データとして使うためです。
+`tools/new-post.js` は必ず `content` を書き込みます。
+
+`blog/posts/2026-05-16-gyoza.html` はヒーロー画像を含む手書き記事で `content` を持たない例外です。
+`rebuild-posts.js` はこれをスキップするので、内容を変えるときはHTMLを直接編集してください。
