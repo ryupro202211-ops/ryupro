@@ -47,15 +47,28 @@ function generatePostHtml(post, callback) {
 }
 
 // Regenerate all posts on startup
+// NOTE: posts.json に content を持たない記事（手書きHTML／tools/new-post.js 生成分の旧形式）は
+// 再生成すると本文が空になって消えるため、必ずスキップする。
 if (fs.existsSync(DATA_FILE)) {
     try {
         const posts = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+        let regenerated = 0;
+        let skipped = [];
         posts.forEach(post => {
+            const hasContent = typeof post.content === 'string' && post.content.trim().length > 0;
+            if (!hasContent) {
+                skipped.push(post.id);
+                return;
+            }
+            regenerated++;
             generatePostHtml(post, (err) => {
                 if (err) console.error(`Failed to generate HTML for ${post.title}`, err);
             });
         });
-        console.log(`Regenerated HTML for ${posts.length} posts.`);
+        console.log(`Regenerated HTML for ${regenerated} posts.`);
+        if (skipped.length) {
+            console.log(`Skipped (content なし・既存HTMLを保護): ${skipped.join(', ')}`);
+        }
     } catch (e) {
         console.error("Failed to regenerate posts on startup:", e);
     }

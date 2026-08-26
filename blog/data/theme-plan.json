@@ -1,0 +1,767 @@
+{
+  "generated_from": "Notion: 📝 noteブログテーマ統合DB（2026年1月〜7月） https://app.notion.com/p/5c1ca1cd36864d629e1865b7dfdeabc4",
+  "cadence": "毎週水曜 公開（週1本）",
+  "start_date": "2026-08-26",
+  "weeks": [
+    {
+      "week": 1,
+      "date": "2026-08-26",
+      "date_display": "2026.08.26",
+      "status": "published",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】「今のままでいい」と思っていた自分が、なぜ動けたのか",
+      "headline": "「今のままでいい」と思っていた自分が、なぜ動けたのか",
+      "slug": "2026-08-26-why-i-could-change",
+      "source": "2026年1月 No.1",
+      "angle": "転職後に出会った30歳のエンジニアが「よくなりたいとは思っていない」と語った話。かつて同じことを思っていた自分の変化のプロセスを開示する。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 2,
+      "date": "2026-09-02",
+      "date_display": "2026.09.02",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】一緒に走る仲間がいるから、自分も走り続けられる",
+      "headline": "一緒に走る仲間がいるから、自分も走り続けられる",
+      "slug": "2026-09-02-running-with-peers",
+      "source": "2026年1月 No.17",
+      "angle": "一人で頑張るのと、走る仲間がいるのとでは継続率がまるで違う。仲間がいることの本当の価値を実感した話。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 3,
+      "date": "2026-09-09",
+      "date_display": "2026.09.09",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】片道2時間半の通勤をやめる、という選択肢",
+      "headline": "片道2時間半の通勤をやめる、という選択肢",
+      "slug": "2026-09-09-two-and-half-hour-commute",
+      "source": "2026年6月 No.9",
+      "angle": "築地まで2時間半かけて通うSEさんの話と、職住接近を決めたメンバーの話。通勤時間は人生の時間だという住まい選びの視点。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 4,
+      "date": "2026-09-16",
+      "date_display": "2026.09.16",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】丁寧な仕事が、いちばん強いブランドになる",
+      "headline": "丁寧な仕事が、いちばん強いブランドになる",
+      "slug": "2026-09-16-careful-work-is-a-brand",
+      "source": "2026年2月 No.1",
+      "angle": "派手な仕事も地味な日常業務も、丁寧にやることが信頼を積み重ねる。ITエンジニア出身として身につけたプロ意識と重ねて語る。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 5,
+      "date": "2026-09-23",
+      "date_display": "2026.09.23",
+      "status": "planned",
+      "category": "event",
+      "category_label": "イベントの裏側",
+      "service": "イベント企画・運営",
+      "title": "【イベントの裏側】25人が集まったBBQ。「参加者」ではなく「つくり手」を増やす",
+      "headline": "25人が集まったBBQ。「参加者」ではなく「つくり手」を増やす",
+      "slug": "2026-09-23-bbq-25-makers",
+      "source": "2026年6月 No.1",
+      "angle": "6/13のBBQで25人が参加。友人が副幹事に入ることで運営が機能した。人を集めるのではなく、一緒につくる人を増やすという運営論。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 6,
+      "date": "2026-09-30",
+      "date_display": "2026.09.30",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】元ITエンジニアが「人と関わる仕事」に惹かれた理由",
+      "headline": "元ITエンジニアが「人と関わる仕事」に惹かれた理由",
+      "slug": "2026-09-30-engineer-to-people-work",
+      "source": "2026年1月 No.14",
+      "angle": "「お客さんの売上には貢献しているが、世の中に影響を与えている実感がない」というエンジニアの言葉。自分も同じ感覚から次の一歩を選んだ。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 7,
+      "date": "2026-10-07",
+      "date_display": "2026.10.07",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】薄いつながりを広げるより、深い関係を一つずつつくる",
+      "headline": "薄いつながりを広げるより、深い関係を一つずつつくる",
+      "slug": "2026-10-07-deep-over-wide",
+      "source": "2026年2月 No.7",
+      "angle": "初対面で決めず、2回目・3回目と接点を重ねて信頼を積む。「数の人脈」ではなく「深さの人脈」を目指す関係構築論。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 8,
+      "date": "2026-10-14",
+      "date_display": "2026.10.14",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】スキンケアもインナーケアも、「健康寿命」への投資",
+      "headline": "スキンケアもインナーケアも、「健康寿命」への投資",
+      "slug": "2026-10-14-healthspan-investment",
+      "source": "2026年2月 No.4",
+      "angle": "美容は外見だけの話ではない。長く健康に全力で活動できる体をつくるという自己投資論。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 9,
+      "date": "2026-10-21",
+      "date_display": "2026.10.21",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】スピードと正確さ、両方そろって初めて信頼になる",
+      "headline": "スピードと正確さ、両方そろって初めて信頼になる",
+      "slug": "2026-10-21-speed-and-accuracy",
+      "source": "2026年2月 No.14",
+      "angle": "店舗の仕事でもチームづくりでも「いかに早く、かつ正確に」。どちらか片方では信頼につながらないという実践論。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 10,
+      "date": "2026-10-28",
+      "date_display": "2026.10.28",
+      "status": "planned",
+      "category": "event",
+      "category_label": "イベントの裏側",
+      "service": "イベント企画・運営",
+      "title": "【イベントの裏側】過去最高規模になって気づいた、「任せる」ことの大切さ",
+      "headline": "過去最高規模になって気づいた、「任せる」ことの大切さ",
+      "slug": "2026-10-28-learning-to-delegate",
+      "source": "2026年4月 No.1",
+      "angle": "集客戦略と広報戦略を練り直して過去最高規模のイベントに。規模が大きくなるほど自分の手が届かなくなる。役割分担と権限委譲の話。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 11,
+      "date": "2026-11-04",
+      "date_display": "2026.11.04",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】「やりたい仕事」と「任される仕事」のギャップに悩んだ日",
+      "headline": "「やりたい仕事」と「任される仕事」のギャップに悩んだ日",
+      "slug": "2026-11-04-wanted-vs-assigned",
+      "source": "2026年6月 No.8",
+      "angle": "アプリ開発がやりたくて入社したのにインフラと社内SEばかり、というSEさんの相談。自分も同じギャップから独立を選んだ。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 12,
+      "date": "2026-11-11",
+      "date_display": "2026.11.11",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】仲間をつくることは、リスクではなく最大の資産だった",
+      "headline": "仲間をつくることは、リスクではなく最大の資産だった",
+      "slug": "2026-11-11-peers-are-assets",
+      "source": "2026年3月 No.4",
+      "angle": "「仲間をつくると責任やリスクが増える」と感じていた知人へ。最初に仲間づくり・基盤づくりをしたからこそ任せられる相手がいる。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 13,
+      "date": "2026-11-18",
+      "date_display": "2026.11.18",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】メンタルも筋トレと同じ。負荷をかけるから強くなる",
+      "headline": "メンタルも筋トレと同じ。負荷をかけるから強くなる",
+      "slug": "2026-11-18-mental-is-like-training",
+      "source": "2026年4月 No.7",
+      "angle": "メンタルの上下は必ず経験する。だからこそ鍛えられて強くなる。筋トレと精神的成長をリンクさせた視点。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 14,
+      "date": "2026-11-25",
+      "date_display": "2026.11.25",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】結果の原因を特定する。変数を減らして、自分を磨く",
+      "headline": "結果の原因を特定する。変数を減らして、自分を磨く",
+      "slug": "2026-11-25-isolate-the-variables",
+      "source": "2026年4月 No.4",
+      "angle": "服装・場所・話す内容を固定し、変数をなくして原因を特定する。エンジニア的思考を人間関係やビジネスに応用する話。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 15,
+      "date": "2026-12-02",
+      "date_display": "2026.12.02",
+      "status": "planned",
+      "category": "event",
+      "category_label": "イベントの裏側",
+      "service": "イベント企画・運営",
+      "title": "【イベントの裏側】台風の日に駆けつけてくれた人が、本当の財産だった",
+      "headline": "台風の日に駆けつけてくれた人が、本当の財産だった",
+      "slug": "2026-12-02-typhoon-day-friends",
+      "source": "2026年6月 No.2",
+      "angle": "6/27の台風でキャンセルが相次ぐ中、急遽駆けつけてくれた友人。困ったときに助け合える関係をどうつくるか。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 16,
+      "date": "2026-12-09",
+      "date_display": "2026.12.09",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】脱サラを選ぶまでに、実際にやったこと",
+      "headline": "脱サラを選ぶまでに、実際にやったこと",
+      "slug": "2026-12-09-steps-to-independence",
+      "source": "2026年1月 No.9",
+      "angle": "ITエンジニア → フリーランス → 法人設立。脱サラを実現するまでに何を準備したかを、順を追って正直に語る。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 17,
+      "date": "2026-12-16",
+      "date_display": "2026.12.16",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】コミュニケーションは才能じゃない。①リアクション②被せる③褒める",
+      "headline": "コミュニケーションは才能じゃない。①リアクション②被せる③褒める",
+      "slug": "2026-12-16-communication-is-a-skill",
+      "source": "2026年3月 No.3",
+      "angle": "もともと人付き合いが得意でなかったエンジニア気質の自分が、コミュニケーションを「技術」として学んで変わった話。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 18,
+      "date": "2026-12-23",
+      "date_display": "2026.12.23",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】「より長く、より元気に」を設計するという発想",
+      "headline": "「より長く、より元気に」を設計するという発想",
+      "slug": "2026-12-23-design-for-longevity",
+      "source": "2026年2月 No.15",
+      "angle": "年金をもらうまで耐えるのではなく、80歳でも元気に働けることをゴールに設計する。健康とキャリアをセットで考える。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 19,
+      "date": "2026-12-30",
+      "date_display": "2026.12.30",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】完璧主義ではなく、卓越主義で進む",
+      "headline": "完璧主義ではなく、卓越主義で進む",
+      "slug": "2026-12-30-excellence-not-perfection",
+      "source": "2026年6月 No.15",
+      "angle": "完璧を目指すと動けなくなる。一つずつ磨いていく卓越主義という考え方。完璧主義で動けない人へ。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 20,
+      "date": "2027-01-06",
+      "date_display": "2027.01.06",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】新しい環境に入ると、人の基準は自然と上がっていく",
+      "headline": "新しい環境に入ると、人の基準は自然と上がっていく",
+      "slug": "2027-01-06-environment-raises-standards",
+      "source": "2026年6月 No.6",
+      "angle": "新しい職場になり、職住接近も決めて徐々に基準が上がった話。意志の強さだけでなく環境設計で人は変わる。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 21,
+      "date": "2027-01-13",
+      "date_display": "2027.01.13",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】過去のキャリアを否定しないほうが、次の一歩は軽くなる",
+      "headline": "過去のキャリアを否定しないほうが、次の一歩は軽くなる",
+      "slug": "2027-01-13-dont-deny-your-past",
+      "source": "2026年1月 No.16",
+      "angle": "「あの頃の自分は無駄だった」ではなく「あの経験があるから今がある」。過去の肯定がキャリアチェンジを楽にする。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 22,
+      "date": "2027-01-20",
+      "date_display": "2027.01.20",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】友達の友達にも関わる。つながりが広がる仕組み",
+      "headline": "友達の友達にも関わる。つながりが広がる仕組み",
+      "slug": "2027-01-20-friends-of-friends",
+      "source": "2026年6月 No.13",
+      "angle": "仲間の友人にも積極的に関わり、2層3層へ広げる。ネットワークが指数関数的に広がる設計の話。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 23,
+      "date": "2027-01-27",
+      "date_display": "2027.01.27",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】動き出す前に、自分のキャッシュフローを知る",
+      "headline": "動き出す前に、自分のキャッシュフローを知る",
+      "slug": "2027-01-27-know-your-cashflow",
+      "source": "2026年1月 No.6 / No.19",
+      "angle": "稼ぎ始める前に、まず自分のお金の流れを把握する。家計の月次収支を可視化することが選択肢を増やす。※特定商品の推奨や利回りの断定はしない。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 24,
+      "date": "2027-02-03",
+      "date_display": "2027.02.03",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】「成果＝自力×他力×場力」という考え方",
+      "headline": "「成果＝自力×他力×場力」という考え方",
+      "slug": "2027-02-03-self-others-place",
+      "source": "2026年6月 No.17",
+      "angle": "一人で頑張るのではなく、他人の力と場の力を借りる。場をセッティングすることもリーダーの仕事という実践論。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 25,
+      "date": "2027-02-10",
+      "date_display": "2027.02.10",
+      "status": "planned",
+      "category": "event",
+      "category_label": "イベントの裏側",
+      "service": "イベント企画・運営",
+      "title": "【イベントの裏側】「絶対に価値があるから一緒に行こう」と言い切れるか",
+      "headline": "「絶対に価値があるから一緒に行こう」と言い切れるか",
+      "slug": "2027-02-10-say-it-with-conviction",
+      "source": "2026年2月 No.6",
+      "angle": "ニーズを聞くだけでなく、確信をもって価値を伝えることが人を動かす。イベントに人を誘うときのリアルな話。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 26,
+      "date": "2027-02-17",
+      "date_display": "2027.02.17",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】30歳で「このままでいいのか」と向き合った日",
+      "headline": "30歳で「このままでいいのか」と向き合った日",
+      "slug": "2027-02-17-facing-thirty",
+      "source": "2026年1月 No.15",
+      "angle": "30代という節目で多くの人が抱える違和感。それと向き合った先に何が見えたかを等身大で語る。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 27,
+      "date": "2027-02-24",
+      "date_display": "2027.02.24",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】「わかってほしい」から「まず自分が理解する」へ",
+      "headline": "「わかってほしい」から「まず自分が理解する」へ",
+      "slug": "2027-02-24-understand-before-being-understood",
+      "source": "2026年6月 No.16",
+      "angle": "関係がもつれるとき、もっと伝えようとするより、まず相手を理解しようとする。順番を変えるだけで関係が変わる。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 28,
+      "date": "2027-03-03",
+      "date_display": "2027.03.03",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】コンディション管理こそ、最強の自己投資",
+      "headline": "コンディション管理こそ、最強の自己投資",
+      "slug": "2027-03-03-condition-management",
+      "source": "2026年4月 No.6",
+      "angle": "筋トレ・食事・清潔感などのコンディション管理が、仕事でも人間関係でも結果に直結するという話。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 29,
+      "date": "2027-03-10",
+      "date_display": "2027.03.10",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】役割をこなす人と、全体を良くする人の差",
+      "headline": "役割をこなす人と、全体を良くする人の差",
+      "slug": "2027-03-10-beyond-your-role",
+      "source": "2026年6月 No.19",
+      "angle": "与えられた仕事をこなす人と、全体を見て動く人の差。会社員でもフリーランスでも使える仕事術。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 30,
+      "date": "2027-03-17",
+      "date_display": "2027.03.17",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】「こういうのつくって」の一言が、独立の第一歩になる",
+      "headline": "「こういうのつくって」の一言が、独立の第一歩になる",
+      "slug": "2027-03-17-the-first-request",
+      "source": "2026年6月 No.10",
+      "angle": "仲の良い人からアプリ開発を頼まれ、そちらの方が楽しいと感じたSEさんの話。独立は大きな営業ではなく身近な依頼から始まる。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 31,
+      "date": "2027-03-24",
+      "date_display": "2027.03.24",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】みんな、最初からやる気満々で来たわけじゃない",
+      "headline": "みんな、最初からやる気満々で来たわけじゃない",
+      "slug": "2027-03-24-nobody-starts-motivated",
+      "source": "2026年3月 No.13",
+      "angle": "やる気がある人が挑戦するのではなく、やり続けているうちにやる気が生まれる。最初の一歩が踏み出せない人へのエール。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 32,
+      "date": "2027-03-31",
+      "date_display": "2027.03.31",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】小さな習慣が、大きな自分をつくる",
+      "headline": "小さな習慣が、大きな自分をつくる",
+      "slug": "2027-03-31-small-habits-big-change",
+      "source": "2026年3月 No.16",
+      "angle": "電車で本を読む、毎朝振り返りを書く。劇的な変化より、小さな習慣の積み重ねが自分を変えていく。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 33,
+      "date": "2027-04-07",
+      "date_display": "2027.04.07",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】AIの使い方をチームに教えたら、負荷が減った",
+      "headline": "AIの使い方をチームに教えたら、負荷が減った",
+      "slug": "2027-04-07-teaching-ai-to-the-team",
+      "source": "2026年6月 No.5",
+      "angle": "ITエンジニア出身だからできるチーム貢献。「頑張れ」ではなく仕組みとツールでチームを楽にするリーダー論。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 34,
+      "date": "2027-04-14",
+      "date_display": "2027.04.14",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】退職を伝える不安を超えて、一歩踏み出す瞬間",
+      "headline": "退職を伝える不安を超えて、一歩踏み出す瞬間",
+      "slug": "2027-04-14-the-fear-of-resigning",
+      "source": "2026年6月 No.18",
+      "angle": "退職を伝えるというハードルを越えた仲間の話。自分も会社を辞めるとき同じ不安を抱えた。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 35,
+      "date": "2027-04-21",
+      "date_display": "2027.04.21",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】人のストーリーを聞くと、自分の視野が広がる",
+      "headline": "人のストーリーを聞くと、自分の視野が広がる",
+      "slug": "2027-04-21-listening-to-stories",
+      "source": "2026年2月 No.16",
+      "angle": "元看護師から財務整理の仕事へ転じた女性との出会い。初対面の人のストーリーに耳を傾けることの本質的な価値。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 36,
+      "date": "2027-04-28",
+      "date_display": "2027.04.28",
+      "status": "planned",
+      "category": "lifestyle",
+      "category_label": "ライフスタイル",
+      "service": "ライフスタイルプロデュース",
+      "title": "【ライフスタイル】家族への「おはよう」が、人生の景色を変える",
+      "headline": "家族への「おはよう」が、人生の景色を変える",
+      "slug": "2027-04-28-good-morning-to-family",
+      "source": "2026年1月 No.20",
+      "angle": "毎日家族におはようを送り続けたら関係が変わったというエピソード。誰でも今日から真似できる小さな習慣。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 37,
+      "date": "2027-05-05",
+      "date_display": "2027.05.05",
+      "status": "planned",
+      "category": "work",
+      "category_label": "仕事論",
+      "service": "会社・代表の姿勢",
+      "title": "【仕事論】WEBで発信し始めたら、つながりの質が変わった",
+      "headline": "WEBで発信し始めたら、つながりの質が変わった",
+      "slug": "2027-05-05-publishing-on-the-web",
+      "source": "2026年3月 No.19",
+      "angle": "イベントサイトと自社HPを更新し、SNSも整えたことでWEB経由のつながりが増えた実体験。発信を迷っている人へ。",
+      "cta": {
+        "label": "ryuproに問い合わせる",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    },
+    {
+      "week": 38,
+      "date": "2027-05-12",
+      "date_display": "2027.05.12",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】行動力がある人ほど、方向性を間違えやすい",
+      "headline": "行動力がある人ほど、方向性を間違えやすい",
+      "slug": "2027-05-12-direction-over-speed",
+      "source": "2026年3月 No.15",
+      "angle": "「まずやってみよう」で動いた結果が出ないという経験。行動力は最高の武器、あとは方向を整えるだけ。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 39,
+      "date": "2027-05-19",
+      "date_display": "2027.05.19",
+      "status": "planned",
+      "category": "community",
+      "category_label": "コミュニティコラム",
+      "service": "コミュニティデザイン",
+      "title": "【コミュニティコラム】学びの場が、いちばん健全な人脈をつくる",
+      "headline": "学びの場が、いちばん健全な人脈をつくる",
+      "slug": "2027-05-19-learning-creates-network",
+      "source": "2026年4月 No.5",
+      "angle": "AIの勉強会で3人と知り合った話。勉強会やセミナーが単なる学びを超えて人脈形成の場になる。",
+      "cta": {
+        "label": "楽SAKEターミナルを見る",
+        "url": "https://ryupro202211-ops.github.io/rakusake/"
+      },
+      "note_published": true
+    },
+    {
+      "week": 40,
+      "date": "2027-05-26",
+      "date_display": "2027.05.26",
+      "status": "planned",
+      "category": "career",
+      "category_label": "キャリアコラム",
+      "service": "キャリアデザインサポート",
+      "title": "【キャリアコラム】夢を「あいまいなまま」にしておくと、人は動けなくなる",
+      "headline": "夢を「あいまいなまま」にしておくと、人は動けなくなる",
+      "slug": "2027-05-26-vague-dreams-stall-you",
+      "source": "2026年3月 No.18",
+      "angle": "「変わりたい」のに動けない人の多くは、ゴールがあいまいなだけ。夢を言語化・具体化することの力。",
+      "cta": {
+        "label": "キャリアデザインサポートに相談する",
+        "url": "/ryupro/contact/"
+      },
+      "note_published": false
+    }
+  ]
+}

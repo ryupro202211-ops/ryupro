@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【キャリアコラム】「今のままでいい」と思っていた自分が、なぜ動けたのか | ryupro ブログ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --color-bg: #111110;
+      --color-bg-soft: #161514;
+      --color-bg-card: #1a1918;
+      --color-text: #a99f92;
+      --color-text-strong: #e8e2d8;
+      --color-text-dim: #6b655c;
+      --color-gold: #dbc5a4;
+      --color-gold-dim: rgba(219,197,164,0.4);
+      --color-border: #2a2825;
+      --font-ja: 'Noto Sans JP', sans-serif;
+      --font-serif: 'Shippori Mincho', serif;
+      --font-en: 'Outfit', sans-serif;
+      --max-width: 1080px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-ja);
+      font-weight: 300;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 2;
+      letter-spacing: 0.04em;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--color-gold); color: #111110; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(17,17,16,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(42,40,37,0.6);
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .nav-logo {
+      font-family: var(--font-en);
+      font-weight: 400;
+      font-size: 1.25rem;
+      letter-spacing: 0.28em;
+      color: var(--color-gold);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color 0.4s;
+    }
+    .nav-back:hover { color: var(--color-gold); }
+    .article-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 9rem 2rem 5rem;
+    }
+    .article-date {
+      font-family: var(--font-en);
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--color-gold);
+      margin-bottom: 1.25rem;
+    }
+    .article-title {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      line-height: 2;
+      letter-spacing: 0.08em;
+      color: var(--color-gold);
+      margin-bottom: 3rem;
+    }
+    .article-hero-img {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      border: 1px solid var(--color-border);
+    }
+    .article-hero-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .article-body {
+      font-size: 0.92rem;
+      line-height: 2.4;
+      color: var(--color-text);
+    }
+    .article-body p { margin-bottom: 1.75rem; }
+    .article-body strong { color: var(--color-gold); font-weight: 500; }
+    .article-body h2 {
+      font-family: var(--font-serif);
+      color: var(--color-text-strong);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin: 3.5rem 0 1.5rem;
+      padding-left: 1.1rem;
+      border-left: 1px solid var(--color-gold);
+      line-height: 1.9;
+    }
+    .article-body blockquote {
+      border-left: 1px solid var(--color-gold-dim);
+      padding: 0.75rem 1.5rem;
+      margin: 1.25rem 0;
+      background: var(--color-bg-soft);
+      color: var(--color-text-strong);
+      font-style: normal;
+      font-size: 0.9rem;
+    }
+    .article-body a {
+      color: var(--color-gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-gold-dim);
+      transition: border-color 0.4s;
+    }
+    .article-body a:hover { border-color: var(--color-gold); }
+    .article-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 3.5rem;
+      padding: 1rem 2.75rem;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      color: var(--color-gold);
+      text-decoration: none;
+      border: 1px solid var(--color-gold-dim);
+      transition: background 0.5s var(--ease), color 0.5s var(--ease), border-color 0.5s var(--ease);
+    }
+    .article-back:hover {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: #111110;
+    }
+    footer {
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+    }
+    .footer-logo {
+      font-family: var(--font-en);
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0.32em;
+      margin-bottom: 1rem;
+      color: var(--color-gold);
+    }
+    .footer-copy {
+      font-family: var(--font-en);
+      font-weight: 300;
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/ryupro/" class="nav-logo">ryupro</a>
+    <a href="/ryupro/blog/" class="nav-back">&larr; ブログ一覧に戻る</a>
+  </div>
+</nav>
+<main class="article-wrapper">
+  <div class="article-date">2026.08.26</div>
+  <h1 class="article-title">【キャリアコラム】「今のままでいい」と思っていた自分が、なぜ動けたのか</h1>
+  <div class="article-body"><p>先日、30代のエンジニアの方とお話しする機会がありました。技術力もあって、職場での評価も悪くない。それでも将来の話になったとき、その方はこう言ったんです。</p>
+
+<blockquote>特別よくなりたいとは思っていなくて。今のままの人生が続けばいい、という感じです。</blockquote>
+
+<p>否定するつもりは、まったくありませんでした。むしろ、正直な人だなと思いました。<strong>10年前の私が、同じことを言っていたからです。</strong></p>
+
+<h2>「不満はない」が、いちばん動けない状態だった</h2>
+
+<p>私はITインフラエンジニアとして、大手企業のシステム基盤を支える仕事を15年やってきました。やりがいはありましたし、待遇に大きな不満があったわけでもありません。</p>
+
+<p>ただ、25歳のときにふと思ったんです。「この先10年、20年。同じ景色を見ていていいのか」と。</p>
+
+<p>いま振り返ると、あのころの私がいちばん動きにくい状態にいたのだと思います。つらければ逃げ出せる。困っていれば助けを求められる。でも「不満はない」という状態には、そもそも動く理由が存在しません。だから多くの人は、変わりたいと思う前の段階で止まっています。</p>
+
+<h2>変わったのは、意志ではなく環境だった</h2>
+
+<p>結果として私は会社を離れ、フリーランスを経て、2022年に合同会社ryuproを設立しました。ただ、これは「強い意志で人生を変えた」という話ではありません。</p>
+
+<p>転機になったのは、経営者の方たちと一緒に学ぶ場に飛び込んだことでした。そこには、事業を自分でつくっている人がいて、チームを育てている人がいて、私が技術の世界だけを見ていたときには知らなかった選択肢が並んでいました。</p>
+
+<p><strong>変わりたいから環境を変えたのではなく、環境が変わったから「変わりたい」が生まれた。</strong>順番は完全に逆でした。目標を掲げて自分を奮い立たせたわけではなく、単に、見える景色が変わっただけなんです。</p>
+
+<h2>だから、説得はしないと決めています</h2>
+
+<p>冒頭のエンジニアの方に、私は「変わったほうがいい」とは言いませんでした。言ったところで、10年前の私には届かなかったはずだからです。</p>
+
+<p>代わりにお伝えしたのは、また会いましょう、ということだけでした。ryuproがイベントやコミュニティという形で場をつくり続けているのは、たぶんこれが理由です。人を説得することはできませんが、景色が変わる場所に立ってもらうことならできる。そのあと何を選ぶかは、その人が決めればいい。</p>
+
+<h2>いま「不満はない」あなたへ</h2>
+
+<p>もし今、大きな不満はないけれど何となく引っかかっている感覚があるなら、無理に答えを出さなくていいと思います。転職も独立も、決めるのはずっと先で構いません。</p>
+
+<p>ただ一つだけ、いつもと違う場所に一度だけ行ってみる、というのは試す価値があります。私の場合は、それが全部の始まりでした。</p>
+
+<p>ryuproでは、キャリアの棚卸しから転職・フリーランスへの転身まで、一人ひとりに合った次の一歩をご相談いただけます。まだ何も決まっていない段階でも大丈夫です。<a href="/ryupro/contact/">お問い合わせはこちらから</a>、お気軽にどうぞ。</p></div>
+  <a href="/ryupro/blog/" class="article-back">&larr; ブログ一覧に戻る</a>
+</main>
+<footer>
+  <div class="footer-logo">ryupro</div>
+  <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
+</footer>
+</body>
+</html>
