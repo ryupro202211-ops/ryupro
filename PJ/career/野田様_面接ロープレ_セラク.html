@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面接ロープレ資料 | 野田様 × セラク【経験者枠】(一次面接)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+    background: linear-gradient(180deg, #FFF5F7 0%, #F4F9FC 40%, #EEF3F8 100%);
+    color: #2c3e50;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #E8B4C8 0%, #B4C8E8 100%);
+    color: white;
+    padding: 32px 28px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(180, 200, 232, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🌸";
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 60px;
+    opacity: 0.3;
+  }
+  .hero .kicker { font-size: 12px; opacity: 0.9; margin-bottom: 6px; letter-spacing: 0.1em; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .hero .info {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .hero .info div { padding: 3px 0; }
+  .hero .info strong { display: inline-block; min-width: 65px; opacity: 0.9; font-weight: 500; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 18px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed #F4C6D5;
+  }
+  .section-header .icon { font-size: 24px; }
+  .section-header h2 {
+    font-size: 18px;
+    color: #4A6FA5;
+    font-weight: 700;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-item .time {
+    color: #E67E22;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .timeline-item .content { font-size: 13px; }
+  .timeline-item .content strong { color: #2c3e50; font-size: 14px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 13px;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: #4A6FA5;
+    font-size: 20px;
+  }
+  .checklist li strong { color: #2c3e50; }
+  .checklist li .note { font-size: 11px; color: #7f8c8d; display: block; margin-top: 2px; }
+
+  /* Q&A */
+  .qa {
+    margin-bottom: 22px;
+    padding: 18px;
+    background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%);
+    border-radius: 12px;
+    border-left: 4px solid #F4C6D5;
+  }
+  .qa-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A6FA5;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .qa-q .qmark {
+    background: #4A6FA5;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    font-size: 13px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 8px;
+    color: #444;
+  }
+  .qa-a strong { color: #2c3e50; }
+  .qa-a em {
+    background: #FFF3E0;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 600;
+    color: #B7480B;
+  }
+  .qa-tip {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid #F4C6D5;
+  }
+
+  /* NG list */
+  .ng-list {
+    background: #FFEBEE;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #EF5350;
+  }
+  .ng-list h3 { font-size: 14px; color: #C62828; margin-bottom: 10px; }
+  .ng-list ul { list-style: none; }
+  .ng-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .ng-list li::before {
+    content: "❌";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Good list */
+  .good-list {
+    background: #F0FFF4;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #48BB78;
+  }
+  .good-list h3 { font-size: 14px; color: #276749; margin-bottom: 10px; }
+  .good-list ul { list-style: none; }
+  .good-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .good-list li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Callout */
+  .callout {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFF9F0 100%);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #F39C12;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #555;
+  }
+  .callout strong { color: #B7480B; }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #95a5a6;
+    font-size: 11px;
+  }
+
+  /* Reverse Q */
+  .reverse-q {
+    background: #EEF3F8;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border-left: 4px solid #4A6FA5;
+  }
+  .reverse-q strong { color: #4A6FA5; }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section, .hero { break-inside: avoid; box-shadow: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    .hero { padding: 24px 20px; }
+    .section { padding: 20px; }
+    .timeline-item { grid-template-columns: 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="kicker">📝 面接ロープレ資料【セラク 版】🎯 一次面接(WEB)</div>
+  <h1>株式会社セラク【経験者枠】 一次面接 対策</h1>
+  <div style="font-size:12px;opacity:0.95;margin-top:6px">書類選考通過、そして「東京配属」でのご指名、本当におめでとうございます!経験者枠での評価を、そのまま面接でも伝えきりましょう🌸</div>
+  <div class="info">
+    <div><strong>📅 日時</strong><em>2026-09-08 (火) 11:00〜</em>(約60分)</div>
+    <div><strong>💻 形式</strong><em>WEB面接</em>(harutaka / ハルタカ)<span style="font-size:11px;opacity:0.9"> ※PC必須・当日は録画されます</span></div>
+    <div><strong>🔗 接続</strong><a href="https://seraku-career.harutaka.jp/live_interview/24bd426ae832" target="_blank" style="color:white;text-decoration:underline;word-break:break-all">面接ルームを開く(事前テスト可)</a></div>
+    <div><strong>☎️ 緊急時</strong><em>06-7777-2519</em>(セラク採用担当)<span style="font-size:11px;opacity:0.9"> ※接続不具合・遅刻の際は直接ご連絡を</span></div>
+    <div><strong>🏢 職種</strong>クラウド・DXスペシャリスト / PM・PL候補(インフラエンジニア)</div>
+    <div><strong>📍 配属</strong><em>東京</em>(企業様よりご指名)本社:新宿区西新宿7-5-25 西新宿プライムスクエア6F</div>
+    <div><strong>👔 服装</strong><em>スーツ推奨</em>(ご都合により難しい場合はカジュアルでも可)</div>
+    <div><strong>🧪 事前課題</strong><em>適性検査2種</em>+<em>健康状態等申告書</em> … <strong>9/7(月) 23:59まで</strong>に要対応</div>
+  </div>
+</div>
+
+<!-- 最重要:条件面の確認 -->
+<div class="section" style="background:linear-gradient(135deg,#FFEBEE 0%,#FFF5F7 100%);border:2px solid #EF5350">
+  <div class="section-header" style="border-bottom-color:#EF5350">
+    <span class="icon">🚨</span>
+    <h2>【CAより】この面接で必ず確認したい3つのこと</h2>
+  </div>
+  <p style="font-size:13px;margin-bottom:14px">求人票を最後まで精読したところ、<strong>野田様のご希望条件と要確認になる項目が3つ</strong>ありました。ここは面接の場で必ずクリアにしておきたいポイントです。<br><span style="font-size:12px;color:#7f8c8d">※ネガティブに聞くのではなく「長く働きたいので教えてください」という前向きな確認として伺うのがコツです。聞き方は後ろの逆質問パートに用意しました。</span></p>
+
+  <div class="ng-list" style="background:#FFF3E0;border-left-color:#E67E22">
+    <h3 style="color:#B7480B">⚠️ 求人票に書かれていたこと</h3>
+    <ul style="list-style:none">
+      <li style="padding-left:24px">❗ <strong>夜間勤務:「状況に応じてある」</strong> … 夜勤NGは野田様の最優先条件です</li>
+      <li style="padding-left:24px">❗ <strong>勤務スタイル:「客先常駐勤務」</strong> … 配属先によって働き方が変わります</li>
+      <li style="padding-left:24px">❗ <strong>転勤の可能性:「可能性はあるが、最大限考慮」</strong> … 東京配属のご指名は出ていますが、将来の異動範囲は要確認です</li>
+    </ul>
+  </div>
+
+  <div class="callout" style="border-left-color:#48BB78;background:linear-gradient(135deg,#F0FFF4 0%,#F4F9FC 100%)">
+    <strong>💡 ただ、落ち着いて大丈夫です。</strong><br>
+    同じ求人票の別の欄には<strong>「【転勤なし／案件によってリモートあり】東京、神奈川、千葉、大阪、名古屋、福岡」</strong>とも書かれており、記載が二重になっています。実態は<strong>「参画する案件による」</strong>と考えるのが自然です。<br>
+    だからこそ、<strong>内定が出てから慌てるのではなく、面接の場で先に確認しておく</strong>のが最善です。<br>
+    企業様からは<em>「東京配属で」</em>とご指名をいただいていますので、<strong>この確認をしても評価が下がることはありません。</strong>むしろ「長期就業を真剣に考えている方だ」という良い印象につながります。
+  </div>
+</div>
+
+<!-- 企業情報 -->
+<div class="section" style="background:linear-gradient(135deg,#E8F1F9 0%,#F4F9FC 100%);border-left:6px solid #3498DB">
+  <div class="section-header" style="border-bottom-color:#3498DB">
+    <span class="icon">🏢</span>
+    <h2>株式会社セラク 情報整理(ここだけは押さえる)</h2>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:12px 0 8px">📊 会社の基本データ</h3>
+  <div class="timeline-item"><div class="time">設立</div><div class="content">1987年(創業39年)/ <strong>東証スタンダード上場</strong></div></div>
+  <div class="timeline-item"><div class="time">規模</div><div class="content">従業員 1,001〜5,000名(自社エンジニア3,000名超)/ 平均年齢 30歳 / 男女比 3:7</div></div>
+  <div class="timeline-item"><div class="time">本社</div><div class="content">東京都新宿区西新宿7-5-25 西新宿プライムスクエア6F<br><span style="font-size:11px;color:#7f8c8d">※東京第二本社(中央区新川)、横浜・大阪・名古屋・福岡に支社</span></div></div>
+  <div class="timeline-item"><div class="time">理念</div><div class="content">「IT技術教育によりビジネスを創造し、社会の発展に貢献する」<br><span style="font-size:11px;color:#7f8c8d">社名の由来は「静楽(せらく)」— 静かに、しかし力強く流れる水。「一滴の水が、やがて社会を動かす大きな流れになる」という考え方です</span></div></div>
+  <div class="timeline-item"><div class="time">成長</div><div class="content">年次140%成長 / AND Think・マインドを連結子会社化、NTTデータ イントラマートと協業</div></div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:20px 0 8px">🧩 3つの事業の柱(口に出して言えるようにしておきましょう)</h3>
+  <div class="reverse-q">
+    <strong>① DX事業</strong> — Salesforce・ERPパッケージ「COMPANY®」の導入/定着/活用支援、生成AIサービス「NewtonX」、サイバーセキュリティ、RPA。<br>
+    <span style="font-size:12px;color:#7f8c8d">「システムは入れたけれど使い方がわからない」という企業に寄り添う、人に近いIT。</span>
+  </div>
+  <div class="reverse-q">
+    <strong>② SI事業 ← 野田様の配属領域</strong> — <strong>クラウド移行・ネットワーク/サーバーの設計・構築・運用</strong>、Webソリューション。<br>
+    <span style="font-size:12px;color:#7f8c8d">現職のITインフラ運用のご経験が、そのまま接続する事業です。</span>
+  </div>
+  <div class="reverse-q">
+    <strong>③ みどりクラウド事業(農業IT)</strong> — ビニールハウスにセンサーを設置し、圃場モニタリング・環境制御・出荷支援をIoT化。<br>
+    <span style="font-size:12px;color:#7f8c8d">セラク独自のオリジナル事業。面接でひとこと触れると「よく調べてきているな」と確実に伝わります。</span>
+  </div>
+
+  <div class="callout">
+    <strong>🎓 セラク最大の特徴は「教育型IT人材創出」というビジネスモデルです。</strong><br>
+    ・<strong>資格報奨金制度</strong>:対象は<strong>約300〜360種類</strong>(Salesforce、AWS、Azure、ServiceNow、PMP、高度情報処理など)。合格時に<strong>最大数十万円を一括支給</strong>、受験料の補助も別途あります。<br>
+    ・社風は<strong>「わからない人の気持ちがわかる先輩ばかり」「自分で調べろ、ではなく一緒にやってみよう」</strong>。資格を取ると周囲が一緒に喜ぶ空気がある会社です。<br>
+    → <strong>入社3ヶ月でCCNA、6ヶ月でLinuC Level1を独学で取り切った野田様は、この会社の価値観のど真ん中にいます。</strong>ここは必ず、はっきり伝えてください。
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:20px 0 8px">💰 条件面(交渉の前提として頭に入れておく)</h3>
+  <ul class="checklist" style="list-style:none">
+    <li><strong>年収 350〜600万円</strong>(月給25万〜42万円)<span class="note">前職給与保証・加給優遇あり。現年収300万円からは確実に上がる設計です</span></li>
+    <li><strong>賞与 年2回(6月・12月)+ 昇給 年1回</strong></li>
+    <li><strong>勤務時間 09:00〜18:00</strong><span class="note">現職とまったく同じ時間帯です</span></li>
+    <li><strong>残業 月平均10.6時間</strong><span class="note">20時間を超えた分から残業手当が支給されます</span></li>
+    <li><strong>完全週休2日制(土日祝)・年間休日120日</strong><span class="note">産休育休は取得率100%・復帰率96%。5日以上の連続休暇も取得可</span></li>
+    <li><strong>資格報奨金</strong><span class="note">10万円以上支給される資格もあり。受験料補助も別途</span></li>
+    <li><strong>扶養手当</strong>(配偶者・子 各月1万円)、社員住宅制度、従業員持株会、職場つみたてNISA、退職金(3年以上)</li>
+    <li><strong>交通費支給</strong>(月3万円まで)、案件によりリモート・ハイブリッドワークあり</li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:20px 0 8px">✅ 応募必須要件(野田様はすべて満たしています)</h3>
+  <div class="good-list">
+    <ul>
+      <li>正社員としてのITエンジニア経験1年以上 → <strong>2025年6月入社・約1年3ヶ月 ✔</strong></li>
+      <li>高卒以上 → <strong>愛知工業大学 情報科学部卒 ✔</strong></li>
+      <li>正社員としての就業経験が1年以上 → <strong>✔</strong></li>
+      <li>就業経験社数2社まで → <strong>現職が1社目 ✔</strong></li>
+    </ul>
+  </div>
+  <div class="callout">
+    <strong>📌 企業様が公表している「内定の可能性が高い人」</strong><br>
+    ★ 新しい技術に興味がある好奇心旺盛な方<br>
+    ★ ITに関する幅広い知識を習得したい方<br>
+    → <strong>この2行が、そのまま評価軸です。</strong>「資格を自主的に取り続けている」「インフラだけで終わらず、クラウド・DXまで広げたい」——この2点を、面接中に必ず言い切ってください。
+  </div>
+</div>
+
+<!-- なぜ指名されたか -->
+<div class="section" style="background:linear-gradient(135deg,#E8F5E9 0%,#F1F8E9 100%);border:2px solid #48BB78">
+  <div class="section-header" style="border-bottom-color:#48BB78">
+    <span class="icon">🎉</span>
+    <h2>「経験者枠へどうぞ」と言われた、その意味</h2>
+  </div>
+  <p style="font-size:13px;margin-bottom:12px">今回の選考は、少し特別な経緯をたどっています。ここを理解しておくと、面接に臨む姿勢が変わります。</p>
+  <div class="timeline-item"><div class="time">8/21</div><div class="content">当初は<strong>未経験・第二新卒枠</strong>(年収下限282万円)で応募</div></div>
+  <div class="timeline-item"><div class="time">8/22</div><div class="content"><strong>企業様から「野田様は経験者枠の要件を満たしています」とご連絡</strong>。条件のより良い枠へのご案内をいただき切り替え(年収下限 282万 → 350万)</div></div>
+  <div class="timeline-item"><div class="time">8/24</div><div class="content"><strong>書類選考通過。しかも「東京配属で」というご指名つき</strong>で一次面接のご案内</div></div>
+  <div class="callout" style="border-left-color:#48BB78;background:linear-gradient(135deg,#F0FFF4 0%,#F4F9FC 100%)">
+    <strong>これは「書類を見て、わざわざ枠を上げてくれた」ということです。</strong><br>
+    企業様はすでに野田様に対して、<em>「未経験扱いする人ではない」</em>という評価をお持ちです。<br>
+    ですので面接では、<strong>遠慮して「まだ1年しか経験がなくて…」と言わないこと。</strong>これが今回いちばん大切なマインドセットです。<br>
+    <strong>1年3ヶ月で、CCNAとLinuC Level1を2つとも取り切った。</strong>——同世代でこれができる方は、そう多くありません。堂々と話してください。
+  </div>
+</div>
+
+<!-- 面接の流れ -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">⏱</span>
+    <h2>60分のWEB面接の流れ(想定)</h2>
+  </div>
+  <div class="timeline-item"><div class="time">0〜5分</div><div class="content"><strong>接続確認・アイスブレイク</strong><br>「本日はよろしくお願いいたします」。音声が聞こえるかの確認から入ります。<span style="font-size:11px;color:#7f8c8d">→ 最初の一声を明るく。ここで印象の6割が決まります</span></div></div>
+  <div class="timeline-item"><div class="time">5〜10分</div><div class="content"><strong>会社紹介・事業部紹介</strong><br>企業様から事業部の紹介資料をいただいています。<span style="font-size:11px;color:#7f8c8d">→ 事前にお目通しを。説明中は必ずうなずく・メモを取る姿勢を見せる</span></div></div>
+  <div class="timeline-item"><div class="time">10〜20分</div><div class="content"><strong>自己紹介・職務経歴</strong><br>2〜3分で。現職の業務を「誰に・何を・どうやって」の順で。</div></div>
+  <div class="timeline-item"><div class="time">20〜40分</div><div class="content"><strong>深掘り質問(ここが本番)</strong><br>転職理由 → 志望動機 → 資格取得の背景 → 将来像 → 常駐への考え方</div></div>
+  <div class="timeline-item"><div class="time">40〜50分</div><div class="content"><strong>条件面のすり合わせ</strong><br>希望年収・入社可能時期・勤務地・他社の選考状況</div></div>
+  <div class="timeline-item"><div class="time">50〜60分</div><div class="content"><strong>逆質問・今後のご案内</strong><br>ここで例の3つの確認をします。次の選考は<strong>対面面接(1回)</strong>です。</div></div>
+
+  <div class="callout">
+    セラク様の選考フローは <strong>書類選考 → Web面接(1回)/適性検査 → 対面面接(1回) → 内定</strong>。<br>
+    この一次面接を通過すると、次は<strong>対面面接(1回)</strong>で内定というところまで来ています。
+  </div>
+</div>
+
+<!-- 適性検査 -->
+<div class="section" style="background:linear-gradient(135deg,#FFF9E7 0%,#FFFDF5 100%);border:2px solid #F1C40F">
+  <div class="section-header" style="border-bottom-color:#F1C40F">
+    <span class="icon">🧪</span>
+    <h2>適性検査(9/7 月 23:59まで・面接より先にこちらを)</h2>
+  </div>
+
+  <p style="font-size:13px;margin-bottom:14px">面接前日までに<strong>必ず2種類とも</strong>受検が必要です。合計<strong>1時間〜1時間半</strong>かかります。<br>
+  <span style="font-size:12px;color:#7f8c8d">※期限までに受検できない場合、面接後の合否連絡にお時間がかかるとのことです</span></p>
+
+  <div class="ng-list" style="background:#FFEBEE;border-left-color:#EF5350">
+    <h3>⚠️ 氏名の入力を1文字でも間違えると、結果が照合されません</h3>
+    <ul style="list-style:none">
+      <li style="padding-left:24px">❗ <strong>受検ID:</strong> <code style="background:#fff;padding:2px 8px;border-radius:4px;font-family:monospace;font-weight:700">seraku</code></li>
+      <li style="padding-left:24px">❗ <strong>氏名:</strong> <code style="background:#fff;padding:2px 8px;border-radius:4px;font-family:monospace;font-weight:700">☆野田麻菜美</code></li>
+    </ul>
+    <div style="font-size:12px;color:#555;margin-top:10px;padding-left:24px">
+      ・先頭の <strong>☆ は全角</strong>(例:☆セラク太郎)<br>
+      ・<strong>姓と名の間にスペースを入れない</strong><br>
+      ・フルネームで正確に<br>
+      <strong style="color:#C62828">これを誤ると企業様側で受検結果を確認できず、選考結果のご連絡ができません。</strong>入力後、送信前に一度見直してください。
+    </div>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:20px 0 8px">検査1:個人特性分析(性格診断)</h3>
+  <div class="callout" style="border-left-color:#48BB78;background:linear-gradient(135deg,#F0FFF4 0%,#F4F9FC 100%)">
+    <strong>「最初に浮かんだ答え」を選んでください。これが唯一の正解です。</strong><br>
+    長く考えすぎると<strong>回答の信頼係数値が下がり、再受検になる可能性がある</strong>と企業様から明示されています。<br>
+    よく見せようとして質問ごとに答えを調整すると、矛盾が検出されます。<strong>正直に、テンポよく。</strong>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:20px 0 8px">検査2:能力検査(言語・論理・数理)</h3>
+  <ul class="checklist">
+    <li><strong>中高レベルの基礎学力</strong>が問われます<span class="note">特別な対策は不要です。落ち着いて解けば大丈夫です</span></li>
+    <li><strong>メモ用紙・筆記用具・電卓を必ず手元に</strong><span class="note">計算問題があります。開始してから探すと時間を失います</span></li>
+    <li><strong>わからない問題は潔く飛ばす</strong><span class="note">時間配分がすべてです。1問に固執しないこと</span></li>
+  </ul>
+
+  <div class="ng-list" style="margin-top:16px">
+    <h3>受検中にやってはいけない操作(検査が続行できなくなります)</h3>
+    <ul>
+      <li>ブラウザの「×(閉じる)」「戻る」ボタンを押す</li>
+      <li>キーボードの <strong>BackSpace キー</strong>を押す<span style="font-size:11px;color:#7f8c8d"> ← 入力欄以外で押すと「戻る」として動作します。要注意</span></li>
+      <li>途中で中断する<span style="font-size:11px;color:#7f8c8d"> ← 開始したら最後まで一気に</span></li>
+      <li>スマホ・タブレットで受検する<span style="font-size:11px;color:#7f8c8d"> ← 画面が正しく表示されません。<strong>必ずPCで</strong></span></li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <strong>📅 いつやるか</strong><br>
+    9/3(木)は旅人様の面接、9/4(金)はベストサポート様の最終面接があります。<br>
+    <strong>現実的には 9/5(土)・9/6(日) が受検の窓</strong>です。1時間半まとめて取れるタイミングで、
+    <strong>PC・安定した通信・電卓・メモ用紙</strong>を用意してから始めてください。<br>
+    <span style="font-size:12px;color:#7f8c8d">※あわせて「健康状態等申告書/個人情報同意書」(所要1分)の提出もお願いします。専用URLはCAよりLINEでお送りします。</span>
+  </div>
+</div>
+
+<!-- 想定質問 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">💬</span>
+    <h2>想定質問 &amp; 回答方針</h2>
+  </div>
+  <p style="font-size:12px;color:#7f8c8d;margin-bottom:18px">丸暗記は不要です。<strong>太字の骨組みだけ覚えて、あとはご自身の言葉で。</strong><em>ハイライト部分</em>は特に入れてほしいキーワードです。</p>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q1</span>まずは自己紹介と、これまでのご経歴をお願いします。</div>
+    <div class="qa-a">
+      <strong>【2〜3分・時系列でシンプルに】</strong><br><br>
+      「野田麻菜美と申します。本日はよろしくお願いいたします。<br>
+      愛知工業大学の情報科学部を卒業し、2025年6月にエンライズソリューション株式会社へ入社、現在まで約1年3ヶ月、<em>ITインフラエンジニア</em>として勤務しております。<br>
+      業務は主に<em>(サーバー・ネットワークの運用保守/監視/障害一次対応など、実際の担当業務)</em>を担当しております。<br>
+      入社後は業務と並行して資格の勉強を続け、<em>入社3ヶ月でCCNA、6ヶ月でLinuC Level1</em>を取得いたしました。<br>
+      現在は、インフラの運用にとどまらず<em>クラウドやDXの領域まで幅を広げていきたい</em>と考え、転職活動をしております。本日はよろしくお願いいたします。」
+    </div>
+    <div class="qa-tip">💡 最後の1文で「志望動機の入り口」まで置いておくと、話が自然につながります。数字(1年3ヶ月・3ヶ月・6ヶ月)は必ず入れてください。具体的な数字が信頼を作ります。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q2</span>現在のお仕事の内容を、もう少し具体的に教えてください。</div>
+    <div class="qa-a">
+      <strong>【「誰に・何を・どうやって」+ 規模感】</strong><br><br>
+      ・<em>どんなお客様の、どんなシステムか</em>(業種・規模がわかる範囲で)<br>
+      ・<em>チームの人数と、その中でのご自身の役割</em><br>
+      ・<em>使っている技術・ツール</em>(監視ツール、OS、機器メーカーなど言える範囲で)<br>
+      ・<em>1日の流れ</em>(始業〜終業でどう動いているか)<br><br>
+      <strong>特に「PM・PL候補」の枠なので、ここを1つ足せると強いです:</strong><br>
+      「<em>手順書の作成や、後から入った方への説明</em>も担当しています」<br>
+      「<em>障害時にどこへエスカレーションするかの判断</em>も任せていただいています」
+    </div>
+    <div class="qa-tip">⚠️ NDAに触れる具体的な顧客名は出さなくて大丈夫です。「大手通信企業様のシステム」といった粒度で構いません。<br>💡 面接官はここで「本当に1年やってきたか」を見ています。専門用語を1〜2個は自然に混ぜてください。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3</span>転職を考えられた理由を教えてください。</div>
+    <div class="qa-a">
+      <strong>【現職の不満ではなく「やりたいことが増えた」で組み立てる】</strong><br><br>
+      「現職では約1年、ITインフラの運用を経験させていただき、基礎的な部分は身についてきた実感があります。<br>
+      ただ、業務の中心が<em>すでに動いているものを維持する運用</em>であり、資格の勉強を進めるうちに、<em>設計や構築、クラウドへの移行といった『作る側』の仕事にも携わりたい</em>という気持ちが強くなりました。<br>
+      現職でその機会を得るには時間がかかりそうだと感じたため、<em>より早い段階から幅広い技術に挑戦できる環境</em>を求めて、転職を決意いたしました。」
+    </div>
+    <div class="qa-tip">🚫 「残業が」「給与が」「人間関係が」は絶対に出さない。<br>✅ 「現職に感謝している」というトーンを必ず一度は入れる。1年での転職なので、ここで誠実さが出ると評価が変わります。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4</span>数ある会社の中で、なぜセラクなのですか?<span style="color:#C62828">(★最重要)</span></div>
+    <div class="qa-a">
+      <strong>【3階建てで話す:①教育文化 ②事業の広さ ③自分との接続】</strong><br><br>
+      「理由は3つあります。<br><br>
+      1つ目は、<em>『IT技術教育によりビジネスを創造する』という理念そのものが、自分の働き方と一致している</em>ことです。私は入社後、業務と並行して独学でCCNAとLinuCを取得してきました。御社は約300種類の資格が報奨金の対象で、<em>学び続けることが正当に評価される仕組み</em>があります。これは、自分が続けてきたことをそのまま伸ばせる環境だと感じました。<br><br>
+      2つ目は、<em>事業領域の広さ</em>です。SI事業でインフラ・クラウドの土台を作りながら、DX事業ではSalesforceやCOMPANY®の導入支援、さらに<em>みどりクラウドという農業IoTの自社サービス</em>まで手がけていらっしゃいます。<em>インフラの経験を軸にしながら、クラウドやDXへ広げていきたい</em>という私の希望に、これほど合う会社は他にありませんでした。<br><br>
+      3つ目は、<em>『わからない人の気持ちがわかる先輩が多い』という社風</em>です。私自身、現職で先輩に一から教えていただいた経験があり、いずれは自分が教える側になりたいと考えています。御社の『自分で調べろ、ではなく一緒にやってみよう』という文化は、自分が目指したいエンジニア像と重なります。」
+    </div>
+    <div class="qa-tip">💡 <strong>ここが今回の合否を分けます。</strong>「みどりクラウド」「COMPANY®」「静楽(せらく)」のうち<strong>最低1つ</strong>は必ず口に出してください。調べた人にしか言えない言葉が、志望度の証明になります。<br>💡 逆に「上場企業だから安定している」だけで止めると、他社と同じ答えになってしまいます。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5</span>CCNAとLinuCを短期間で取得されていますね。どのように勉強されたのですか?</div>
+    <div class="qa-a">
+      <strong>【この会社では、この質問が最大の得点源です。具体的に!】</strong><br><br>
+      ・<em>いつ・どのくらい</em> 勉強したか(平日は帰宅後◯時間、休日は◯時間、など)<br>
+      ・<em>使った教材</em>(参考書名、Ping-t、Udemyなど具体名を出す)<br>
+      ・<em>つまずいた点と、どう乗り越えたか</em><br>
+      ・<em>資格が実務でどう役に立ったか</em>(ここが一番大事)<br><br>
+      「入社直後は業務で出てくる用語がほとんどわからず、まず<em>共通言語を身につけないと質問すらできない</em>と感じました。そこで、まずCCNAを目標に設定し、平日は帰宅後に1〜2時間、休日は3〜4時間を確保して、入社3ヶ月で取得しました。<br>
+      取得後は<em>先輩の会話の内容がわかるようになり、質問の質が変わった</em>実感があります。その手応えから、次はLinux側を固めようとLinuC Level1に進み、半年で取得しました。<br>
+      今後は<em>AWSやAzureといったクラウド系の資格</em>に進みたいと考えています。」
+    </div>
+    <div class="qa-tip">💡 最後の「次はクラウド資格へ」が、そのまま<strong>「新しい技術に興味がある好奇心旺盛な方」</strong>という企業様の評価軸への回答になります。必ず言ってください。<br>💡 セラク様は資格報奨金の対象にAWS・Azureを明記しています。ここは完全に噛み合います。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q6</span>今回は「PM・PL候補」としての採用ですが、将来どのようになりたいですか?</div>
+    <div class="qa-a">
+      <strong>【短期→中期→長期の3段階で。背伸びしすぎず、意欲は示す】</strong><br><br>
+      「まず入社から<em>1〜2年は、現場で技術を確実に身につける期間</em>にしたいと考えています。現職では運用が中心でしたので、<em>設計・構築の工程を経験し、クラウド周りの資格も取得</em>したいです。<br>
+      その上で<em>3〜5年後には、小規模でもチームをまとめる立場</em>に挑戦したいと思っています。現職でも、後から入られた方に手順を説明する場面があり、<em>自分が理解したことを人に伝えて、チーム全体が動く</em>という感覚にやりがいを感じました。<br>
+      御社は教育を大切にされている会社だと伺っていますので、<em>技術を身につけた先に『人を育てる側』に回る</em>というキャリアを描けることが、大きな魅力です。」
+    </div>
+    <div class="qa-tip">💡 いきなり「PMになりたいです」だと地に足がついていない印象に。<strong>「まず技術 → その先にPM」</strong>の順番が安全で、かつ誠実に響きます。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q7</span>当社は客先常駐が中心ですが、そこについてはいかがですか?<span style="color:#C62828">(★要注意)</span></div>
+    <div class="qa-a">
+      <strong>【現職も同じ働き方であれば、それが最強の答えです】</strong><br><br>
+      「現職でも<em>お客様先での勤務を経験しております</em>ので、環境としてイメージはついております。<br>
+      むしろ<em>さまざまな現場を経験できることは、技術の幅を広げる上でプラス</em>だと考えています。実際、現職でも現場ごとに使う機器や運用ルールが異なり、その都度学ぶことが多くありました。<br>
+      一点だけ、長く働かせていただきたいという前提でお伺いしたいのですが、<em>配属される案件は東京エリアが中心という理解でよろしいでしょうか。</em>」
+    </div>
+    <div class="qa-tip">⚠️ <strong>この流れが理想です。</strong>「常駐は大丈夫です」と受け止めたうえで、<strong>その場の流れで勤務地の確認まで済ませてしまう。</strong>逆質問の時間まで待たなくて構いません。<br>🚫 「自社開発がいいです」は絶対NG。事業モデルの否定になります。<br>💡 もし現職が常駐でない場合は「現職は自社勤務ですが、環境が変わることに抵抗はありません。実際、現場ごとに違う技術に触れられる点はむしろ楽しみです」と正直に。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q8</span>これまでのお仕事で、一番大変だったことは何ですか?</div>
+    <div class="qa-a">
+      <strong>【STAR法:状況 → 課題 → 行動 → 結果】</strong><br><br>
+      ・<em>状況</em>:いつ、どんな場面で<br>
+      ・<em>課題</em>:何が大変だったのか<br>
+      ・<em>行動</em>:<strong>自分が</strong>どう動いたか(← ここを最も長く)<br>
+      ・<em>結果</em>:どうなったか、何を学んだか<br><br>
+      <strong>使えそうな題材:</strong><br>
+      ・入社直後、用語がわからない中でどう追いついたか(→ 資格の話につながる)<br>
+      ・初めての障害対応で焦った経験と、その後どう備えるようになったか<br>
+      ・わからないことを、どのタイミングで誰に聞くか判断した経験
+    </div>
+    <div class="qa-tip">💡 <strong>「大変でした」で終わらせず、必ず「その後どう変わったか」まで。</strong>面接官が見たいのは、困難そのものではなく<strong>再現性のある行動</strong>です。<br>💡 過去の面接(クリーブ様)では「部活動」「アルバイト」「周囲からの評価」も聞かれました。学生時代のエピソードも1つ用意しておくと安心です。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q9</span>ご自身の長所と短所、周囲からはどのような方だと言われますか?</div>
+    <div class="qa-a">
+      <strong>【長所は「資格取得の事実」で裏づける。短所は「改善中」で締める】</strong><br><br>
+      <strong>長所の例:</strong>「<em>目標を決めたら、そこまでの手順に落として最後までやり切る</em>ところです。CCNAもLinuCも、取得時期を先に決めてから逆算して学習計画を立てました。」<br><br>
+      <strong>短所の例:</strong>「<em>わからないことを、自分で抱え込んで調べすぎてしまう</em>ところがあります。以前、調査に時間をかけすぎて対応が遅れかけたことがあり、それ以降は<em>『15分調べてわからなければ相談する』</em>と自分の中でルールを決めています。」<br><br>
+      <strong>周囲からの評価:</strong>「<em>落ち着いている</em>」「<em>丁寧</em>」「<em>頼んだことを最後までやってくれる</em>」など、実際に言われたことを。
+    </div>
+    <div class="qa-tip">💡 短所は<strong>「仕事に致命的でない × 改善に着手済み」</strong>の組み合わせが鉄則です。<br>💡 「わからないことを聞けない」という短所は、セラク様の「一緒にやってみよう」文化と相性が良く、素直さとして受け取られやすいです。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q10</span>ご希望の年収と、入社可能な時期を教えてください。</div>
+    <div class="qa-a">
+      <strong>【年収】前提として、現年収は300万円、この求人は350〜600万円です。</strong><br><br>
+      「現在の年収は300万円です。御社の求人票を拝見し、<em>350万円以上</em>のレンジとお伺いしておりますので、<em>その水準をベースにご検討いただけますと幸いです。</em>ただ、金額よりも<em>資格取得やスキルアップが評価される環境</em>を重視しておりますので、<em>ご提示いただく条件に沿って前向きに考えさせていただきます。</em>」<br><br>
+      <strong>【入社時期】</strong><br>
+      「現職の就業規則では退職の申し出が<em>◯ヶ月前</em>と定められておりますので、内定をいただいてから<em>1.5〜2ヶ月程度</em>を想定しております。引き継ぎを誠実に行ったうえで、<em>可能な限り早いタイミングで</em>入社したいと考えております。」
+    </div>
+    <div class="qa-tip">⚠️ <strong>この2つは面接前にCAと必ずすり合わせましょう。</strong>その場で即答できないと、志望度が低いと受け取られます。<br>💡 「いくらでもいいです」はNG。<strong>下限(350万)を基準に置く</strong>のが正解です。前職給与保証・加給優遇の制度がありますので、300万を下回ることはありません。<br>💡 就業規則の退職予告期間は、事前にご確認をお願いします。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q11</span>他社の選考状況を教えてください。<span style="color:#C62828">(★企業様から事前にご共有依頼が来ています)</span></div>
+    <div class="qa-a">
+      <strong>【隠さない。ただし「軸が一貫している」ことを見せる】</strong><br><br>
+      「現在、<em>数社の選考を並行して進めております。うち1社は最終面接、1社は一次面接を控えております。</em><br>
+      いずれも<em>ITインフラを軸に、クラウドやDXへ幅を広げられる環境</em>という同じ基準で受けさせていただいております。<br>
+      その中でも御社は、<em>資格取得が制度としてしっかり評価される点</em>と、<em>SI・DX・みどりクラウドと事業の幅が広い点</em>で、現時点で<em>最も志望度が高い</em>と考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>社名までは言わなくて構いません。</strong>「同業他社を数社」で十分です。<br>💡 大事なのは<strong>「選考基準がブレていないこと」</strong>。バラバラな業界を受けていると「軸がない」と見られます。<br>⚠️ 企業様からCA宛に併願状況の共有依頼が来ていますので、こちらは<strong>CAから別途ご連絡します。</strong>面接での回答内容と食い違わないよう、事前にすり合わせましょう。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q12</span>ご入社されたら、まず何がしたいですか?</div>
+    <div class="qa-a">
+      「まずは<em>配属先の環境と、担当するシステムを正確に理解する</em>ことに集中したいです。現職での経験があるとはいえ、現場ごとにルールも機器も異なることは理解しております。<br>
+      そのうえで、<em>1年以内にクラウド系の資格を1つ取得</em>し、設計・構築の工程にも関わらせていただけるよう準備を進めたいと考えております。」
+    </div>
+    <div class="qa-tip">💡 <strong>「まず学ぶ → 次に貢献する」</strong>の順番が、経験1年の方には最も自然で好印象です。数字(1年以内に資格1つ)を入れると本気度が伝わります。</div>
+  </div>
+</div>
+
+<!-- 逆質問 -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🙋</span>
+    <h2>逆質問(例の3つの確認は、ここで自然に)</h2>
+  </div>
+  <p style="font-size:13px;margin-bottom:14px"><strong>3〜4個用意して、時間に応じて2〜3個。</strong>最初に条件確認を置くのではなく、<strong>意欲を示す質問を先に、条件確認を後に</strong>置くのがコツです。</p>
+
+  <div class="reverse-q" style="border-left-color:#48BB78">
+    <strong>① まず意欲を示す(1〜2個)</strong><br>
+    ・「入社後、<strong>最初の半年ほどはどのような業務からスタート</strong>することが多いのでしょうか。」<br>
+    ・「<strong>資格報奨金の対象資格が約300種類</strong>と伺いました。実際に、入社1〜2年目の方が<strong>よく取得されている資格</strong>があれば教えていただけますか。」<br>
+    ・「<strong>PM・PL候補</strong>としての採用と伺っております。実際に<strong>PL・PMへ進まれる方は、どのようなステップを踏まれる</strong>ことが多いでしょうか。」
+  </div>
+
+  <div class="reverse-q" style="border-left-color:#E67E22">
+    <strong>② そのうえで、条件面を確認する(★必ず聞く)</strong><br><br>
+    <strong>【勤務地・転勤】</strong><br>
+    「<em>長く働かせていただきたいと考えておりますので、確認させていただきたいのですが</em>——今回は東京配属とご案内いただいております。<strong>将来的な転居を伴う異動の可能性</strong>については、どのようにお考えでしょうか。」<br><br>
+    <strong>【夜間勤務・シフト】← 最重要</strong><br>
+    「求人票に<strong>『夜間勤務:状況に応じてある』</strong>との記載を拝見しました。私は現職が9時から18時の勤務でして、<em>体調管理の面から、日勤で安定して長く働きたい</em>と考えております。<strong>配属される案件によって、夜勤やシフト勤務が発生することはございますでしょうか。</strong>また、<strong>そうした案件を避けた配属は可能でしょうか。</strong>」<br><br>
+    <strong>【土日祝】</strong><br>
+    「<strong>完全週休2日制(土日祝)</strong>と伺っておりますが、参画するプロジェクトによって<strong>休日が変わるケース</strong>はございますでしょうか。」
+  </div>
+
+  <div class="callout" style="border-left-color:#EF5350;background:#FFEBEE">
+    <strong>⚠️ 夜勤の質問だけは、絶対に聞き逃さないでください。</strong><br>
+    求人票に<strong>「夜間勤務:状況に応じてある」</strong>と明記されています。ここが曖昧なまま選考が進むと、<em>内定後に条件が合わずお断りする</em>という一番つらい展開になりかねません。<br>
+    聞き方さえ丁寧であれば、<strong>マイナス評価には決してなりません。</strong>「長く働きたいので」という前置きを必ず添えてください。<br>
+    <span style="font-size:12px">※万一この場で聞けなかった場合は、面接後に<strong>CAから企業様へ確認</strong>いたしますので、ご安心ください。</span>
+  </div>
+
+  <div class="ng-list" style="margin-top:16px">
+    <h3>逆質問でしてはいけない質問</h3>
+    <ul>
+      <li>「残業はどのくらいですか?」→ 求人票に月10.6時間と明記済み。調べていない印象に</li>
+      <li>「有給は取れますか?」→ 権利の確認から入ると受け身に見えます</li>
+      <li>「御社の強みは何ですか?」→ 調べればわかることを聞かない</li>
+      <li>「特にありません」→ <strong>志望度が低いと受け取られます。必ず1つは聞いてください</strong></li>
+    </ul>
+  </div>
+</div>
+
+<!-- NG/GOOD -->
+<div class="section">
+  <div class="section-header">
+    <span class="icon">🚫</span>
+    <h2>言葉づかい:NGワードと好印象ワード</h2>
+  </div>
+  <div class="ng-list" style="margin-bottom:16px">
+    <h3>面接で言ってはいけない表現</h3>
+    <ul>
+      <li>「まだ1年しか経験がなくて…」→ <strong>企業様は経験者として評価してくださっています。自分から下げない</strong></li>
+      <li>「残業が多くて」「給与が低くて」→ 転職理由を待遇不満にしない</li>
+      <li>「常駐ではなく自社開発がいいです」→ 事業モデルの否定になります</li>
+      <li>「なんでもやります」「特にこだわりはありません」→ 主体性がないと見られます</li>
+      <li>「御社は上場していて安定しているので」→ それだけだと志望動機になりません</li>
+      <li>「前の会社が…」と現職を悪く言う → 一番減点されるポイントです</li>
+    </ul>
+  </div>
+  <div class="good-list">
+    <h3>逆に、使うと印象が良い表現</h3>
+    <ul>
+      <li>「<strong>入社3ヶ月でCCNA、6ヶ月でLinuC Level1を取得しました</strong>」← 事実の強さ</li>
+      <li>「<strong>次はAWSやAzureといったクラウド資格に挑戦したいです</strong>」← 好奇心の証明</li>
+      <li>「<strong>みどりクラウドという自社サービスを拝見して</strong>」← 調べてきた証拠</li>
+      <li>「<strong>いずれは教える側に回りたいと考えています</strong>」← 教育文化との一致</li>
+      <li>「<strong>現職では◯◯を学ばせていただき、感謝しております</strong>」← 誠実さ</li>
+      <li>「<strong>長く働かせていただきたいので、確認させてください</strong>」← 条件確認の魔法の前置き</li>
+    </ul>
+  </div>
+</div>
+
+<!-- WEB面接の技術面 -->
+<div class="section" style="background:linear-gradient(135deg,#F4F9FC 0%,#EEF3F8 100%);border-left:6px solid #4A6FA5">
+  <div class="section-header" style="border-bottom-color:#4A6FA5">
+    <span class="icon">💻</span>
+    <h2>WEB面接ならではの準備(前日までに)</h2>
+  </div>
+  <ul class="checklist">
+    <li><strong>harutakaで事前に環境チェックをする</strong><span class="note">⭐ <a href="https://seraku-career.harutaka.jp/live_interview/24bd426ae832" target="_blank" style="color:#3498DB">面接ルームのURL</a>を開いて【ライブを開始】をクリック。<strong>当日以外でもテストログインできます。</strong>前日までに必ず一度お試しください</span></li>
+    <li><strong>PCで参加する</strong><span class="note">スマートフォンも可とのことですが、画面が安定するPCを強く推奨します。スマホの場合はスタンドで固定を</span></li>
+    <li><strong>カメラの高さを目線に合わせる</strong><span class="note">PCの下に本を重ねて、カメラが目の高さに来るように。見下ろす角度は印象が悪くなります</span></li>
+    <li><strong>顔に光が当たる位置に座る</strong><span class="note">窓を背にしないこと。逆光だと表情が真っ暗になります。窓は正面か斜め前に</span></li>
+    <li><strong>背景は無地の壁</strong><span class="note">難しければバーチャル背景を。ただし動くと輪郭が乱れるものは避けてください</span></li>
+    <li><strong>マイク付きイヤホンを準備する</strong><span class="note">PC内蔵マイクは音を拾いにくく、聞き返しが増えます。有線が最も安定します</span></li>
+    <li><strong>通信環境を確認する</strong><span class="note">可能なら有線LAN。Wi-Fiの場合はルーターの近くで。同居の方がいれば動画視聴を控えていただく</span></li>
+    <li><strong>通知をすべてオフにする</strong><span class="note">PC・スマホともに。画面共有中の通知ポップアップは印象を損ねます</span></li>
+    <li><strong>手元にカンペを置く</strong><span class="note">WEB面接の特権です。<strong>この資料をPCの横に開いておいてください。</strong>ただし読み上げにならないよう、キーワードだけ見る</span></li>
+    <li><strong>5分前に接続する</strong><span class="note">企業様から「接続確認をかねて5分前程に」とご案内があります。トラブル時は <strong>06-7777-2519</strong>(採用担当)へ直接お電話を</span></li>
+    <li><strong>録画されることを念頭に置く</strong><span class="note">企業様の品質向上目的で当日は録画されます。緊張しすぎず、いつも通りで大丈夫です</span></li>
+  </ul>
+
+  <div class="callout">
+    <strong>🎥 WEB面接でいちばん大切なこと</strong><br>
+    ・<strong>話すときはカメラを見る</strong>(画面の相手の顔を見ると、相手からは目を伏せているように映ります)<br>
+    ・<strong>うなずきは対面の1.5倍大きく</strong>。画面越しは反応が伝わりにくいものです<br>
+    ・<strong>話し出す前に0.5秒待つ</strong>。通信の遅延で声がかぶるのを防げます<br>
+    ・<strong>口角を上げる</strong>。カメラ越しは表情が2割ほど硬く見えます
+  </div>
+</div>
+
+<!-- 当日チェック -->
+<div class="section" style="background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%)">
+  <div class="section-header">
+    <span class="icon">✅</span>
+    <h2>当日 最終チェック</h2>
+  </div>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:12px 0 6px">🕘 面接30分前</h3>
+  <ul class="checklist">
+    <li>接続URLをブラウザで開いて<strong>動作確認</strong>(カメラ・マイクの許可)</li>
+    <li>PC・スマホの<strong>通知をオフ</strong>、充電ケーブルを接続</li>
+    <li>机の上に<strong>この資料・履歴書/職務経歴書・メモ・ペン・お水</strong>を用意</li>
+    <li><strong>スーツに着替える</strong>(下も。立ち上がる可能性はゼロではありません)</li>
+    <li>髪型を整える。<strong>顔まわりの髪が目にかからないように</strong></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">🕙 面接10分前</h3>
+  <ul class="checklist">
+    <li><strong>声を出して発声練習</strong>(「本日はよろしくお願いいたします」を3回)</li>
+    <li>カメラ映りを最終確認(明るさ・目線の高さ・背景)</li>
+    <li><strong>この3つだけ頭の中で確認</strong><span class="note">① 志望動機の3つの柱 ② 資格の勉強法 ③ 夜勤・勤務地の確認質問</span></li>
+    <li>深呼吸を3回。<strong>「経験者枠に上げてもらった自分」を思い出す</strong></li>
+  </ul>
+
+  <h3 style="font-size:14px;color:#4A6FA5;margin:16px 0 6px">🎬 面接終了後</h3>
+  <ul class="checklist">
+    <li><strong>すぐにメモを取る</strong><span class="note">聞かれた質問・答えられなかったこと・面接官の反応・夜勤や勤務地の回答内容</span></li>
+    <li><strong>CAへご連絡ください</strong><span class="note">手応え(★5段階)・答えづらかった質問・条件面の回答・入社したい気持ちの度合い</span></li>
+    <li>次は<strong>対面面接(1回)</strong>です。日程が来たら、また一緒に準備しましょう</li>
+  </ul>
+
+  <div class="callout" style="border-left-color:#E8B4C8;background:linear-gradient(135deg,#FFF5F7 0%,#F4F9FC 100%)">
+    <strong>🌸 最後に</strong><br>
+    セラク様は、書類を見て<strong>わざわざ「経験者枠でどうぞ」と枠を上げてくださった会社</strong>です。<br>
+    それは、野田様が1年3ヶ月で積み上げてきたもの——<strong>働きながら2つの資格を取り切った事実</strong>——を、きちんと見てくださったということです。<br>
+    面接は「試される場」ではなく、<strong>「お互いに合うかを確かめ合う場」</strong>です。だから、聞きたいことは聞いていい。<br>
+    いつも通りの野田様で、大丈夫です。応援しております🌸
+  </div>
+</div>
+
+<div class="footer">
+  株式会社UCHIAGE キャリアアドバイザー作成 | 野田様専用資料<br>
+  <span style="font-size:10px">※本資料は野田様専用です。第三者への共有はご遠慮ください。</span>
+</div>
+
+</div>
+</body>
+</html>
