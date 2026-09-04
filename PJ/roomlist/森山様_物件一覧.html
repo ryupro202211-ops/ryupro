@@ -148,10 +148,12 @@ select { font: inherit; font-size: 12.5px; padding: 4px 8px; border-radius: 6px;
 
 /* スペックバー：写真の代わりに実データから作る視覚要素。
    物件写真をAI生成して載せてはいけない（実在物件の外観の捏造になる）。 */
-.specs { padding: 13px 16px; display: grid; gap: 9px; }
-.spec { display: grid; grid-template-columns: auto 62px; justify-content: end; gap: 10px; align-items: center; font-size: 11.5px; }
-.spec .sk { color: var(--ink-3); letter-spacing: .04em; text-align: right; }
-.spec .sv { font-weight: 700; font-size: 12.5px; text-align: right; }
+.specs { padding: 13px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px 18px; }
+.spec-col { display: grid; gap: 9px; align-content: start; }
+.spec-col:empty { display: none; }
+.spec { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 11px; }
+.spec .sk { color: var(--ink-3); letter-spacing: .04em; white-space: nowrap; }
+.spec .sv { font-weight: 700; font-size: 12.5px; text-align: right; margin-left: auto; }
 
 .tags { padding: 0 16px 13px; display: flex; flex-wrap: wrap; gap: 5px; }
 .tags:empty { display: none; }
@@ -318,6 +320,7 @@ const NEW_SINCE = '2026-09-04';
 
 const PROPERTIES = [
   // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
+  // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
   {
     id: '01',
     name: 'サンハイツ三田',
@@ -334,6 +337,8 @@ const PROPERTIES = [
     reikin: '礼1ヶ月',
     year: 1976,
     structure: 'RC',
+    available: '相談',
+    facing: '東',
     tags: [
       {t:'管込14.5万', c:'new'},
       {t:'管理費なし', c:'new'},
@@ -377,6 +382,7 @@ const PROPERTIES = [
     reikin: '礼1ヶ月',
     year: 1977,
     structure: 'SRC',
+    available: '相談',
     tags: [
       {t:'47.07㎡・広めの2LDK', c:'new'},
       {t:'管込14.9万', c:'new'},
@@ -391,13 +397,12 @@ const PROPERTIES = [
       'JR山手線「田町」8分、都営三田線「三田」7分',
       '★バス・トイレ別／温水洗浄便座／独立洗面台／室内洗濯機置場／3口以上コンロ',
       '洋室＋和室＋LDの間取りで、収納も各室に確保されています',
-      'SRC造10階建の7階・バルコニー付、現況空室で入居時期は相談可',
-      '法人契約・社宅利用も可能です'
+      'SRC造10階建の7階・バルコニー付、現況空室で入居時期は相談可'
     ],
     cons: [
       '★定期借家契約2年（再契約不可・更新不可の条件です）',
       '★築1977年3月・築48年の物件です',
-      '事務所使用不可・SOHO使用不可',
+      '法人契約・社宅利用は不可、事務所・SOHO使用も不可です',
       '保証金なし／礼金1ヶ月・敷金1ヶ月、賃貸保証は加入要（賃料50%〜）',
       '建物損傷等は借主負担となる契約条件です'
     ],
@@ -420,6 +425,8 @@ const PROPERTIES = [
     reikin: '礼1ヶ月',
     year: 1985,
     structure: '鉄骨造',
+    available: '即入居可',
+    facing: '南',
     tags: [
       {t:'50.18㎡', c:'new'},
       {t:'浜松町3分・大門3分', c:'new'},
@@ -462,6 +469,8 @@ const PROPERTIES = [
     reikin: '礼1ヶ月',
     year: 1978,
     structure: 'SRC',
+    available: '即入居可',
+    facing: '南',
     tags: [
       {t:'43.33㎡・LDK9帖', c:'new'},
       {t:'白金高輪8分', c:''},
@@ -503,6 +512,8 @@ const PROPERTIES = [
     reikin: '礼なし',
     year: 1993,
     structure: 'SRC',
+    available: '2026年9月7日〜',
+    facing: '南西',
     tags: [
       {t:'60.58㎡・3DK', c:'new'},
       {t:'★敷金・礼金ゼロ', c:'new'},
@@ -545,6 +556,7 @@ const PROPERTIES = [
     reikin: '礼1ヶ月',
     year: 1981,
     structure: 'SRC',
+    available: '2026年10月',
     tags: [
       {t:'54.45㎡・LDK12帖', c:'new'},
       {t:'2014年内装改装済', c:'new'},
@@ -587,6 +599,8 @@ const PROPERTIES = [
     reikin: '礼1ヶ月',
     year: 1993,
     structure: '鉄骨造',
+    available: '即入居可',
+    facing: '南',
     tags: [
       {t:'2026年4月リフォーム完了', c:'new'},
       {t:'54.76㎡・メゾネット', c:'new'},
@@ -601,7 +615,7 @@ const PROPERTIES = [
       '都営三田線「三田」6分、JR山手線「田町」11分',
       '★ペット相談可・事務所利用も相談可。住居以外の使い方にも柔軟です',
       '設備：24時間換気システム、インターネット対応、エアコン、バルコニー、シューズボックス、CS/BS対応、オートロック',
-      '築1993年6月・鉄骨造5階建'
+      '築1993年12月・鉄骨造5階建'
     ],
     cons: [
       '★管込240,000円と、ご予算24万円の上限ちょうどの価格です',
@@ -629,6 +643,8 @@ const PROPERTIES = [
     reikin: '礼2ヶ月',
     year: 1988,
     structure: 'RC',
+    available: '相談',
+    facing: '南',
     tags: [
       {t:'田町9分・三田11分', c:'new'},
       {t:'★バス・トイレ別／独立洗面所', c:'new'},
@@ -668,6 +684,8 @@ const PROPERTIES = [
     reikin: '礼2ヶ月',
     year: 2004,
     structure: 'RC',
+    available: '2026年9月中旬',
+    facing: '南',
     tags: [
       {t:'浜松町4分・大門4分', c:'new'},
       {t:'★バス・トイレ別／独立洗面所', c:'new'},
@@ -758,6 +776,10 @@ function drawChart() {
 
 // ---------- カード ----------
 const strip = x => String(x).replace(/^★/, '');
+// 構造は 'RC' でも '鉄骨造' でも渡せるようにする（'造' が無いときだけ足す）
+const kouzou = s => !s ? '' : (/造$/.test(s) ? s : s + '造');
+// 値が無い項目は行ごと出さない。物件によって取得できたり出来なかったりするため。
+const specRow = (k, v) => v ? '<div class="spec"><span class="sk">' + k + '</span><span class="sv">' + v + '</span></div>' : '';
 // 築年数・管込賃料・面積は上のスペック欄が計算値で持つ。
 // tags 側の同種の手打ち文字列は年をまたぐとズレるので落とす。
 const DUPE_TAG = /^(築\d+年|管込[\d.]+万|[\d.]+㎡)/;
@@ -785,15 +807,22 @@ function cardHtml(p) {
   +       '<div class="price-note">賃料 ' + yen(p.rent) + '<br>管理費 ' + (p.kanri === 0 ? 'なし' : yen(p.kanri)) + '</div></div>'
   +   '</div>'
   +   '<div class="specs">'
-  +     '<div class="spec"><span class="sk">広さ</span><span class="sv">' + p.size + '㎡</span></div>'
-  +     '<div class="spec"><span class="sk">築年数</span><span class="sv">築' + AGE(p) + '年</span></div>'
-  +     '<div class="spec"><span class="sk">駅徒歩</span><span class="sv">' + p.walk + '分</span></div>'
+  +     '<div class="spec-col">'
+  +       specRow('広さ', p.size + '㎡')
+  +       + specRow('築年数', '築' + AGE(p) + '年')
+  +       + specRow('駅徒歩', p.walk + '分')
+  +     + '</div>'
+  +     '<div class="spec-col">'
+  +       specRow('構造', kouzou(p.structure))
+  +       + specRow('入居可能日', p.available)
+  +       + specRow('主要採光面', p.facing)
+  +     + '</div>'
   +   '</div>'
   +   '<div class="tags">' + tags + '</div>'
   +   '<details class="more"><summary>おすすめポイントとご留意点</summary><div class="more-body">'
   +     '<h4>おすすめポイント</h4><ul>' + (p.pros || []).map(x => '<li>' + strip(x) + '</li>').join('') + '</ul>'
   +     ((p.cons && p.cons.length) ? '<h4 class="flag">ご留意点</h4><ul>' + p.cons.map(x => '<li>' + strip(x) + '</li>').join('') + '</ul>' : '')
-  +     '<h4>契約条件</h4><ul><li>' + p.deposit + '／' + p.reikin + '／' + p.structure + '造／' + p.year + '年築</li></ul>'
+  +     '<h4>契約条件</h4><ul><li>' + p.deposit + '／' + p.reikin + '／' + p.year + '年築</li></ul>'
   +   '</div></details>'
   +   (p.addedAt ? '<div class="added-date">物件情報の登録日：' + p.addedAt + '</div>' : '')
   +   '<div class="actions">' + action + '</div>'
