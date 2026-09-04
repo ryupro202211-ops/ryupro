@@ -3,467 +3,321 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>森山様専用 物件一覧 – 全9件</title>
+<title>森山様専用 物件一覧</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
 <style>
+/* =========================================================================
+   カラー・タイポグラフィ
+   微調整するならこの :root だけ触れば済む。--accent が全体のキーカラー。
+   ========================================================================= */
 :root {
-  --bg: #f6f4ef;
-  --card: #ffffff;
-  --ink: #232629;
-  --ink-sub: #6a6d72;
-  --line: #e4e2dc;
-  --accent: #1f6f5c;
-  --accent-soft: #dcece6;
-  --gold: #b7891f;
-  --warn: #c94a3f;
-  --tag-a: #eaf3ee;
-  --tag-b: #efe9d9;
-  --tag-c: #ecd8d5;
-  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --ground: #FAF9F5;
+  --surface: #FFFFFF;
+  --surface-2: #F3F2EC;
+  --ink: #1B231F;
+  --ink-2: #5E6A64;
+  --ink-3: #909A94;
+  --line: #E6E4DC;
+  --accent: #1F6F5C;
+  --accent-deep: #14503F;
+  --accent-wash: #E7F0EC;
+  --flag: #A8503A;
+  --flag-wash: #F6EAE5;
+  --gold: #8A6D1F;
+  --gold-wash: #F4EEDC;
+  /* 築年数の逐次ランプ（薄い＝新しい／濃い＝古い）。単調に暗くなる順序を保つこと */
+  --r1: #6FAF9A; --r2: #4E9782; --r3: #2F7F68; --r4: #1F6F5C; --r5: #14503F;
+  /* ヒーロー背景。既定はCSSのみ（外部依存なし）。
+     画像を敷くなら --hero-img: url("data:image/jpeg;base64,....") を足す */
+  --hero-img: none;
+  --hero-tint: linear-gradient(135deg, #E9EDE9 0%, #F5F3EC 45%, #E6EAE6 100%);
+  --veil: linear-gradient(180deg, rgba(250,249,245,.90) 0%, rgba(250,249,245,.74) 55%, rgba(250,249,245,.88) 100%);
+  --hero-op: .5;
+  --on-accent: #FFFFFF;
+  --shadow: 0 1px 2px rgba(27,35,31,.05), 0 6px 20px rgba(27,35,31,.05);
+  --sans: "Zen Kaku Gothic New", -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+  --serif: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #111614; --surface: #19201D; --surface-2: #222A26;
+    --ink: #E9EEEB; --ink-2: #9BA7A1; --ink-3: #6E7B75;
+    --line: #2A332F;
+    --accent: #5FB79C; --accent-deep: #8ACDB6; --accent-wash: #1B302A;
+    --flag: #D98A6C; --flag-wash: #2F211C;
+    --gold: #C6A552; --gold-wash: #2C2718;
+    --r1: #2F7F68; --r2: #3F9179; --r3: #55A88E; --r4: #6FBFA5; --r5: #93D4BE;
+    --hero-tint: linear-gradient(135deg, #1A211E 0%, #141A17 45%, #1C2320 100%);
+    --veil: linear-gradient(180deg, rgba(17,22,20,.92) 0%, rgba(17,22,20,.78) 55%, rgba(17,22,20,.90) 100%);
+    --hero-op: .34;
+    --on-accent: #0F1512;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.28);
+  }
 }
 * { box-sizing: border-box; }
 body {
-  margin: 0;
-  font-family: -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--sans); line-height: 1.6;
+  -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
 }
-header.hero {
-  background: linear-gradient(135deg, #1f6f5c 0%, #2a8a72 100%);
-  color: white;
-  padding: 30px 20px 24px;
-  text-align: center;
-}
-header.hero h1 {
-  margin: 0 0 6px;
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  font-weight: 600;
-}
-header.hero .sub {
-  font-size: 13px;
-  opacity: 0.92;
-}
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 20px 16px 60px;
-}
-.criteria {
-  background: white;
-  border-radius: 12px;
-  padding: 18px 20px;
-  margin-bottom: 18px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-}
-.criteria h2 {
-  margin: 0 0 12px;
-  font-size: 15px;
-  color: var(--accent);
-  letter-spacing: 0.02em;
-}
-.criteria-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px 20px;
-  font-size: 13px;
-}
-.criteria-grid div span:first-child {
-  color: var(--ink-sub);
-  font-size: 11px;
-  display: block;
-}
-.criteria-grid div span:last-child {
-  font-weight: 600;
-}
-.priorities {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--line);
-  font-size: 12.5px;
-  color: var(--ink-sub);
-}
-.priorities strong { color: var(--ink); }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
-.controls {
-  background: white;
-  border-radius: 12px;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  align-items: center;
+/* ---------- ヒーロー ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero-tint { position: absolute; inset: 0; background: var(--hero-tint); }
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: var(--hero-img);
+  background-size: cover; background-position: center;
+  opacity: var(--hero-op); filter: saturate(.55);
 }
-.controls > * { flex: 0 0 auto; }
-.control-group {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-}
-.control-group label {
-  color: var(--ink-sub);
-  font-size: 12px;
-}
-.chip {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: white;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.15s;
-  user-select: none;
-}
-.chip:hover { border-color: var(--accent); }
-.chip.on {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-select {
-  padding: 5px 8px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: white;
-  font-size: 12.5px;
-  color: var(--ink);
-}
-.count-badge {
-  margin-left: auto;
-  font-size: 12.5px;
-  color: var(--ink-sub);
-  font-weight: 500;
-}
-.count-badge strong {
-  color: var(--accent);
-  font-size: 14px;
-}
+.hero-veil { position: absolute; inset: 0; background: var(--veil); }
+/* 横パディングは .wrap のものを残す。padding の一括指定で潰さないこと
+   （潰すと見出しがビューポート左端に貼りつく） */
+.hero-in { position: relative; padding-top: 46px; padding-bottom: 36px; text-align: center; }
+.eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 4.4vw, 40px); line-height: 1.25; margin: 0 0 18px; text-wrap: balance; letter-spacing: .01em; }
+.hero-facts { display: flex; flex-wrap: wrap; gap: 12px 34px; align-items: baseline; justify-content: center; }
+.fact .k { display: block; font-size: 11px; color: var(--ink-2); letter-spacing: .06em; }
+.fact .v { font-size: 19px; font-weight: 700; font-family: var(--serif); }
+.fact .v small { font-size: 12px; font-weight: 400; font-family: var(--sans); color: var(--ink-2); }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 16px;
-}
-.card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 16px 18px 14px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-.card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
-}
-.card.hidden { display: none; }
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.card-name {
-  font-size: 15.5px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.3;
-}
-.card-name-sub {
-  font-size: 11.5px;
-  color: var(--ink-sub);
-  margin-top: 2px;
-}
-.card-price {
-  text-align: right;
-  flex-shrink: 0;
-}
-.card-price .total {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--accent);
-  line-height: 1;
-}
-.card-price .breakdown {
-  font-size: 10.5px;
-  color: var(--ink-sub);
-  margin-top: 3px;
-}
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 12px;
-}
-.tag {
-  font-size: 10.5px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--tag-a);
-  color: var(--accent);
-  font-weight: 500;
-}
-.tag.new { background: var(--tag-b); color: var(--gold); }
-.tag.warn { background: var(--tag-c); color: var(--warn); }
+/* ---------- セクション ---------- */
+section { margin: 34px 0; }
+.sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+.sec-head h2 { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0; letter-spacing: .02em; }
+.sec-head .note { font-size: 12.5px; color: var(--ink-2); }
+.sec-sub { font-size: 13px; color: var(--ink-2); margin: 0 0 16px; max-width: 62ch; }
+.sec-sub b { color: var(--ink); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
 
-.meta-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6px 12px;
-  font-size: 12px;
-  margin-bottom: 12px;
-  padding: 10px 12px;
-  background: #faf9f4;
-  border-radius: 8px;
-}
-.meta-row div span:first-child {
-  color: var(--ink-sub);
-  font-size: 10.5px;
-  display: block;
-}
-.meta-row div span:last-child {
-  font-weight: 600;
-  font-size: 12.5px;
-}
-.notes {
-  font-size: 12px;
-  color: var(--ink-sub);
-  line-height: 1.55;
-  padding: 8px 0 12px;
-  border-top: 1px dashed var(--line);
-  margin-top: auto;
-}
-.notes strong { color: var(--ink); }
-.pros-list {
-  margin: 6px 0 12px;
-  padding-left: 20px;
-  font-size: 12px;
-  color: var(--ink);
-  line-height: 1.55;
-}
-.pros-list li {
-  margin-bottom: 4px;
-}
-.pros-list li::marker {
-  color: var(--accent);
-}
-.new-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, #ff5252, #d63a3a);
-  color: white;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-  margin-right: 6px;
-  vertical-align: middle;
-  box-shadow: 0 1px 3px rgba(214,58,58,0.35);
-}
-.added-date {
-  font-size: 10.5px;
-  color: var(--ink-sub);
-  text-align: right;
-  padding-top: 6px;
-  border-top: 1px dashed var(--line);
-  margin-top: 8px;
-}
-.contact-note {
-  font-size: 11.5px;
-  color: var(--ink-sub);
-  text-align: center;
-  padding: 10px 0 6px;
-  border-top: 1px solid var(--line);
-  margin-top: 8px;
-}
-.contact-note strong { color: var(--accent); }
-.actions {
-  display: flex;
-  gap: 8px;
-  padding-top: 10px;
-  border-top: 1px solid var(--line);
-  margin-top: 8px;
-}
-.btn {
-  flex: 1;
-  text-align: center;
-  padding: 9px 10px;
-  border-radius: 8px;
-  font-size: 12.5px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.15s;
-  border: none;
-  cursor: pointer;
-}
-.btn-primary {
-  background: var(--accent);
-  color: white;
-}
-.btn-primary:hover { background: #175a4a; }
-.btn-secondary {
-  background: white;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-}
-.btn-secondary:hover { background: var(--accent-soft); }
+/* ---------- ご希望条件 ---------- */
+.criteria { padding: 18px 20px; display: grid; gap: 16px 28px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.criteria .k { font-size: 11px; color: var(--ink-2); letter-spacing: .05em; display: block; }
+.criteria .v { font-weight: 500; font-size: 14.5px; }
+.criteria .prio { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 13px; font-size: 13px; color: var(--ink-2); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.criteria .prio b { color: var(--ink); font-weight: 700; }
+.prio-chain { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.prio-chain i { font-style: normal; background: var(--accent-wash); color: var(--accent-deep); padding: 2px 9px; border-radius: 4px; font-size: 12.5px; font-weight: 500; }
+.prio-chain u { text-decoration: none; color: var(--ink-3); font-size: 11px; }
 
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  padding: 20px;
-}
+/* ---------- 散布図 ---------- */
+.chart-wrap { padding: 18px 14px 6px; overflow-x: auto; }
+.chart-wrap svg { display: block; min-width: 620px; width: 100%; height: auto; }
+.gridline { stroke: var(--line); stroke-width: 1; }
+.axis-lbl { font-size: 10.5px; fill: var(--ink-3); font-family: var(--sans); }
+.axis-title { font-size: 11px; fill: var(--ink-2); font-family: var(--sans); font-weight: 500; letter-spacing: .04em; }
+.dot { stroke: var(--surface); stroke-width: 2; }
+.dot-lbl { font-size: 11.5px; fill: var(--ink); font-family: var(--sans); font-weight: 500; pointer-events: none; }
+.dot-lbl tspan.sub { fill: var(--ink-3); font-size: 10px; font-weight: 400; }
+.legend-ramp { display: flex; align-items: center; gap: 8px; padding: 2px 8px 14px; font-size: 11px; color: var(--ink-2); flex-wrap: wrap; }
+.legend-ramp .bar { display: flex; border-radius: 3px; overflow: hidden; }
+.legend-ramp .bar i { width: 26px; height: 9px; display: block; }
+
+/* ---------- コントロール ---------- */
+.controls { padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.cgroup { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.cgroup > label { font-size: 11px; color: var(--ink-2); letter-spacing: .05em; }
+.chip { font: inherit; font-size: 12.5px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); cursor: pointer; transition: border-color .14s, color .14s; }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 500; }
+select { font: inherit; font-size: 12.5px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.count { margin-left: auto; font-size: 12.5px; color: var(--ink-2); }
+.count b { color: var(--accent); font-size: 15px; font-family: var(--serif); }
+.empty { padding: 28px 16px; text-align: center; color: var(--ink-2); font-size: 13px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- カード ---------- */
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+.card-top { padding: 15px 16px 13px; border-bottom: 1px solid var(--line); }
+.rank-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.rank-row:not(:empty) { margin-bottom: 6px; }
+.badge { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; padding: 2px 8px; border-radius: 3px; }
+.badge.new { background: var(--gold-wash); color: var(--gold); }
+.badge.rank { background: var(--accent-wash); color: var(--accent-deep); }
+.card h3 { margin: 0; font-family: var(--serif); font-size: 17px; font-weight: 600; line-height: 1.35; text-wrap: balance; }
+.card h3 span { font-weight: 400; font-size: 13px; color: var(--ink-2); font-family: var(--sans); }
+.access { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+.price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 12px; }
+.price { font-family: var(--serif); font-weight: 700; font-size: 25px; letter-spacing: .01em; line-height: 1; }
+.price small { font-size: 12px; font-weight: 400; font-family: var(--sans); margin-left: 2px; }
+.price-note { font-size: 11px; color: var(--ink-3); text-align: right; line-height: 1.5; }
+
+/* スペックバー：写真の代わりに実データから作る視覚要素。
+   物件写真をAI生成して載せてはいけない（実在物件の外観の捏造になる）。 */
+.specs { padding: 13px 16px; display: grid; gap: 9px; }
+.spec { display: grid; grid-template-columns: auto 62px; justify-content: end; gap: 10px; align-items: center; font-size: 11.5px; }
+.spec .sk { color: var(--ink-3); letter-spacing: .04em; text-align: right; }
+.spec .sv { font-weight: 700; font-size: 12.5px; text-align: right; }
+
+.tags { padding: 0 16px 13px; display: flex; flex-wrap: wrap; gap: 5px; }
+.tags:empty { display: none; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: var(--surface-2); color: var(--ink-2); }
+.tag.hi { background: var(--accent-wash); color: var(--accent-deep); font-weight: 500; }
+.tag.warn { background: var(--flag-wash); color: var(--flag); font-weight: 500; }
+
+details.more { border-top: 1px solid var(--line); }
+details.more > summary { padding: 10px 16px; cursor: pointer; font-size: 12.5px; color: var(--accent); font-weight: 500; list-style: none; display: flex; align-items: center; gap: 6px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::after { content: "\002B"; margin-left: auto; color: var(--ink-3); font-size: 13px; }
+details.more[open] > summary::after { content: "\2212"; }
+details.more > summary:hover { background: var(--surface-2); }
+.more-body { padding: 2px 16px 14px; font-size: 12.5px; }
+.more-body h4 { margin: 10px 0 6px; font-size: 11px; letter-spacing: .07em; color: var(--ink-2); font-weight: 700; }
+.more-body h4.flag { color: var(--flag); }
+.more-body ul { margin: 0; padding-left: 17px; color: var(--ink-2); }
+.more-body li { margin-bottom: 4px; }
+.more-body li::marker { color: var(--ink-3); }
+
+.added-date { padding: 0 16px 10px; font-size: 10.5px; color: var(--ink-3); }
+.actions { margin-top: auto; padding: 12px 16px; border-top: 1px solid var(--line); }
+.btn { font: inherit; font-size: 12.5px; font-weight: 500; padding: 7px 14px; border-radius: 6px; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; background: var(--accent); color: var(--on-accent); }
+.btn:hover { opacity: .86; }
+.contact-note { font-size: 11.5px; color: var(--ink-2); }
+
+/* ---------- 比較表 ---------- */
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 660px; font-size: 12.5px; }
+th, td { padding: 9px 12px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-size: 11px; letter-spacing: .05em; color: var(--ink-2); font-weight: 700; background: var(--surface-2); }
+th:first-child, td:first-child { text-align: left; white-space: normal; min-width: 170px; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+td.em { font-weight: 700; }
+
+/* ---------- 図面モーダル ---------- */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(15,20,18,.62); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
 .modal-backdrop.on { display: flex; }
-.modal {
-  background: white;
-  border-radius: 12px;
-  width: min(1000px, 100%);
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.modal-header {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.modal-title { font-weight: 600; font-size: 14px; }
-.modal-close {
-  background: none;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
-  color: var(--ink-sub);
-  padding: 0 6px;
-}
-.modal iframe {
-  flex: 1;
-  border: none;
-  width: 100%;
-}
+.modal { background: var(--surface); border-radius: 10px; width: min(1000px, 100%); height: min(90vh, 900px); display: flex; flex-direction: column; overflow: hidden; }
+.modal-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.modal-title { font-family: var(--serif); font-size: 15px; font-weight: 600; }
+.modal-close { margin-left: auto; font: inherit; font-size: 20px; line-height: 1; background: none; border: none; color: var(--ink-2); cursor: pointer; padding: 2px 8px; }
+.modal iframe { flex: 1; border: none; width: 100%; }
 
-.empty {
-  padding: 60px 20px;
-  text-align: center;
-  color: var(--ink-sub);
-  background: white;
-  border-radius: 12px;
-  border: 1px dashed var(--line);
-  grid-column: 1 / -1;
-}
-
-footer.foot {
-  text-align: center;
-  padding: 24px 20px 40px;
-  color: var(--ink-sub);
-  font-size: 11.5px;
-}
-
-@media (max-width: 640px) {
-  .grid { grid-template-columns: 1fr; }
-  header.hero h1 { font-size: 18px; }
-  .card { padding: 14px 14px 12px; }
-  .card-price .total { font-size: 18px; }
-}
+footer { margin: 44px 0 60px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--ink-3); line-height: 1.75; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <h1>森山様専用 物件セレクション</h1>
-  <div class="sub">最終更新 2026年9月4日 ／ 全9件</div>
+  <div class="hero-tint"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-in wrap">
+    <div class="eyebrow">Property Selection</div>
+    <h1>森山様専用<br>物件セレクション</h1>
+    <div class="hero-facts">
+      <div class="fact"><span class="k">ご紹介件数</span><span class="v" id="f-count">–</span></div>
+      <div class="fact"><span class="k">管理費込み賃料</span><span class="v" id="f-rent">–</span></div>
+      <div class="fact"><span class="k">専有面積</span><span class="v" id="f-size">–</span></div>
+      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026年9月4日</span></div>
+    </div>
+  </div>
 </header>
 
-<div class="container">
+<div class="wrap">
 
-  <section class="criteria">
-    <h2>森山様のご希望条件</h2>
-    <div class="criteria-grid">
-      <div><span>ご予算</span><span>家賃管理費込み 24万円以内</span></div>
-      <div><span>間取り</span><span>2DK以上（2DK / 2LDK / 3DK）</span></div>
-    </div>
-    <div class="priorities">
-      <strong>優先順位：</strong>家賃の安さ ＞ 部屋の広さ ＞ 設備の充実度
+  <section>
+    <div class="sec-head"><h2>ご希望条件</h2></div>
+    <div class="panel criteria">
+      <!-- CUSTOMIZE: 2〜8項目。<div><span class="k">項目</span><span class="v">値</span></div> -->
+      <div><span class="k">ご予算</span><span class="v">家賃管理費込み 24万円以内</span></div>
+      <div><span class="k">間取り</span><span class="v">2DK 以上（2DK / 2LDK / 3DK）</span></div>
+      <div><span class="k">エリア</span><span class="v">浜松町・田町・三田 周辺</span></div>
+      <div><span class="k">所在階</span><span class="v">2階以上</span></div>
+      <div class="prio">
+        <b>優先順位</b>
+        <span class="prio-chain"><i>家賃の安さ</i><u>&#9654;</u><i>部屋の広さ</i><u>&#9654;</u><i>設備の充実度</i></span>
+      </div>
     </div>
   </section>
 
-  <section class="controls">
-    <div class="control-group">
-      <label>並び順</label>
-      <select id="sort">
-        <option value="rent-asc">家賃が安い順</option>
-        <option value="size-desc">広さが大きい順</option>
-        <option value="walk-asc">駅から近い順</option>
-        <option value="age-asc">築が新しい順</option>
-      </select>
+  <section>
+    <div class="sec-head">
+      <h2>候補の位置関係</h2>
+      <span class="note">横軸＝家賃／縦軸＝広さ／色＝築年数</span>
     </div>
-    <div class="control-group" data-filter="line">
-      <label>沿線</label>
-      <span class="chip on" data-value="all">すべて</span>
-      <span class="chip" data-value="山手線">山手線</span>
-      <span class="chip" data-value="都営三田線">三田線</span>
-      <span class="chip" data-value="南北線">南北線</span>
-      <span class="chip" data-value="ゆりかもめ">ゆりかもめ</span>
+    <p class="sec-sub">
+      ご希望の優先順位に沿って、候補を一枚に並べました。<b>左上にあるほど「安くて広い」</b>お部屋です。
+      家賃・広さ・築年数のバランスがひと目で分かります。
+    </p>
+    <div class="panel chart-wrap">
+      <svg id="chart" viewBox="0 0 900 430" role="img" aria-label="管理費込み賃料と専有面積の散布図。同じ内容は下の比較表でも確認できます。"></svg>
+      <div class="legend-ramp">
+        <span>築年数</span>
+        <span class="bar"><i style="background:var(--r1)"></i><i style="background:var(--r2)"></i><i style="background:var(--r3)"></i><i style="background:var(--r4)"></i><i style="background:var(--r5)"></i></span>
+        <span id="ramp-lbl">新しい ─── 古い</span>
+      </div>
     </div>
-    <div class="control-group" data-filter="layout">
-      <label>間取</label>
-      <span class="chip on" data-value="all">すべて</span>
-      <span class="chip" data-value="2DK">2DK</span>
-      <span class="chip" data-value="2LDK">2LDK</span>
-      <span class="chip" data-value="3DK">3DK</span>
-    </div>
-    <div class="control-group">
-      <label>ご予算</label>
-      <select id="rentcap">
-        <option value="240000" selected>24万円まで</option>
-        <option value="220000">22万円まで</option>
-        <option value="200000">20万円まで</option>
-        <option value="170000">17万円まで</option>
-        <option value="150000">15万円まで</option>
-      </select>
-    </div>
-    <div class="count-badge">表示中 <strong id="count">9</strong> / 9件</div>
   </section>
 
-  <div class="grid" id="grid"></div>
+  <section>
+    <div class="sec-head"><h2>物件一覧</h2></div>
+    <!-- 沿線・間取・予算・件数はすべて PROPERTIES から生成される。手で書かないこと。 -->
+    <div class="panel controls">
+      <div class="cgroup"><label for="sort">並び順</label>
+        <select id="sort">
+          <option value="rent-asc">家賃が安い順</option>
+          <option value="size-desc">広い順</option>
+          <option value="year-desc">築年数が新しい順</option>
+          <option value="walk-asc">駅から近い順</option>
+        </select>
+      </div>
+      <div class="cgroup" data-filter="layout" data-derived="true"><label>間取り</label></div>
+      <div class="cgroup" data-filter="line" data-derived="true"><label>沿線</label></div>
+      <div class="cgroup"><label for="rentcap">ご予算</label><select id="rentcap" data-derived="true"></select></div>
+      <div class="count">表示中 <b id="count">–</b> / <span id="total">–</span> 件</div>
+    </div>
+    <div class="grid" id="grid" style="margin-top:16px"></div>
+    <div class="empty" id="empty" hidden>条件に合う物件がありません。フィルタを緩めてください。</div>
+  </section>
 
+  <section>
+    <div class="sec-head"><h2>比較表</h2><span class="note">横にスクロールできます</span></div>
+    <div class="panel tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>物件名</th><th>管込賃料</th><th>広さ</th><th>間取り</th><th>築年数</th><th>最寄駅</th><th>徒歩</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    掲載情報は 2026年9月4日 時点のものです。募集状況は日々変動しますので、ご内見をご希望の際は最新状況をお問い合わせください。<br>
+    ご不明点はお気軽にLINEまたはメールにてお問い合わせください。<br>
+    ※図面は仲介業者向け内部資料を元にお客様向けに加工したものです。
+  </footer>
 </div>
-
-<footer class="foot">
-  ご不明点・内見のご希望はお気軽にご担当までお問い合わせください。<br>
-  ※掲載情報は2026年8月28日時点のものです。募集状況は随時変動する可能性がございます。
-</footer>
 
 <div class="modal-backdrop" id="modal">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="modal-title">図面プレビュー</div>
-      <button class="modal-close" id="modal-close">×</button>
+      <button class="modal-close" id="modal-close" aria-label="閉じる">×</button>
     </div>
-    <iframe id="modal-frame" src=""></iframe>
+    <iframe id="modal-frame" src="" title="図面プレビュー"></iframe>
   </div>
 </div>
 
 <script>
+// =========================================================================
+// 順位バッジ（最安 / 最も広い / 築浅）
+// SKILL.md の禁則「他候補との比較コメントは書かない」に該当するため既定は false。
+// お客様に候補内の順位を明示してよいと判断した場合だけ true にする。
+// =========================================================================
+const SHOW_RANK_BADGES = false;
+
+// NEWバッジのしきい値。addedAt >= NEW_SINCE の物件に「NEW」が付く。
+const NEW_SINCE = '2026-09-04';
+
 const PROPERTIES = [
+  // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
   {
     id: '01',
     name: 'サンハイツ三田',
@@ -840,154 +694,199 @@ const PROPERTIES = [
   }
 ];
 
-const grid = document.getElementById('grid');
-const countEl = document.getElementById('count');
+// ---------- 派生値：手で書かない。ここが計算するのでズレようがない ----------
+const yen = n => n.toLocaleString('ja-JP');
+const man = n => (n / 10000).toFixed(1);
+const THIS_YEAR = new Date().getFullYear();
+const AGE = p => THIS_YEAR - p.year;
 
-function fmt(n) { return n.toLocaleString('ja-JP'); }
+const totals = PROPERTIES.map(p => p.total);
+const sizes = PROPERTIES.map(p => p.size);
+const ages = PROPERTIES.map(AGE);
+const minTotal = Math.min(...totals), maxTotal = Math.max(...totals);
+const minSize = Math.min(...sizes), maxSize = Math.max(...sizes);
+const minAge = Math.min(...ages), maxAge = Math.max(...ages);
+const RAMP = ['--r1', '--r2', '--r3', '--r4', '--r5'];
+const ageColor = p => 'var(' + RAMP[Math.min(RAMP.length - 1,
+  Math.round((AGE(p) - minAge) / Math.max(1, maxAge - minAge) * (RAMP.length - 1)))] + ')';
 
-const NEW_SINCE = '2026-07-07';
+document.title = '森山様専用 物件一覧 – 全' + PROPERTIES.length + '件';
+document.getElementById('f-count').innerHTML = PROPERTIES.length + '<small> 件</small>';
+document.getElementById('f-rent').innerHTML = man(minTotal) + '<small> 〜 </small>' + man(maxTotal) + '<small> 万円</small>';
+document.getElementById('f-size').innerHTML = minSize.toFixed(1) + '<small> 〜 </small>' + maxSize.toFixed(1) + '<small> ㎡</small>';
+document.getElementById('total').textContent = PROPERTIES.length;
+document.getElementById('ramp-lbl').textContent = '新しい 築' + minAge + '年 ─── 築' + maxAge + '年 古い';
+
+// ---------- 散布図 ----------
+function drawChart() {
+  const svg = document.getElementById('chart');
+  const W = 900, H = 430, m = { t: 20, r: 30, b: 50, l: 60 };
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const xStep = 20000, yStep = 5;
+  const xMin = Math.floor(minTotal / xStep) * xStep - xStep / 2;
+  const xMax = Math.ceil(maxTotal / xStep) * xStep + xStep / 2;
+  const yMin = Math.floor(minSize / yStep) * yStep - 2;
+  const yMax = Math.ceil(maxSize / yStep) * yStep + 2;
+  const X = v => m.l + (v - xMin) / (xMax - xMin) * iw;
+  const Y = v => m.t + ih - (v - yMin) / (yMax - yMin) * ih;
+  let s = '';
+  for (let v = Math.ceil(xMin / xStep) * xStep; v <= xMax; v += xStep) {
+    s += '<line class="gridline" x1="' + X(v) + '" y1="' + m.t + '" x2="' + X(v) + '" y2="' + (m.t + ih) + '"/>'
+       + '<text class="axis-lbl" x="' + X(v) + '" y="' + (m.t + ih + 19) + '" text-anchor="middle">' + man(v) + '万</text>';
+  }
+  for (let v = Math.ceil(yMin / yStep) * yStep; v <= yMax; v += yStep) {
+    s += '<line class="gridline" x1="' + m.l + '" y1="' + Y(v) + '" x2="' + (m.l + iw) + '" y2="' + Y(v) + '"/>'
+       + '<text class="axis-lbl" x="' + (m.l - 10) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + v + '㎡</text>';
+  }
+  s += '<text class="axis-title" x="' + (m.l + iw / 2) + '" y="' + (H - 10) + '" text-anchor="middle">管理費込み賃料 →</text>'
+     + '<text class="axis-title" transform="translate(16,' + (m.t + ih / 2) + ') rotate(-90)" text-anchor="middle">専有面積 →</text>';
+  const placed = [];
+  PROPERTIES.forEach(p => {
+    const cx = X(p.total), cy = Y(p.size);
+    let dx = 14, dy = -8, anchor = 'start';
+    if (cx > m.l + iw * 0.62) { dx = -14; anchor = 'end'; }
+    if (placed.some(q => Math.abs(q.cx - cx) < 95 && Math.abs(q.cy - cy) < 30)) dy = 24;
+    placed.push({ cx: cx, cy: cy });
+    s += '<circle class="dot" cx="' + cx + '" cy="' + cy + '" r="8" fill="' + ageColor(p) + '"><title>'
+       + p.name + ' ／ 管込' + man(p.total) + '万円 ／ ' + p.size + '㎡ ' + p.layout + ' ／ 築' + AGE(p) + '年</title></circle>'
+       + '<text class="dot-lbl" x="' + (cx + dx) + '" y="' + (cy + dy) + '" text-anchor="' + anchor + '">' + p.name
+       + '<tspan class="sub" x="' + (cx + dx) + '" dy="13" text-anchor="' + anchor + '">'
+       + man(p.total) + '万 · ' + p.size + '㎡ · 築' + AGE(p) + '年</tspan></text>';
+  });
+  svg.innerHTML = s;
+}
+
+// ---------- カード ----------
+const strip = x => String(x).replace(/^★/, '');
+// 築年数・管込賃料・面積は上のスペック欄が計算値で持つ。
+// tags 側の同種の手打ち文字列は年をまたぐとズレるので落とす。
+const DUPE_TAG = /^(築\d+年|管込[\d.]+万|[\d.]+㎡)/;
 
 function cardHtml(p) {
-  const tagsHtml = p.tags.map(t => `<span class="tag ${t.c||''}">${t.t}</span>`).join('');
-  const unitStr = p.unit ? ` ${p.unit}` : '';
-  const isNew = p.addedAt && p.addedAt >= NEW_SINCE;
-  const newBadge = isNew ? '<span class="new-badge">NEW</span>' : '';
-  const dateStr = p.addedAt ? p.addedAt.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$1年$2月$3日') : '';
-  return `
-    <div class="card" data-id="${p.id}" data-line="${p.line}" data-layout="${p.layout}" data-total="${p.total}" data-size="${p.size}" data-walk="${p.walk}" data-year="${p.year}">
-      <div class="card-header">
-        <div>
-          <div class="card-name">${newBadge}${p.name}${unitStr}</div>
-          <div class="card-name-sub">${p.line} ${p.station}駅 徒歩${p.walk}分</div>
-        </div>
-        <div class="card-price">
-          <div class="total">${fmt(p.total)}<span style="font-size:11px">円</span></div>
-          <div class="breakdown">賃料 ${fmt(p.rent)} + 管理 ${fmt(p.kanri)}</div>
-        </div>
-      </div>
-      <div class="tags">${tagsHtml}</div>
-      <div class="meta-row">
-        <div><span>広さ</span><span>${p.size}㎡</span></div>
-        <div><span>間取り</span><span>${p.layout}</span></div>
-        <div><span>築年</span><span>${p.year}年（築${2026 - p.year}年）</span></div>
-        <div><span>構造</span><span>${p.structure}</span></div>
-        <div><span>敷金</span><span>${p.deposit}</span></div>
-        <div><span>礼金</span><span>${p.reikin}</span></div>
-      </div>
-      <div class="notes">
-        <strong>おすすめポイント</strong>
-        <ul class="pros-list">${p.pros.map(x => `<li>${x}</li>`).join('')}</ul>
-        ${p.cons && p.cons.length ? `<strong>ご留意点</strong><ul class="pros-list">${p.cons.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
-      </div>
-      ${p.driveId ? `
-      <div class="actions">
-        <button class="btn btn-primary" onclick="openPreview('${p.driveId}', '${p.name}${unitStr}')">📐 図面プレビュー</button>
-        <a class="btn btn-secondary" href="https://drive.google.com/file/d/${p.driveId}/view" target="_blank" rel="noopener">別タブで開く</a>
-      </div>` : `
-      <div class="contact-note">
-        図面・詳細情報・内見のご希望は<strong>ご担当までLINE等でお問い合わせ</strong>ください
-      </div>`}
-      ${dateStr ? `<div class="added-date">物件情報の登録日：${dateStr}</div>` : ''}
-    </div>
-  `;
-}
-
-function renderAll() {
-  grid.innerHTML = PROPERTIES.map(cardHtml).join('');
-  applyFilters();
-}
-
-const state = {
-  line: 'all',
-  layout: 'all',
-  sort: 'rent-asc',
-  rentcap: 240000,
-};
-
-document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(c => {
-  c.addEventListener('click', () => {
-    document.querySelectorAll('.control-group[data-filter="line"] .chip').forEach(x => x.classList.remove('on'));
-    c.classList.add('on');
-    state.line = c.dataset.value;
-    applyFilters();
-  });
-});
-document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(c => {
-  c.addEventListener('click', () => {
-    document.querySelectorAll('.control-group[data-filter="layout"] .chip').forEach(x => x.classList.remove('on'));
-    c.classList.add('on');
-    state.layout = c.dataset.value;
-    applyFilters();
-  });
-});
-document.getElementById('sort').addEventListener('change', e => {
-  state.sort = e.target.value;
-  applyFilters();
-});
-document.getElementById('rentcap').addEventListener('change', e => {
-  state.rentcap = parseInt(e.target.value, 10);
-  applyFilters();
-});
-
-function applyFilters() {
-  const cards = Array.from(grid.querySelectorAll('.card'));
-  const filtered = cards.filter(card => {
-    if (state.line !== 'all' && card.dataset.line !== state.line) return false;
-    if (state.layout !== 'all' && card.dataset.layout !== state.layout) return false;
-    if (parseInt(card.dataset.total, 10) > state.rentcap) return false;
-    return true;
-  });
-  filtered.sort((a, b) => {
-    const ka = a.dataset, kb = b.dataset;
-    switch (state.sort) {
-      case 'rent-asc': return (+ka.total) - (+kb.total);
-      case 'size-desc': return (+kb.size) - (+ka.size);
-      case 'walk-asc': return (+ka.walk) - (+kb.walk);
-      case 'age-asc': return (+kb.year) - (+ka.year);
-    }
-    return 0;
-  });
-  cards.forEach(c => c.classList.add('hidden'));
-  filtered.forEach(c => {
-    c.classList.remove('hidden');
-    grid.appendChild(c);
-  });
-  countEl.textContent = filtered.length;
-
-  if (filtered.length === 0) {
-    if (!grid.querySelector('.empty')) {
-      const empty = document.createElement('div');
-      empty.className = 'empty';
-      empty.textContent = '条件に合う物件がありません。フィルタを緩めてお試しください。';
-      grid.appendChild(empty);
-    }
-  } else {
-    const existing = grid.querySelector('.empty');
-    if (existing) existing.remove();
+  const badges = [];
+  if (NEW_SINCE && p.addedAt && p.addedAt >= NEW_SINCE) badges.push('<span class="badge new">NEW</span>');
+  if (SHOW_RANK_BADGES) {
+    if (p.total === minTotal) badges.push('<span class="badge rank">最安</span>');
+    if (p.size === maxSize) badges.push('<span class="badge rank">最も広い</span>');
+    if (AGE(p) === minAge) badges.push('<span class="badge rank">築浅</span>');
   }
+  const tags = (p.tags || []).filter(t => !DUPE_TAG.test(strip(t.t))).map(t =>
+    '<span class="' + (t.c === 'warn' ? 'tag warn' : (t.c === 'new' ? 'tag hi' : 'tag')) + '">' + strip(t.t) + '</span>').join('');
+  const action = p.driveId
+    ? '<button class="btn" onclick="openPreview(\'' + p.driveId + '\',\'' + p.name + '\')">図面を見る</button>'
+    : '<div class="contact-note">図面・詳細情報・内見のご希望は<b>ご担当までLINE等で</b>お問い合わせください</div>';
+  return ''
+  + '<article class="card">'
+  +   '<div class="card-top">'
+  +     '<div class="rank-row">' + badges.join('') + '</div>'
+  +     '<h3>' + p.name + '<span> ' + (p.unit || '') + '</span></h3>'
+  +     '<div class="access">' + p.line + '「' + p.station + '」徒歩' + p.walk + '分</div>'
+  +     '<div class="price-row"><div class="price">' + yen(p.total) + '<small>円</small></div>'
+  +       '<div class="price-note">賃料 ' + yen(p.rent) + '<br>管理費 ' + (p.kanri === 0 ? 'なし' : yen(p.kanri)) + '</div></div>'
+  +   '</div>'
+  +   '<div class="specs">'
+  +     '<div class="spec"><span class="sk">広さ</span><span class="sv">' + p.size + '㎡</span></div>'
+  +     '<div class="spec"><span class="sk">築年数</span><span class="sv">築' + AGE(p) + '年</span></div>'
+  +     '<div class="spec"><span class="sk">駅徒歩</span><span class="sv">' + p.walk + '分</span></div>'
+  +   '</div>'
+  +   '<div class="tags">' + tags + '</div>'
+  +   '<details class="more"><summary>おすすめポイントとご留意点</summary><div class="more-body">'
+  +     '<h4>おすすめポイント</h4><ul>' + (p.pros || []).map(x => '<li>' + strip(x) + '</li>').join('') + '</ul>'
+  +     ((p.cons && p.cons.length) ? '<h4 class="flag">ご留意点</h4><ul>' + p.cons.map(x => '<li>' + strip(x) + '</li>').join('') + '</ul>' : '')
+  +     '<h4>契約条件</h4><ul><li>' + p.deposit + '／' + p.reikin + '／' + p.structure + '造／' + p.year + '年築</li></ul>'
+  +   '</div></details>'
+  +   (p.addedAt ? '<div class="added-date">物件情報の登録日：' + p.addedAt + '</div>' : '')
+  +   '<div class="actions">' + action + '</div>'
+  + '</article>';
 }
 
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalFrame = document.getElementById('modal-frame');
+// ---------- フィルタ：コントロールはデータから生成する ----------
+const state = { sort: 'rent-asc', layout: 'all', line: 'all', rentcap: Infinity };
 
+function buildChips(kind) {
+  const box = document.querySelector('.cgroup[data-filter="' + kind + '"]');
+  const values = Array.from(new Set(PROPERTIES.map(p => p[kind])));
+  ['すべて'].concat(values).forEach((v, i) => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.type = 'button';
+    b.textContent = v;
+    b.dataset.value = i === 0 ? 'all' : v;
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', () => {
+      box.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+      b.setAttribute('aria-pressed', 'true');
+      state[kind] = b.dataset.value;
+      apply();
+    });
+    box.appendChild(b);
+  });
+}
+
+function buildBudget() {
+  const sel = document.getElementById('rentcap');
+  const cap = Number('240000') || maxTotal;
+  const step = 10000;
+  const opts = [{ v: 'all', t: 'すべて' }];
+  for (let v = Math.ceil(cap / step) * step; v > minTotal; v -= step) {
+    opts.push({ v: String(v), t: '〜' + yen(v) + '円' });
+  }
+  opts.forEach(o => {
+    const el = document.createElement('option');
+    el.value = o.v;
+    el.textContent = o.t;
+    sel.appendChild(el);
+  });
+  // 初期選択は必ず「すべて」。ここを絞ると読み込み直後に物件が理由なく隠れる。
+  sel.value = 'all';
+  sel.addEventListener('change', e => {
+    state.rentcap = e.target.value === 'all' ? Infinity : Number(e.target.value);
+    apply();
+  });
+}
+
+function apply() {
+  const cmp = {
+    'rent-asc': (a, b) => a.total - b.total,
+    'size-desc': (a, b) => b.size - a.size,
+    'year-desc': (a, b) => b.year - a.year,
+    'walk-asc': (a, b) => a.walk - b.walk
+  }[state.sort];
+  const list = PROPERTIES.slice().sort(cmp);
+  const vis = list.filter(p =>
+    (state.layout === 'all' || p.layout === state.layout) &&
+    (state.line === 'all' || p.line === state.line) &&
+    p.total <= state.rentcap);
+  document.getElementById('grid').innerHTML = vis.map(cardHtml).join('');
+  document.getElementById('empty').hidden = vis.length > 0;
+  document.getElementById('count').textContent = vis.length;
+  document.getElementById('tbody').innerHTML = list.map(p => ''
+    + '<tr><td>' + p.name + ' <span style="color:var(--ink-3);font-size:11px">' + (p.unit || '') + '</span></td>'
+    + '<td class="em">' + yen(p.total) + '円</td><td>' + p.size + '㎡</td><td>' + p.layout + '</td>'
+    + '<td>築' + AGE(p) + '年</td><td>' + p.station + '</td><td>' + p.walk + '分</td></tr>').join('');
+}
+
+// ---------- 図面モーダル ----------
+const modal = document.getElementById('modal');
 function openPreview(driveId, name) {
-  modalTitle.textContent = '図面プレビュー：' + name;
-  modalFrame.src = `https://drive.google.com/file/d/${driveId}/preview`;
+  document.getElementById('modal-title').textContent = name + ' の図面';
+  document.getElementById('modal-frame').src = 'https://drive.google.com/file/d/' + driveId + '/preview';
   modal.classList.add('on');
 }
-document.getElementById('modal-close').addEventListener('click', () => {
+function closePreview() {
   modal.classList.remove('on');
-  modalFrame.src = '';
-});
-modal.addEventListener('click', e => {
-  if (e.target === modal) {
-    modal.classList.remove('on');
-    modalFrame.src = '';
-  }
-});
+  document.getElementById('modal-frame').src = '';
+}
+document.getElementById('modal-close').addEventListener('click', closePreview);
+modal.addEventListener('click', e => { if (e.target === modal) closePreview(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('on')) closePreview(); });
 
-renderAll();
+buildChips('layout');
+buildChips('line');
+buildBudget();
+document.getElementById('sort').addEventListener('change', e => { state.sort = e.target.value; apply(); });
+drawChart();
+apply();
 </script>
 </body>
 </html>
