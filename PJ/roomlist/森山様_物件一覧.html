@@ -321,6 +321,7 @@ const NEW_SINCE = '2026-09-04';
 const PROPERTIES = [
   // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
   // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
+  // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
   {
     id: '01',
     name: 'サンハイツ三田',
@@ -808,15 +809,15 @@ function cardHtml(p) {
   +   '</div>'
   +   '<div class="specs">'
   +     '<div class="spec-col">'
-  +       specRow('広さ', p.size + '㎡')
-  +       + specRow('築年数', '築' + AGE(p) + '年')
-  +       + specRow('駅徒歩', p.walk + '分')
-  +     + '</div>'
+  +     specRow('広さ', p.size + '㎡')
+  +     specRow('築年数', '築' + AGE(p) + '年')
+  +     specRow('駅徒歩', p.walk + '分')
+  +     '</div>'
   +     '<div class="spec-col">'
-  +       specRow('構造', kouzou(p.structure))
-  +       + specRow('入居可能日', p.available)
-  +       + specRow('主要採光面', p.facing)
-  +     + '</div>'
+  +     specRow('構造', kouzou(p.structure))
+  +     specRow('入居可能日', p.available)
+  +     specRow('主要採光面', p.facing)
+  +     '</div>'
   +   '</div>'
   +   '<div class="tags">' + tags + '</div>'
   +   '<details class="more"><summary>おすすめポイントとご留意点</summary><div class="more-body">'
