@@ -125,7 +125,7 @@ md.append("- `tools/gen-theme-plan.py` … `_themes.py` から theme-plan.json �
 md.append("- `tools/render-post.js` … テンプレートへの流し込み。new-post.js と rebuild-posts.js が共有")
 md.append("- `tools/new-post.js` … 週次投稿。記事生成／posts.json／sitemap.xml をまとめて更新")
 md.append("- `tools/rebuild-posts.js` … posts.json の content から全記事を再生成（テンプレ／CSS変更後に実行）")
-md.append("- `tools/make-eyecatch.py` … アイキャッチ画像の生成（Pollinations）と黒帯除去。1280x720 で `blog/posts/images/` に出力")
+md.append("- `tools/make-eyecatch.py` … アイキャッチ画像の生成（既定 Gemini／`--engine pollinations` も可）と黒帯除去。1280x720 で `blog/posts/images/` に出力")
 md.append("- `tools/add-noindex.py` … PJ/ 配下の顧客向けページに noindex を付与（冪等）\n")
 md.append("## 記事の型（1本あたり1,200〜1,800字）\n")
 md.append("1. **導入**（150字）— 実際にあった場面を一つだけ描写する")

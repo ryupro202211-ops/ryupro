@@ -8,9 +8,11 @@
     # 既にある画像の黒帯を落として整えるだけ
     python tools/make-eyecatch.py --slug 2026-09-09-... --from drafts/raw.jpg
 
-生成には Pollinations（https://image.pollinations.ai）を使う。APIキー不要。
-nano-banana MCP が使う Gemini API は、無料枠だと画像モデルだけ
-`limit: 0` で 429 になるため採用していない。
+生成は既定で Gemini（環境変数 GEMINI_API_KEY が要る）。輪郭がはっきりして
+いてCG調に転びにくい。キーが無い環境や Gemini 側が 429 を返す場合に備えて
+`--engine pollinations`（https://image.pollinations.ai・APIキー不要）も残して
+ある。2026-09-06 時点では Gemini の画像モデルが無料枠だと `limit: 0` で
+429 になっていたが、翌日には通るようになった。落ちたら engine を切り替える。
 
 生成画像にはレターボックスの黒帯が焼き込まれることが多い。記事ページでは
 画像の上下に暗い帯が出て、一覧カード（16:10 の cover 切り抜き）でも構図が
@@ -20,9 +22,10 @@ nano-banana MCP が使う Gemini API は、無料枠だと画像モデルだけ
 一覧サムネイル・OGP・記事ページ上部の3か所に使われる。
 """
 import argparse
+import base64
 import io
+import json
 import os
-import sys
 import urllib.parse
 import urllib.request
 
@@ -47,8 +50,42 @@ STYLE_SUFFIX = (
 )
 
 
-def generate(prompt, seed):
-    """Pollinations で 16:9 の画像を取得してバイト列で返す。"""
+GEMINI_MODEL = "gemini-3.1-flash-image"
+
+
+def generate_gemini(prompt):
+    """Gemini の画像モデルで 16:9 を生成してバイト列で返す。
+
+    2K で返ってくるので、この後の整形で 1280x720 に落とす。
+    seed 指定は API 側に無いため、構図を変えたいときはプロンプトを変える。
+    """
+    key = os.environ.get("GEMINI_API_KEY")
+    if not key:
+        raise SystemExit("GEMINI_API_KEY が環境にありません。"
+                         "--engine pollinations なら不要です。")
+    body = json.dumps({
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "responseModalities": ["IMAGE"],
+            "imageConfig": {"aspectRatio": "16:9", "imageSize": "2K"},
+        },
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % GEMINI_MODEL,
+        data=body,
+        headers={"x-goog-api-key": key, "content-type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=180) as res:
+        payload = json.loads(res.read().decode("utf-8"))
+
+    for part in payload.get("candidates", [{}])[0].get("content", {}).get("parts", []):
+        if "inlineData" in part:
+            return base64.b64decode(part["inlineData"]["data"])
+    raise SystemExit("Gemini のレスポンスに画像がありませんでした。")
+
+
+def generate_pollinations(prompt, seed):
+    """Pollinations で 16:9 の画像を取得してバイト列で返す。APIキー不要。"""
     url = "https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt)
     url += "?width=%d&height=%d&model=flux&nologo=true" % (WIDTH, HEIGHT)
     if seed is not None:
@@ -106,9 +143,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--slug", required=True,
                     help="記事のslug（例 2026-09-09-two-and-half-hour-commute）")
-    ap.add_argument("--prompt", help="Pollinations に渡すプロンプト（英語）")
+    ap.add_argument("--prompt", help="生成に渡すプロンプト（英語）")
     ap.add_argument("--from", dest="src", help="生成せず、このファイルを整えるだけ")
-    ap.add_argument("--seed", type=int, help="同じ構図を再現したいときに指定")
+    ap.add_argument("--engine", choices=["gemini", "pollinations"], default="gemini",
+                    help="生成エンジン（既定 gemini。GEMINI_API_KEY が要る）")
+    ap.add_argument("--seed", type=int,
+                    help="構図を再現したいときに指定。pollinations のみ有効")
     ap.add_argument("--no-style", action="store_true",
                     help="共通のスタイル指定を足さず、--prompt をそのまま使う")
     args = ap.parse_args()
@@ -122,8 +162,14 @@ def main():
         im = Image.open(src).convert("RGB")
     else:
         prompt = args.prompt if args.no_style else args.prompt.rstrip() + STYLE_SUFFIX
-        print("生成: Pollinations (seed=%s)" % (args.seed if args.seed is not None else "random"))
-        im = Image.open(io.BytesIO(generate(prompt, args.seed))).convert("RGB")
+        if args.engine == "gemini":
+            print("生成: Gemini (%s)" % GEMINI_MODEL)
+            raw = generate_gemini(prompt)
+        else:
+            print("生成: Pollinations (seed=%s)"
+                  % (args.seed if args.seed is not None else "random"))
+            raw = generate_pollinations(prompt, args.seed)
+        im = Image.open(io.BytesIO(raw)).convert("RGB")
 
     print("  元サイズ: %dx%d" % im.size)
     im = to_16x9(trim_bars(im))

@@ -108,7 +108,7 @@ node tools/rebuild-posts.js                              # テンプレ変更後
 - `tools/render-post.js` … テンプレートへの流し込み。new-post.js と rebuild-posts.js が共有
 - `tools/new-post.js` … 週次投稿。記事生成／posts.json／sitemap.xml をまとめて更新
 - `tools/rebuild-posts.js` … posts.json の content から全記事を再生成（テンプレ／CSS変更後に実行）
-- `tools/make-eyecatch.py` … アイキャッチ画像の生成（Pollinations）と黒帯除去。1280x720 で `blog/posts/images/` に出力
+- `tools/make-eyecatch.py` … アイキャッチ画像の生成（既定 Gemini／`--engine pollinations` も可）と黒帯除去。1280x720 で `blog/posts/images/` に出力
 - `tools/add-noindex.py` … PJ/ 配下の顧客向けページに noindex を付与（冪等）
 
 ## 記事の型（1本あたり1,200〜1,800字）
