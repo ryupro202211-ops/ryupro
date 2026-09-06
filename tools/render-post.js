@@ -10,6 +10,7 @@
 'use strict';
 
 const SITE = 'https://ryupro202211-ops.github.io/ryupro';
+const NL = '\n';
 // 一覧カードのサムネイル既定値（4:3）
 const DEFAULT_IMAGE = '/assets/images/default-blog.jpg';
 // OGP 既定値。SNS カードは 1.91:1 が前提なので専用に切り出したものを使う。
@@ -40,6 +41,24 @@ function ogImageUrl(image) {
   return absoluteUrl(image);
 }
 
+/**
+ * 記事ページ上部のアイキャッチ（ヒーロー画像）ブロック。
+ *
+ * image が未設定、または一覧カード用の汎用サムネイルのままなら何も出さない。
+ * src は blog/posts/ からの相対パスにする。ローカル（/）でも
+ * GitHub Pages（/ryupro/）でも同じように解決させるため。
+ */
+function heroBlock(post) {
+  const image = post && post.image;
+  if (!image || image === DEFAULT_IMAGE) { return ''; }
+  const src = image.indexOf('/blog/posts/') === 0
+    ? image.slice('/blog/posts/'.length)
+    : image;
+  return '  <div class="article-hero-img">' + NL +
+    '    <img src="' + escapeAttr(src) + '" alt="' + escapeAttr(post.title) + '" loading="lazy" decoding="async">' + NL +
+    '  </div>' + NL;
+}
+
 /** "2026.08.26" -> "2026-08-26" */
 function toIsoDate(dateDisplay) {
   return String(dateDisplay || '').split('.').join('-');
@@ -65,7 +84,8 @@ function renderPost(template, post) {
     .split('{{EXCERPT}}').join(escapeAttr(post.excerpt))
     .split('{{URL}}').join(SITE + '/blog/' + relUrl)
     .split('{{IMAGE}}').join(ogImageUrl(post.image))
+    .split('{{HERO}}').join(heroBlock(post))
     .split('{{CONTENT}}').join(post.content || '');
 }
 
-module.exports = { SITE, DEFAULT_IMAGE, OG_FALLBACK_IMAGE, escapeAttr, absoluteUrl, ogImageUrl, toIsoDate, renderPost };
+module.exports = { SITE, DEFAULT_IMAGE, OG_FALLBACK_IMAGE, escapeAttr, absoluteUrl, ogImageUrl, toIsoDate, heroBlock, renderPost };
