@@ -1072,6 +1072,8 @@ function revealTown(){
 }
 
 /* ===================== 紙吹雪 ===================== */
+/* 演出の速さ。上げるほど速く降って早く終わる（1=元の速さ、3=3倍速） */
+var FX_SPEED=3;
 function confetti(count,big){
   count=count||140;
   var cv=$('fx'); if(!cv||!cv.getContext) return;
@@ -1085,10 +1087,10 @@ function confetti(count,big){
     P.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*0.3,
       s:isG?(14+Math.random()*14):(5+Math.random()*7),c:cols[i%cols.length],
       g:isG?glyphs[Math.floor(Math.random()*glyphs.length)]:null,
-      vy:2+Math.random()*3.5,vx:-1.5+Math.random()*3,
-      a:Math.random()*6.28,va:-0.2+Math.random()*0.4});
+      vy:(2+Math.random()*3.5)*FX_SPEED,vx:(-1.5+Math.random()*3)*FX_SPEED,
+      a:Math.random()*6.28,va:(-0.2+Math.random()*0.4)*FX_SPEED});
   }
-  var maxF = big?260:180, frames=0;
+  var maxF = Math.round((big?260:180)/FX_SPEED), frames=0;
   (function loop(){
     frames++; ctx.clearRect(0,0,cv.width,cv.height);
     P.forEach(function(p){
