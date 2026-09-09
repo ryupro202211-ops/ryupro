@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>あなたに合う街診断｜Re▶CAMPUS</title>
 <style>
   :root{
@@ -245,6 +245,113 @@
   footer{text-align:center;font-size:11px;color:var(--ink-soft);margin-top:26px;font-family:var(--mono);letter-spacing:.08em;}
 
   canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:50;}
+  /* ===== 街歩きマガジン ===== */
+  :root{
+    --paper:#F6F4EE;--paper-2:#FFFEFA;--ink:#213D35;--ink-soft:#637168;
+    --line:#DCE0D6;--a:#287A65;--a-soft:#EAF1E9;--b:#A34E31;
+    --b-soft:#F5E9DD;--love:#A34E31;--good:#287A65;--radius:18px;
+    --shadow:0 12px 35px -24px rgba(29,57,44,.2);
+    --sans:"Hiragino Sans","Yu Gothic",Meiryo,-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  body{background:var(--paper);line-height:1.85;}
+  .wrap{max-width:1160px;padding:28px 32px 56px;}
+  .brand{font-family:var(--sans);font-size:11px;letter-spacing:.12em;border-bottom:1px solid var(--line);
+    padding-bottom:20px;margin-bottom:30px;justify-content:space-between;}
+  .brand b{font-size:18px;letter-spacing:.015em;text-transform:none;}
+  .brand .play{color:var(--b);font-size:13px;}
+  .brand .brand-edition{font-size:10px;color:var(--ink-soft);}
+  .screen:not(#s-start){max-width:760px;margin:0 auto;}
+  #s-name,#s-quiz{max-width:620px;}
+  .landing{display:grid;grid-template-columns:1fr 1.04fr;gap:48px;align-items:center;}
+  .landing .hero{padding:16px 0;background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;}
+  .hero::before,.score-card::before{display:none;}
+  .eyebrow{color:var(--b);font-size:11px;letter-spacing:.13em;font-weight:700;}
+  .landing h1{font-size:clamp(32px,3.6vw,45px);font-weight:700;line-height:1.5;letter-spacing:.015em;margin:20px 0;}
+  .landing h1 em{font-style:normal;color:var(--a);}
+  .hero-description{font-size:14px;color:var(--ink-soft);line-height:2;margin:0 0 25px;}
+  .intro-meta{display:flex;gap:24px;margin:0 0 24px;font-size:12px;color:var(--ink-soft);}
+  .intro-meta span{display:flex;gap:6px;align-items:baseline;}
+  .intro-meta b{font-family:var(--mono);color:var(--ink);font-size:24px;font-weight:500;}
+  .btn{background:var(--ink);border:1px solid var(--ink);border-radius:10px;box-shadow:none;
+    font-weight:700;font-size:16px;transition:background .18s,transform .18s;}
+  .btn.big{font-size:16px;padding:17px 22px;}
+  .landing .btn{display:flex;align-items:center;justify-content:space-between;max-width:365px;}
+  .btn-arrow{font-size:24px;line-height:1;font-weight:400;}
+  .btn.ghost{border:1px solid var(--line);background:transparent;color:var(--ink);}
+  .landing .note{max-width:365px;font-size:11px;margin:9px 0 0;}
+  .hero-visual{margin:0;position:relative;min-width:0;}
+  .hero-img{margin:0;border:0;border-radius:90px 12px 12px 12px;box-shadow:none;}
+  .hero-img img{height:510px;width:100%;object-fit:cover;object-position:50% 50%;}
+  .photo-label{position:absolute;left:22px;bottom:48px;color:white;border-left:2px solid #fff;
+    padding:2px 0 2px 14px;font-size:20px;font-weight:600;line-height:1.6;text-shadow:0 1px 8px #213D35;pointer-events:none;}
+  .photo-label small{display:block;font-family:var(--mono);letter-spacing:.18em;font-size:10px;margin-bottom:7px;}
+  .hero-visual figcaption{text-align:right;color:var(--ink-soft);font-size:10px;margin-top:7px;}
+  .landing-bottom{display:grid;grid-template-columns:1fr 1.04fr;gap:48px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line);}
+  .discover-intro{font-size:13px;color:var(--ink-soft);margin:0;}
+  .discover-intro b{color:var(--ink);font-size:15px;font-weight:600;display:block;margin-bottom:5px;}
+  .area-index{min-width:0;}
+  .area-index summary{cursor:pointer;font-size:13px;font-weight:600;padding:4px 0;}
+  .town-strip{gap:7px;margin:14px 0 0;}
+  .town-strip span{border:0;background:#ECEFE6;color:var(--ink);font-size:11px;font-weight:500;border-radius:5px;padding:5px 9px;}
+  .hero{padding:32px;border-radius:18px;box-shadow:none;}
+  h1 .sub{font-size:14px;line-height:1.85;font-weight:400;margin-top:14px;}
+  .seat{border:1px solid var(--line);background:var(--paper);margin-top:24px;padding:18px;border-radius:10px;}
+  .seat .tag{background:none;color:var(--b);padding:0;border-radius:0;}
+  .seat input{font-weight:500;min-height:44px;}
+  #s-quiz{padding:28px 0;}
+  .qtop{margin-bottom:20px;}.bar{height:4px;border:0;background:#DDE2D8;margin-bottom:34px;}
+  .bar i{background:var(--a);}.q{font-size:25px;line-height:1.7;margin-bottom:26px;}
+  .q .num{color:var(--b);font-weight:500;margin-bottom:12px;}.opt{min-height:76px;padding:18px;border-radius:12px;font-weight:500;}
+  .opt .ic{font-size:24px;background:var(--paper);border-radius:8px;width:42px;line-height:42px;}
+  .opt:hover{border-color:var(--a);background:var(--a-soft);}
+  .backline button{min-height:44px;}.note{color:var(--ink-soft);}
+  .result-head{margin:30px 0 18px;}.score-card{padding:32px;border:1px solid var(--line);border-top:4px solid var(--a);box-shadow:none;}
+  .reveal-msg{font-weight:500;font-size:13px;}.town-emoji{font-size:38px;margin:16px 0 10px;}
+  .town-name{background:none;color:var(--ink);font-size:48px;letter-spacing:.08em;margin-bottom:12px;}
+  .town-catch{font-weight:500;font-size:15px;}.meta{margin:24px 0;gap:0;background:var(--paper);border-radius:12px;padding:12px;}
+  .meta div{background:none;border:0;border-radius:0;padding:0;}.meta>div{padding:8px;}.meta>div+div{border-left:1px solid var(--line);}
+  .meta .v{font-size:32px;font-weight:500;}.meta .v.rent{font-size:18px;padding-top:6px;}
+  .title-badge{background:var(--a-soft);border:0;box-shadow:none;border-radius:5px;font-size:13px;}
+  .chips span{background:none;border:1px solid var(--line);font-weight:500;font-size:11px;border-radius:5px;}
+  .comment{border:0;background:none;border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;margin-top:20px;font-size:15px;line-height:2;}
+  .panel{padding:28px;border-radius:16px;box-shadow:none;margin-bottom:22px;}
+  .panel h3{font-size:19px;letter-spacing:.025em;line-height:1.6;font-weight:600;margin-bottom:20px;}
+  .panel h3::before{content:"";width:4px;height:19px;background:var(--a);border-radius:2px;flex-shrink:0;}
+  .town-detail{scroll-margin-top:20px;}.td-rows{gap:0;margin-top:20px;}
+  .td-row,.td-row.note{border:0;border-top:1px solid var(--line);padding:18px 0;background:none;border-radius:0;margin:0;}
+  .td-row b{font-size:12px;color:var(--a);margin-bottom:8px;}.td-row span{font-size:14px;line-height:2;}
+  .td-row.note b{color:var(--b);}.td-chips span{font-weight:500;border-radius:5px;}
+  .td-credit{margin:8px 0 18px;}.td-lines{margin-top:14px;}
+  .slider .nav,.rnav{width:44px;height:44px;box-shadow:0 2px 8px #213d351a;font-size:22px;}
+  .slider .track,.slider .slide img{border-radius:10px;}.td-cap{border-radius:0 0 10px 10px;}
+  .dots{gap:8px;margin:14px 0 8px;}.dots i{background:#CCD6C9;}.dots i.on{background:var(--a);}
+  .town-detail>.panel{border:0;border-top:1px solid var(--line);border-radius:0;padding:26px 0 0;margin:12px 0 0;}
+  .rooms-head{align-items:flex-start;flex-wrap:wrap;margin-bottom:18px;}.rooms-head .asof{font-size:11px;}
+  .rooms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+  .room-card{min-width:0;border:1px solid var(--line);border-radius:12px;padding:12px;margin:0;background:var(--paper-2);}
+  .rslide img{background:#F1F1EB;border:0;border-radius:8px;}.room-card .rt{font-size:13px;margin:12px 0 7px;}
+  .room-card .rp{font-size:23px;font-weight:600;margin-bottom:6px;}.room-card .rp small{display:block;margin:2px 0 6px;}
+  .room-card .rx{margin-top:8px;}.rooms-note{font-size:11px;line-height:1.9;margin-top:18px;}
+  .run-row{border-left:1px solid var(--line);padding:18px 14px;border-radius:10px;}
+  .run-row .ct{font-size:12px;}.run-row .pc b{font-weight:500;}.panel-note{margin:0 0 16px;}
+  .line-cta{background:var(--a-soft);}.line-cta h3{justify-content:center;}.line-lead{font-size:14px;line-height:1.9;}
+  .line-btn{border-radius:10px;box-shadow:none;max-width:430px;margin:auto;}.disclaimer{font-size:11px;}
+  footer{font-family:var(--sans);font-size:10px;margin-top:36px;}
+  :focus-visible{outline:3px solid var(--b);outline-offset:4px;}
+  @media(hover:hover){.btn:hover{background:#315C4E;}.btn.ghost:hover{background:var(--a-soft);}.run-row:hover{background:var(--a-soft);}}
+  @media(max-width:760px){
+    .wrap{padding:20px 20px 40px;}.brand{margin-bottom:22px;padding-bottom:16px;}.brand-edition{display:none;}
+    .landing{grid-template-columns:1fr;gap:18px;}.hero-visual{grid-row:1;}.hero-img{border-radius:52px 10px 10px 10px;}
+    .hero-img img{height:220px;object-position:center 55%;}.photo-label{left:18px;bottom:40px;font-size:16px;}
+    .photo-label small{font-size:9px;margin-bottom:4px;}.landing .hero{padding:0;}.landing h1{font-size:32px;line-height:1.5;margin:10px 0 12px;}
+    .hero-description{margin-bottom:16px;font-size:13px;}.intro-meta{margin-bottom:18px;gap:22px;}.intro-meta b{font-size:20px;}
+    .landing .btn,.landing .note{max-width:none;}.landing-bottom{grid-template-columns:1fr;gap:18px;margin-top:28px;padding-top:20px;}
+    .hero{padding:24px;}.q{font-size:22px;}#s-quiz{padding:14px 0;}.panel,.score-card{padding:22px;}
+    .town-name{font-size:40px;}.panel h3{font-size:17px;}.rooms-grid{grid-template-columns:1fr;}
+    .room-card{padding:14px;}.room-card .rp small{display:inline;margin-left:6px;}
+  }
+  @media(max-width:380px){.wrap{padding-left:16px;padding-right:16px;}.landing h1{font-size:28px;}.hero-img img{height:185px;}.panel,.score-card{padding:18px;}.brand b{font-size:16px;}}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}canvas#fx{display:none;}}
 </style>
 </head>
 <body>
@@ -254,19 +361,28 @@
   <img id="lightboxImg" src="" alt="">
 </div>
 <div class="wrap">
-  <div class="brand"><b>Re<span class="play">▶</span>CAMPUS</b> &nbsp;/&nbsp; TOWN MATCH</div>
+  <div class="brand"><b>Re<span class="play">▶</span>CAMPUS</b><span>TOWN MATCH</span><span class="brand-edition">TOKYO / 20 NEIGHBORHOODS</span></div>
 
   <!-- ================= スタート ================= -->
   <section id="s-start" class="screen active">
-    <div class="hero-img" id="heroImg"></div>
+    <div class="landing">
     <div class="hero">
-      <p class="eyebrow">TOWN MATCH ／ 学園祭限定</p>
-      <h1>あなたに合う<br>街診断
-        <span class="sub">8つの質問で、東京20エリアからあなたにぴったりの街が見つかる。</span>
-      </h1>
-      <div class="town-strip" id="townStrip"></div>
-      <button class="btn big" onclick="goToName()">はじめる 🏙️</button>
-      <p class="note">所要時間 約2分 ／ 全8問 ／ ひとりでできます</p>
+      <p class="eyebrow">あなたに合う街診断 ／ 学園祭限定</p>
+      <h1>次の暮らしが、<br>楽しみになる<em>街。</em></h1>
+      <p class="hero-description">休日の過ごし方も、お気に入りのお店も。<br>8つの質問から、暮らしに合う東京の街を探そう。</p>
+      <div class="intro-meta"><span><b>20</b>エリア</span><span><b>8</b>問</span><span>約<b>2</b>分</span></div>
+      <button class="btn big" onclick="goToName()"><span>街診断をはじめる</span><span class="btn-arrow" aria-hidden="true">→</span></button>
+      <p class="note">ひとりで気軽に。直感で選んでOK。</p>
+    </div>
+    <figure class="hero-visual">
+      <div class="hero-img" id="heroImg"></div>
+      <div class="photo-label" aria-hidden="true"><small>FIND YOUR NEIGHBORHOOD</small>好きな街で、<br>いつもの毎日を。</div>
+      <figcaption>画像はAIによる暮らしのイメージです</figcaption>
+    </figure>
+    </div>
+    <div class="landing-bottom">
+      <p class="discover-intro"><b>街の雰囲気も、住まいのことも。</b>診断結果から街並みの写真や家賃の目安、<br>お部屋の例まで見られます。</p>
+      <details class="area-index"><summary>診断で出会える20の街を見る</summary><div class="town-strip" id="townStrip"></div></details>
     </div>
     <footer>Re▶CAMPUS &copy; town match booth</footer>
   </section>
@@ -280,7 +396,7 @@
       </h1>
       <div class="seat">
         <span class="tag">YOUR NAME</span>
-        <label>ニックネーム</label>
+        <label for="nameU">ニックネーム</label>
         <input id="nameU" type="text" placeholder="例：はなこ" maxlength="8" autocomplete="off">
       </div>
       <button class="btn big" onclick="start()">診断スタート</button>
@@ -337,7 +453,7 @@
 
     <div class="panel line-cta">
       <h3>お部屋・引っ越しのご相談</h3>
-      <p class="line-lead">気になる街の物件情報もお送りします🏠<br>引っ越しの相談はお気軽に公式LINEから💬</p>
+      <p class="line-lead">気になる街が見つかったら、お部屋のことも。<br>希望の家賃や引っ越し時期を、LINEで教えてください。</p>
       <a class="line-btn" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">公式LINEで相談する</a>
       <p class="disclaimer">※家賃はワンルーム／1Kの一般的な目安です。築年数・駅からの距離・設備によって大きく変わります。実際のお部屋探しは公式LINEからご相談ください。</p>
     </div>
@@ -880,7 +996,7 @@ function roomsHTML(k, townName){
   return '<div class="panel">'
     + '<div class="rooms-head"><h3 style="margin:0;">' + escapeHtml(townName) + 'のお部屋の例</h3>'
     + '<span class="asof">' + escapeHtml(ROOMS_ASOF) + '時点</span></div>'
-    + cards
+    + '<div class="rooms-grid">' + cards + '</div>'
     + '<p class="rooms-note">※掲載時点の募集情報です。すでに契約済みの場合があります。'
     + '最新の空室は公式LINEからお問い合わせください。<br>'
     + '※取引態様：' + escapeHtml(agent.mode||'') + ' ／ ' + escapeHtml(agent.name||'')
