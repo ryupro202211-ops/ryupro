@@ -72,7 +72,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
       <div class="fact"><span class="k">ご紹介件数</span><span class="v" id="f-count">–</span></div>
       <div class="fact"><span class="k">管理費込み賃料</span><span class="v" id="f-rent">–</span></div>
       <div class="fact"><span class="k">専有面積</span><span class="v" id="f-size">–</span></div>
-      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026-09-04</span></div>
+      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026-09-09</span></div>
     </div>
   </div>
 </header>
@@ -141,7 +141,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
   </section>
 <section class="contact-panel" id="contact"><h2>気になるお部屋はありましたか？</h2><p>物件名を添えて、担当者へLINEまたはメールでお知らせください。<br>最新の募集状況を確認し、内見の日程をご案内します。</p></section>
 </main></div>
-<div class="wrap"><footer><div class="footer-brand">住まいのしおり</div>掲載情報は 2026-09-04 時点のものです。募集状況は変わるため、内見をご希望の際は担当者へお問い合わせください。</footer></div>
+<div class="wrap"><footer><div class="footer-brand">住まいのしおり</div>2026-09-09に物件情報の掲載を確認しました。掲載中でも申込や募集終了の場合があるため、内見をご希望の際は担当者へお問い合わせください。水道・給湯・保証料など、管理費以外の費用は各物件のご留意点をご確認ください。</footer></div>
 
 <div class="modal-backdrop" id="modal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -163,7 +163,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
 const SHOW_RANK_BADGES = false;
 
 // NEWバッジのしきい値。addedAt >= NEW_SINCE の物件に「NEW」が付く。
-const NEW_SINCE = '2026-09-04';
+const NEW_SINCE = '2026-09-09';
 
 const PROPERTIES = [
 
@@ -278,7 +278,7 @@ const PROPERTIES = [
   },
   {
     id: '15', name: '三田ベルメゾン', unit: '202号室',
-    line: '山手線', station: '田町', walk: 8,
+    line: '山手線', station: '田町', walk: 9,
     size: 21.38, layout: '1K',
     rent: 95000, kanri: 3000, total: 98000,
     deposit: '敷1ヶ月', reikin: '礼1ヶ月',
@@ -289,19 +289,20 @@ const PROPERTIES = [
       {t:'1997年築・南向き', c:''}
     ],
     pros: [
-      'ご希望のバス・トイレ別。独立洗面台・室内洗濯機置き場・バルコニーも備わります',
+      'バス・トイレ別。室内洗濯機置き場とバルコニーも備わります',
       '管理費込み98,000円で、ご予算（管込10万）に余裕をもって収まるお部屋',
-      'JR山手線「田町」駅徒歩8分、都営三田線・浅草線「三田」駅と都営大江戸線「赤羽橋」駅も徒歩7分',
+      '最新の募集情報ではJR山手線「田町」駅・都営三田線「三田」駅ともに徒歩9分です',
       '1997年6月築のRC造・新耐震基準。南向きで日当たりが期待でき、公園隣接で環境も良好',
       '単身女性限定のマンションで、モニター付オートロック・エレベーター・光回線（フレッツ）完備'
     ],
     cons: [
-      'コンロは1口（システムガス）。ご希望の「2口以上」とは合いません',
-      '現況入居中（9月14日退去予定）のため、ご入居は2026年10月上旬からになります',
+      'ガスコンロは1口。図面では洗面器が浴室内にあり、独立洗面台のご希望には合いません',
+      '入居は2026年10月上旬予定。内見は9月15日からの予定です',
       '室内禁煙。火災保険14,500円（2年）・緊急サポート15,000円（税別）が別途必要'
     ],
     addedAt: '2026-09-04',
     driveId: '1QcmMdaGVNagwbBNKM7tjQK2oXehul6m-',
+    available: '2026年10月上旬予定', facing: '南',
   },
   {
     id: '16', name: 'サンハイム田町', unit: '1115号室',
@@ -324,11 +325,12 @@ const PROPERTIES = [
     ],
     cons: [
       '浴槽はなく「シャワールーム」です。湯船につかりたい場合はご希望に合いません',
-      '賃料・管理費のほかに水道基本料 月1,800円・給湯使用料 月1,900円（計 月3,700円）が別途かかります',
+      '水道基本料1,800円・給湯基本料1,900円・月額保証料1,200円が別途必要です。合計月89,900円からで、給湯は使用量に応じて加算されます',
       '13.77㎡とかなりコンパクト。IHコンロ1口・ペット／楽器／ルームシェア不可'
     ],
     addedAt: '2026-09-04',
     driveId: '1HOPQBn3WJ78TiyzVM3roex0oywNusUgs',
+    available: '相談', facing: '北西',
   },
   {
     id: '17', name: 'ハイツ芝大門', unit: '1007号室',
@@ -350,12 +352,40 @@ const PROPERTIES = [
       'エアコン・バルコニー付き。現在は原状回復工事前のため、工事後の状態を確認したうえでご判断いただけます'
     ],
     cons: [
-      '図面写真からはバス・トイレ同室（3点ユニット）と見られます。ご希望の「バス・トイレ別」ではない可能性が高く、内見での確認が必要です',
+      '図面写真ではバス・トイレ同室です。ご希望のバス・トイレ別、独立洗面台とは合いません',
       '登録されている設備情報が少なく（エアコン・バルコニーのみ）、設備の詳細は内見・お問い合わせでのご確認が必要です',
       '築1980年11月。契約時に事務手数料11,000円（税込）・指定火災保険・鍵交換費用が別途必要、ルームシェア不可'
     ],
     addedAt: '2026-09-04',
     driveId: '1p4Wc7hEndOk3vd4Gwd9kkXNTdzMa9wcI',
+  },
+  {
+    id: '18', name: 'サンハイム田町', unit: '418号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 13.77, layout: 'ワンルーム',
+    rent: 80000, kanri: 5000, total: 85000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 1975, structure: 'SRC',
+    available: '2026年10月上旬予定', facing: '南東',
+    tags: [
+      {t:'2023年フルリノベ済', c:'new'},
+      {t:'宅配ボックス', c:''},
+      {t:'浴槽なし・シャワーのみ', c:'warn'}
+    ],
+    pros: [
+      '2023年5月に室内をフルリノベーションしたお部屋です',
+      'JR山手線・京浜東北線「田町」駅、都営三田線・浅草線「三田」駅から徒歩10分です',
+      'シャワールームとトイレは別室。温水洗浄便座・室内洗濯機置き場を備えています',
+      '夜間オートロック・モニター付きインターホン・宅配ボックスがあります',
+      '南東向き。室内物干しユニットとIHキッチンが付いています'
+    ],
+    cons: [
+      '13.77㎡のコンパクトなお部屋で、浴槽・独立洗面台はありません。IHコンロは1口です',
+      '水道基本料1,800円・給湯基本料1,900円が別途必要で、合計月88,700円から。給湯は1㎥を超えると1㎥ごとに1,900円加算されます',
+      '入居中で9月23日解約予定、内見は9月24日からの予定です。保証料は初回総賃料50％・以後年13,000円。1年未満の解約には違約金があります'
+    ],
+    addedAt: '2026-09-09',
+    driveId: '1DXMW5lmgnEnJjIlcOjHmcOCLTF01nA9Q',
   }
 ];
 
