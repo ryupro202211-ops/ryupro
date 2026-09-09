@@ -762,7 +762,79 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
+    /* Editorial layout */
+    :root { --max-width: 1200px; --color-text-dim: #a29788; }
+    section { scroll-margin-top: 88px; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 6px; }
+    #loader { display: none; }
+    .nav-inner { height: 80px; }
+    .nav-links { gap: 1.7rem; }
+    .nav-links a { font-size: .75rem; white-space: nowrap; }
+    .hero { min-height: 760px; min-height: max(760px, 94svh); padding: 130px 4vw 85px; }
+    .hero-inner { display: grid; grid-template-columns: 1.25fr 1fr; align-items: center; gap: 4vw; }
+    .hero-kicker { font: 400 .7rem var(--font-en); letter-spacing: .23em; color: var(--color-gold); margin-bottom: 2rem; }
+    .hero h1 { font-size: clamp(2.1rem, 3.5vw, 3.25rem); line-height: 1.85; letter-spacing: .04em; margin-bottom: 2rem; }
+    .hero h1 .line:first-child { font-size: .69em; margin-bottom: .5rem; }
+    .hero-sub { max-width: 440px; margin-bottom: 2rem; line-height: 2.1; }
+    .hero-sub, .hero-cta-row { opacity: 1; transform: none; }
+    .hero-cta-row { gap: .8rem; }
+    .hero-cta-row .btn { padding: 1rem 1.5rem; letter-spacing: .1em; }
+    .hero-cta-row .btn:first-child { background: var(--color-gold); color: var(--color-bg); }
+    .hero-portrait { position: relative; margin: 0 0 0 1rem; }
+    .hero-portrait::before { content: ''; position: absolute; inset: -16px 20px 20px -16px; border: 1px solid var(--color-gold-dim); pointer-events: none; }
+    .hero-portrait picture { display: block; position: relative; overflow: hidden; }
+    .hero-portrait img { display: block; width: 100%; height: clamp(380px, 44vw, 540px); object-fit: cover; object-position: center 25%; filter: saturate(.8); }
+    .hero-portrait figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; font-size: .72rem; letter-spacing: .12em; color: var(--color-gold); }
+    .hero-portrait figcaption span { font-family: var(--font-en); color: var(--color-text); }
+    .hero-credit { left: max(4vw, calc((100vw - 1200px)/2)); }
+    .entry-links { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--color-border); }
+    .entry-links a { display: flex; align-items: center; gap: 1rem; padding: 1.8rem 1.5rem; color: var(--color-gold); text-decoration: none; border-bottom: 1px solid var(--color-border); transition: background .3s; }
+    .entry-links a:hover { background: var(--color-bg-card); }
+    .entry-links a + a { border-left: 1px solid var(--color-border); }
+    .entry-links small { font: .7rem var(--font-en); color: var(--color-text-dim); }
+    .entry-links span { margin-left: auto; }
+    .founder-photo { position: sticky; top: 105px; }
+    .founder-grid { grid-template-columns: minmax(260px, .8fr) 1.2fr; gap: 6rem; }
+    .founder-story { max-width: 600px; }
+    .service-num { font-size: 2.4rem; letter-spacing: -.04em; color: var(--color-gold); margin-bottom: 1rem; }
+    .service-card { padding: 2.5rem 3rem; }
+    .service-card h3 { font-size: 1.3rem; }
+    .philosophy { background: #ded2bf; }
+    .philosophy .philosophy-quote, .philosophy .section-label { color: #30291f; }
+    .philosophy .philosophy-text { color: #554b3e; }
+    .philosophy .section-label .en { color: #6d5d4a; }
+    .contact { border-top: 1px solid var(--color-gold-dim); }
+    .contact-heading { font-size: clamp(2.4rem, 5vw, 4rem); }
+    @media (max-width: 1000px) {
+      .nav-links { gap: 1rem; }
+      .founder-grid { gap: 3rem; }
+    }
+    @media (max-width: 768px) {
+      .nav-inner { padding: 0 1.5rem; height: 72px; }
+      .hero { min-height: auto; padding: 110px 1.5rem 2.5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero h1 { font-size: clamp(2rem, 7.8vw, 3rem); }
+      .hero h1 .line:first-child { font-size: .68em; }
+      .hero-kicker { font-size: .62rem; margin-bottom: 1.5rem; }
+      .hero-portrait { margin: 0 0 0 12px; }
+      .hero-portrait img { height: 390px; object-position: center 30%; }
+      .entry-links { margin: 0 1.5rem; grid-template-columns: 1fr; }
+      .entry-links a { padding: 1.2rem 0; font-size: .85rem; }
+      .entry-links a + a { border-left: 0; }
+      .founder-grid { grid-template-columns: 1fr; }
+      .founder-photo { position: relative; top: auto; max-width: 340px; }
+      .service-card { padding: 2rem 1.5rem; }
+      .philosophy-text br { display: none; }
+      .philosophy-text { line-height: 2.4; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-delay: 0s !important; animation-delay: 0s !important; }
+      .fade-in, .fade-in *, .hero h1 .ch { opacity: 1 !important; transform: none !important; filter: none !important; }
+      .fade-in .founder-photo::before, .fade-in .community-img::before { display: none; }
+    }
   </style>
+  <noscript><style>.fade-in,.fade-in *,.hero-sub,.hero-cta-row {opacity:1!important;transform:none!important}.fade-in .founder-photo::before,.fade-in .community-img::before{display:none}</style></noscript>
 </head>
 <body>
 
@@ -788,7 +860,7 @@
       <li><a href="/ryupro/blog/">ブログ</a></li>
       <li><a href="#contact">お問い合わせ</a></li>
     </ul>
-    <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="メニュー">
+    <button class="hamburger" aria-controls="navLinks" aria-expanded="false" aria-label="メニュー">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -797,6 +869,8 @@
 <!-- HERO -->
 <header class="hero">
   <div class="hero-inner">
+    <div class="hero-copy">
+    <p class="hero-kicker">RYUPRO — PEOPLE, COMMUNITY &amp; POSSIBILITY</p>
     <h1>
       <span class="line">人と人がつながる場から、</span>
       <span class="line">新しい価値が</span>
@@ -807,10 +881,21 @@
       <a href="#services" class="btn">事業内容を見る</a>
       <a href="#contact" class="btn btn-ghost">お問い合わせ</a>
     </div>
+    </div>
+    <figure class="hero-portrait">
+      <picture><source srcset="assets/images/founder.webp" type="image/webp"><img src="assets/images/founder.jpg" alt="代表・大塚隆平" width="900" height="1200" fetchpriority="high" decoding="async"></picture>
+      <figcaption>誰といるかで、人は変わる。<span>Ryuhei Otsuka</span></figcaption>
+    </figure>
   </div>
   <div class="hero-credit">Creating Connections, Creating Value &mdash; ryupro LLC.</div>
   <div class="scroll-hint">Scroll</div>
 </header>
+
+<div class="entry-links" aria-label="目的から探す">
+  <a href="#community"><small>01</small>イベントで仲間と出会う<span aria-hidden="true">↗</span></a>
+  <a href="#services"><small>02</small>仕事と暮らしの相談をする<span aria-hidden="true">↗</span></a>
+  <a href="blog/"><small>03</small>ブログを読む<span aria-hidden="true">↗</span></a>
+</div>
 
 <!-- FOUNDER -->
 <section class="founder" id="founder">
@@ -1008,8 +1093,25 @@
     loader.classList.add('done');
     setTimeout(() => loader.remove(), 1300);
   };
-  window.addEventListener('load', () => setTimeout(reveal, prefersReduced ? 0 : 1100));
-  setTimeout(reveal, 2800); // 読み込みが遅い場合のフォールバック
+  reveal();
+
+  const menuButton = document.querySelector('.hamburger');
+  const menuLinks = document.getElementById('navLinks');
+  const closeMenu = () => {
+    menuLinks.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  };
+  menuButton.addEventListener('click', () => {
+    const open = menuLinks.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', String(open));
+  });
+  menuLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuLinks.classList.contains('open')) {
+      closeMenu();
+      menuButton.focus();
+    }
+  });
 
   // スクロール連動の段階的表示
   const observer = new IntersectionObserver((entries) => {
@@ -1029,14 +1131,10 @@
   let lastY = 0;
   addEventListener('scroll', () => {
     const y = scrollY;
-    nav.classList.toggle('nav-hidden', y > lastY && y > 360);
+    nav.classList.toggle('nav-hidden', y > lastY && y > 360 && !menuLinks.classList.contains('open') && !nav.contains(document.activeElement));
     lastY = y;
     const h = document.documentElement;
     progress.style.transform = 'scaleX(' + (y / (h.scrollHeight - h.clientHeight)) + ')';
-    if (!prefersReduced && y < innerHeight * 1.2) {
-      heroInner.style.transform = 'translateY(' + (y * 0.16) + 'px)';
-      heroInner.style.opacity = Math.max(0, 1 - y / (innerHeight * 1.1));
-    }
   }, { passive: true });
 </script>
 
