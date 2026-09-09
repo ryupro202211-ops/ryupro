@@ -870,16 +870,159 @@
     .btn, .btn-calendar { display: none; }
     details { open: true; }
   }
+  /* Editorial theme — presentation only; candidate records remain unchanged. */
+  :root {
+    --canvas: #F6F5F0;
+    --surface-alt: #F8F8F5;
+    --navy: #20384B;
+    --navy-deep: #152B3B;
+    --gold: #B6A078;
+    --hero-muted: #D8E2E8;
+    --ink-900: #243543;
+    --ink-700: #43515B;
+    --ink-500: #626F78;
+    --ink-400: #697780;
+    --ink-200: #E3E5E1;
+    --slate-50: #F5F7F7;
+    --slate-100: #EDF1F2;
+    --slate-200: #DCE3E5;
+    --slate-300: #B9C9D0;
+    --slate-500: #637C8B;
+    --slate-600: #36576B;
+    --slate-700: #20384B;
+    --sakura-50: #F8F7F2;
+    --sakura-100: #F0EDE4;
+    --sakura-200: #E4DFD1;
+    --sakura-300: #C8B996;
+    --sakura-400: #89764F;
+    --sakura-500: #75623D;
+    --e1: 0 2px 8px rgba(21,43,59,.025);
+    --e2: 0 8px 30px rgba(21,43,59,.04);
+    --e3: 0 16px 40px rgba(21,43,59,.10);
+    --ring: 0 0 0 3px rgba(54,87,107,.35);
+  }
+  html { scroll-padding-top: 24px; }
+  body { background: var(--canvas); line-height: 1.85; }
+  .container { max-width: 1040px; padding: 28px 32px 8px; }
+  .masthead { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 0 2px 26px; }
+  .brand { color: var(--navy); font-size: 18px; font-weight: 800; letter-spacing: .2em; }
+  .brand small { display: block; font-size: 10px; font-weight: 500; letter-spacing: .11em; color: var(--ink-500); }
+  .page-nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .page-nav a { text-decoration: none; font-size: 13px; padding: 10px 0; color: var(--ink-700); }
+  .page-nav a:hover { color: var(--navy); text-decoration: underline; text-underline-offset: 6px; }
+  .hero { padding: 48px; border-radius: var(--r-lg); background: var(--navy); box-shadow: none; margin-bottom: 20px; }
+  .hero::before { inset: auto -90px -220px auto; width: 540px; height: 540px; border: 1px solid var(--gold); border-radius: 50%; background: none; mask-image: none; -webkit-mask-image: none; opacity: .35; }
+  .hero::after { right: -20px; bottom: -160px; width: 400px; height: 400px; border: 1px solid var(--gold); background: none; opacity: .35; }
+  .hero .greeting { padding: 0; background: none; border: 0; border-radius: 0; backdrop-filter: none; font-size: 12px; color: var(--hero-muted); letter-spacing: .08em; margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(25px, 3.8vw, 36px); letter-spacing: .07em; line-height: 1.5; font-weight: 600; text-shadow: none; margin-bottom: 14px; }
+  .hero .sub { color: var(--hero-muted); font-size: 14px; line-height: 1.9; text-shadow: none; max-width: 50ch; }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--ink-200); border-radius: var(--r-md); overflow: hidden; margin-bottom: 42px; }
+  .stat { padding: 25px 28px; border: 0; border-right: 1px solid var(--ink-200); border-radius: 0; box-shadow: none; text-align: left; }
+  .stat:last-child { border-right: 0; }
+  .stat::before, .stat .icon { display: none; }
+  .stat:hover { transform: none; box-shadow: none; }
+  .stat .num { font-size: 38px; font-weight: 500; color: var(--navy); }
+  .stat .label { font-size: 13px; margin-top: 10px; letter-spacing: .03em; }
+  .section { padding: 30px; margin-bottom: 28px; border-color: var(--ink-200); box-shadow: var(--e1); }
+  .section-header { gap: 12px; margin-bottom: 24px; padding-bottom: 18px; }
+  .section-header::after { background: var(--ink-200); }
+  .section-header .icon { display: none; }
+  .section-header h2 { font-size: 19px; font-weight: 600; letter-spacing: .045em; }
+  .section-number { color: var(--sakura-400); font-size: 12px; letter-spacing: .1em; font-variant-numeric: tabular-nums; }
+  .interview-empty { padding: 24px; font-size: 14px; border: 1px solid var(--ink-200); color: var(--ink-500); }
+  .interview-empty .icon { display: none; }
+  .status-group { border-color: var(--ink-200); border-radius: var(--r-sm); box-shadow: none; margin-bottom: 16px; }
+  .status-group > summary { padding: 20px 22px; }
+  .status-group .group-icon { display: none; }
+  .status-group .group-label { font-size: 15px; }
+  .status-group .group-content { padding: 20px; background: var(--surface-alt); }
+  .status-group .group-content details > summary { display: inline-flex; padding: 10px 14px; border: 1px solid var(--slate-200); border-radius: var(--r-xs); font-weight: 500; }
+  .status-group .group-content details:not([open]) > summary::before { transform: none; }
+  .job { padding: 26px; border-radius: var(--r-sm); border-color: var(--ink-200); box-shadow: none; }
+  .job::before { display: none; }
+  .job:hover { transform: none; box-shadow: var(--e1); }
+  .job.status-declined, .job.status-closed { opacity: 1; }
+  .job-title { min-width: 0; }
+  .job-title h3 { font-size: 19px; line-height: 1.65; letter-spacing: .02em; }
+  .job-title .role { font-size: 14px; }
+  .status-pill { font-size: 12px; padding: 5px 12px; }
+  .appeal { background: var(--surface-alt); border-color: var(--ink-200); font-size: 14px; padding: 16px; }
+  .appeal li::before { color: var(--slate-600); }
+  .conditions { gap: 8px; }
+  .cond { border-radius: var(--r-xs); padding: 8px 12px; max-width: 100%; }
+  .cond .k { color: var(--ink-500); flex-shrink: 0; }
+  .cond .v { overflow-wrap: anywhere; }
+  .btn, .btn-calendar { min-height: 44px; border-radius: var(--r-xs); justify-content: center; }
+  .btn-primary { background: var(--navy); box-shadow: none; }
+  .btn-primary:hover { background: var(--navy-deep); box-shadow: var(--e1); }
+  .new-badge { background: var(--navy); box-shadow: none; animation: none; }
+  .timeline { font-size: 13px; padding: 18px; }
+  .timeline-title { font-size: 12px; }
+  .timeline-entry .date { font-size: 12px; }
+  .tips { font-size: 14px; }
+  #help > details { border-bottom: 1px solid var(--ink-200); margin-top: 0; padding: 4px 0; }
+  #help > details:last-child { border: 0; }
+  #help > details > summary { display: block; background: none; border: 0; border-radius: var(--r-xs); padding: 16px 0; font-size: 14px; color: var(--ink-700); }
+  .footer { padding: 18px 12px 40px; font-size: 12px; line-height: 2; }
+  .job, .timeline-entry, .interview-card { overflow-wrap: anywhere; }
+  @media (max-width: 640px) {
+    .container { padding: 20px 16px 4px; }
+    .masthead { padding-bottom: 20px; gap: 12px; }
+    .brand { font-size: 15px; }
+    .brand small { font-size: 9px; letter-spacing: .03em; }
+    .page-nav { gap: 14px; }
+    .page-nav a { font-size: 12px; }
+    .page-nav a:last-child { display: none; }
+    .hero { padding: 30px 24px; border-radius: var(--r-md); }
+    .hero .sub { font-size: 13px; }
+    .hero::before { right: -300px; }
+    .stats { margin-bottom: 28px; }
+    .stat { padding: 20px 12px; text-align: center; }
+    .stat .num { font-size: 30px; }
+    .stat .label { font-size: 11px; letter-spacing: 0; }
+    .section { padding: 20px 16px; border-radius: var(--r-md); margin-bottom: 20px; }
+    .section-header h2 { font-size: 16px; }
+    .section-header { gap: 10px; margin-bottom: 18px; }
+    .status-group > summary { padding: 17px 12px; gap: 9px; }
+    .status-group .group-label { font-size: 13px; }
+    .status-group .group-count { padding: 4px 9px; }
+    .status-group .group-content { padding: 10px; }
+    .job { padding: 18px 14px; }
+    .job-head { flex-direction: column; gap: 10px; }
+    .job-title h3 { font-size: 17px; }
+    .job-title .role, .appeal { font-size: 13px; }
+    .appeal { padding: 12px; }
+    .conditions { flex-direction: column; align-items: flex-start; }
+    .timeline-entry { flex-direction: column; gap: 2px; }
+    .btn { width: 100%; padding: 11px 14px; }
+    .interview-card .details .row { flex-wrap: wrap; gap: 4px 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  @media print {
+    .masthead, .page-nav { display: none; }
+    .hero { background: none; color: var(--ink-900); border: 1px solid var(--ink-200); }
+    .hero .greeting, .hero .sub { color: var(--ink-700); }
+  }
 </style>
 </head>
 <body>
 <div class="container">
+<header class="masthead">
+  <div class="brand">UCHIAGE<small>転職サポート</small></div>
+  <nav class="page-nav" aria-label="ページ内メニュー">
+    <a href="#schedule">面接予定</a>
+    <a href="#opportunities">選考状況</a>
+    <a href="#help">よくあるご質問</a>
+  </nav>
+</header>
 
 <!-- HERO -->
 <div class="hero">
   <div class="greeting" id="greeting">こんにちは 🌸</div>
   <h1>野田様のマイページ</h1>
-  <div class="sub">転職活動の進捗と、現在ご紹介中の案件をこちらでご確認いただけます</div>
+  <div class="sub">選考状況や面接の予定、ご紹介中の求人を確認できます。</div>
 </div>
 
 <!-- TODAY BANNER (面接当日のみ表示) -->
@@ -889,27 +1032,27 @@
 <div class="stats" id="stats"></div>
 
 <!-- 面談スケジュール -->
-<div class="section">
+<div class="section" id="schedule">
   <div class="section-header">
-    <span class="icon">📅</span>
+    <span class="section-number" aria-hidden="true">01</span>
     <h2>今後の面談スケジュール</h2>
   </div>
   <div id="interviewList"></div>
 </div>
 
 <!-- ご紹介中の案件 -->
-<div class="section">
+<div class="section" id="opportunities">
   <div class="section-header">
-    <span class="icon">💼</span>
+    <span class="section-number" aria-hidden="true">02</span>
     <h2>ご紹介中の案件</h2>
   </div>
   <div id="jobList"></div>
 </div>
 
 <!-- お役立ち情報 -->
-<div class="section">
+<div class="section" id="help">
   <div class="section-header">
-    <span class="icon">📖</span>
+    <span class="section-number" aria-hidden="true">03</span>
     <h2>よくあるご質問</h2>
   </div>
   <details>
@@ -946,7 +1089,7 @@
 </div>
 
 <div class="footer">
-  🌸 このページは野田様専用に作成されています / 情報の更新はキャリアアドバイザーが行います
+  野田様専用のマイページです。<br>選考情報は担当キャリアアドバイザーが更新します。
 </div>
 
 </div>
