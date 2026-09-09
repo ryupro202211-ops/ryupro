@@ -794,7 +794,7 @@
     .entry-links small { font: .7rem var(--font-en); color: var(--color-text-dim); }
     .entry-links span { margin-left: auto; }
     .founder-photo { position: sticky; top: 105px; }
-    .founder-grid { grid-template-columns: 1fr; max-width: 760px; gap: 0; }
+    .founder-grid { grid-template-columns: minmax(260px, .8fr) 1.2fr; gap: 6rem; }
     .founder-story { max-width: 600px; }
     .service-num { font-size: 2.4rem; letter-spacing: -.04em; color: var(--color-gold); margin-bottom: 1rem; }
     .service-card { padding: 2.5rem 3rem; }
@@ -883,8 +883,8 @@
     </div>
     </div>
     <figure class="hero-portrait">
-      <picture><source srcset="assets/images/founder.webp" type="image/webp"><img src="assets/images/founder.jpg" alt="代表・大塚隆平" width="900" height="1200" fetchpriority="high" decoding="async"></picture>
-      <figcaption>誰といるかで、人は変わる。<span>Ryuhei Otsuka</span></figcaption>
+      <picture><img src="assets/images/community-collaboration-hero.png" alt="仲間と企画について話し合うイメージ" width="1122" height="1402" fetchpriority="high" decoding="async"></picture>
+      <figcaption>人と人がつながる場を。<span>Community &amp; Collaboration</span></figcaption>
     </figure>
   </div>
   <div class="hero-credit">Creating Connections, Creating Value &mdash; ryupro LLC.</div>
@@ -903,6 +903,9 @@
     <div class="section-label">代表紹介<span class="en">Founder</span></div>
     <div class="section-title">誰といるかで、人は変わる。</div>
     <div class="founder-grid">
+      <div class="founder-photo">
+        <picture><source srcset="assets/images/founder.webp" type="image/webp"><img src="assets/images/founder.jpg" alt="大塚隆平" width="900" height="1200" loading="lazy" decoding="async"></picture>
+      </div>
       <div>
         <div class="founder-name">大塚 隆平</div>
         <div class="founder-name-en">Ryuhei Otsuka &#8212; Founder &amp; CEO</div>
