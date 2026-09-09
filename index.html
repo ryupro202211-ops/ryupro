@@ -799,6 +799,11 @@
     .service-num { font-size: 2.4rem; letter-spacing: -.04em; color: var(--color-gold); margin-bottom: 1rem; }
     .service-card { padding: 2.5rem 3rem; }
     .service-card h3 { font-size: 1.3rem; }
+    .service-image { margin-bottom: 1.6rem; overflow: hidden; background: var(--color-bg-card); }
+    .service-image img { display: block; width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: cover; transition: transform .8s var(--ease); }
+    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+      .service-card:hover .service-image img { transform: scale(1.035); }
+    }
     .philosophy { background: #ded2bf; }
     .philosophy .philosophy-quote, .philosophy .section-label { color: #30291f; }
     .philosophy .philosophy-text { color: #554b3e; }
@@ -980,21 +985,25 @@
     <div class="section-title">「楽しい」から始まる、四つの事業。</div>
     <div class="services-grid">
       <div class="service-card">
+        <div class="service-image"><img src="assets/images/service-events.jpg" alt="仲間と楽しむBBQのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
         <span class="service-num">01</span>
         <h3>イベント企画・運営</h3>
         <p>BBQ、花火、季節のパーティーなど、人と人がつながるイベントを企画・運営。初めての方でも気軽に参加できる、温かいコミュニティの場を提供します。</p>
       </div>
       <div class="service-card">
+        <div class="service-image"><img src="assets/images/service-community.jpg" alt="仲間と学び合うワークショップのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
         <span class="service-num">02</span>
         <h3>コミュニティデザイン</h3>
         <p>価値観の合う仲間と出会い、互いに高め合える場を設計。勉強会やワークショップなど、学びと成長の場を通じて人を育てます。</p>
       </div>
       <div class="service-card">
+        <div class="service-image"><img src="assets/images/service-career.jpg" alt="一対一でキャリアを相談するイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
         <span class="service-num">03</span>
         <h3>キャリアデザインサポート</h3>
         <p>IT業界15年の経験を活かし、キャリアの棚卸しから転職・フリーランスへの転身まで、一人ひとりに合った次の一歩をサポートします。</p>
       </div>
       <div class="service-card">
+        <div class="service-image"><img src="assets/images/service-lifestyle.jpg" alt="心地よい住まいで過ごす暮らしのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
         <span class="service-num">04</span>
         <h3>ライフスタイルプロデュース</h3>
         <p>住まい探しのサポートや、健康・美容に関するサービスを展開。暮らし全体を豊かにするお手伝いをしています。</p>
