@@ -50,6 +50,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}.card:hover{transform:none}}
 @media print{.page-nav,.hero-art,.controls,.actions,.modal-backdrop,.hero-link,.skip-link{display:none!important}.wrap{width:100%;padding:0}.page-layout{display:block}.criteria{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid{grid-template-columns:1fr 1fr}.card{break-inside:avoid;box-shadow:none}.hero-in{padding:20px 0}.hero h1{font-size:26px}body{background:white;color:black}}
 
+.badge.new{background:#b53b32;color:#fff;font-size:13px;font-weight:700;line-height:1.35;padding:6px 10px;letter-spacing:.04em;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -547,7 +548,7 @@ const DUPE_TAG = /^(築\d+年|管込[\d.]+万|[\d.]+㎡)/;
 
 function cardHtml(p) {
   const badges = [];
-  if (NEW_SINCE && p.addedAt && p.addedAt >= NEW_SINCE) badges.push('<span class="badge new">NEW</span>');
+  if (NEW_SINCE && p.addedAt && p.addedAt >= NEW_SINCE) badges.push('<span class="badge new">NEW｜新着</span>');
   if (SHOW_RANK_BADGES) {
     if (p.total === minTotal) badges.push('<span class="badge rank">最安</span>');
     if (p.size === maxSize) badges.push('<span class="badge rank">最も広い</span>');
