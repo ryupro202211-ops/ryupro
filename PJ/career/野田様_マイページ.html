@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>野田様 | 転職サポート マイページ</title>
+<link rel="icon" type="image/png" href="assets/noda-mypage-icon-20260909.png">
+<link rel="apple-touch-icon" href="assets/noda-mypage-icon-20260909.png">
 <style>
   /* ═══════════════════════════════════════════
      DESIGN TOKENS
@@ -435,7 +437,7 @@
     line-height: 1.72;
   }
   .appeal li::before {
-    content: "✓";
+    content: "";
     position: absolute;
     left: 0;
     top: 5px;
@@ -683,7 +685,7 @@
   details summary::-webkit-details-marker { display: none; }
   details summary:hover { background: var(--slate-100); border-color: var(--slate-300); }
   details summary::before {
-    content: "▶";
+    content: "";
     display: inline-block;
     transition: transform .24s cubic-bezier(.22,1,.36,1);
     font-size: 8px;
@@ -721,7 +723,7 @@
   }
   .status-group summary:hover { background: var(--slate-50); }
   .status-group summary::before {
-    content: "▶";
+    content: "";
     font-size: 9px;
     color: var(--ink-400);
     transition: transform .24s cubic-bezier(.22,1,.36,1);
@@ -915,6 +917,14 @@
   .hero::after { right: -20px; bottom: -160px; width: 400px; height: 400px; border: 1px solid var(--gold); background: none; opacity: .35; }
   .hero .greeting { padding: 0; background: none; border: 0; border-radius: 0; backdrop-filter: none; font-size: 12px; color: var(--hero-muted); letter-spacing: .08em; margin-bottom: 18px; }
   .hero h1 { font-size: clamp(25px, 3.8vw, 36px); letter-spacing: .07em; line-height: 1.5; font-weight: 600; text-shadow: none; margin-bottom: 14px; }
+  .hero-identity { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+  .hero-identity h1 { margin-bottom: 0; }
+  .mypage-icon { width: 72px; height: 72px; flex-shrink: 0; border-radius: var(--r-md); object-fit: cover; }
+  @media (max-width: 640px) {
+    .hero-identity { gap: 12px; }
+    .mypage-icon { width: 48px; height: 48px; border-radius: var(--r-sm); }
+    .hero-identity h1 { font-size: clamp(20px, 5vw, 25px); letter-spacing: .02em; }
+  }
   .hero .sub { color: var(--hero-muted); font-size: 14px; line-height: 1.9; text-shadow: none; max-width: 50ch; }
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--ink-200); border-radius: var(--r-md); overflow: hidden; margin-bottom: 42px; }
   .stat { padding: 25px 28px; border: 0; border-right: 1px solid var(--ink-200); border-radius: 0; box-shadow: none; text-align: left; }
@@ -1005,6 +1015,27 @@
     .hero { background: none; color: var(--ink-900); border: 1px solid var(--ink-200); }
     .hero .greeting, .hero .sub { color: var(--ink-700); }
   }
+  /* Generated icon atlas: six columns and six rows. */
+  .image-icon {
+    display: inline-block; width: 1.65em; height: 1.65em;
+    vertical-align: -.4em; flex-shrink: 0; margin-right: .2em;
+    background-image: url('assets/noda-ui-icons-20260909.png');
+    background-size: 600% 600%; background-repeat: no-repeat;
+    background-position: calc(var(--icon-col) * 20%) calc(var(--icon-row) * 20%);
+    background-color: var(--canvas); border-radius: var(--r-xs);
+  }
+  .stat .icon, .status-group .group-icon, .interview-empty .icon { display: block; }
+  .stat .icon { margin-bottom: 8px; }
+  .status-group .group-icon { font-size: 18px; }
+  .btn .image-icon, .btn-calendar .image-icon { font-size: 14px; }
+  .appeal li::before, details > summary::before, .status-group > summary::before {
+    content: ''; display: inline-block; width: 20px; height: 20px; flex-shrink: 0;
+    background-image: url('assets/noda-ui-icons-20260909.png');
+    background-size: 600% 600%; background-repeat: no-repeat;
+    background-position: 0% 0%; background-color: var(--canvas);
+    border-radius: var(--r-xs); vertical-align: middle;
+  }
+  .appeal li::before { background-position: 100% 0%; }
 </style>
 </head>
 <body>
@@ -1020,8 +1051,11 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="greeting" id="greeting">こんにちは 🌸</div>
-  <h1>野田様のマイページ</h1>
+  <div class="greeting" id="greeting">こんにちは</div>
+  <div class="hero-identity">
+    <img class="mypage-icon" src="assets/noda-mypage-icon-20260909.png" alt="" width="72" height="72" decoding="async">
+    <h1>野田様のマイページ</h1>
+  </div>
   <div class="sub">選考状況や面接の予定、ご紹介中の求人を確認できます。</div>
 </div>
 
@@ -1875,7 +1909,7 @@ function greeting() {
   let g = 'こんにちは';
   if (h < 10) g = 'おはようございます';
   else if (h >= 18) g = 'こんばんは';
-  document.getElementById('greeting').textContent = `${g} 🌸`;
+  document.getElementById('greeting').textContent = g;
 }
 
 function renderStats() {
@@ -2199,12 +2233,57 @@ function renderJobCard(j) {
   `;
 }
 
+function replaceTextIcons() {
+  const glyphs = [
+    '▶','🎉','⭐','📅','📝','✅',
+    '📌','🚪','⚠','🔄','📊','💡',
+    '📎','🎯','💰','👍','🏆','💌',
+    '💼','🔔','⏰','🎥','🕰','📆',
+    '🌸','📮','💬','✨','📄','✏',
+    '🤔','🔒','📋','📍','🌙','⏱'
+  ];
+  const aliases = { '🕐': 22, '✓': 5 };
+  const pattern = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*|✓/gu;
+  const walker = document.createTreeWalker(document.querySelector('.container'), NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return node.parentElement.closest('script,style,textarea,.image-icon')
+        ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const text = node.nodeValue;
+    const matches = [...text.matchAll(pattern)];
+    if (!matches.length) continue;
+    const fragment = document.createDocumentFragment();
+    let offset = 0;
+    for (const match of matches) {
+      fragment.append(text.slice(offset, match.index));
+      const glyph = match[0].replace(/\uFE0F/g, '');
+      const index = aliases[glyph] ?? glyphs.indexOf(glyph);
+      if (index >= 0) {
+        const icon = document.createElement('span');
+        icon.className = 'image-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.style.setProperty('--icon-col', index % 6);
+        icon.style.setProperty('--icon-row', Math.floor(index / 6));
+        fragment.append(icon);
+      } else fragment.append(match[0]);
+      offset = match.index + match[0].length;
+    }
+    fragment.append(text.slice(offset));
+    node.replaceWith(fragment);
+  }
+}
+
 function render() {
   greeting();
   renderTodayBanner();
   renderStats();
   renderInterviews();
   renderJobs();
+  replaceTextIcons();
 }
 
 render();
