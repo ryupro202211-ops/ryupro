@@ -133,9 +133,26 @@ select{font-size:14px;min-height:42px;padding:6px 28px 6px 10px}
 .sv{font-size:13px}
 .tags{padding:0 22px 18px;gap:7px}
 .tag{font-size:12px;padding:5px 8px}
-details.more>summary{font-size:14px;padding:15px 22px;min-height:48px}
-.more-body{font-size:14px;padding:0 22px 18px}
+details.more{margin:0 22px 16px;border:1.5px solid var(--accent);border-radius:10px;overflow:hidden}
+details.more>summary{font-size:14px;font-weight:700;padding:16px;min-height:64px;background:var(--accent-wash);color:var(--accent);flex-wrap:wrap;gap:10px 14px;transition:background .15s}
+details.more>summary:hover{background:var(--surface-2)}
+details.more>summary:focus-visible{outline-offset:-4px}
+details.more>summary:after{content:none}
+details.more[open]>summary:after{content:none}
+.more-title{flex:1 1 190px;line-height:1.6}
+.more-toggle{display:inline-flex;align-items:center;justify-content:center;gap:12px;margin-left:auto;padding:7px 12px;border-radius:6px;background:var(--accent);color:var(--on-accent);font-size:13px;white-space:nowrap}
+.more-close{display:none}
+details.more[open] .more-open{display:none}
+details.more[open] .more-close{display:inline}
+.more-chevron{display:block;width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+details.more[open] .more-chevron{transform:translateY(2px) rotate(225deg)}
+.more-body{font-size:14px;padding:0 16px 16px}
 .more-body h4{font-size:14px}
+.floorplan{margin:0 22px 22px;min-width:0}
+.floorplan-heading{font-size:14px;font-weight:700;margin:0 0 10px}
+.floorplan-image-link{display:block;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;cursor:zoom-in}
+.floorplan img{display:block;width:100%;height:auto}
+.floorplan-fallback{display:block;width:fit-content;margin:8px 0 0 auto;font-size:12px;color:var(--ink-2);text-underline-offset:3px}
 .added-date{font-size:12px}
 .actions{padding:0 22px 22px}
 .btn{font-size:14px;min-height:48px;border-radius:8px}
@@ -198,8 +215,10 @@ footer{font-size:12px}
  .spec{font-size:12px}.sv{font-size:13px}
  .spec-col+.spec-col{padding-left:0;border:0}
  .tags{padding:0 18px 16px}.tag{font-size:12px}
- details.more>summary{padding:14px 18px;font-size:14px}
- .more-body{padding:0 18px 16px;font-size:14px}
+ details.more{margin:0 18px 16px}
+ details.more>summary{padding:14px;font-size:14px}
+ .more-body{padding:0 14px 16px;font-size:14px}
+ .floorplan{margin:0 18px 20px}
  .added-date{padding:0 18px 12px}
  .actions{padding:0 18px 20px}
  .btn{font-size:14px}
@@ -316,17 +335,6 @@ footer{font-size:12px}
 <section class="contact-panel" id="contact"><h2>気になるお部屋はありましたか？</h2><p>物件名を添えて、担当者へLINEまたはメールでお知らせください。<br>最新の募集状況を確認し、内見の日程をご案内します。</p></section>
 </main></div>
 <div class="wrap"><footer><div class="footer-brand">住まいのしおり</div>2026-09-09に物件情報の掲載を確認しました。掲載中でも申込や募集終了の場合があるため、内見をご希望の際は担当者へお問い合わせください。水道・給湯・保証料など、管理費以外の費用は各物件のご留意点をご確認ください。</footer></div>
-
-<div class="modal-backdrop" id="modal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-header">
-      <div class="modal-title" id="modal-title">図面プレビュー</div>
-      <button class="modal-close" id="modal-close" aria-label="閉じる">×</button>
-    </div>
-    <a class="modal-link" id="modal-link" target="_blank" rel="noopener noreferrer">図面を別のタブで開く ↗</a>
-    <iframe id="modal-frame" src="" title="図面プレビュー"></iframe>
-  </div>
-</div>
 
 <script>
 // =========================================================================
@@ -729,8 +737,10 @@ function cardHtml(p) {
   }
   const tags = (p.tags || []).filter(t => !DUPE_TAG.test(strip(t.t))).map(t =>
     '<span class="' + (t.c === 'warn' ? 'tag warn' : (t.c === 'new' ? 'tag hi' : 'tag')) + '">' + strip(t.t) + '</span>').join('');
-  const action = p.driveId
-    ? '<button class="btn" onclick="openPreview(\'' + p.driveId + '\',\'' + p.name + '\')">図面を見る</button>'
+  const floorplan = p.driveId
+    ? '<div class="floorplan-heading">お部屋の図面</div>'
+      + '<a class="floorplan-image-link" href="yatagai-floorplans/' + encodeURIComponent(p.id) + '.jpg" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="yatagai-floorplans/' + encodeURIComponent(p.id) + '.jpg" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
+      + '<a class="floorplan-fallback" href="https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>'
     : '<div class="contact-note">図面や内見については、担当者へLINEまたはメールでお問い合わせください。</div>';
   return ''
   + '<article class="card">'
@@ -754,13 +764,13 @@ function cardHtml(p) {
   +     '</div>'
   +   '</div>'
   +   '<div class="tags">' + tags + '</div>'
-  +   '<details class="more"><summary>おすすめポイントとご留意点</summary><div class="more-body">'
+  +   '<details class="more"><summary><span class="more-title">おすすめポイントとご留意点</span><span class="more-toggle"><span class="more-open">詳細を開く</span><span class="more-close">詳細を閉じる</span><span class="more-chevron" aria-hidden="true"></span></span></summary><div class="more-body">'
   +     '<h4>おすすめポイント</h4><ul>' + (p.pros || []).map(x => '<li>' + strip(x) + '</li>').join('') + '</ul>'
   +     ((p.cons && p.cons.length) ? '<h4 class="flag">ご留意点</h4><ul>' + p.cons.map(x => '<li>' + strip(x) + '</li>').join('') + '</ul>' : '')
   +     '<h4>契約条件</h4><ul><li>' + p.deposit + '／' + p.reikin + '／' + p.year + '年築</li></ul>'
   +   '</div></details>'
   +   (p.addedAt ? '<div class="added-date">物件情報の登録日：' + p.addedAt + '</div>' : '')
-  +   '<div class="actions">' + action + '</div>'
+  +   '<div class="floorplan">' + floorplan + '</div>'
   + '</article>';
 }
 
@@ -829,30 +839,6 @@ function apply() {
     + '<td class="em">' + yen(p.total) + '円</td><td>' + p.size + '㎡</td><td>' + p.layout + '</td>'
     + '<td>築' + AGE(p) + '年</td><td>' + p.station + '</td><td>' + p.walk + '分</td></tr>').join('');
 }
-
-// ---------- 図面モーダル ----------
-const modal = document.getElementById('modal');
-let previewOpener = null;
-function openPreview(driveId, name) {
-  previewOpener = document.activeElement;
-  document.getElementById('modal-link').href = 'https://drive.google.com/file/d/' + driveId + '/view';
-  document.getElementById('modal-title').textContent = name + ' の図面';
-  document.getElementById('modal-frame').src = 'https://drive.google.com/file/d/' + driveId + '/preview';
-  modal.classList.add('on');
-  document.body.style.overflow = 'hidden';
-  document.getElementById('modal-close').focus();
-  document.querySelectorAll('body > :not(.modal-backdrop):not(script)').forEach(el => el.inert = true);
-}
-function closePreview() {
-  modal.classList.remove('on');
-  document.body.style.overflow = '';
-  document.querySelectorAll('body > :not(.modal-backdrop):not(script)').forEach(el => el.inert = false);
-  if (previewOpener) previewOpener.focus();
-  document.getElementById('modal-frame').src = '';
-}
-document.getElementById('modal-close').addEventListener('click', closePreview);
-modal.addEventListener('click', e => { if (e.target === modal) closePreview(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('on')) closePreview(); });
 
 buildChips('layout');
 buildChips('line');
