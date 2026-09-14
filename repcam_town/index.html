@@ -312,6 +312,7 @@
   .meta div{background:none;border:0;border-radius:0;padding:0;}.meta>div{padding:8px;}.meta>div+div{border-left:1px solid var(--line);}
   .meta .v{font-size:32px;font-weight:500;}.meta .v.rent{font-size:18px;padding-top:6px;}
   .title-badge{background:var(--a-soft);border:0;box-shadow:none;border-radius:5px;font-size:13px;}
+  .title-explain{max-width:510px;margin:0 auto 15px;padding:0 8px;color:var(--ink-soft);font-size:13px;line-height:1.9;}
   .chips span{background:none;border:1px solid var(--line);font-weight:500;font-size:11px;border-radius:5px;}
   .comment{border:0;background:none;border-top:1px solid var(--line);border-radius:0;padding:20px 0 0;margin-top:20px;font-size:15px;line-height:2;}
   .panel{padding:28px;border-radius:16px;box-shadow:none;margin-bottom:22px;}
@@ -455,6 +456,7 @@
         <div><div class="k">RENT / 1K目安</div><div class="v rent" id="townRent">－</div></div>
       </div>
       <div class="title-badge" id="titleBadge"></div>
+      <p class="title-explain" id="titleExplain"></p>
       <div class="chips" id="townChips"></div>
       <div class="comment" id="townDesc"></div>
     </div>
@@ -761,16 +763,16 @@ var ROOMS=/*ROOMS_START*/{"koenji":[{"no":"100140295283","name":"オランジュ
 
 /* ===================== 称号 ===================== */
 var TITLES=[
- {k:'C',hi:true, t:'カルチャー吸収型'},
- {k:'C',hi:false,t:'等身大の暮らし派'},
- {k:'N',hi:true, t:'にぎやか中毒'},
- {k:'N',hi:false,t:'しずけさ最優先'},
- {k:'A',hi:true, t:'時短命の効率派'},
- {k:'A',hi:false,t:'マイペース通勤派'},
- {k:'Y',hi:true, t:'街に投資するひと'},
- {k:'Y',hi:false,t:'コスパの職人'},
- {k:'G',hi:true, t:'みどり充電型'},
- {k:'G',hi:false,t:'街なか回遊型'}
+ {k:'C',hi:true,t:'カルチャー吸収型',d:'気になるお店や展示、音楽の話題を見つけると、予定がなくても出かけたくなるタイプ。便利さだけでは少し物足りず、歩くたびに新しい発見がある街で、毎日の気分を上げたい人です。好きなものを語れる場所も大切です。'},
+ {k:'C',hi:false,t:'等身大の暮らし派',d:'背伸びをするより、毎日を気持ちよく回せることを大切にするタイプ。いつものスーパーや落ち着くお店が近くにあり、無理のないペースで暮らせる街に、いちばん長く愛着を持てます。気取らない居心地を求めています。'},
+ {k:'N',hi:true,t:'にぎやか中毒',d:'街に出れば人の気配やお店の明かりがあり、思いつきで寄り道できる暮らしが好きなタイプ。静けさよりも、友人と飲む夜や新しい遊びを選べることに、日々の楽しさを感じます。ひとりの夜も街の明かりが味方です。'},
+ {k:'N',hi:false,t:'しずけさ最優先',d:'帰宅したら気持ちを切り替え、自分の時間をゆっくり過ごしたいタイプ。にぎやかな駅前より、散歩できる道や落ち着いた住宅街が似合います。暮らしの余白があるほど、毎日を心地よく楽しめます。静かな夜が大事です。'},
+ {k:'A',hi:true,t:'時短命の効率派',d:'通勤や買い物にかかる時間を減らして、好きなことに使いたいタイプ。乗り換えの少なさや駅までの近さも、暮らしの満足度を左右します。予定の多い日でも軽やかに動ける街が合います。移動の軽さが、心のゆとりになります。'},
+ {k:'A',hi:false,t:'マイペース通勤派',d:'移動時間も、自分のペースで過ごせれば苦にならないタイプ。駅近や最短ルートより、部屋の広さや街の空気を選びたい人です。急がない暮らしの中に、自分らしい時間をつくれます。少し遠回りする余裕も楽しめます。'},
+ {k:'Y',hi:true,t:'街に投資するひと',d:'少し家賃が上がっても、好きな街に住むことで毎日が変わると考えるタイプ。駅前の景色や行きつけのお店まで含めて住まいを選びます。休日を遠出せず楽しめる環境が、何よりのご褒美です。暮らす場所自体が、日々の楽しみです。'},
+ {k:'Y',hi:false,t:'コスパの職人',d:'家賃も食費も、納得できる使い方をしたい堅実なタイプ。安さだけを求めるのではなく、便利さと暮らしやすさの釣り合いを見ています。自分なりの掘り出し物を見つけるのが上手な人です。長く住める条件を、冷静に見極めます。'},
+ {k:'G',hi:true,t:'みどり充電型',d:'木々や空の広さに触れると、気持ちがすっと整うタイプ。休日は公園や川沿いを歩き、家でも落ち着いて過ごしたい人です。便利さの中にも自然がある街なら、毎日の疲れを上手にほどけます。緑のそばで深呼吸したい人です。'},
+ {k:'G',hi:false,t:'街なか回遊型',d:'出かけるなら、いろいろなお店や人の気配がある場所を歩きたいタイプ。公園で過ごすより、商店街や駅前を巡る時間にわくわくします。街の中で自然と予定が増える暮らしがよく似合います。寄り道も日課になります。'}
 ];
 
 /* ===================== 状態 ===================== */
@@ -920,6 +922,12 @@ function titleOf(na){
   return 'バランス型';
 }
 
+function titleInfoOf(na){
+  var best=null,bd=-1; AXES.forEach(function(k){var d=Math.abs(na[k]-50);if(d>bd){bd=d;best=k;}});
+  var hi=na[best]>=50; for(var i=0;i<TITLES.length;i++){if(TITLES[i].k===best&&TITLES[i].hi===hi)return TITLES[i];}
+  return {t:'バランス型',d:'ひとつの条件に偏らず、そのときの暮らしに合わせて街を選べるタイプです。'};
+}
+
 function computeResult(){
   var ax=scoreOf(state.answers);
   var na=normAxes(ax);
@@ -934,7 +942,7 @@ function computeResult(){
     pct:dispPct(topAdj,topAdj),
     second:rank[1],
     third:rank[2],
-    title:titleOf(na)
+    title:titleOf(na), titleInfo:titleInfoOf(na)
   };
   renderResultScreen(state.result, rank);
   logToSheet(state.result, state.answers);
@@ -949,6 +957,7 @@ function renderResultScreen(res, rank){
   $('matchPct').textContent=res.pct;
   $('townRent').textContent=t.rent;
   $('titleBadge').textContent='称号：'+res.title;
+  $('titleExplain').textContent=res.titleInfo.d;
   $('townChips').innerHTML=t.chips.map(function(c){ return '<span>'+escapeHtml(c)+'</span>'; }).join('');
   $('townDesc').textContent=t.desc;
 
@@ -1203,7 +1212,7 @@ function radarChart(you,town,youName,townName){
 function revealTown(){
   var res=state.result;
   var nameEl=$('townName'), emojiEl=$('townEmoji'), reveal=$('revealMsg');
-  var hideIds=['townCatch','titleBadge','townChips','townDesc'];
+  var hideIds=['townCatch','titleBadge','titleExplain','townChips','townDesc'];
   hideIds.forEach(function(id){ var e=$(id); if(e) e.style.visibility='hidden'; });
   var metaEl=document.querySelector('.meta'); if(metaEl) metaEl.style.visibility='hidden';
   if(reveal){ reveal.style.display=''; reveal.textContent='ドコドコドコ…🥁'; }
