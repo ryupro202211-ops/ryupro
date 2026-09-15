@@ -844,7 +844,7 @@ function start(){
   show('s-quiz');
 }
 function renderQuestion(){
-  $('whoName').textContent=state.name+' さんの番';
+  $('whoName').textContent=state.name+' さんについて教えてください';
   $('count').textContent=(state.qi+1)+' / '+QUESTIONS.length;
   $('bar').querySelector('i').style.width=Math.round(state.qi/QUESTIONS.length*100)+'%';
 
