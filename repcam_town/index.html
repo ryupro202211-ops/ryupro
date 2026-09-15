@@ -400,6 +400,16 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
 .panel,.town-detail,.runner-section{border-color:var(--festival-green)!important;}.section-title{color:var(--festival-green)!important;}.slide-label,.rslide-label{background:var(--festival-pink)!important;}footer{color:var(--festival-green);font-weight:800;letter-spacing:.08em;}
 @media(max-width:480px){.festival-hero h1{font-size:31px}.festival-banner{font-size:11px}.stamp-count{padding:8px 10px}.q{font-size:20px}}
 
+/* ===================== QR共有 ===================== */
+.share-card{display:flex;align-items:center;gap:18px;margin:18px 0 24px;padding:16px 18px;background:#fffdf8;border:2px dashed #ff5b91;border-radius:18px;box-shadow:0 8px 18px rgba(37,96,75,.10)}
+.share-qr{flex:0 0 126px;width:126px;height:126px;padding:7px;background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(16,65,53,.12)}
+.share-qr img{display:block;width:100%;height:100%;image-rendering:pixelated}
+.share-copy{margin:0;color:#174f41;font-weight:800;font-size:17px;line-height:1.45}.share-sub{margin:5px 0 0;color:#59726b;font-size:13px;line-height:1.65}
+.share-mode-note,.result-person{display:none}
+.share-mode .share-mode-note{display:block;margin:0 0 12px;color:#bf2f61;font-size:13px;font-weight:800;letter-spacing:.08em}
+.share-mode .result-person{display:block;margin:0 0 8px;color:#174f41;font-size:16px;font-weight:800}
+.share-mode #shareCard,.share-mode #restartBtn{display:none!important}
+@media(max-width:520px){.share-card{gap:12px;padding:13px}.share-qr{flex-basis:96px;width:96px;height:96px;padding:5px}.share-copy{font-size:15px}.share-sub{font-size:12px}}
 </style>
 </head>
 <body>
@@ -468,6 +478,8 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
   <!-- ================= 結果 ================= -->
   <section id="s-result" class="screen">
     <div class="result-head">
+      <p class="share-mode-note">スマホで診断結果を確認中</p>
+      <p class="result-person" id="shareName"></p>
       <p class="eyebrow festival-ribbon">FESTIVAL RESULT</p>
     </div>
 
@@ -502,6 +514,11 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
       <p class="radar-cap">外側にいくほどその傾向が強め。ピンクがあなた、ミントが<span id="radarTownName">1位の街</span>の特徴です。</p>
     </div>
 
+    <div class="share-card" id="shareCard">
+      <div class="share-qr" id="shareQr" aria-label="スマホ表示用QRコード"></div>
+      <div><p class="share-copy">スマホでも結果を見る</p><p class="share-sub">このQRコードを読み取ると、ニックネーム入りの診断結果をスマホで確認できます。</p></div>
+    </div>
+
     <div class="panel line-cta">
       <h3>お部屋・引っ越しのご相談</h3>
       <p class="line-lead">気になる街が見つかったら、お部屋のことも。<br>希望の家賃や引っ越し時期を、LINEで教えてください。</p>
@@ -510,13 +527,14 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
     </div>
 
     <div class="actions">
-      <button class="btn ghost" onclick="restart()">もう一度診断する</button>
+      <button class="btn ghost" id="restartBtn" onclick="restart()">もう一度診断する</button>
     </div>
 
     <footer>Re▶CAMPUS &copy; town match booth</footer>
   </section>
 </div>
 
+<script src="qrcode-generator.js"></script>
 <script>
 /* ===================== 設定 ===================== */
 /* GASエンドポイント（スプレッドシート記録・アプリA と共通） */
@@ -835,8 +853,9 @@ function iconHTML(glyph){
     +'style="background-position:'+x+'% '+y+'%"></span>';
 }
 
-function goToName(){ show('s-name'); }
+function goToName(){ document.body.classList.remove('share-mode'); show('s-name'); }
 function start(){
+  document.body.classList.remove('share-mode');
   var u=$('nameU').value.trim();
   state.name=u||'あなた';
   state.qi=0; state.answers=[];
@@ -865,6 +884,7 @@ function choose(i){
   state.qi++;
   if(state.qi<QUESTIONS.length){ renderQuestion(); return; }
   computeResult();
+  renderShareQr();
   show('s-result');
   revealTown();
 }
@@ -955,7 +975,7 @@ function titleInfoOf(na){
   return {t:'バランス型',d:'ひとつの条件に偏らず、そのときの暮らしに合わせて街を選べるタイプです。'};
 }
 
-function computeResult(){
+function computeResult(silent){
   var ax=scoreOf(state.answers);
   var na=normAxes(ax);
   var rank=rankTowns(na);
@@ -972,12 +992,13 @@ function computeResult(){
     title:titleOf(na), titleInfo:titleInfoOf(na)
   };
   renderResultScreen(state.result, rank);
-  logToSheet(state.result, state.answers);
+  if(!silent) logToSheet(state.result, state.answers);
 }
 
 /* ===================== 結果描画 ===================== */
 function renderResultScreen(res, rank){
   var t=res.top;
+  $('shareName').textContent=res.name+'さんの診断結果';
   $('townEmoji').innerHTML=iconHTML(t.emoji);
   $('townName').textContent=t.n;
   $('townCatch').textContent=t.catch;
@@ -1322,8 +1343,19 @@ function logToSheet(res, answers){
   }catch(e){/* 記録失敗でも診断は継続 */}
 }
 
+
+/* ===================== QR共有 ===================== */
+function base64UrlEncode(text){return btoa(unescape(encodeURIComponent(text))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+function base64UrlDecode(text){text=String(text).replace(/-/g,'+').replace(/_/g,'/');while(text.length%4) text+='=';return decodeURIComponent(escape(atob(text)));}
+function makeSharePayload(){return {v:1,n:state.name,a:state.answers.slice(0)};}
+function makeShareUrl(){return location.href.split('#')[0]+'#share='+base64UrlEncode(JSON.stringify(makeSharePayload()));}
+function renderShareQr(){var host=$('shareQr');if(!host||!state.result||typeof qrcode!=='function')return;var qr=qrcode(0,'M');qr.addData(makeShareUrl());qr.make();host.innerHTML=qr.createImgTag(5,0,'スマホで診断結果を見るQRコード');}
+function openSharedResult(payload){if(!payload||payload.v!==1||!Array.isArray(payload.a)||payload.a.length!==QUESTIONS.length)return false;for(var i=0;i<payload.a.length;i++){if(typeof payload.a[i]!=='number'||payload.a[i]<0||payload.a[i]>=QUESTIONS[i].opts.length)return false;}var name=String(payload.n||'あなた').replace(/[\r\n]/g,'').slice(0,20);state={name:name||'あなた',qi:QUESTIONS.length,answers:payload.a.slice(0),result:null};document.body.classList.add('share-mode');computeResult(true);show('s-result');return true;}
+function readSharedResult(){var p='#share=';if(location.hash.indexOf(p)!==0)return false;try{return openSharedResult(JSON.parse(base64UrlDecode(location.hash.slice(p.length))));}catch(e){return false;}}
+
 /* ===================== やり直し ===================== */
 function restart(){
+  document.body.classList.remove('share-mode');
   state={name:'あなた',qi:0,answers:[],result:null};
   var el=$('nameU'); if(el) el.value='';
   show('s-start');
@@ -1339,6 +1371,7 @@ function restart(){
   if(window.addEventListener){
     window.addEventListener('resize', function(){ scrollToSlide(); updateSlider(); });
   }
+  readSharedResult();
 })();
 </script>
 </body>
