@@ -3152,8 +3152,10 @@ function iconHTML(glyph){
     +'style="background-position:'+x+'% '+y+'%"></span>';
 }
 
-function goToName(){ document.body.classList.remove('share-mode'); show('s-name'); }
+function clearShareSession(){try{sessionStorage.removeItem('repcamTownSharePayload');}catch(e){}}
+function goToName(){ clearShareSession(); document.body.classList.remove('share-mode'); show('s-name'); }
 function start(){
+  clearShareSession();
   document.body.classList.remove('share-mode');
   var u=$('nameU').value.trim();
   state.name=u||'あなた';
@@ -3649,11 +3651,12 @@ function base64UrlDecode(text){text=String(text).replace(/-/g,'+').replace(/_/g,
 function makeSharePayload(){return {v:1,n:state.name,a:state.answers.slice(0)};}
 function makeShareUrl(){return location.href.split('#')[0]+'#share='+base64UrlEncode(JSON.stringify(makeSharePayload()));}
 function renderShareQr(){var host=$('shareQr');if(!host||!state.result||typeof qrcode!=='function')return;var qr=qrcode(0,'M');qr.addData(makeShareUrl());qr.make();host.innerHTML=qr.createImgTag(5,0,'スマホで診断結果を見るQRコード');}
-function openSharedResult(payload){if(!payload||payload.v!==1||!Array.isArray(payload.a)||payload.a.length!==QUESTIONS.length)return false;for(var i=0;i<payload.a.length;i++){if(typeof payload.a[i]!=='number'||payload.a[i]<0||payload.a[i]>=QUESTIONS[i].opts.length)return false;}var name=String(payload.n||'あなた').replace(/[\r\n]/g,'').slice(0,20);state={name:name||'あなた',qi:QUESTIONS.length,answers:payload.a.slice(0),result:null};document.body.classList.add('share-mode');computeResult(true);show('s-result');return true;}
-function readSharedResult(){var p='#share=';if(location.hash.indexOf(p)!==0)return false;try{return openSharedResult(JSON.parse(base64UrlDecode(location.hash.slice(p.length))));}catch(e){return false;}}
+function openSharedResult(payload){if(!payload||payload.v!==1||!Array.isArray(payload.a)||payload.a.length!==QUESTIONS.length)return false;for(var i=0;i<payload.a.length;i++){if(typeof payload.a[i]!=='number'||payload.a[i]<0||payload.a[i]>=QUESTIONS[i].opts.length)return false;}var name=String(payload.n||'あなた').replace(/[\r\n]/g,'').slice(0,20);try{sessionStorage.setItem('repcamTownSharePayload',JSON.stringify(payload));}catch(e){}state={name:name||'あなた',qi:QUESTIONS.length,answers:payload.a.slice(0),result:null};document.body.classList.add('share-mode');computeResult(true);show('s-result');return true;}
+function readSharedResult(){var p='#share=';if(location.hash.indexOf(p)===0){try{return openSharedResult(JSON.parse(base64UrlDecode(location.hash.slice(p.length))));}catch(e){return false;}}var saved='';try{saved=sessionStorage.getItem('repcamTownSharePayload')||'';}catch(e){}if(!saved)return false;try{return openSharedResult(JSON.parse(saved));}catch(e){clearShareSession();return false;}}
 
 /* ===================== やり直し ===================== */
 function restart(){
+  clearShareSession();
   document.body.classList.remove('share-mode');
   state={name:'あなた',qi:0,answers:[],result:null};
   var el=$('nameU'); if(el) el.value='';
