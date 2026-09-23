@@ -147,11 +147,12 @@ for (const [name, route] of pages) {
   }
 }
 
-test('keeps only the final contact CTA on the homepage', async ({ page }) => {
+test('shows contact in the primary navigation and keeps the final CTA', async ({ page }) => {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const contactLinks = page.locator('a[href^="/ryupro/contact/"]');
-  await expect(contactLinks).toHaveCount(1);
-  await expect(contactLinks).toHaveText(/相談内容を送る/);
+  await expect(contactLinks).toHaveCount(2);
+  await expect(page.locator('#primaryNav a.nav-contact')).toHaveText(/コンタクト/);
+  await expect(page.locator('.contact-section a[href^="/ryupro/contact/"]')).toHaveText(/相談内容を送る/);
 });
 
 test('keeps navigation, the hero and the contact fallback usable without JavaScript', async ({ browser }) => {
