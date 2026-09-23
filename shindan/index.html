@@ -282,6 +282,27 @@
   .result-shell{border:2px solid var(--festival-green);border-radius:var(--festival-radius);box-shadow:var(--festival-shadow)}.result-shell:before,.result-shell:after{display:none}.result-heading:before{content:'Re▶CAMPUS / FESTIVAL CARD';transform:none;border-radius:999px;background:var(--festival-green)}.result-emblem:has(img){width:min(260px,78vw);height:min(260px,78vw);border:0!important;box-shadow:none}.result-emblem img{animation:none}.result-heading{border-bottom:0}.result-summary{padding:22px;border:1px solid #dbe5dc;border-radius:18px;background:#fff}
   .consultation{margin:24px 0;padding:24px;color:#15382c;background:var(--festival-mint);border:1px solid #a9c9b4;outline:0;border-radius:18px;box-shadow:none}.consultation:before{content:'転職相談';transform:none;box-shadow:none;background:var(--festival-green)}.consultation .eyebrow,.consultation .section-note{color:#52665c}.consultation .question-list li{border-bottom:1px solid #bfd4c5}.consultation .question-list li:before{color:var(--festival-green)}.consult-closing{color:#15382c;background:#fff;border:1px solid #bfd4c5}.line-contact{border:0;padding-top:0}.line-button{background:var(--festival-green);border:0;outline:0;border-radius:12px;box-shadow:none;min-height:52px;display:flex;align-items:center;justify-content:center}
   @media(max-width:650px){.cover{padding-top:30px}.cover-art{border-width:4px;box-shadow:var(--festival-shadow)}.question-card{padding:22px 16px}.result-shell{border-width:2px;box-shadow:var(--festival-shadow)}.result-emblem:has(img){width:min(230px,72vw);height:min(230px,72vw)}}
+  @keyframes ticket-enter{from{opacity:.72;transform:translateY(12px) rotate(-2deg)}to{opacity:1;transform:none}}
+  @keyframes question-enter{from{opacity:.7;transform:translateY(5px)}to{opacity:1;transform:none}}
+  @keyframes stamp-land{0%{transform:rotate(-7deg) scale(1.28);box-shadow:0 0 0 8px #ffd6e4}65%{transform:rotate(-7deg) scale(.94)}100%{transform:rotate(-7deg) scale(1)}}
+  @keyframes selection-check{from{opacity:.3;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+  @keyframes card-enter{from{transform:translateY(8px) scale(.985)}to{transform:none}}
+  @keyframes character-enter{from{opacity:.65;transform:scale(.88) rotate(-3deg)}to{opacity:1;transform:none}}
+  .cover-art.is-arriving{animation:ticket-enter .42s ease-out both}
+  .question-card.is-entering{animation:question-enter .2s ease-out both}
+  .question-card .opt:active{transform:translateY(3px) scale(.99);box-shadow:0 1px 0 #dbe5dc}
+  .stamp-track .is-new{animation:stamp-land .34s ease-out both}
+  .chip[data-sel="1"]::after{content:'✓';display:inline-block;margin-left:7px;font-weight:900}
+  .chip.is-new-selection::after{animation:selection-check .22s ease-out both}
+  .result-shell.is-arriving{animation:card-enter .4s ease-out both}
+  .result-shell.is-arriving .result-emblem{animation:character-enter .34s ease-out both}
+  .result-heading{position:relative;overflow:hidden}
+  .result-heading>*:not(.result-confetti){position:relative;z-index:1}
+  .result-confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .result-qr{position:relative;margin-top:34px;padding:30px 14px 18px;border:2px solid var(--festival-green);border-radius:16px;background:#fff;text-align:center}
+  .completion-seal{position:absolute;top:-17px;right:12px;display:block;padding:6px 12px;border:2px double var(--festival-green);border-radius:999px;background:#fff9f0;color:var(--festival-green);font-size:12px;font-weight:900;transform:rotate(7deg);pointer-events:none}
+  .art-seal,.rarity-SSR,.sparkle-deco,.loading-illustration{animation:none}
+  @media(prefers-reduced-motion:reduce){.cover-art.is-arriving,.question-card.is-entering,.stamp-track .is-new,.chip.is-new-selection::after,.result-shell.is-arriving,.result-shell.is-arriving .result-emblem{animation:none!important}}
 </style>
 </head>
 <body>
@@ -2840,6 +2861,36 @@ function fmt3(text){
 
 /* ====== データ保存（実機ブラウザで有効） ====== */
 const KEY = "recamp_data";
+const EXPERIENCE_KEY = "recamp_experience_v1";
+let quizAttemptActive = false;
+let quizStartedAt = 0;
+let answersCompletedAt = 0;
+let resultSubmitted = false;
+function readExperience(){
+  try {
+    const data = JSON.parse(localStorage.getItem(EXPERIENCE_KEY)||"{}");
+    return {started:Number(data.started)||0, completed:Number(data.completed)||0, totalAnswerMs:Number(data.totalAnswerMs)||0};
+  } catch(e){ return {started:0, completed:0, totalAnswerMs:0}; }
+}
+function saveExperience(data){ try { localStorage.setItem(EXPERIENCE_KEY, JSON.stringify(data)); } catch(e){} }
+function beginQuizAttempt(){
+  if(!quizAttemptActive){ const data=readExperience(); data.started++; saveExperience(data); quizAttemptActive=true; }
+  quizStartedAt=Date.now(); answersCompletedAt=0;
+}
+function completeQuizAttempt(){
+  if(!quizAttemptActive) return;
+  const data=readExperience();
+  data.completed++;
+  if(answersCompletedAt>=quizStartedAt && quizStartedAt>0) data.totalAnswerMs+=answersCompletedAt-quizStartedAt;
+  saveExperience(data);
+  quizAttemptActive=false; quizStartedAt=0; answersCompletedAt=0;
+}
+function clearExperience(){
+  if(confirm("この端末の演出導入後の計測を削除します。よろしいですか？")){
+    try { localStorage.removeItem(EXPERIENCE_KEY); } catch(e){}
+    renderIntro();
+  }
+}
 function recCount(){ try { return JSON.parse(localStorage.getItem(KEY)||"[]").length; } catch(e){ return 0; } }
 function buildRecord(){
   return {
@@ -2897,17 +2948,21 @@ const HISTORICAL_IMAGES = {"QCSM":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYA
 const wrap = document.getElementById("wrap");
 
 function renderIntro(){
+  stopScreenEffects();
   document.body.classList.add("introbg");
+  const experience=readExperience();
+  const completionRate=experience.started ? Math.round(experience.completed/experience.started*100)+"%" : "—";
+  const answerTime=experience.completed ? Math.round(experience.totalAnswerMs/experience.completed/1000)+"秒" : "—";
   wrap.innerHTML = `
     <header class="masthead"><div class="brand">Re<span>▶</span>CAMPUS</div><div class="edition">CAREER NOTES<br>自分を知る、小さなきっかけ。</div></header>
-    <main class="cover rise">
+    <main class="cover">
       <div><p class="eyebrow">Re▶CAMPUS｜大人の学園祭</p>
         <h1>大人の<br><em>働き方診断</em></h1>
         <p class="cover-description">あなたらしい働き方、見つけてみよう。</p>
         <button class="cta" onclick="startFresh()">診断をはじめる <span aria-hidden="true">↗</span></button>
         <p class="cover-note">5問　｜　3つの選択肢から回答</p>
       </div>
-      <div class="cover-art" aria-hidden="true"><div class="type-sheet">
+      <div class="cover-art is-arriving" aria-hidden="true"><div class="type-sheet">
         <div class="sheet-label"><span>THE WAY YOU WORK</span><span>01—16</span></div>
         <div class="type-grid">${Object.entries(TYPES).map(([code,t])=>`<span class="type-tile">${TYPE_IMAGES[code] ? `<img src="${TYPE_IMAGES[code]}" alt="" width="80" height="80">` : t.emoji}</span>`).join('')}</div>
         <p class="sheet-caption">Find your next chapter.</p>
@@ -2915,11 +2970,12 @@ function renderIntro(){
     </main>
     <section class="cover-bottom" aria-label="診断で分かること"><div><b>01 / 自分を知る</b><span>働き方の傾向を<br>16タイプで見つける。</span></div><div><b>02 / 一歩を考える</b><span>強みと、これからの<br>動き方を読む。</span></div><div><b>03 / 気軽に話す</b><span>気になることを<br>会場のスタッフへ。</span></div></section>
     <footer class="site-foot"><span>Re▶CAMPUS / 大人の学園祭</span><span>転職を決めていなくても、大丈夫。</span></footer>
-    <details class="operator-panel"><summary>運営メニュー</summary><div class="operator-panel__body"><p class="operator-panel__count">この端末の回答数：<strong>${recCount()}</strong>件</p><button type="button" onclick="exportCSV()">回答をCSVで保存</button><button type="button" onclick="clearData()">この端末の回答を削除</button></div></details>`;
+    <details class="operator-panel"><summary>運営メニュー</summary><div class="operator-panel__body"><p class="operator-panel__count">この端末の回答数：<strong>${recCount()}</strong>件</p><p class="operator-panel__count">演出導入後の計測：診断開始 ${experience.started}件・結果表示 ${experience.completed}件（完了率 ${completionRate}）・平均回答時間 ${answerTime}</p><button type="button" onclick="exportCSV()">回答をCSVで保存</button><button type="button" onclick="clearData()">この端末の回答を削除</button><button type="button" onclick="clearExperience()">計測をリセット</button></div></details>`;
   window.scrollTo(0,0);
 }
 
 function renderProfile(){
+  stopScreenEffects();
   document.body.classList.remove("introbg");
   wrap.innerHTML = `
     <div class="rise" style="margin-top:3vh;">
@@ -2952,9 +3008,11 @@ function buildSeg(id, options, field){
   ).join("");
 }
 function pick(field, id, btn){
+  if(btn.getAttribute("data-sel")==="1") return;
   state[field] = btn.getAttribute("data-v");
   [...document.getElementById(id).children].forEach(b=> b.removeAttribute("data-sel"));
   btn.setAttribute("data-sel","1");
+  btn.classList.add("is-new-selection");
 }
 function submitProfile(){
   state.name = document.getElementById("p-name").value.trim();
@@ -2962,27 +3020,30 @@ function submitProfile(){
 }
 
 function resetState(){
+  stopScreenEffects();
   state.step=0; state.answers=[]; state.type=null;
   state.name=""; state.ageRange=""; state.gender=""; state.years=""; state.jobChanges=""; state.moya=""; state.timing="";
+  quizAttemptActive=false; quizStartedAt=0; answersCompletedAt=0; resultSubmitted=false; resultCelebrated=false;
 }
 function startFresh(){ resetState(); renderProfile(); } // 最初から（新しい人）
 function restart(){ resetState(); renderIntro(); }       // 結果→次の人へ
-function startQuiz(){ answerLocked=false; state.step=0; state.answers=[]; renderQuiz(); }
+function startQuiz(){ answerLocked=false; resultSubmitted=false; state.step=0; state.answers=[]; beginQuizAttempt(); renderQuiz(); }
 
-function renderQuiz(){
+function renderQuiz(justAnswered=-1){
+  stopScreenEffects();
   const i = state.step, Q = QUESTIONS[i];
-  const stamps = QUESTIONS.map((_,k)=>{ const status=k<i?'is-done':(k===i?'is-current':''); return `<li class="${status}" ${k===i?'aria-current="step"':''}>${k<i?'✓':k+1}</li>`; }).join("");
+  const stamps = QUESTIONS.map((_,k)=>{ const status=k<i?'is-done':(k===i?'is-current':''); return `<li class="${status}${k===justAnswered?' is-new':''}" ${k===i?'aria-current="step"':''}>${k<i?'✓':k+1}</li>`; }).join("");
   const progressMessage = i===QUESTIONS.length-1 ? 'ラスト1問！' : (i>=Math.floor(QUESTIONS.length/2) ? `あと${QUESTIONS.length-i}問` : `${i}問回答済み`);
   const opts = Q.opts.map((o,idx)=>`
-    <button class="opt rise" style="animation-delay:${idx*0.07}s" onclick="choose(${idx},${i})">
+    <button class="opt" onclick="choose(${idx},${i})">
       <span class="badge">${["A","B","C"][idx]}</span>${esc(o.label)}
     </button>`).join("");
   wrap.innerHTML = `
-    <div class="rise">
+    <div>
       <div class="quiz-kicker"><span>質問番号</span><span>Q${i+1} / ${QUESTIONS.length}</span></div>
       <ol class="stamp-track" aria-label="診断の進み具合">${stamps}</ol>
       <p class="progress-message" aria-live="polite">${progressMessage}</p>
-      <section class="question-card" aria-labelledby="questionTitle"><h2 id="questionTitle" tabindex="-1" style="line-height:1.5;font-weight:900;margin:0 0 24px;min-height:56px;">${esc(Q.q)}</h2>${opts}</section>
+      <section class="question-card is-entering" aria-labelledby="questionTitle"><h2 id="questionTitle" tabindex="-1" style="line-height:1.5;font-weight:900;margin:0 0 24px;min-height:56px;">${esc(Q.q)}</h2>${opts}</section>
       <button class="quiz-back" onclick="goBack()">← ひとつ戻る</button>
     </div>`;
   requestAnimationFrame(()=>{ const title=document.getElementById('questionTitle'); if(title) title.focus({preventScroll:true}); });
@@ -2992,7 +3053,7 @@ function choose(idx, expectedStep=state.step){
   if(answerLocked || expectedStep!==state.step || state.answers.length!==state.step) return;
   answerLocked = true;
   document.querySelectorAll('.question-card .opt').forEach(button=>button.disabled=true);
-  try { state.answers.push(idx); if(state.step < QUESTIONS.length-1){ state.step++; renderQuiz(); } else { state.type = determineType(state.answers); renderExtra(); } }
+  try { state.answers.push(idx); if(state.step < QUESTIONS.length-1){ const answeredStep=state.step; state.step++; renderQuiz(answeredStep); } else { answersCompletedAt=Date.now(); state.type = determineType(state.answers); renderExtra(true); } }
   catch(error){ renderQuiz(); throw error; }
   finally { answerLocked = false; }
 }
@@ -3002,10 +3063,13 @@ function goBack(){
   state.answers.pop(); state.step--; renderQuiz();
 }
 
-function renderExtra(){
+function renderExtra(justCompleted=false){
+  stopScreenEffects();
+  const stamps=QUESTIONS.map((_,k)=>`<li class="is-done${justCompleted && k===QUESTIONS.length-1?' is-new':''}">✓</li>`).join("");
   wrap.innerHTML = `
     <div class="rise" style="margin-top:8vh;">
       <div class="eyebrow" style="text-align:center;margin-bottom:8px;">ONE MORE THING / あと少し</div>
+      <ol class="stamp-track" aria-label="5問の回答が完了">${stamps}</ol>
       <h2 style="font-size:22px;font-weight:900;text-align:center;line-height:1.5;margin:0 0 28px;">今の気持ちを教えてください<br>（任意）</h2>
       <label class="lbl">転職、いつごろ考えてる？</label>
       <div id="g-timing" class="seg"></div>
@@ -3017,87 +3081,60 @@ function renderExtra(){
   buildSeg("g-timing", TIMING, "timing");
 }
 function submitExtra(skip){
-  ensureAudio(); // 効果音の準備（ユーザー操作のタイミングで有効化）
-  refreshStats(); // スプシから最新の出現率を取得
-  const el = document.getElementById("f-moya");
-  state.moya = (skip || !el) ? "" : el.value.trim();   // timing は pick() で保持済み
-  renderResult(false);
+  if(resultSubmitted) return;
+  resultSubmitted=true;
+  try {
+    refreshStats(); // スプシから最新の出現率を取得
+    const el = document.getElementById("f-moya");
+    state.moya = (skip || !el) ? "" : el.value.trim();   // timing は pick() で保持済み
+    renderResult(false);
+  } catch(error){ resultSubmitted=false; throw error; }
 }
 
-/* ====== 演出：効果音・紙吹雪・集計・4軸メーター ====== */
-let AC = null;
-function ensureAudio(){
-  try { if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==="suspended") AC.resume(); }
-  catch(e){ AC=null; }
+/* ====== 画面内の短い演出・集計・4軸メーター ====== */
+let activeConfetti = null;
+let resultCelebrated = false;
+function stopScreenEffects(){
+  if(!activeConfetti) return;
+  cancelAnimationFrame(activeConfetti.frame);
+  activeConfetti.canvas.remove();
+  activeConfetti=null;
 }
-function playFanfare(tier){
-  if(!AC) return;
-  try {
-    const now = AC.currentTime;
-    // レア度が上がるほど音階が長く、高く駆け上がる
-    const notesByTier = {
-      SSR: [523,659,784,1047,1319,1568,2093],
-      SR:  [523,659,784,1047,1319],
-      R:   [523,659,784,1047],
-      N:   [523,659,784]
-    };
-    const notes = notesByTier[tier] || notesByTier.N;
-    notes.forEach((f,i)=>{
-      const o=AC.createOscillator(), g=AC.createGain();
-      o.type="triangle"; o.frequency.value=f;
-      const t0=now+i*0.10;
-      g.gain.setValueAtTime(0.0001,t0);
-      g.gain.exponentialRampToValueAtTime(0.25,t0+0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001,t0+0.28);
-      o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0+0.3);
-    });
-    // 太鼓ドン（低音ノイズ）
-    const dur=0.18, buf=AC.createBuffer(1,Math.floor(AC.sampleRate*dur),AC.sampleRate), d=buf.getChannelData(0);
-    for(let k=0;k<d.length;k++) d[k]=(Math.random()*2-1)*Math.pow(1-k/d.length,2);
-    const src=AC.createBufferSource(); src.buffer=buf;
-    const lp=AC.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=220;
-    const bg=AC.createGain(); bg.gain.value=0.5;
-    src.connect(lp).connect(bg).connect(AC.destination); src.start(now);
-    // SSR限定：キラキラした特別なベル音を追加で重ねる
-    if(tier==="SSR"){
-      [1568,2093,2637].forEach((f,i)=>{
-        const o=AC.createOscillator(), g=AC.createGain();
-        o.type="sine"; o.frequency.value=f;
-        const t0=now+0.55+i*0.09;
-        g.gain.setValueAtTime(0.0001,t0);
-        g.gain.exponentialRampToValueAtTime(0.22,t0+0.02);
-        g.gain.exponentialRampToValueAtTime(0.0001,t0+0.42);
-        o.connect(g).connect(AC.destination); o.start(t0); o.stop(t0+0.44);
-      });
+window.addEventListener?.("pagehide", stopScreenEffects);
+document.addEventListener?.("visibilitychange", ()=>{ if(document.hidden) stopScreenEffects(); });
+function launchConfetti(accent){
+  const host=wrap.querySelector(".result-heading");
+  if(!host) return;
+  const canvas=document.createElement("canvas");
+  canvas.className="result-confetti";
+  canvas.setAttribute("aria-hidden","true");
+  const width=canvas.width=host.clientWidth, height=canvas.height=host.clientHeight;
+  const ctx=canvas.getContext("2d");
+  if(!ctx || !width || !height) return;
+  host.appendChild(canvas);
+  const colors=[accent,"#f6d66a","#79be65","#ffd6e4"];
+  const pieces=Array.from({length:36},()=>({x:Math.random()*width,y:-Math.random()*height*.25,
+    drift:(Math.random()-.5)*70,fall:height*(.75+Math.random()*.45),size:3+Math.random()*4,
+    color:colors[Math.floor(Math.random()*colors.length)],angle:Math.random()*6}));
+  const effect={canvas,frame:0};
+  activeConfetti=effect;
+  let started=0;
+  function frame(now){
+    if(activeConfetti!==effect || !canvas.isConnected) return;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ stopScreenEffects(); return; }
+    if(!started) started=now;
+    const progress=Math.min((now-started)/900,1);
+    ctx.clearRect(0,0,width,height);
+    ctx.globalAlpha=1-Math.max(0,(progress-.72)/.28);
+    for(const piece of pieces){
+      ctx.save(); ctx.translate(piece.x+piece.drift*progress,piece.y+piece.fall*progress);
+      ctx.rotate(piece.angle+progress*5); ctx.fillStyle=piece.color;
+      ctx.fillRect(-piece.size/2,-piece.size/2,piece.size,piece.size*1.5); ctx.restore();
     }
-  } catch(e){}
-}
-function launchConfetti(accent, tier){
-  try {
-    const cv=document.createElement("canvas");
-    cv.style.cssText="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;";
-    document.body.appendChild(cv);
-    const ctx=cv.getContext("2d"), W=cv.width=innerWidth, H=cv.height=innerHeight;
-    // SSRだけ金色メインのゴージャスな紙吹雪、それ以外はアクセントカラー中心
-    const goldColors=["#ffd700","#fff3c0","#e8b93a","#ffffff","#ffbf00"];
-    const normalColors=[accent,"#e6b450","#e0411f","#ffffff","#3a9a5c"];
-    const colors = (tier==="SSR") ? goldColors : normalColors;
-    const countByTier = {SSR:220, SR:160, R:130, N:100};
-    const framesByTier = {SSR:220, SR:170, R:150, N:140};
-    const N = countByTier[tier] || 120;
-    const maxFrames = framesByTier[tier] || 160;
-    const P=[];
-    for(let i=0;i<N;i++) P.push({x:Math.random()*W,y:-20-Math.random()*H*0.4,w:6+Math.random()*8,h:8+Math.random()*10,
-      c:colors[(Math.random()*colors.length)|0],vx:(Math.random()-0.5)*3,vy:3+Math.random()*4,rot:Math.random()*6.28,vr:(Math.random()-0.5)*0.4});
-    let frames=0;
-    (function loop(){
-      ctx.clearRect(0,0,W,H);
-      P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.rot+=p.vr;
-        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); });
-      if(++frames<maxFrames) requestAnimationFrame(loop);
-      else { cv.style.transition="opacity .6s"; cv.style.opacity="0"; setTimeout(()=>cv.remove(),700); }
-    })();
-  } catch(e){}
+    if(progress<1) effect.frame=requestAnimationFrame(frame);
+    else stopScreenEffects();
+  }
+  effect.frame=requestAnimationFrame(frame);
 }
 let STATS = { total:0, counts:{}, loaded:false };
 function refreshStats(){
@@ -3175,6 +3212,8 @@ function axisMeterHTML(accent){
 }
 
 function renderResult(view){
+  stopScreenEffects();
+  const firstDisplay=!resultCelebrated;
   const rec = buildRecord();
   if(!view){ saveRecord(rec); sendToSheet(rec); }  // 閲覧モード（QRから開いた人）では保存・送信しない
   const t = TYPES[state.type];
@@ -3191,8 +3230,9 @@ function renderResult(view){
       const url = base + "?a=" + state.answers.join("") + (state.name ? "&n="+encodeURIComponent(state.name) : "");
       const qr = qrcode(0, "M"); qr.addData(url); qr.make();
       const durl = qr.createDataURL(5, 2);
-      qrHTML = `<div style="margin-top:20px;padding-top:18px;border-top:1px dashed rgba(236,72,153,.18);text-align:center;">
-          <div style="font-size:13px;font-weight:900;color:${t.accent};margin-bottom:8px;">📱 結果をスマホで表示する</div>
+       qrHTML = `<div class="result-qr">
+           <span class="completion-seal" aria-hidden="true">診断完了</span>
+           <div style="font-size:13px;font-weight:900;color:${t.accent};margin-bottom:8px;">📱 結果をスマホで表示する</div>
           <img src="${durl}" alt="結果QR" style="width:150px;height:150px;image-rendering:pixelated;border:6px solid #fff;border-radius:10px;background:#fff;box-shadow:0 4px 14px rgba(120,80,40,.15);">
           <div style="font-size:12px;color:#8a8a96;margin-top:8px;line-height:1.6;">QRを読み取ると、あなたの結果が<br>スマホで開きます（保存・シェアOK）</div>
         </div>`;
@@ -3243,8 +3283,8 @@ function renderResult(view){
       <div style="font-size:14px;color:#4a4a55;line-height:1.6;">「${esc(state.moya)}」<br>この気持ちも、相談のときに話してみてください。</div>
     </div>` : "";
   wrap.innerHTML = `
-    <div class="rise">
-      <article class="result-shell">
+    <div>
+      <article class="result-shell${firstDisplay?' is-arriving':''}">
         <header class="result-heading">
         <p class="eyebrow">YOUR WORK STYLE / 診断結果</p>
         <div class="result-emblem" style="border:1px solid ${t.accent};">${TYPE_IMAGES[state.type] ? `<img src="${TYPE_IMAGES[state.type]}" alt="${esc(t.name)}のイラスト" width="148" height="148">` : t.emoji}</div>
@@ -3271,14 +3311,17 @@ function renderResult(view){
       ${shareLine}
       ${bottomHTML}
     </div>`;
-  // 結果発表の演出（紙吹雪＋効果音）
+  resultCelebrated=true;
+  completeQuizAttempt();
   window.scrollTo(0,0);
-  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) launchConfetti(t.accent, rarity);
-  if(!view) playFanfare(rarity);
+  if(firstDisplay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    try { launchConfetti(t.accent); } catch(e){ stopScreenEffects(); }
+  }
 }
 
 /* QRから開いた閲覧者向け：結果が読めないときの案内（スタート画面には飛ばさない） */
 function renderViewerNotice(){
+  stopScreenEffects();
   wrap.innerHTML = `<div class="rise" style="margin-top:16vh;text-align:center;">
     <div style="font-size:15px;letter-spacing:2px;color:#e84a8c;margin-bottom:14px;font-weight:700;">Re▶CAMPUS</div>
     <div style="font-size:50px;margin-bottom:10px;">✨</div>
