@@ -276,9 +276,9 @@ footer{font-size:12px}
     <div class="sec-head"><span class="sec-index">02</span><h2>ご希望条件</h2></div>
     <div class="panel criteria">
       <!-- CUSTOMIZE: 2〜8項目。<div><span class="k">項目</span><span class="v">値</span></div> -->
-      <div><span class="k">ご予算</span><span class="v">家賃・管理費込み 12.5万円以内</span></div>
-      <div><span class="k">間取り</span><span class="v">1R・1K（掲載中：1R 4件・1K 2件）</span></div>
-      <div><span class="k">専有面積</span><span class="v">25㎡以上</span></div>
+      <div><span class="k">ご予算</span><span class="v">家賃・管理費込み 13万円以内</span></div>
+      <div><span class="k">間取り</span><span class="v">1R・1K</span></div>
+      <div><span class="k">専有面積</span><span class="v">20㎡以上</span></div>
       <div><span class="k">エリア</span><span class="v">浜松町・田町・三田 周辺</span></div>
       <div><span class="k">所在階</span><span class="v">2階以上</span></div>
       <div class="prio">
@@ -400,6 +400,33 @@ const PROPERTIES = [
     pros: ['芝浦ふ頭駅徒歩3分です', '28.52㎡の1Kで、12階建ての8階です', '月額は管理費込みで125,000円です'],
     cons: ['現在は内装工事中のため、入居時期は確認が必要です'],
     addedAt: '2026-09-23', driveId: '1LIPnUthcM6XNzL0pCWnZ3Iq7zcBeVS41'
+  },
+  {
+    id: '08', name: 'スカイコート芝壱番館', unit: '403号室',
+    line: '山手線', station: '田町', walk: 9, size: 22.38, layout: '1K',
+    rent: 99000, kanri: 15000, total: 114000, deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 2002, structure: 'SRC', available: '2026年10月中旬', facing: '南西', tags: [],
+    pros: ['田町駅徒歩9分、三田駅徒歩7分です', '4階にある南西向きのお部屋です', '宅配ボックスとオートロックがあります'],
+    cons: ['現在居住中で、入居は2026年10月中旬の予定です'],
+    addedAt: '2026-09-23', pdfPath: 'moriyama-floorplans/08.pdf'
+  },
+  {
+    id: '09', name: 'フェニックス芝浦ベイフォート', unit: '706号室',
+    line: '山手線', station: '田町', walk: 8, size: 21.74, layout: '1K',
+    rent: 114000, kanri: 5000, total: 119000, deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2005, structure: 'SRC', available: '2026年10月上旬', facing: '南東', tags: [],
+    pros: ['田町駅徒歩8分、三田駅徒歩7分です', '7階にある南東向きのお部屋です', '敷金なしの募集です'],
+    cons: ['契約時にクリーニング代70,000円などの費用がかかります', '現在居住中で、入居は2026年10月上旬の予定です'],
+    addedAt: '2026-09-23', pdfPath: 'moriyama-floorplans/09.pdf'
+  },
+  {
+    id: '10', name: 'スカイコート浜松町', unit: '508号室',
+    line: '山手線', station: '浜松町', walk: 10, size: 20.44, layout: '1K',
+    rent: 110000, kanri: 10000, total: 120000, deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 2004, structure: 'RC', available: '即入居可', facing: '南東', tags: [],
+    pros: ['浜松町駅・田町駅ともに徒歩10分です', '家具・家電付きで、すぐに入居できます', 'インターネット無料の募集です'],
+    cons: ['備え付けの家具・家電は原則として撤去できません', '建物西側を鉄道が通るため、騒音の影響があります', '室内は禁煙です'],
+    addedAt: '2026-09-23', pdfPath: 'moriyama-floorplans/10.pdf'
   }
 
 ];
@@ -486,10 +513,11 @@ function cardHtml(p) {
   }
   const tags = (p.tags || []).filter(t => !DUPE_TAG.test(strip(t.t))).map(t =>
     '<span class="' + (t.c === 'warn' ? 'tag warn' : (t.c === 'new' ? 'tag hi' : 'tag')) + '">' + strip(t.t) + '</span>').join('');
-  const floorplan = p.driveId
+  const pdfHref = p.pdfPath || (p.driveId ? 'https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view' : '');
+  const floorplan = pdfHref
     ? '<div class="floorplan-heading">お部屋の図面</div>'
       + '<a class="floorplan-image-link" href="moriyama-floorplans/' + encodeURIComponent(p.id) + '.jpg" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="moriyama-floorplans/' + encodeURIComponent(p.id) + '.jpg" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
-      + '<a class="floorplan-fallback" href="https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>'
+      + '<a class="floorplan-fallback" href="' + pdfHref + '" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>'
     : '<div class="contact-note">図面や内見については、担当者へLINEまたはメールでお問い合わせください。</div>';
   return ''
   + '<article class="card">'
@@ -548,7 +576,7 @@ function buildChips(kind) {
 
 function buildBudget() {
   const sel = document.getElementById('rentcap');
-  const cap = Number('240000') || maxTotal;
+  const cap = Number('130000') || maxTotal;
   const step = 10000;
   const opts = [{ v: 'all', t: 'すべて' }];
   for (let v = Math.ceil(cap / step) * step; v > minTotal; v -= step) {
