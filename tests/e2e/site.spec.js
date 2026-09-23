@@ -151,6 +151,7 @@ test('shows contact in the primary navigation and keeps the final CTA', async ({
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const contactLinks = page.locator('a[href^="/ryupro/contact/"]');
   await expect(contactLinks).toHaveCount(2);
+  await expect(page.locator('#primaryNav a[href="#journal"]')).toHaveText('ブログ');
   await expect(page.locator('#primaryNav a.nav-contact')).toHaveText(/コンタクト/);
   await expect(page.locator('.contact-section a[href^="/ryupro/contact/"]')).toHaveText(/相談内容を送る/);
 });
