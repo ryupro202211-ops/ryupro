@@ -406,6 +406,9 @@ test('loads every local homepage image without page errors', async ({ page }) =>
     if (request.url().startsWith('http://127.0.0.1:')) localFailures.push(request.url());
   });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const serviceEventsImage = page.locator('.service-item .service-image img').first();
+  await expect(serviceEventsImage).toHaveAttribute('src', /\/service-events\.png$/);
+  await expect(serviceEventsImage).toHaveAttribute('alt', 'BBQを囲んで会話を楽しむ20代の男女');
   const images = page.locator('img');
   for (let index = 0; index < await images.count(); index += 1) {
     const image = images.nth(index);
