@@ -3254,8 +3254,6 @@ function renderResult(view){
         <div class="result-summary"><p class="result-quote">${esc(taiko)}</p></div>
         </header>
         ${moyaLine}
-        ${asksHTML}
-        <div class="line-contact"><p>${lineLead}</p><a class="line-button" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">LINEで転職相談する <span aria-hidden="true">↗</span></a></div>
         <section class="result-details" aria-label="強みと、これからの動き方">
         <p class="comparison">${HISTORICAL_IMAGES[state.type] ? `<img class="historical-portrait" src="${HISTORICAL_IMAGES[state.type]}" alt="${esc(t.hikaku.split('なら')[1].split('タイプ')[0])}" width="112" height="112">` : ''}<span>${esc(t.hikaku)}</span></p>
         ${meterHTML}
@@ -3264,6 +3262,8 @@ function renderResult(view){
         <h3>気をつけたいこと</h3><p>${t.jirai}</p>
         </section>
         <section class="next-step"><p class="eyebrow">YOUR NEXT STEP</p><p>${t.ippo}</p></section>
+        ${asksHTML}
+        <div class="line-contact"><p>${lineLead}</p><a class="line-button" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">LINEで転職相談する <span aria-hidden="true">↗</span></a></div>
         ${qrHTML}
         ${stampQrHTML}
         <p class="result-disclaimer">この診断は、働き方を考えるきっかけです。職業への適性や転職の成功を判定するものではありません。</p>
