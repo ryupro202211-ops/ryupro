@@ -270,6 +270,18 @@
     .consultation{padding:20px 16px;border-width:5px}
   }
   @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+  /* 2026-09-23 UI refresh — 5-question / 16-type logic stays unchanged */
+  :root{--festival-paper:#fff9f0;--festival-green:#07543a;--festival-mint:#dff1e6;--festival-pink:#ffd6e4;--festival-radius:24px;--festival-shadow:0 10px 30px rgba(17,55,40,.10)}
+  body,body.introbg{color:#15382c;background:#fff9f0}
+  .masthead{transform:none;box-shadow:0 6px 0 #ffd6e4;border:2px solid var(--festival-green)}
+  .cover{padding-top:48px}.cover h1{line-height:1.35}.cover-art{transform:none;border-width:5px;border-radius:24px;box-shadow:var(--festival-shadow)}
+  .cta{transform:none;border:0;outline:0;border-radius:14px;background:var(--festival-green);box-shadow:0 7px 0 #d0b95d}.cta:before,.cta:after{display:none}.cta:hover{background:#063f2d;transform:translateY(-2px);box-shadow:0 9px 0 #d0b95d}.cta:active{transform:translateY(4px);box-shadow:0 3px 0 #d0b95d}
+  .operator-panel{margin:28px 0 0;padding:0;border-top:1px dashed #b8c9be;color:#52665c}.operator-panel summary{padding:14px 0;cursor:pointer;font-size:13px;font-weight:700}.operator-panel__body{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 0 14px}.operator-panel__count{grid-column:1/-1;margin:0;font-size:13px}.operator-panel button{min-height:44px;border:1px solid #b8c9be;border-radius:10px;background:#fff;color:#15382c;font:inherit}
+  .quiz-kicker{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px;font-weight:700}.stamp-track{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;list-style:none;padding:0;margin:0 0 10px}.stamp-track li{min-width:0;aspect-ratio:1;display:grid;place-items:center;border:2px dashed #bdc9c0;border-radius:50%;background:#fff;color:#718178;font-weight:900}.stamp-track .is-done{border-style:solid;border-color:var(--festival-green);background:var(--festival-mint);color:var(--festival-green);transform:rotate(-7deg)}.stamp-track .is-current{border-style:solid;border-width:3px;border-color:#c93670;color:#9b2656;box-shadow:0 0 0 4px #ffd6e4}.progress-message{min-height:1.5em;margin:0 0 22px;color:#52665c;font-size:13px;text-align:center}
+  .question-card{padding:26px;border:1px solid #dbe5dc;border-radius:var(--festival-radius);background:#fff;box-shadow:var(--festival-shadow)}.question-card h2{font-size:clamp(22px,4vw,27px)}.question-card .opt,.question-card .opt:nth-of-type(even){min-height:68px;border:2px solid var(--festival-green);box-shadow:0 4px 0 #dbe5dc;transform:none}.question-card .opt:disabled{opacity:.65;cursor:wait}.quiz-back{width:100%;min-height:44px;margin-top:14px;border:0;background:transparent;color:#52665c;font:inherit}
+  .result-shell{border:2px solid var(--festival-green);border-radius:var(--festival-radius);box-shadow:var(--festival-shadow)}.result-shell:before,.result-shell:after{display:none}.result-heading:before{content:'Re▶CAMPUS / FESTIVAL CARD';transform:none;border-radius:999px;background:var(--festival-green)}.result-emblem:has(img){width:min(260px,78vw);height:min(260px,78vw);border:0!important;box-shadow:none}.result-emblem img{animation:none}.result-heading{border-bottom:0}.result-summary{padding:22px;border:1px solid #dbe5dc;border-radius:18px;background:#fff}
+  .consultation{margin:24px 0;padding:24px;color:#15382c;background:var(--festival-mint);border:1px solid #a9c9b4;outline:0;border-radius:18px;box-shadow:none}.consultation:before{content:'転職相談';transform:none;box-shadow:none;background:var(--festival-green)}.consultation .eyebrow,.consultation .section-note{color:#52665c}.consultation .question-list li{border-bottom:1px solid #bfd4c5}.consultation .question-list li:before{color:var(--festival-green)}.consult-closing{color:#15382c;background:#fff;border:1px solid #bfd4c5}.line-contact{border:0;padding-top:0}.line-button{background:var(--festival-green);border:0;outline:0;border-radius:12px;box-shadow:none;min-height:52px;display:flex;align-items:center;justify-content:center}
+  @media(max-width:650px){.cover{padding-top:30px}.cover-art{border-width:4px;box-shadow:var(--festival-shadow)}.question-card{padding:22px 16px}.result-shell{border-width:2px;box-shadow:var(--festival-shadow)}.result-emblem:has(img){width:min(230px,72vw);height:min(230px,72vw)}}
 </style>
 </head>
 <body>
@@ -2889,11 +2901,11 @@ function renderIntro(){
   wrap.innerHTML = `
     <header class="masthead"><div class="brand">Re<span>▶</span>CAMPUS</div><div class="edition">CAREER NOTES<br>自分を知る、小さなきっかけ。</div></header>
     <main class="cover rise">
-      <div><p class="eyebrow">大人の働き方診断 / 16 TYPES</p>
-        <h1>これからの働き方、<br><em>自分らしく。</em></h1>
-        <p class="cover-description">得意なこと。大切にしたいこと。<br>5つの質問から、次の一歩を見つけよう。</p>
+      <div><p class="eyebrow">Re▶CAMPUS｜大人の学園祭</p>
+        <h1>大人の<br><em>働き方診断</em></h1>
+        <p class="cover-description">あなたらしい働き方、見つけてみよう。</p>
         <button class="cta" onclick="startFresh()">診断をはじめる <span aria-hidden="true">↗</span></button>
-        <p class="cover-note">全5問＋プロフィール / 直感で選んでOK</p>
+        <p class="cover-note">5問　｜　3つの選択肢から回答</p>
       </div>
       <div class="cover-art" aria-hidden="true"><div class="type-sheet">
         <div class="sheet-label"><span>THE WAY YOU WORK</span><span>01—16</span></div>
@@ -2902,7 +2914,8 @@ function renderIntro(){
       </div><div class="art-seal"><strong>16</strong>WORK STYLES</div></div>
     </main>
     <section class="cover-bottom" aria-label="診断で分かること"><div><b>01 / 自分を知る</b><span>働き方の傾向を<br>16タイプで見つける。</span></div><div><b>02 / 一歩を考える</b><span>強みと、これからの<br>動き方を読む。</span></div><div><b>03 / 気軽に話す</b><span>気になることを<br>会場のスタッフへ。</span></div></section>
-    <footer class="site-foot"><span>Re▶CAMPUS / 大人の学園祭</span><span>転職を決めていなくても、大丈夫。</span></footer>`;
+    <footer class="site-foot"><span>Re▶CAMPUS / 大人の学園祭</span><span>転職を決めていなくても、大丈夫。</span></footer>
+    <details class="operator-panel"><summary>運営メニュー</summary><div class="operator-panel__body"><p class="operator-panel__count">この端末の回答数：<strong>${recCount()}</strong>件</p><button type="button" onclick="exportCSV()">回答をCSVで保存</button><button type="button" onclick="clearData()">この端末の回答を削除</button></div></details>`;
   window.scrollTo(0,0);
 }
 
@@ -2954,32 +2967,37 @@ function resetState(){
 }
 function startFresh(){ resetState(); renderProfile(); } // 最初から（新しい人）
 function restart(){ resetState(); renderIntro(); }       // 結果→次の人へ
-function startQuiz(){ state.step=0; state.answers=[]; renderQuiz(); }
+function startQuiz(){ answerLocked=false; state.step=0; state.answers=[]; renderQuiz(); }
 
 function renderQuiz(){
   const i = state.step, Q = QUESTIONS[i];
-  const dots = QUESTIONS.map((_,k)=>`<div class="${k<=i?'done':''}"></div>`).join("");
+  const stamps = QUESTIONS.map((_,k)=>{ const status=k<i?'is-done':(k===i?'is-current':''); return `<li class="${status}" ${k===i?'aria-current="step"':''}>${k<i?'✓':k+1}</li>`; }).join("");
+  const progressMessage = i===QUESTIONS.length-1 ? 'ラスト1問！' : (i>=Math.floor(QUESTIONS.length/2) ? `あと${QUESTIONS.length-i}問` : `${i}問回答済み`);
   const opts = Q.opts.map((o,idx)=>`
-    <button class="opt rise" style="animation-delay:${idx*0.07}s" onclick="choose(${idx})">
+    <button class="opt rise" style="animation-delay:${idx*0.07}s" onclick="choose(${idx},${i})">
       <span class="badge">${["A","B","C"][idx]}</span>${esc(o.label)}
     </button>`).join("");
   wrap.innerHTML = `
     <div class="rise">
-      <div class="progress-track" aria-label="全${QUESTIONS.length}問中${i+1}問目">${dots}</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
-        <button onclick="goBack()" style="background:none;border:none;color:#8a8a96;font-size:14px;padding:4px;">← もどる</button>
-        <span style="font-size:13px;color:var(--coral);font-weight:700;">Q${i+1} / ${QUESTIONS.length}</span>
-      </div>
-      <h2 style="font-size:23px;line-height:1.5;font-weight:900;margin:0 0 24px;min-height:56px;">${esc(Q.q)}</h2>
-      ${opts}
+      <div class="quiz-kicker"><span>質問番号</span><span>Q${i+1} / ${QUESTIONS.length}</span></div>
+      <ol class="stamp-track" aria-label="診断の進み具合">${stamps}</ol>
+      <p class="progress-message" aria-live="polite">${progressMessage}</p>
+      <section class="question-card" aria-labelledby="questionTitle"><h2 id="questionTitle" tabindex="-1" style="line-height:1.5;font-weight:900;margin:0 0 24px;min-height:56px;">${esc(Q.q)}</h2>${opts}</section>
+      <button class="quiz-back" onclick="goBack()">← ひとつ戻る</button>
     </div>`;
+  requestAnimationFrame(()=>{ const title=document.getElementById('questionTitle'); if(title) title.focus({preventScroll:true}); });
 }
-function choose(idx){
-  state.answers.push(idx);
-  if(state.step < QUESTIONS.length-1){ state.step++; renderQuiz(); }
-  else { state.type = determineType(state.answers); renderExtra(); }
+let answerLocked = false;
+function choose(idx, expectedStep=state.step){
+  if(answerLocked || expectedStep!==state.step || state.answers.length!==state.step) return;
+  answerLocked = true;
+  document.querySelectorAll('.question-card .opt').forEach(button=>button.disabled=true);
+  try { state.answers.push(idx); if(state.step < QUESTIONS.length-1){ state.step++; renderQuiz(); } else { state.type = determineType(state.answers); renderExtra(); } }
+  catch(error){ renderQuiz(); throw error; }
+  finally { answerLocked = false; }
 }
 function goBack(){
+  answerLocked = false;
   if(state.step===0){ renderProfile(); return; }
   state.answers.pop(); state.step--; renderQuiz();
 }
@@ -3003,40 +3021,7 @@ function submitExtra(skip){
   refreshStats(); // スプシから最新の出現率を取得
   const el = document.getElementById("f-moya");
   state.moya = (skip || !el) ? "" : el.value.trim();   // timing は pick() で保持済み
-  renderLoading();
-}
-
-function renderLoading(){
-  const steps = ["回答を読み込んでいます","あなたのタイプを判定中","強み・向いている動き方を分析中","あなた専用のメッセージを組み立て中"];
-  wrap.innerHTML = `
-    <div style="margin-top:20vh;">
-      <div style="text-align:center;margin-bottom:30px;">
-        <img class="loading-illustration" src="${LOADING_IMAGE}" alt="" width="164" height="164">
-        <p style="font-size:15px;color:var(--coral);font-weight:900;letter-spacing:3px;margin-top:12px;">AI が 診 断 中 …</p>
-      </div>
-      <div id="steps" style="max-width:300px;margin:0 auto;"></div>
-    </div>`;
-  document.getElementById("steps").innerHTML = steps.map((s,i)=>`
-    <div id="st-${i}" style="display:flex;align-items:center;gap:12px;padding:10px 0;opacity:.3;transition:opacity .4s;">
-      <span id="ic-${i}" style="width:24px;height:24px;flex-shrink:0;border-radius:50%;border:2px solid rgba(236,72,153,.4);display:grid;place-items:center;font-size:13px;"></span>
-      <span style="font-size:15px;font-weight:700;">${s}</span>
-    </div>`).join("");
-  const activate=(k)=>{
-    const r=document.getElementById("st-"+k), ic=document.getElementById("ic-"+k);
-    if(r) r.style.opacity="1";
-    if(ic) ic.innerHTML='<span style="display:block;width:12px;height:12px;border:2px solid rgba(236,72,153,.4);border-top-color:#e84a8c;border-radius:50%;animation:spin .7s linear infinite;"></span>';
-  };
-  const complete=(k)=>{
-    const ic=document.getElementById("ic-"+k);
-    if(ic){ ic.style.background="#56b94f"; ic.style.borderColor="#56b94f"; ic.style.color="#fff"; ic.style.fontWeight="900"; ic.textContent="✓"; }
-  };
-  const per = 5000/steps.length; // 合計 約5秒
-  let i=0; activate(0);
-  const iv=setInterval(()=>{
-    complete(i); i++;
-    if(i<steps.length){ activate(i); }
-    else { clearInterval(iv); setTimeout(renderResult, 350); }
-  }, per);
+  renderResult(false);
 }
 
 /* ====== 演出：効果音・紙吹雪・集計・4軸メーター ====== */
@@ -3266,9 +3251,11 @@ function renderResult(view){
         <h2>${t.name}</h2>
         <div class="type-code">TYPE ${state.type} / 16 TYPES</div>
         ${rarityHTML}
-        <p class="result-quote">${esc(taiko)}</p>
+        <div class="result-summary"><p class="result-quote">${esc(taiko)}</p></div>
         </header>
         ${moyaLine}
+        ${asksHTML}
+        <div class="line-contact"><p>${lineLead}</p><a class="line-button" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">LINEで転職相談する <span aria-hidden="true">↗</span></a></div>
         <section class="result-details" aria-label="強みと、これからの動き方">
         <p class="comparison">${HISTORICAL_IMAGES[state.type] ? `<img class="historical-portrait" src="${HISTORICAL_IMAGES[state.type]}" alt="${esc(t.hikaku.split('なら')[1].split('タイプ')[0])}" width="112" height="112">` : ''}<span>${esc(t.hikaku)}</span></p>
         ${meterHTML}
@@ -3277,9 +3264,7 @@ function renderResult(view){
         <h3>気をつけたいこと</h3><p>${t.jirai}</p>
         </section>
         <section class="next-step"><p class="eyebrow">YOUR NEXT STEP</p><p>${t.ippo}</p></section>
-        ${asksHTML}
         ${qrHTML}
-        <div class="line-contact"><p>${lineLead}</p><a class="line-button" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">公式LINEで相談する <span aria-hidden="true">↗</span></a></div>
         ${stampQrHTML}
         <p class="result-disclaimer">この診断は、働き方を考えるきっかけです。職業への適性や転職の成功を判定するものではありません。</p>
       </article>
