@@ -5,12 +5,21 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "build:site": "node tools/build-site.js",
+    "check:site": "node tools/check-site.js",
+    "preview": "node server.js --dir _site",
+    "test:unit": "node --test",
+    "test:contact": "node --test tests/contact-subject.test.js",
+    "test:e2e": "npm run build:site && node tools/run-e2e.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
   }
 }

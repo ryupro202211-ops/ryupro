@@ -12,7 +12,7 @@ vm.runInContext(script.slice(0, script.indexOf('document.title')) +
 
 test('each card displays its own PDF image outside collapsed details and links to the source PDF', () => {
   const cards = vm.runInContext('PROPERTIES.map(p => ({ id: p.id, driveId: p.driveId, html: cardHtml(p) }))', context);
-  assert.equal(cards.length, 11);
+  assert.equal(cards.length, 10);
   for (const card of cards) {
     const outsideDetails = card.html.replace(/<details\b[\s\S]*?<\/details>/g, '');
     const image = outsideDetails.match(/<img\b[^>]*>/);

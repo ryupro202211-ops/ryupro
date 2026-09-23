@@ -1,4 +1,11 @@
 node_modules
 .DS_Store
 .env
+.env.*
 __pycache__/
+_site/
+/playwright-report/
+/test-results/
+/blob-report/
+/coverage/
+/playwright/.cache/

@@ -1,1151 +1,273 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>合同会社ryupro | 人と人がつながる場を創る</title>
-  <meta name="description" content="合同会社ryuproは、イベント企画・コミュニティデザイン・ライフスタイルプロデュースを通じて、人の可能性を広げる事業を展開しています。">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111314">
+  <title>合同会社ryupro | 人生が動く瞬間を、共につくる。</title>
+  <meta name="description" content="イベント・コミュニティづくり、キャリア支援、住まいや健康・美容の相談。合同会社ryuproは、人との出会いから始まる次の一歩を一緒に考えます。">
   <link rel="canonical" href="https://ryupro202211-ops.github.io/ryupro/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="合同会社ryupro">
   <meta property="og:locale" content="ja_JP">
-  <meta property="og:title" content="合同会社ryupro | 人と人がつながる場を創る">
-  <meta property="og:description" content="合同会社ryuproは、イベント企画・コミュニティデザイン・ライフスタイルプロデュースを通じて、人の可能性を広げる事業を展開しています。">
+  <meta property="og:title" content="合同会社ryupro | 人生が動く瞬間を、共につくる。">
+  <meta property="og:description" content="イベント・コミュニティづくり、キャリア支援、住まいや健康・美容の相談。人との出会いから始まる次の一歩を一緒に考えます。">
   <meta property="og:url" content="https://ryupro202211-ops.github.io/ryupro/">
   <meta property="og:image" content="https://ryupro202211-ops.github.io/ryupro/assets/images/ogp.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="合同会社ryupro | 人と人がつながる場を創る">
-  <meta name="twitter:description" content="合同会社ryuproは、イベント企画・コミュニティデザイン・ライフスタイルプロデュースを通じて、人の可能性を広げる事業を展開しています。">
+  <meta name="twitter:title" content="合同会社ryupro | 人生が動く瞬間を、共につくる。">
+  <meta name="twitter:description" content="イベント・コミュニティづくり、キャリア支援、住まいや健康・美容の相談。人との出会いから始まる次の一歩を一緒に考えます。">
   <meta name="twitter:image" content="https://ryupro202211-ops.github.io/ryupro/assets/images/ogp.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --color-bg: #111110;
-      --color-bg-soft: #161514;
-      --color-bg-card: #1a1918;
-      --color-text: #a99f92;
-      --color-text-strong: #e8e2d8;
-      --color-text-dim: #6b655c;
-      --color-gold: #dbc5a4;
-      --color-gold-dim: rgba(219,197,164,0.4);
-      --color-border: #2a2825;
-      --font-ja: 'Noto Sans JP', sans-serif;
-      --font-serif: 'Shippori Mincho', serif;
-      --font-en: 'Outfit', sans-serif;
-      --max-width: 1080px;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-ja);
-      font-weight: 300;
-      color: var(--color-text);
-      background: var(--color-bg);
-      line-height: 2;
-      letter-spacing: 0.04em;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    ::selection { background: var(--color-gold); color: #111110; }
-
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #131211; }
-    ::-webkit-scrollbar-thumb { background: #2e2b27; border-radius: 8px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--color-gold-dim); }
-
-    /* --- LOADER --- */
-    #loader {
-      position: fixed; inset: 0; z-index: 300;
-      background: var(--color-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.75rem;
-      transition: opacity 1.1s var(--ease), visibility 1.1s;
-    }
-    #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-logo {
-      font-family: var(--font-en);
-      font-weight: 400;
-      font-size: 1.3rem;
-      letter-spacing: 0.5em;
-      text-indent: 0.5em;
-      color: var(--color-gold);
-      opacity: 0;
-      animation: loaderIn 1.5s var(--ease) 0.15s forwards;
-    }
-    .loader-line {
-      width: 130px; height: 1px;
-      background: var(--color-border);
-      position: relative;
-      overflow: hidden;
-    }
-    .loader-line::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: var(--color-gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      animation: loadBar 1.7s var(--ease) 0.25s forwards;
-    }
-    @keyframes loaderIn {
-      from { opacity: 0; letter-spacing: 0.9em; text-indent: 0.9em; }
-      to { opacity: 1; letter-spacing: 0.5em; text-indent: 0.5em; }
-    }
-    @keyframes loadBar { to { transform: scaleX(1); } }
-
-    /* --- SCROLL PROGRESS --- */
-    #progress {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--color-gold), rgba(219,197,164,0.45));
-      transform: scaleX(0);
-      transform-origin: left;
-      z-index: 200;
-      pointer-events: none;
-    }
-
-    /* --- SCROLL ANIMATIONS --- */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* --- NAV --- */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(17,17,16,0.82);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(42,40,37,0.6);
-      transition: transform 0.6s var(--ease);
-    }
-    nav.nav-hidden { transform: translateY(-100%); }
-    .nav-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-    }
-    .nav-logo {
-      font-family: var(--font-en);
-      font-weight: 400;
-      font-size: 1.25rem;
-      letter-spacing: 0.28em;
-      color: var(--color-gold);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
-    .nav-links a {
-      position: relative;
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: var(--color-text);
-      text-decoration: none;
-      letter-spacing: 0.12em;
-      transition: color 0.4s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: -6px;
-      width: 100%; height: 1px;
-      background: var(--color-gold);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.5s var(--ease);
-    }
-    .nav-links a:hover { color: var(--color-gold); }
-    .nav-links a:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-
-    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 1px; background: var(--color-gold); margin: 6px 0; transition: 0.3s; }
-
-    /* --- HERO --- */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 8rem 2rem 6rem;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse 70% 55% at 78% 30%, rgba(219,197,164,0.05), transparent 70%),
-        var(--color-bg);
-    }
-    .hero-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      width: 100%;
-      position: relative;
-      z-index: 2;
-    }
-    .hero h1 {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(2.2rem, 5.2vw, 3.6rem);
-      line-height: 2;
-      letter-spacing: 0.12em;
-      color: var(--color-gold);
-      margin-bottom: 3rem;
-    }
-    .hero h1 .line { display: block; }
-    .hero h1 .ch {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(0.75em);
-      filter: blur(6px);
-      transition:
-        opacity 0.9s var(--ease) var(--d, 0s),
-        transform 1.15s var(--ease) var(--d, 0s),
-        filter 0.9s var(--ease) var(--d, 0s);
-    }
-    body.loaded .hero h1 .ch {
-      opacity: 1;
-      transform: none;
-      filter: blur(0);
-    }
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--color-text);
-      max-width: 480px;
-      line-height: 2.4;
-      margin-bottom: 3.5rem;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 1.3s var(--ease) 1.5s, transform 1.3s var(--ease) 1.5s;
-    }
-    body.loaded .hero-sub { opacity: 1; transform: none; }
-    .hero-credit {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 2rem;
-      font-family: var(--font-en);
-      font-size: 0.6rem;
-      font-weight: 300;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--color-text-dim);
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 1.3s var(--ease) 2.1s;
-    }
-    body.loaded .hero-credit { opacity: 1; }
-    .hero-cta-row {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 1.3s var(--ease) 1.75s, transform 1.3s var(--ease) 1.75s;
-    }
-    body.loaded .hero-cta-row { opacity: 1; transform: none; }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 1.4s var(--ease) 2.3s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-en);
-      font-size: 0.6rem;
-      font-weight: 300;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--color-text-dim);
-      z-index: 2;
-    }
-    .scroll-hint::after {
-      content: '';
-      width: 1px;
-      height: 64px;
-      background: linear-gradient(to bottom, var(--color-gold-dim), transparent);
-      animation: scrollLine 2.4s ease-in-out infinite;
-    }
-    body.loaded .scroll-hint { opacity: 1; }
-    @keyframes scrollLine {
-      0% { transform: scaleY(0); transform-origin: top; }
-      45% { transform: scaleY(1); transform-origin: top; }
-      55% { transform: scaleY(1); transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; }
-    }
-
-    /* --- BUTTONS --- */
-    .btn {
-      position: relative;
-      z-index: 0;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      padding: 1rem 2.75rem;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      text-decoration: none;
-      border: 1px solid var(--color-gold-dim);
-      color: var(--color-gold);
-      background: transparent;
-      transition: color 0.5s var(--ease), border-color 0.5s var(--ease);
-    }
-    .btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--color-gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.55s var(--ease);
-      z-index: -1;
-    }
-    .btn:hover {
-      border-color: var(--color-gold);
-      color: #111110;
-    }
-    .btn:hover::before { transform: scaleX(1); }
-    .btn-ghost {
-      border-color: var(--color-border);
-      color: var(--color-text);
-    }
-    .btn-ghost::before { content: none; }
-    .btn-ghost:hover {
-      border-color: var(--color-gold);
-      color: var(--color-gold);
-    }
-
-    /* --- SECTIONS --- */
-    section { padding: 8.5rem 2rem; position: relative; }
-    .section-inner { max-width: var(--max-width); margin: 0 auto; }
-    .section-label {
-      display: flex;
-      align-items: center;
-      gap: 1.1rem;
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.3em;
-      color: var(--color-text-dim);
-      margin-bottom: 2.75rem;
-    }
-    .section-label::before {
-      content: '';
-      width: 40px;
-      height: 1px;
-      background: var(--color-gold-dim);
-    }
-    .section-label .en {
-      font-family: var(--font-en);
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--color-text-dim);
-    }
-    .section-title {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(1.5rem, 3.4vw, 2.2rem);
-      line-height: 2;
-      letter-spacing: 0.1em;
-      color: var(--color-gold);
-      margin-bottom: 3rem;
-    }
-
-    /* --- FOUNDER --- */
-    .founder {
-      background: var(--color-bg-soft);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .founder-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .founder-photo {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 3/4;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-    }
-    .founder-photo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(17,17,16,0.35), transparent 45%);
-      pointer-events: none;
-    }
-    .founder-photo picture {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .founder-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      filter: saturate(0.82);
-      transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
-    }
-    .founder-photo:hover img { transform: scale(1.04); filter: saturate(1); }
-    .founder-name {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      color: var(--color-text-strong);
-      margin-bottom: 0.3rem;
-    }
-    .founder-name-en {
-      font-family: var(--font-en);
-      font-weight: 300;
-      font-size: 0.72rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--color-text-dim);
-      margin-bottom: 2.25rem;
-    }
-    .founder-lead {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      color: var(--color-gold);
-      margin-bottom: 1.75rem;
-    }
-    .founder-story {
-      color: var(--color-text);
-      font-size: 0.9rem;
-      line-height: 2.3;
-      margin-bottom: 1.6rem;
-    }
-    .founder-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2rem;
-    }
-    .founder-tag {
-      font-size: 0.72rem;
-      letter-spacing: 0.15em;
-      padding: 0.45rem 1.1rem;
-      border: 1px solid var(--color-border);
-      color: var(--color-text);
-      transition: border-color 0.4s, color 0.4s;
-    }
-    .founder-tag:hover {
-      border-color: var(--color-gold-dim);
-      color: var(--color-gold);
-    }
-
-    /* --- PHILOSOPHY --- */
-    .philosophy {
-      text-align: center;
-      background:
-        radial-gradient(ellipse 55% 65% at 50% 100%, rgba(219,197,164,0.045), transparent 70%),
-        var(--color-bg);
-    }
-    .philosophy .section-label { justify-content: center; }
-    .philosophy .section-label::before { display: none; }
-    .philosophy-quote {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(1.5rem, 3.6vw, 2.3rem);
-      line-height: 2.2;
-      letter-spacing: 0.12em;
-      color: var(--color-gold);
-      margin-bottom: 3.5rem;
-    }
-    .philosophy-text {
-      font-size: 0.92rem;
-      line-height: 2.6;
-      max-width: 620px;
-      margin: 0 auto;
-      color: var(--color-text);
-    }
-
-    /* --- SERVICES --- */
-    .services {
-      background: var(--color-bg-soft);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--color-border);
-      border: 1px solid var(--color-border);
-    }
-    .service-card {
-      background: var(--color-bg-soft);
-      padding: 3rem 2.5rem 2.75rem;
-      transition: background 0.6s var(--ease);
-    }
-    .service-card:hover { background: var(--color-bg-card); }
-    .service-num {
-      font-family: var(--font-en);
-      font-weight: 300;
-      font-size: 0.7rem;
-      letter-spacing: 0.35em;
-      color: var(--color-gold-dim);
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-    .service-card h3 {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      color: var(--color-text-strong);
-      margin-bottom: 1.1rem;
-      transition: color 0.5s;
-    }
-    .service-card:hover h3 { color: var(--color-gold); }
-    .service-card p {
-      font-size: 0.87rem;
-      color: var(--color-text);
-      line-height: 2.2;
-    }
-
-    /* --- COMMUNITY --- */
-    .community-sub-title {
-      font-family: var(--font-serif);
-      font-size: 1.35rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      margin-bottom: 1.25rem;
-      color: var(--color-text-strong);
-    }
-    .community-intro {
-      font-size: 0.9rem;
-      color: var(--color-text);
-      max-width: 620px;
-      margin-bottom: 2.75rem;
-      line-height: 2.3;
-    }
-    .community-img {
-      position: relative;
-      margin-bottom: 2.75rem;
-      overflow: hidden;
-      border: 1px solid var(--color-border);
-    }
-    .community-img img {
-      width: 100%;
-      display: block;
-      transition: transform 1.4s var(--ease);
-    }
-    .community-img:hover img { transform: scale(1.025); }
-
-    /* --- COMPANY --- */
-    .company {
-      background: var(--color-bg-soft);
-      border-top: 1px solid var(--color-border);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .company-table {
-      width: 100%;
-      max-width: 640px;
-      border-collapse: collapse;
-    }
-    .company-table tr { border-bottom: 1px solid var(--color-border); }
-    .company-table th {
-      text-align: left;
-      font-weight: 400;
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      color: var(--color-gold);
-      padding: 1.4rem 2rem 1.4rem 0;
-      width: 150px;
-      vertical-align: top;
-    }
-    .company-table td {
-      font-size: 0.9rem;
-      padding: 1.4rem 0;
-      color: var(--color-text);
-      line-height: 2.1;
-    }
-
-    /* --- CONTACT --- */
-    .contact {
-      text-align: center;
-      background:
-        radial-gradient(ellipse 50% 60% at 50% 0%, rgba(219,197,164,0.05), transparent 70%),
-        var(--color-bg);
-    }
-    .contact .section-label { justify-content: center; }
-    .contact .section-label::before { display: none; }
-    .contact-heading {
-      font-family: var(--font-serif);
-      font-weight: 500;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      line-height: 2.1;
-      letter-spacing: 0.12em;
-      color: var(--color-gold);
-      margin-bottom: 2rem;
-    }
-    .contact-text {
-      color: var(--color-text);
-      font-size: 0.9rem;
-      margin: 0 auto 3rem;
-      max-width: 480px;
-      line-height: 2.3;
-    }
-    .contact-buttons {
-      display: flex;
-      gap: 1.25rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* --- FOOTER --- */
-    footer {
-      padding: 4.5rem 2rem 3.5rem;
-      text-align: center;
-      border-top: 1px solid var(--color-border);
-      background: var(--color-bg);
-    }
-    .footer-logo {
-      font-family: var(--font-en);
-      font-weight: 400;
-      font-size: 1.05rem;
-      letter-spacing: 0.32em;
-      margin-bottom: 2rem;
-      color: var(--color-gold);
-    }
-    .footer-nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin-bottom: 2.25rem;
-    }
-    .footer-nav a {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      color: var(--color-text);
-      text-decoration: none;
-      transition: color 0.4s;
-    }
-    .footer-nav a:hover { color: var(--color-gold); }
-    .footer-copy {
-      font-family: var(--font-en);
-      font-weight: 300;
-      font-size: 0.62rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--color-text-dim);
-    }
-
-    /* --- SCROLL REVEAL DETAILS --- */
-    .fade-in .section-label {
-      opacity: 0;
-      transform: translateX(-16px);
-      transition: opacity 1s var(--ease) 0.05s, transform 1s var(--ease) 0.05s;
-    }
-    .fade-in.visible .section-label { opacity: 1; transform: none; }
-    .fade-in .section-label::before {
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 1.1s var(--ease) 0.3s;
-    }
-    .fade-in.visible .section-label::before { transform: scaleX(1); }
-
-    .section-title, .contact-heading, .philosophy-quote { overflow: hidden; }
-    .st-inner {
-      display: block;
-      transform: translateY(115%);
-      transition: transform 1.25s var(--ease) 0.2s;
-    }
-    .fade-in.visible .st-inner { transform: none; }
-
-    .fade-in .founder-photo::before,
-    .fade-in .community-img::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(105deg, #191713, #221e17);
-      z-index: 3;
-      transform: scaleX(1);
-      transform-origin: right;
-      transition: transform 1.3s var(--ease) 0.35s;
-    }
-    .fade-in.visible .founder-photo::before,
-    .fade-in.visible .community-img::before { transform: scaleX(0); }
-    .fade-in .founder-photo img,
-    .fade-in .community-img img { transform: scale(1.12); }
-    .fade-in.visible .founder-photo img,
-    .fade-in.visible .community-img img { transform: scale(1); }
-    .fade-in.visible .founder-photo:hover img { transform: scale(1.04); }
-    .fade-in.visible .community-img:hover img { transform: scale(1.025); }
-
-    .service-card {
-      transition: background 0.6s var(--ease), opacity 1s var(--ease), transform 1s var(--ease);
-    }
-    .fade-in .service-card { opacity: 0; transform: translateY(30px); }
-    .fade-in.visible .service-card { opacity: 1; transform: none; }
-    .fade-in.visible .service-card:nth-child(1) { transition-delay: 0s, 0.1s, 0.1s; }
-    .fade-in.visible .service-card:nth-child(2) { transition-delay: 0s, 0.22s, 0.22s; }
-    .fade-in.visible .service-card:nth-child(3) { transition-delay: 0s, 0.34s, 0.34s; }
-    .fade-in.visible .service-card:nth-child(4) { transition-delay: 0s, 0.46s, 0.46s; }
-
-    .founder-tag {
-      transition: border-color 0.4s, color 0.4s, opacity 0.9s var(--ease), transform 0.9s var(--ease);
-    }
-    .fade-in .founder-tag { opacity: 0; transform: translateY(14px); }
-    .fade-in.visible .founder-tag { opacity: 1; transform: none; }
-    .fade-in.visible .founder-tag:nth-child(1) { transition-delay: 0s, 0s, 0.5s, 0.5s; }
-    .fade-in.visible .founder-tag:nth-child(2) { transition-delay: 0s, 0s, 0.62s, 0.62s; }
-    .fade-in.visible .founder-tag:nth-child(3) { transition-delay: 0s, 0s, 0.74s, 0.74s; }
-    .fade-in.visible .founder-tag:nth-child(4) { transition-delay: 0s, 0s, 0.86s, 0.86s; }
-
-    .fade-in .company-table tr {
-      opacity: 0;
-      transform: translateX(-22px);
-      transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
-    }
-    .fade-in.visible .company-table tr { opacity: 1; transform: none; }
-    .fade-in.visible .company-table tr:nth-child(1) { transition-delay: 0.1s; }
-    .fade-in.visible .company-table tr:nth-child(2) { transition-delay: 0.2s; }
-    .fade-in.visible .company-table tr:nth-child(3) { transition-delay: 0.3s; }
-    .fade-in.visible .company-table tr:nth-child(4) { transition-delay: 0.4s; }
-    .fade-in.visible .company-table tr:nth-child(5) { transition-delay: 0.5s; }
-
-    /* --- RESPONSIVE --- */
-    @media (max-width: 900px) {
-      .scroll-hint { display: none; }
-      .hero-credit { display: none; }
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: block; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 72px; left: 0; right: 0;
-        background: rgba(17,17,16,0.97);
-        padding: 2rem;
-        border-bottom: 1px solid var(--color-border);
-        gap: 1.5rem;
-      }
-      .hero { padding: 7rem 1.5rem 5rem; min-height: 88vh; }
-      section { padding: 5.5rem 1.5rem; }
-      .founder-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .founder-photo { max-width: 280px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .service-card { padding: 2.5rem 1.75rem 2.25rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
-    /* Editorial layout */
-    :root { --max-width: 1200px; --color-text-dim: #a29788; }
-    section { scroll-margin-top: 88px; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 6px; }
-    #loader { display: none; }
-    .nav-inner { height: 80px; }
-    .nav-links { gap: 1.7rem; }
-    .nav-links a { font-size: .75rem; white-space: nowrap; }
-    .hero { min-height: 760px; min-height: max(760px, 94svh); padding: 130px 4vw 85px; }
-    .hero-inner { display: grid; grid-template-columns: 1.25fr 1fr; align-items: center; gap: 4vw; }
-    .hero-kicker { font: 400 .7rem var(--font-en); letter-spacing: .23em; color: var(--color-gold); margin-bottom: 2rem; }
-    .hero h1 { font-size: clamp(2.1rem, 3.5vw, 3.25rem); line-height: 1.85; letter-spacing: .04em; margin-bottom: 2rem; }
-    .hero h1 .line:first-child { font-size: .69em; margin-bottom: .5rem; }
-    .hero-sub { max-width: 440px; margin-bottom: 2rem; line-height: 2.1; }
-    .hero-sub, .hero-cta-row { opacity: 1; transform: none; }
-    .hero-cta-row { gap: .8rem; }
-    .hero-cta-row .btn { padding: 1rem 1.5rem; letter-spacing: .1em; }
-    .hero-cta-row .btn:first-child { background: var(--color-gold); color: var(--color-bg); }
-    .hero-portrait { position: relative; margin: 0 0 0 1rem; }
-    .hero-portrait::before { content: ''; position: absolute; inset: -16px 20px 20px -16px; border: 1px solid var(--color-gold-dim); pointer-events: none; }
-    .hero-portrait picture { display: block; position: relative; overflow: hidden; }
-    .hero-portrait img { display: block; width: 100%; height: clamp(380px, 44vw, 540px); object-fit: cover; object-position: center 25%; filter: saturate(.8); }
-    .hero-portrait figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; font-size: .72rem; letter-spacing: .12em; color: var(--color-gold); }
-    .hero-portrait figcaption span { font-family: var(--font-en); color: var(--color-text); }
-    .hero-credit { left: max(4vw, calc((100vw - 1200px)/2)); }
-    .entry-links { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--color-border); }
-    .entry-links a { display: flex; align-items: center; gap: 1rem; padding: 1.8rem 1.5rem; color: var(--color-gold); text-decoration: none; border-bottom: 1px solid var(--color-border); transition: background .3s; }
-    .entry-links a:hover { background: var(--color-bg-card); }
-    .entry-links a + a { border-left: 1px solid var(--color-border); }
-    .entry-links small { font: .7rem var(--font-en); color: var(--color-text-dim); }
-    .entry-links span { margin-left: auto; }
-    .founder-photo { position: sticky; top: 105px; }
-    .founder-grid { grid-template-columns: minmax(260px, .8fr) 1.2fr; gap: 6rem; }
-    .founder-story { max-width: 600px; }
-    .service-num { font-size: 2.4rem; letter-spacing: -.04em; color: var(--color-gold); margin-bottom: 1rem; }
-    .service-card { padding: 2.5rem 3rem; }
-    .service-card h3 { font-size: 1.3rem; }
-    .service-image { margin-bottom: 1.6rem; overflow: hidden; background: var(--color-bg-card); }
-    .service-image img { display: block; width: 100%; aspect-ratio: 3 / 2; height: auto; object-fit: cover; transition: transform .8s var(--ease); }
-    @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-      .service-card:hover .service-image img { transform: scale(1.035); }
-    }
-    .philosophy { background: #ded2bf; }
-    .philosophy .philosophy-quote, .philosophy .section-label { color: #30291f; }
-    .philosophy .philosophy-text { color: #554b3e; }
-    .philosophy .section-label .en { color: #6d5d4a; }
-    .contact { border-top: 1px solid var(--color-gold-dim); }
-    .contact-heading { font-size: clamp(2.4rem, 5vw, 4rem); }
-    @media (max-width: 1000px) {
-      .nav-links { gap: 1rem; }
-      .founder-grid { gap: 3rem; }
-    }
-    @media (max-width: 768px) {
-      .nav-inner { padding: 0 1.5rem; height: 72px; }
-      .hero { min-height: auto; padding: 110px 1.5rem 2.5rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .hero h1 { font-size: clamp(2rem, 7.8vw, 3rem); }
-      .hero h1 .line:first-child { font-size: .68em; }
-      .hero-kicker { font-size: .62rem; margin-bottom: 1.5rem; }
-      .hero-portrait { margin: 0 0 0 12px; }
-      .hero-portrait img { height: 390px; object-position: center 30%; }
-      .entry-links { margin: 0 1.5rem; grid-template-columns: 1fr; }
-      .entry-links a { padding: 1.2rem 0; font-size: .85rem; }
-      .entry-links a + a { border-left: 0; }
-      .founder-grid { grid-template-columns: 1fr; }
-      .founder-photo { position: relative; top: auto; max-width: 340px; }
-      .service-card { padding: 2rem 1.5rem; }
-      .philosophy-text br { display: none; }
-      .philosophy-text { line-height: 2.4; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-delay: 0s !important; animation-delay: 0s !important; }
-      .fade-in, .fade-in *, .hero h1 .ch { opacity: 1 !important; transform: none !important; filter: none !important; }
-      .fade-in .founder-photo::before, .fade-in .community-img::before { display: none; }
-    }
-  </style>
-  <noscript><style>.fade-in,.fade-in *,.hero-sub,.hero-cta-row {opacity:1!important;transform:none!important}.fade-in .founder-photo::before,.fade-in .community-img::before{display:none}</style></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/ryupro/assets/css/corporate.css">
+  <link rel="stylesheet" href="/ryupro/assets/css/corporate-motion.css">
+  <script src="/ryupro/assets/js/corporate.js" defer></script>
+  <script src="/ryupro/assets/js/corporate-motion.js" defer></script>
 </head>
-<body>
+<body class="corporate-site">
+  <a class="skip-link" href="#main">本文へ移動</a>
 
-<!-- LOADER -->
-<div id="loader" aria-hidden="true">
-  <div class="loader-logo">ryupro</div>
-  <div class="loader-line"></div>
-</div>
-
-<!-- SCROLL PROGRESS -->
-<div id="progress" aria-hidden="true"></div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">ryupro</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#founder">代表紹介</a></li>
-      <li><a href="#philosophy">理念</a></li>
-      <li><a href="#services">事業内容</a></li>
-      <li><a href="#community">コミュニティ</a></li>
-      <li><a href="#company">会社概要</a></li>
-      <li><a href="/ryupro/blog/">ブログ</a></li>
-      <li><a href="#contact">お問い合わせ</a></li>
-    </ul>
-    <button class="hamburger" aria-controls="navLinks" aria-expanded="false" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-copy">
-    <p class="hero-kicker">RYUPRO — PEOPLE, COMMUNITY &amp; POSSIBILITY</p>
-    <h1>
-      <span class="line">人と人がつながる場から、</span>
-      <span class="line">新しい価値が</span>
-      <span class="line">生まれる。</span>
-    </h1>
-    <p class="hero-sub">合同会社ryuproは、イベント企画・コミュニティデザインを通じて、一人ひとりの可能性を広げる場を創っています。</p>
-    <div class="hero-cta-row">
-      <a href="#services" class="btn">事業内容を見る</a>
-      <a href="#contact" class="btn btn-ghost">お問い合わせ</a>
+  <nav class="site-nav" aria-label="メインナビゲーション">
+    <div class="nav-inner">
+      <a class="brand" href="/ryupro/" aria-label="ryupro トップ">ryupro<span class="brand-mark" aria-hidden="true">.</span></a>
+      <button class="nav-toggle" type="button" aria-controls="primaryNav" aria-expanded="false" hidden>
+        <span class="nav-toggle-label">メニュー</span>
+        <span class="nav-toggle-icon" aria-hidden="true"><i></i><i></i></span>
+      </button>
+      <ul class="nav-links" id="primaryNav">
+        <li><a href="#founder">私たちについて</a></li>
+        <li><a href="#services">事業内容</a></li>
+        <li><a href="#projects">活動紹介</a></li>
+        <li><a href="#journal">読みもの</a></li>
+        <li><a class="nav-contact" href="/ryupro/contact/?type=other&amp;source=header">相談する<span aria-hidden="true">↗</span></a></li>
+      </ul>
     </div>
-    </div>
-    <figure class="hero-portrait">
-      <picture><img src="assets/images/community-collaboration-hero.png" alt="仲間と企画について話し合うイメージ" width="1122" height="1402" fetchpriority="high" decoding="async"></picture>
-      <figcaption>人と人がつながる場を。<span>Community &amp; Collaboration</span></figcaption>
-    </figure>
-  </div>
-  <div class="hero-credit">Creating Connections, Creating Value &mdash; ryupro LLC.</div>
-  <div class="scroll-hint">Scroll</div>
-</header>
+  </nav>
 
-<div class="entry-links" aria-label="目的から探す">
-  <a href="#community"><small>01</small>イベントで仲間と出会う<span aria-hidden="true">↗</span></a>
-  <a href="#services"><small>02</small>仕事と暮らしの相談をする<span aria-hidden="true">↗</span></a>
-  <a href="blog/"><small>03</small>ブログを読む<span aria-hidden="true">↗</span></a>
-</div>
-
-<!-- FOUNDER -->
-<section class="founder" id="founder">
-  <div class="section-inner fade-in">
-    <div class="section-label">代表紹介<span class="en">Founder</span></div>
-    <div class="section-title">誰といるかで、人は変わる。</div>
-    <div class="founder-grid">
-      <div class="founder-photo">
-        <picture><source srcset="assets/images/founder.webp" type="image/webp"><img src="assets/images/founder.jpg" alt="大塚隆平" width="900" height="1200" loading="lazy" decoding="async"></picture>
+  <main id="main">
+    <header class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">PEOPLE, COMMUNITY &amp; POSSIBILITY</p>
+          <h1>人生が動く瞬間を、<br>共につくる。</h1>
+          <span class="hero-accent-line" data-motion="hero-accent" aria-hidden="true"></span>
+          <p class="hero-lead">出会いから、仕事や暮らしの選択まで。イベント・コミュニティづくり、キャリア支援、住まい・健康・美容の相談を通じて、次の一歩を一緒に考えます。</p>
+          <div class="button-row">
+            <a class="button button-primary" href="#services">事業内容を見る<span aria-hidden="true">↓</span></a>
+            <a class="button button-quiet" href="/ryupro/contact/?type=other&amp;source=hero">相談してみる<span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <figure class="hero-visual">
+          <img src="/ryupro/assets/images/community-collaboration-hero.png" alt="仲間と企画について話し合うイメージ" width="1122" height="1402" fetchpriority="high">
+          <figcaption><span>RYUPRO LLC.</span> 出会いから、その先へ。</figcaption>
+        </figure>
       </div>
-      <div>
-        <div class="founder-name">大塚 隆平</div>
-        <div class="founder-name-en">Ryuhei Otsuka &#8212; Founder &amp; CEO</div>
+      <a class="hero-scroll" href="#services"><span>SCROLL</span><i aria-hidden="true"></i></a>
+    </header>
 
-        <p class="founder-story">
-          「誰といるかで、人は変わる」。これは、私自身の経験から確信していることです。
-        </p>
-        <p class="founder-story">
-          ITインフラエンジニアとして、大手企業のシステム基盤を支える仕事に、全力で取り組んできました。<br>
-          やりがいはありました。<br>
-          でも25歳の頃、ふと思ったんです。<br>
-          「この先10年、20年。同じ景色を見ていていいのか」と。
-        </p>
-        <p class="founder-story">
-          転機になったのは、経営者たちと学ぶ場に飛び込んだこと。<br>
-          技術だけでは見えなかった世界がありました。<br>
-          事業のつくり方。チームの育て方。人との向き合い方。<br>
-          何より変わったのは、考え方です。<br>
-          「一人で頑張る」から、「仲間と共に創る」へ。<br>
-          この変化が、すべての始まりでした。
-        </p>
-        <p class="founder-story">
-          現在は、コミュニティ運営やキャリアデザインサポートを通じて、「一歩踏み出したい人が、自然と踏み出せる場」をつくることに取り組んでいます。
-        </p>
-        <p class="founder-story">
-          「今のままじゃダメだと思っている。でも、何から始めればいいかわからない」<br>
-          「周りに本気で語り合える仲間がいない」<br>
-          「自分の可能性を、もっと試してみたい」
-        </p>
-        <p class="founder-story">
-          そう感じたことがある人の変化のきっかけになるように日々精進しています。<br>
-          もし少しでも気になったら、気軽にお話しましょう。
-        </p>
+    <section class="intro-band" aria-label="ryuproについて">
+      <div class="wrap intro-band-inner">
+        <p>人と人が出会う場から、<br class="mobile-only">新しい選択肢が生まれる。</p>
+        <a href="#philosophy">ryuproの考え方<span aria-hidden="true">↘</span></a>
+      </div>
+    </section>
 
-        <div class="founder-tags">
-          <span class="founder-tag">ITインフラ 15年</span>
-          <span class="founder-tag">ウェイトトレーニング</span>
-          <span class="founder-tag">イベント企画</span>
-          <span class="founder-tag">コミュニティデザイン</span>
+    <section class="section services" id="services" aria-labelledby="servicesTitle">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">WHAT WE DO</p>
+          <h2 id="servicesTitle" data-motion="heading">出会いから、その先の選択肢まで。</h2>
+          <p>イベント、キャリア、暮らし。いま考えていることから、相談先をお選びください。</p>
+        </div>
+        <div class="service-list">
+          <article class="service-item">
+            <div class="service-image"><img data-motion="photo" src="/ryupro/assets/images/service-events.jpg" alt="仲間と楽しむBBQのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
+            <div class="service-copy">
+              <p class="service-index" data-motion="service-index">01 <span>EVENTS</span></p>
+              <h3>イベント企画・運営</h3>
+              <p>BBQや花火、季節のパーティーなど、人と人がつながるイベントを企画・運営します。初めての方も参加しやすい場をつくります。</p>
+              <a class="text-link" href="/ryupro/contact/?type=event&amp;source=services">イベントについて相談する<span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="service-item">
+            <div class="service-image"><img data-motion="photo" src="/ryupro/assets/images/service-community.jpg" alt="仲間と学び合うワークショップのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
+            <div class="service-copy">
+              <p class="service-index" data-motion="service-index">02 <span>COMMUNITY</span></p>
+              <h3>コミュニティデザイン</h3>
+              <p>価値観の合う仲間と出会い、互いに学び合える場を考えます。勉強会やワークショップなど、目的に合った活動をご相談いただけます。</p>
+              <a class="text-link" href="/ryupro/contact/?type=community&amp;source=services">コミュニティについて相談する<span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="service-item">
+            <div class="service-image"><img data-motion="photo" src="/ryupro/assets/images/service-career.jpg" alt="一対一でキャリアを相談するイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
+            <div class="service-copy">
+              <p class="service-index" data-motion="service-index">03 <span>CAREER</span></p>
+              <h3>キャリアデザインサポート</h3>
+              <p>IT業界での経験をもとに、キャリアの棚卸しや転職、フリーランスへの転身など、これからの働き方を一緒に考えます。</p>
+              <a class="text-link" href="/ryupro/contact/?type=career&amp;source=services">キャリアについて相談する<span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="service-item">
+            <div class="service-image"><img data-motion="photo" src="/ryupro/assets/images/service-lifestyle.jpg" alt="心地よい住まいで過ごす暮らしのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
+            <div class="service-copy">
+              <p class="service-index" data-motion="service-index">04 <span>LIFESTYLE</span></p>
+              <h3>ライフスタイルプロデュース</h3>
+              <p>住まい探しや健康・美容など、暮らしに関わるご相談をお受けしています。いま気になっていることからお聞かせください。</p>
+              <a class="text-link" href="/ryupro/contact/?type=lifestyle&amp;source=services">暮らしについて相談する<span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- PHILOSOPHY -->
-<section class="philosophy" id="philosophy">
-  <div class="section-inner fade-in">
-    <div class="section-label">経営理念<span class="en">Philosophy</span></div>
-    <div class="philosophy-quote">
-      挑戦する人が、<br>当たり前に挑戦できる社会をつくる。
-    </div>
-    <p class="philosophy-text">
-      一歩を踏み出すのは、簡単じゃない。<br>
-      不安もある。迷いもある。<br>
-      それでも動いた先に、想像もしなかった景色が広がっている。<br><br>
-      自分自身が、そうでした。<br>
-      だから、同じように踏み出したいと思っている人の<br>
-      「最初の一歩」を支える場をつくりたい。<br><br>
-      一人では難しくても、仲間がいれば動ける。<br>
-      人が集まれば、新しい可能性が生まれる。<br>
-      その瞬間を、一つでも多くつくること。<br>
-      それがryuproの存在理由です。
-    </p>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="section-inner fade-in">
-    <div class="section-label">事業内容<span class="en">Services</span></div>
-    <div class="section-title">「楽しい」から始まる、四つの事業。</div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-image"><img src="assets/images/service-events.jpg" alt="仲間と楽しむBBQのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
-        <span class="service-num">01</span>
-        <h3>イベント企画・運営</h3>
-        <p>BBQ、花火、季節のパーティーなど、人と人がつながるイベントを企画・運営。初めての方でも気軽に参加できる、温かいコミュニティの場を提供します。</p>
+    <section class="section approach" id="why" aria-labelledby="approachTitle">
+      <div class="wrap approach-grid">
+        <div>
+          <p class="eyebrow">HOW WE THINK</p>
+          <h2 id="approachTitle" data-motion="heading">一歩を決める前に、<br>話せる場を。</h2>
+        </div>
+        <div class="approach-copy">
+          <p>転職するか、何かを始めるか。答えが決まっていなくても、話すことで見えてくることがあります。</p>
+          <p>人との出会いや対話から、自分に合う選択肢を考える。ryuproは、イベントやコミュニティ、仕事と暮らしの相談を通じて、そのきっかけをつくります。</p>
+          <a class="text-link" href="/ryupro/contact/?type=work-life&amp;source=contact">まとまっていない相談をする<span aria-hidden="true">↗</span></a>
+        </div>
       </div>
-      <div class="service-card">
-        <div class="service-image"><img src="assets/images/service-community.jpg" alt="仲間と学び合うワークショップのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
-        <span class="service-num">02</span>
-        <h3>コミュニティデザイン</h3>
-        <p>価値観の合う仲間と出会い、互いに高め合える場を設計。勉強会やワークショップなど、学びと成長の場を通じて人を育てます。</p>
+    </section>
+
+    <section class="section projects" id="projects" aria-labelledby="projectsTitle">
+      <span class="anchor-alias" id="community" aria-hidden="true"></span>
+      <div class="wrap projects-grid">
+        <div class="projects-copy">
+          <p class="eyebrow">FROM CONNECTIONS</p>
+          <h2 id="projectsTitle" data-motion="heading">つながりが生まれる、<br>実際の活動。</h2>
+          <p>楽SAKEターミナルでは、BBQや花火、季節の企画を通じて、人が集まり一緒に過ごす場をつくっています。</p>
+          <a class="button button-outline" href="https://ryupro202211-ops.github.io/rakusake/">楽SAKEターミナルを見る<span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="projects-image">
+          <div class="projects-image-frame"><img data-motion="photo" src="/ryupro/rakusake_events.png" alt="楽SAKEターミナルの様子" width="816" height="266" loading="lazy" decoding="async"></div>
+          <figcaption>楽SAKEターミナル</figcaption>
+        </figure>
       </div>
-      <div class="service-card">
-        <div class="service-image"><img src="assets/images/service-career.jpg" alt="一対一でキャリアを相談するイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
-        <span class="service-num">03</span>
-        <h3>キャリアデザインサポート</h3>
-        <p>IT業界15年の経験を活かし、キャリアの棚卸しから転職・フリーランスへの転身まで、一人ひとりに合った次の一歩をサポートします。</p>
+    </section>
+
+    <section class="section journal" id="journal" aria-labelledby="journalTitle">
+      <div class="wrap">
+        <div class="section-heading journal-heading">
+          <div>
+            <p class="eyebrow">JOURNAL</p>
+            <h2 id="journalTitle" data-motion="heading">活動や、日々考えていること。</h2>
+          </div>
+          <a class="text-link journal-all" href="/ryupro/blog/">ブログ一覧へ<span aria-hidden="true">↗</span></a>
+        </div>
+        <!-- HOME_JOURNAL_START -->
+        <div class="journal-list">
+          <p>イベントや仕事、暮らしについてブログで紹介しています。</p>
+          <a class="text-link" href="/ryupro/blog/">ブログを読む<span aria-hidden="true">↗</span></a>
+        </div>
+        <!-- HOME_JOURNAL_END -->
       </div>
-      <div class="service-card">
-        <div class="service-image"><img src="assets/images/service-lifestyle.jpg" alt="心地よい住まいで過ごす暮らしのイメージ" width="1536" height="1024" loading="lazy" decoding="async"></div>
-        <span class="service-num">04</span>
-        <h3>ライフスタイルプロデュース</h3>
-        <p>住まい探しのサポートや、健康・美容に関するサービスを展開。暮らし全体を豊かにするお手伝いをしています。</p>
+    </section>
+
+    <section class="founder-section section" id="founder" aria-labelledby="founderTitle">
+      <div class="wrap founder-grid">
+        <figure class="founder-photo">
+          <picture><source srcset="/ryupro/assets/images/founder.webp" type="image/webp"><img src="/ryupro/assets/images/founder.jpg" alt="合同会社ryupro代表の大塚隆平" width="900" height="1200" loading="lazy" decoding="async"></picture>
+        </figure>
+        <div class="founder-copy">
+          <p class="eyebrow">ABOUT THE FOUNDER</p>
+          <h2 id="founderTitle" data-motion="heading">誰といるかで、<br>人は変わる。</h2>
+          <p class="founder-name">大塚 隆平</p>
+          <p class="founder-role">Ryuhei Otsuka <span>—</span> Founder &amp; CEO</p>
+          <p class="founder-summary">ITインフラエンジニアとして働く中で、経営者たちと学ぶ場に飛び込んだことが転機になりました。人との出会いから見える景色が変わり、仲間と共につくることを大切にするようになりました。</p>
+          <details class="founder-details">
+            <summary>代表ストーリーを読む</summary>
+            <div class="founder-story">
+              <p>「誰といるかで、人は変わる」。これは、私自身の経験から確信していることです。</p>
+              <p>ITインフラエンジニアとして、大手企業のシステム基盤を支える仕事に、全力で取り組んできました。<br>やりがいはありました。<br>でも25歳の頃、ふと思ったんです。<br>「この先10年、20年。同じ景色を見ていていいのか」と。</p>
+              <p>転機になったのは、経営者たちと学ぶ場に飛び込んだこと。<br>技術だけでは見えなかった世界がありました。<br>事業のつくり方。チームの育て方。人との向き合い方。<br>何より変わったのは、考え方です。<br>「一人で頑張る」から、「仲間と共に創る」へ。<br>この変化が、すべての始まりでした。</p>
+              <p>現在は、コミュニティ運営やキャリアデザインサポートを通じて、「一歩踏み出したい人が、自然と踏み出せる場」をつくることに取り組んでいます。</p>
+              <p>「今のままじゃダメだと思っている。でも、何から始めればいいかわからない」<br>「周りに本気で語り合える仲間がいない」<br>「自分の可能性を、もっと試してみたい」</p>
+              <p>そう感じたことがある人の変化のきっかけになるように日々精進しています。<br>もし少しでも気になったら、気軽にお話しましょう。</p>
+            </div>
+          </details>
+          <ul class="founder-tags" aria-label="代表の経験と関心">
+            <li>ITインフラ 15年</li>
+            <li>ウェイトトレーニング</li>
+            <li>イベント企画</li>
+            <li>コミュニティデザイン</li>
+          </ul>
+        </div>
       </div>
+    </section>
+
+    <section class="philosophy-section section" id="philosophy" aria-labelledby="philosophyTitle">
+      <div class="wrap philosophy-inner">
+        <svg class="connections-visual" data-motion="connections" aria-hidden="true" focusable="false" viewBox="0 0 320 240">
+          <path pathLength="100" d="M24 184 C72 164 85 112 138 119 S221 79 296 38"></path>
+          <path pathLength="100" d="M42 34 C78 62 99 91 138 119"></path>
+          <path pathLength="100" d="M138 119 C171 157 223 180 288 205"></path>
+          <circle cx="24" cy="184" r="4"></circle>
+          <circle cx="42" cy="34" r="4"></circle>
+          <circle cx="138" cy="119" r="5"></circle>
+          <circle cx="296" cy="38" r="4"></circle>
+          <circle cx="288" cy="205" r="4"></circle>
+        </svg>
+        <p class="eyebrow">OUR PHILOSOPHY</p>
+        <h2 id="philosophyTitle" data-motion="heading">挑戦する人が、<br>当たり前に挑戦できる社会をつくる。</h2>
+        <p>一歩を踏み出すのは、簡単じゃない。<br>不安もある。迷いもある。<br>それでも動いた先に、想像もしなかった景色が広がっている。</p>
+        <p>自分自身が、そうでした。<br>だから、同じように踏み出したいと思っている人の「最初の一歩」を支える場をつくりたい。</p>
+        <p>一人では難しくても、仲間がいれば動ける。<br>人が集まれば、新しい可能性が生まれる。<br>その瞬間を、一つでも多くつくること。<br>それがryuproの存在理由です。</p>
+      </div>
+    </section>
+
+    <section class="section company" id="company" aria-labelledby="companyTitle">
+      <div class="wrap company-grid">
+        <div class="section-heading">
+          <p class="eyebrow">COMPANY</p>
+          <h2 id="companyTitle" data-motion="heading">会社概要</h2>
+        </div>
+        <table class="company-table">
+          <tbody>
+            <tr><th scope="row">社名</th><td>合同会社ryupro</td></tr>
+            <tr><th scope="row">代表者</th><td>大塚 隆平</td></tr>
+            <tr><th scope="row">設立</th><td>2022年11月</td></tr>
+            <tr><th scope="row">所在地</th><td>東京都中央区銀座1丁目12番4号 N&amp;E BLD. 6F</td></tr>
+            <tr><th scope="row">事業内容</th><td>イベント企画・運営<br>コミュニティデザイン<br>キャリアデザインサポート<br>ライフスタイルプロデュース</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="contact-section section" id="contact" aria-labelledby="contactTitle">
+      <div class="wrap contact-panel">
+        <div>
+          <p class="eyebrow">LET'S TALK</p>
+          <h2 id="contactTitle" data-motion="heading">次の一歩を、<br>ここから一緒に。</h2>
+        </div>
+        <div class="contact-copy">
+          <p>イベントへの参加や事業についての質問、仕事や暮らしの相談など、考えていることからお聞かせください。</p>
+          <a class="button button-primary" href="/ryupro/contact/?type=other&amp;source=contact">相談内容を送る<span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-main">
+      <a class="brand" href="/ryupro/" aria-label="ryupro トップ">ryupro<span class="brand-mark" aria-hidden="true">.</span></a>
+      <nav aria-label="フッターナビゲーション">
+        <a href="#founder">代表紹介</a>
+        <a href="#philosophy">理念</a>
+        <a href="#services">事業内容</a>
+        <a href="#community">コミュニティ</a>
+        <a href="#company">会社概要</a>
+        <a href="/ryupro/blog/">ブログ</a>
+        <a href="/ryupro/contact/">お問い合わせ</a>
+      </nav>
     </div>
-  </div>
-</section>
-
-<!-- COMMUNITY -->
-<section class="community" id="community">
-  <div class="section-inner fade-in">
-    <div class="section-label">コミュニティ<span class="en">Community</span></div>
-    <div class="section-title">楽SAKEターミナル</div>
-    <p class="community-intro">
-      ryuproの活動の中心にあるコミュニティイベントです。BBQ、花火、流しそうめん、クリスマスパーティーなど、季節ごとの楽しい企画を通じて仲間が集まります。「楽しい」から始まるつながりを大切にしています。
-    </p>
-    <div class="community-img">
-      <img src="rakusake_events.png" alt="楽SAKEターミナルの様子" width="816" height="266" loading="lazy" decoding="async">
-    </div>
-    <a href="https://ryupro202211-ops.github.io/rakusake/" class="btn">楽SAKEターミナルについて詳しく見る</a>
-  </div>
-</section>
-
-<!-- COMPANY -->
-<section class="company" id="company">
-  <div class="section-inner fade-in">
-    <div class="section-label">会社概要<span class="en">Company</span></div>
-    <table class="company-table">
-      <tr><th>社名</th><td>合同会社ryupro</td></tr>
-      <tr><th>代表者</th><td>大塚 隆平</td></tr>
-      <tr><th>設立</th><td>2022年11月</td></tr>
-      <tr><th>所在地</th><td>東京都中央区銀座1丁目12番4号 N&amp;E BLD. 6F</td></tr>
-      <tr><th>事業内容</th><td>イベント企画・運営<br>コミュニティデザイン<br>キャリアデザインサポート<br>ライフスタイルプロデュース</td></tr>
-    </table>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="section-inner fade-in">
-    <div class="section-label">お問い合わせ<span class="en">Contact</span></div>
-    <div class="contact-heading">最初の一歩を、<br>ここから。</div>
-    <p class="contact-text">
-      イベントへの参加や事業についてのご質問など、どんなことでもお気軽にご連絡ください。
-    </p>
-    <div class="contact-buttons">
-      <a href="/ryupro/contact/" class="btn">お問い合わせフォーム</a>
-      <a href="https://ryupro202211-ops.github.io/rakusake/" class="btn btn-ghost">楽SAKEの詳細を見る</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">ryupro</div>
-  <div class="footer-nav">
-    <a href="#founder">代表紹介</a>
-    <a href="#philosophy">理念</a>
-    <a href="#services">事業内容</a>
-    <a href="#community">コミュニティ</a>
-    <a href="#company">会社概要</a>
-    <a href="/ryupro/blog/">ブログ</a>
-    <a href="/ryupro/contact/">お問い合わせ</a>
-  </div>
-  <div class="footer-copy">&copy; 2024 ryupro LLC. All Rights Reserved.</div>
-</footer>
-
-<script>
-  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ヒーロー見出しを1文字ずつのspanに分割（文字ごとに遅延を設定）
-  document.querySelectorAll('.hero h1 .line').forEach((line, li) => {
-    const text = line.textContent;
-    line.textContent = '';
-    [...text].forEach((ch, i) => {
-      const s = document.createElement('span');
-      s.className = 'ch';
-      s.textContent = ch;
-      s.style.setProperty('--d', (0.15 + li * 0.3 + i * 0.045).toFixed(3) + 's');
-      line.appendChild(s);
-    });
-  });
-
-  // 見出しをマスク付きスライド表示にするためのラッパー
-  document.querySelectorAll('.section-title, .contact-heading, .philosophy-quote').forEach(el => {
-    el.innerHTML = '<span class="st-inner">' + el.innerHTML + '</span>';
-  });
-
-  // オープニング（ロゴ → カーテンが明けて本編へ）
-  const loader = document.getElementById('loader');
-  let revealed = false;
-  const reveal = () => {
-    if (revealed) return;
-    revealed = true;
-    document.body.classList.add('loaded');
-    loader.classList.add('done');
-    setTimeout(() => loader.remove(), 1300);
-  };
-  reveal();
-
-  const menuButton = document.querySelector('.hamburger');
-  const menuLinks = document.getElementById('navLinks');
-  const closeMenu = () => {
-    menuLinks.classList.remove('open');
-    menuButton.setAttribute('aria-expanded', 'false');
-  };
-  menuButton.addEventListener('click', () => {
-    const open = menuLinks.classList.toggle('open');
-    menuButton.setAttribute('aria-expanded', String(open));
-  });
-  menuLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && menuLinks.classList.contains('open')) {
-      closeMenu();
-      menuButton.focus();
-    }
-  });
-
-  // スクロール連動の段階的表示
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // ナビの表示制御・プログレスバー・ヒーローのパララックス
-  const nav = document.querySelector('nav');
-  const progress = document.getElementById('progress');
-  const heroInner = document.querySelector('.hero-inner');
-  let lastY = 0;
-  addEventListener('scroll', () => {
-    const y = scrollY;
-    nav.classList.toggle('nav-hidden', y > lastY && y > 360 && !menuLinks.classList.contains('open') && !nav.contains(document.activeElement));
-    lastY = y;
-    const h = document.documentElement;
-    progress.style.transform = 'scaleX(' + (y / (h.scrollHeight - h.clientHeight)) + ')';
-  }, { passive: true });
-</script>
-
+    <div class="wrap footer-bottom"><span>合同会社ryupro</span><small>&copy; 2024 ryupro LLC. All Rights Reserved.</small></div>
+  </footer>
 </body>
 </html>
