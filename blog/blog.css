@@ -260,6 +260,28 @@ footer {
   width: 100%;
   height: auto;
   display: block;
+  view-transition-name: post-hero;
+}
+
+/* 一覧で押したサムネイルが、記事上部の画像へつながって切り替わる */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(post-hero) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
 }
 
 .article-body {

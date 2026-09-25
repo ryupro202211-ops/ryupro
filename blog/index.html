@@ -74,6 +74,21 @@
     .catch(() => {
       document.getElementById('blogList').innerHTML = '<p style="color: var(--color-text); font-size: 0.9rem;">記事の読み込みに失敗しました。</p>';
     });
+
+  // 押したカードのサムネイルを、記事上部の画像へつなげて遷移する（対応ブラウザのみ）
+  if ('onpagereveal' in window) {
+    const list = document.getElementById('blogList');
+    const clearNames = () => list.querySelectorAll('.blog-card-img img').forEach(img => { img.style.viewTransitionName = ''; });
+    list.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const img = event.target.closest('.blog-card')?.querySelector('img');
+      if (!img) return;
+      clearNames();
+      img.style.viewTransitionName = 'post-hero';
+    });
+    addEventListener('pageshow', clearNames);
+  }
 </script>
 </body>
 </html>

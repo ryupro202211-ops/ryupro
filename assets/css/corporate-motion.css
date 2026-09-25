@@ -32,12 +32,15 @@
   transform-origin: right center;
 }
 
+.corporate-site .approach {
+  position: relative;
+  overflow: hidden;
+}
+
 .corporate-site .connections-visual {
-  position: absolute;
-  z-index: 0;
-  top: 16%;
-  right: 2%;
-  width: clamp(176px, 23vw, 300px);
+  display: block;
+  width: clamp(200px, 24vw, 320px);
+  margin: 28px 0 -12px -8px;
   height: auto;
   overflow: visible;
   color: rgba(48, 41, 31, .54);
@@ -55,6 +58,53 @@
 
 .corporate-site .connections-visual circle {
   fill: currentColor;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* つながりの線を流れる光 */
+.corporate-site .connections-visual .connection-spark {
+  fill: #fff;
+  filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px rgba(255, 255, 255, .9)) drop-shadow(0 0 12px rgba(255, 248, 230, .8));
+}
+
+/* 事業写真のパララックス（枠より少し大きくして上下に動かす余白をつくる） */
+.corporate-site .service-image img[data-parallax] {
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.1);
+}
+
+.corporate-site .service-index {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.corporate-site .service-index::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms cubic-bezier(.22, .61, .36, 1);
+}
+
+/* ブログ一覧 → 記事のページ遷移 */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(post-hero) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
 }
 
 .corporate-site .philosophy-section {
@@ -94,6 +144,18 @@
   .corporate-site .journal-card:hover img {
     transform: scale(1.02);
   }
+
+  .corporate-site .service-image img[data-parallax] {
+    transition: scale 900ms cubic-bezier(.22, .61, .36, 1);
+  }
+
+  .corporate-site .service-item:hover .service-image img[data-parallax] {
+    scale: 1.035;
+  }
+
+  .corporate-site .service-item:hover .service-index::after {
+    transform: scaleX(1);
+  }
 }
 
 @media (max-width: 640px) {
@@ -104,17 +166,12 @@
   }
 
   .corporate-site .connections-visual {
-    top: auto;
-    right: 0;
-    bottom: 4%;
-    width: 128px;
-    opacity: .42;
-  }
-
-  .corporate-site .connections-visual path:last-of-type,
-  .corporate-site .connections-visual circle:nth-of-type(2),
-  .corporate-site .connections-visual circle:nth-of-type(4) {
-    display: none;
+    position: absolute;
+    right: 12px;
+    bottom: 3%;
+    width: 140px;
+    margin: 0;
+    opacity: .6;
   }
 }
 
@@ -125,5 +182,18 @@
   .corporate-site .journal-card img {
     transition: none !important;
     transform: none !important;
+  }
+
+  .corporate-site .service-image img[data-parallax] {
+    transform: none !important;
+    scale: none !important;
+  }
+
+  .corporate-site .connections-visual .connection-spark {
+    display: none;
+  }
+
+  @view-transition {
+    navigation: none;
   }
 }
