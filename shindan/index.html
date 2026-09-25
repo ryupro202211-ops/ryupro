@@ -345,6 +345,20 @@
   .radar.is-drawing .radar-dot{animation:radar-grow .65s cubic-bezier(.2,.8,.3,1) .08s both}
   @keyframes radar-grow{from{opacity:.15;transform:scale(.08)}to{opacity:1;transform:none}}
   @media(prefers-reduced-motion:reduce){.radar-pending .radar-shape,.radar-pending .radar-dot{opacity:1!important;transform:none!important}.result-shell.is-arriving .result-emblem:after{display:none}}
+  /* 診断結果の発表前に、学園祭の抽選カードをめくる */
+  .reveal-stage{max-width:480px;margin:4vh auto 0;padding:22px 20px 30px;text-align:center;border:4px solid var(--festival-green);border-radius:14px;background:#fffdf6;box-shadow:8px 9px 0 rgba(255,94,142,.25)}
+  .reveal-stage .stamp-track{max-width:310px;margin:14px auto 20px}
+  .reveal-stage .stamp-track .is-done{animation:stamp-land .34s ease-out both}
+  .reveal-stage .stamp-track li:nth-child(2){animation-delay:.12s}.reveal-stage .stamp-track li:nth-child(3){animation-delay:.24s}.reveal-stage .stamp-track li:nth-child(4){animation-delay:.36s}.reveal-stage .stamp-track li:nth-child(5){animation-delay:.48s}
+  .reveal-stage h2{margin:10px 0 20px;color:var(--festival-green);font-size:clamp(23px,6vw,30px);line-height:1.5}
+  .reveal-deck{position:relative;width:min(72vw,230px);height:190px;margin:0 auto 20px;perspective:650px}
+  .reveal-deck span{position:absolute;left:50%;top:5px;width:145px;height:170px;display:grid;place-items:center;border:5px double var(--festival-yellow);border-radius:12px;background:var(--festival-green);color:#fff;font-family:'Dela Gothic One',sans-serif;font-size:28px;box-shadow:4px 5px 0 rgba(22,107,87,.22);backface-visibility:hidden;animation:reveal-card 1.5s ease-in-out infinite}
+  .reveal-deck span:first-child{animation-delay:0s}.reveal-deck span:nth-child(2){animation-delay:.35s;background:var(--festival-pink);border-color:#fff}.reveal-deck span:nth-child(3){animation-delay:.7s}
+  @keyframes reveal-card{0%,100%{opacity:.5;transform:translateX(-50%) rotate(-13deg) scale(.88)}45%{opacity:1;transform:translateX(-50%) rotateY(12deg) rotate(4deg) scale(1)}70%{opacity:.72;transform:translateX(-50%) rotate(11deg) scale(.94)}}
+  .reveal-stage .reveal-caption{margin:0 0 16px;color:#52665c;font-size:14px;font-weight:700}
+  .reveal-skip{min-height:44px;padding:8px 20px;border:2px solid var(--festival-green);border-radius:999px;background:#fff;color:var(--festival-green);font-size:14px;font-weight:800}
+  .reveal-skip:focus-visible{outline:3px solid var(--festival-pink);outline-offset:3px}
+  @media(prefers-reduced-motion:reduce){.reveal-stage .stamp-track .is-done,.reveal-deck span{animation:none!important}}
 </style>
 </head>
 <body>
@@ -2908,6 +2922,8 @@ let quizAttemptActive = false;
 let quizStartedAt = 0;
 let answersCompletedAt = 0;
 let resultSubmitted = false;
+let revealPending = false;
+let revealTimer = null;
 function readExperience(){
   try {
     const data = JSON.parse(localStorage.getItem(EXPERIENCE_KEY)||"{}");
@@ -3063,6 +3079,8 @@ function submitProfile(){
 
 function resetState(){
   stopScreenEffects();
+  if(revealTimer!==null) clearTimeout(revealTimer);
+  revealTimer=null; revealPending=false;
   state.step=0; state.answers=[]; state.type=null;
   state.name=""; state.ageRange=""; state.gender=""; state.years=""; state.jobChanges=""; state.moya=""; state.timing="";
   quizAttemptActive=false; quizStartedAt=0; answersCompletedAt=0; resultSubmitted=false; resultCelebrated=false;
@@ -3129,8 +3147,35 @@ function submitExtra(skip){
     refreshStats(); // スプシから最新の出現率を取得
     const el = document.getElementById("f-moya");
     state.moya = (skip || !el) ? "" : el.value.trim();   // timing は pick() で保持済み
-    renderResult(false);
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      renderResult(false);
+    } else {
+      renderRevealStage();
+      revealPending=true;
+      revealTimer=setTimeout(skipResultReveal,2200);
+    }
   } catch(error){ resultSubmitted=false; throw error; }
+}
+function renderRevealStage(){
+  stopScreenEffects();
+  const stamps=QUESTIONS.map(()=>'<li class="is-done">✓</li>').join('');
+  wrap.innerHTML=`
+    <section class="reveal-stage" aria-label="結果の発表を待つ画面">
+      <p class="eyebrow">RESULT ANNOUNCEMENT</p>
+      <ol class="stamp-track" aria-label="5問の回答が完了">${stamps}</ol>
+      <h2>あなたのタイプは……</h2>
+      <div class="reveal-deck" aria-hidden="true"><span>01–16</span><span>?</span><span>?</span></div>
+      <p class="reveal-caption" role="status">まもなく発表</p>
+      <button type="button" class="reveal-skip" onclick="skipResultReveal()">すぐ結果を見る</button>
+    </section>`;
+  window.scrollTo(0,0);
+}
+function skipResultReveal(){
+  if(!revealPending) return;
+  revealPending=false;
+  if(revealTimer!==null) clearTimeout(revealTimer);
+  revealTimer=null;
+  renderResult(false);
 }
 
 /* ====== 画面内の短い演出・集計・4軸メーター ====== */
