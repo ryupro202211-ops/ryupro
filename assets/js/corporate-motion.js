@@ -72,6 +72,21 @@
     const hero = page.querySelector('.hero');
     if (!hero || !canAnimate() || window.scrollY > 24 || performance.now() > 1800) return;
 
+    // 見出しを <br> で行に分け、1行ずつマスクの下から迫り上げる
+    const heading = hero.querySelector('h1');
+    if (heading && !heading.querySelector('.hero-line')) {
+      const lines = heading.innerHTML.split(/<br\s*\/?>/i);
+      heading.innerHTML = lines
+        .map((line) => `<span class="hero-line"><span class="hero-line-inner">${line.trim()}</span></span>`)
+        .join('');
+      heading.querySelectorAll('.hero-line-inner').forEach((inner, index) => {
+        animate(inner, [
+          { transform: 'translateY(105%)' },
+          { transform: 'translateY(0)' }
+        ], { duration: mobileLayout.matches ? 700 : 900, delay: 80 + index * 140, easing: 'cubic-bezier(.2, .7, .2, 1)', fill: 'backwards' });
+      });
+    }
+
     const accent = hero.querySelector('[data-motion="hero-accent"]');
     if (accent) {
       animate(accent, [
@@ -80,15 +95,55 @@
       ], { duration: mobileLayout.matches ? 400 : 600, easing });
     }
 
-    if (!mobileLayout.matches) {
-      const image = hero.querySelector('.hero-visual img');
-      if (image?.complete && image.naturalWidth > 0) {
-        animate(image, [
-          { transform: 'scale(1.035)' },
-          { transform: 'scale(1)' }
-        ], { duration: 700, easing });
-      }
-    }
+  };
+
+  // ヒーロー写真：8秒かけて気づかない程度に寄り、そのまま止まる
+  const animateHeroZoom = () => {
+    const image = page.querySelector('.hero-visual-frame img');
+    if (!image || window.scrollY > 24) return;
+    const start = () => animate(image, [
+      { scale: '1' },
+      { scale: '1.05' }
+    ], { duration: 8000, easing: 'cubic-bezier(.4, .15, .6, .95)', fill: 'forwards' });
+    if (image.complete && image.naturalWidth > 0) start();
+    else image.addEventListener('load', start, { once: true });
+  };
+
+  // 代表ストーリー：開閉を高さのアニメーションでなめらかに
+  const setupDetails = () => {
+    page.querySelectorAll('.founder-details').forEach((details) => {
+      const summary = details.querySelector('summary');
+      const body = details.querySelector('.founder-story');
+      if (!summary || !body) return;
+      let running = null;
+
+      summary.addEventListener('click', (event) => {
+        if (reducedMotion.matches) return;
+        event.preventDefault();
+        const opening = !details.open || details.dataset.closing === 'true';
+        const from = running ? body.getBoundingClientRect().height : (details.open ? body.offsetHeight : 0);
+        running?.cancel();
+
+        if (opening) {
+          details.dataset.closing = 'false';
+          details.open = true;
+        } else {
+          details.dataset.closing = 'true';
+        }
+        const to = opening ? body.scrollHeight : 0;
+
+        running = body.animate([
+          { height: `${from}px`, opacity: opening ? .2 : 1 },
+          { height: `${to}px`, opacity: opening ? 1 : 0 }
+        ], { duration: Math.min(560, 240 + Math.abs(to - from) * .35), easing });
+        running.onfinish = () => {
+          running = null;
+          if (!opening) details.open = false;
+          details.dataset.closing = 'false';
+        };
+        running.oncancel = () => { running = null; };
+      });
+    });
   };
 
   const animateHeadings = () => {
@@ -307,6 +362,8 @@
 
   try {
     animateHero();
+    animateHeroZoom();
+    setupDetails();
     animateHeadings();
     observeOnce(Array.from(page.querySelectorAll('[data-motion="photo"]')), animatePhoto);
     setupParallax();

@@ -7,6 +7,32 @@
   transform-origin: left center;
 }
 
+/* ヒーロー見出し：1行ずつ下から迫り上がる */
+.corporate-site .hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .08em;
+  margin-bottom: -.08em;
+}
+
+.corporate-site .hero-line-inner {
+  display: block;
+}
+
+/* ヒーロー写真：枠の中でゆっくり寄る */
+.corporate-site .hero-visual-frame {
+  overflow: hidden;
+}
+
+.corporate-site .hero-visual-frame img {
+  display: block;
+}
+
+/* 代表ストーリー：開閉の高さを JS で動かす */
+.corporate-site .founder-details .founder-story {
+  overflow: hidden;
+}
+
 .corporate-site .service-image,
 .corporate-site .projects-image-frame {
   position: relative;
