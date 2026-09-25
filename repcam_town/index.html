@@ -410,6 +410,59 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
 .share-mode .result-person{display:block;margin:0 0 8px;color:#174f41;font-size:16px;font-weight:800}
 .share-mode #shareCard,.share-mode #restartBtn{display:none!important}
 @media(max-width:520px){.share-card{gap:12px;padding:13px}.share-qr{flex-basis:96px;width:96px;height:96px;padding:5px}.share-copy{font-size:15px}.share-sub{font-size:12px}}
+
+/* ===== 演出（2026-09-25） ===== */
+/* 選択肢：押した手応えを見せてから、次の問題を横から出す */
+#opts.locked .opt{pointer-events:none;}
+#opts.locked .opt:not(.picked){opacity:.42;transition:opacity .18s ease;}
+.opt.picked{border-color:var(--festival-green);background:var(--festival-green-soft);box-shadow:4px 4px 0 var(--festival-pink);transform:translate(-1px,-1px);}
+.opt.picked .ic .illustration{animation:pickPop .3s cubic-bezier(.2,1.4,.4,1);}
+@keyframes pickPop{50%{transform:scale(1.14) rotate(-5deg);}}
+.q-next{animation:qNext .34s cubic-bezier(.2,.9,.3,1) both;}
+.q-prev{animation:qPrev .34s cubic-bezier(.2,.9,.3,1) both;}
+@keyframes qNext{from{opacity:0;transform:translateX(26px);}to{opacity:1;transform:none;}}
+@keyframes qPrev{from{opacity:0;transform:translateX(-26px);}to{opacity:1;transform:none;}}
+
+/* 発表：スロットのように減速 → 着地 → 残りを順番に出す */
+.reveal-msg.drum{animation:drum .28s ease-in-out infinite;}
+@keyframes drum{50%{transform:translateY(-2px) rotate(-1deg);}}
+.town-name.spinning{opacity:.7;}
+.town-emoji.tick .illustration{animation:tick .14s ease-out;}
+@keyframes tick{from{transform:translateY(-8px) scale(.9);opacity:.55;}to{transform:none;opacity:1;}}
+.town-emoji.land .illustration{animation:landBounce .6s cubic-bezier(.2,1.5,.4,1) both;}
+@keyframes landBounce{0%{transform:scale(.55) rotate(-10deg);}60%{transform:scale(1.14) rotate(4deg);}100%{transform:none;}}
+.rise{animation:rise .5s cubic-bezier(.2,.9,.3,1) both;}
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+.flip-in{animation:flipIn .75s cubic-bezier(.2,.9,.3,1.15) both;transform-origin:50% 50%;backface-visibility:hidden;}
+@keyframes flipIn{0%{opacity:0;transform:perspective(800px) rotateY(-95deg);}55%{opacity:1;transform:perspective(800px) rotateY(14deg);}100%{opacity:1;transform:perspective(800px) rotateY(0);}}
+
+/* レーダー：画面に入ったら中心から広げる。160px 130px は radarChart の cx,cy */
+.radar .rp,.radar .rd{transform-box:view-box;transform-origin:160px 130px;}
+.radar.pre .rp{opacity:0;transform:scale(.05);}
+.radar.pre .rd{opacity:0;}
+.radar.grow .rp{animation:radarGrow .9s cubic-bezier(.2,.9,.25,1.1) forwards;}
+.radar.grow .rp.you{animation-delay:.22s;}
+.radar.grow .rd{animation:dotIn .35s ease forwards;animation-delay:.9s;}
+@keyframes radarGrow{from{opacity:0;transform:scale(.05);}to{opacity:1;transform:scale(1);}}
+@keyframes dotIn{from{opacity:0;}to{opacity:1;}}
+
+/* 待機中：街の帯を流し、入場ボタンを小さく揺らして目を引く */
+.town-ticker{overflow:hidden;max-height:0;opacity:0;margin:0;border-radius:12px;border:2px dashed transparent;background:#fffdf7;
+  transition:max-height .5s ease,opacity .5s ease,margin .5s ease,border-color .5s ease;}
+body.attract .town-ticker{max-height:90px;opacity:1;margin:26px 0 0;border-color:var(--festival-green);}
+.town-ticker-track{display:flex;gap:10px;width:max-content;padding:10px;animation:ticker 48s linear infinite;animation-play-state:paused;}
+body.attract .town-ticker-track{animation-play-state:running;}
+.town-ticker-track>span{display:inline-flex;align-items:center;gap:7px;padding:4px 13px 4px 4px;border-radius:99px;background:#fff;
+  border:1.5px solid var(--festival-pink-soft);color:var(--festival-green);font-size:13px;font-weight:800;white-space:nowrap;}
+.town-ticker .illustration{width:34px;height:34px;border-radius:50%;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+body.attract .ticket-btn{animation:nudge 1.8s ease-in-out infinite;}
+@keyframes nudge{0%,100%{transform:none;}50%{transform:translateY(-3px) rotate(-1deg);}}
+
+/* 動きを減らす設定の端末：アニメーションは全体で止めてあるので、隠したままの物だけ戻す */
+@media(prefers-reduced-motion:reduce){
+  .radar.pre .rp,.radar.pre .rd{opacity:1!important;transform:none!important;}
+}
 </style>
 </head>
 <body>
@@ -438,6 +491,7 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
       <figcaption>画像はAIによる暮らしのイメージです</figcaption>
     </figure>
     </div>
+    <div class="town-ticker" aria-hidden="true"><div class="town-ticker-track" id="townTicker"></div></div>
     <div class="landing-bottom">
       <p class="discover-intro"><b>街の雰囲気も、住まいのことも。</b>診断結果から街並みの写真や家賃の目安、<br>お部屋の例まで見られます。</p>
       <details class="area-index"><summary>診断で出会える20の街を見る</summary><div class="town-strip" id="townStrip"></div></details>
@@ -511,7 +565,7 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
     <div class="panel">
       <h3>あなたの街えらびタイプ</h3>
       <div class="radar" id="radar"></div>
-      <p class="radar-cap">外側にいくほどその傾向が強め。ピンクがあなた、ミントが<span id="radarTownName">1位の街</span>の特徴です。</p>
+      <p class="radar-cap">外側にいくほどその傾向が強め。ピンクがあなた、緑が<span id="radarTownName">1位の街</span>の特徴です。</p>
     </div>
 
     <div class="share-card" id="shareCard">
@@ -3129,6 +3183,7 @@ function show(scr){
   for(var i=0;i<list.length;i++){ list[i].classList.remove('active'); }
   $(scr).classList.add('active');
   window.scrollTo(0,0);
+  if(scr==='s-start') armIdle(); else stopAttract();
 }
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
@@ -3164,27 +3219,51 @@ function start(){
   renderQuestion();
   show('s-quiz');
 }
-function renderQuestion(){
+/* 選んだ手応えを見せてから次へ進むまでの間（ms） */
+var ADVANCE_MS=260;
+function renderQuestion(dir){
   $('whoName').textContent=state.name+' さんについて教えてください';
   $('count').textContent=(state.qi+1)+' / '+QUESTIONS.length;
   $('bar').querySelector('i').style.width=Math.round(state.qi/QUESTIONS.length*100)+'%';
 
-  var Q=QUESTIONS[state.qi];
+  var Q=QUESTIONS[state.qi], qAt=state.qi;
   $('qnum').textContent='Q'+(state.qi+1);
   $('qtext').textContent=Q.q;
-  var box=$('opts'); box.innerHTML='';
+  var box=$('opts'); box.innerHTML=''; box.classList.remove('locked');
   Q.opts.forEach(function(o,i){
     var el=document.createElement('button');
     el.className='opt';
     el.innerHTML='<span class="ic">'+iconHTML(o.ic)+'</span><span>'+o.t+'</span>';
-    el.onclick=function(){ choose(i); };
+    el.onclick=function(){ choose(i, qAt); };
     box.appendChild(el);
   });
+  if(dir && !reducedMotion()){
+    var cls = dir==='prev' ? 'q-prev' : 'q-next';
+    restartAnim(document.querySelector('#s-quiz .q'), cls, ['q-next','q-prev']);
+    restartAnim(box, cls, ['q-next','q-prev']);
+  }
 }
-function choose(i){
+function markPicked(i){
+  var box=$('opts'); if(!box) return;
+  box.classList.add('locked');
+  var bs=box.children||[];
+  if(bs[i] && bs[i].classList) bs[i].classList.add('picked');
+}
+function choose(i, qAt){
+  /* 描いたときの設問番号と違えば、連打・二重タップなので無視する */
+  if(qAt!==undefined && qAt!==state.qi) return;
   state.answers[state.qi]=i;
   state.qi++;
-  if(state.qi<QUESTIONS.length){ renderQuestion(); return; }
+  markPicked(i);
+  var q=state.qi;
+  function go(){
+    if(q!==state.qi) return;   // 待っているあいだに「戻る」などで状態が変わった
+    if(state.qi<QUESTIONS.length){ renderQuestion('next'); return; }
+    finishQuiz();
+  }
+  if(reducedMotion()) go(); else setTimeout(go, ADVANCE_MS);
+}
+function finishQuiz(){
   computeResult();
   renderShareQr();
   show('s-result');
@@ -3193,7 +3272,7 @@ function choose(i){
 function back(){
   if(state.qi<=0){ show('s-name'); return; }
   state.qi--; state.answers.length=state.qi;
-  renderQuestion();
+  renderQuestion('prev');
 }
 
 /* ===================== 採点 ===================== */
@@ -3326,6 +3405,7 @@ function renderResultScreen(res, rank){
 
   $('radarTownName').textContent=t.n;
   $('radar').innerHTML=radarChart(res.na, t.v, res.name, t.n);
+  armRadar();
   showDetail(t.k, true);
 }
 
@@ -3533,61 +3613,168 @@ function radarPoly(cx,cy,R,p){
   return RADAR_AXES.map(function(ax){ var r=R*clamp01(p[ax.k]); return (cx+ax.dx*r).toFixed(1)+','+(cy+ax.dy*r).toFixed(1); }).join(' ');
 }
 function radarChart(you,town,youName,townName){
-  var W=320,H=300,cx=160,cy=130,R=82;
+  var W=320,H=300,cx=160,cy=130,R=82;   // cx,cy を変えたら CSS の transform-origin も合わせる
+  var GRID='#E4DED2', LABEL='#3E574F', INK='#213D35';
+  var TOWN='#166B57', YOU='#FF5E8E', YOU_LINE='#E8467A';
   var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
   [0.25,0.5,0.75,1].forEach(function(f){
-    s+='<polygon points="'+radarRing(cx,cy,R,f)+'" fill="none" stroke="#E7D8DD" stroke-width="1.2"/>';
+    s+='<polygon points="'+radarRing(cx,cy,R,f)+'" fill="none" stroke="'+GRID+'" stroke-width="1.2"/>';
   });
   RADAR_AXES.forEach(function(ax){
     var ex=(cx+ax.dx*R).toFixed(1), ey=(cy+ax.dy*R).toFixed(1);
-    s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+ex+'" y2="'+ey+'" stroke="#E7D8DD" stroke-width="1.2"/>';
+    s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+ex+'" y2="'+ey+'" stroke="'+GRID+'" stroke-width="1.2"/>';
     var lx=cx+ax.dx*(R+20), ly=cy+ax.dy*(R+16);
     var anchor = ax.dx>0.3?'start':(ax.dx<-0.3?'end':'middle');
-    s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="'+anchor+'" font-size="11" font-weight="700" fill="#8A6B73">'+ax.label+'</text>';
+    s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="'+anchor+'" font-size="11" font-weight="700" fill="'+LABEL+'">'+ax.label+'</text>';
   });
-  s+='<polygon points="'+radarPoly(cx,cy,R,town)+'" fill="#34B3A3" fill-opacity="0.26" stroke="#2C9C8E" stroke-width="2.5" stroke-linejoin="round"/>';
-  s+='<polygon points="'+radarPoly(cx,cy,R,you)+'" fill="#EE7C9B" fill-opacity="0.26" stroke="#E15E81" stroke-width="2.5" stroke-linejoin="round"/>';
+  s+='<polygon class="rp town" points="'+radarPoly(cx,cy,R,town)+'" fill="'+TOWN+'" fill-opacity="0.18" stroke="'+TOWN+'" stroke-width="2.5" stroke-linejoin="round"/>';
+  s+='<polygon class="rp you" points="'+radarPoly(cx,cy,R,you)+'" fill="'+YOU+'" fill-opacity="0.24" stroke="'+YOU_LINE+'" stroke-width="2.5" stroke-linejoin="round"/>';
   RADAR_AXES.forEach(function(ax){
     var rt=R*clamp01(town[ax.k]), ru=R*clamp01(you[ax.k]);
-    s+='<circle cx="'+(cx+ax.dx*rt).toFixed(1)+'" cy="'+(cy+ax.dy*rt).toFixed(1)+'" r="3" fill="#2C9C8E"/>';
-    s+='<circle cx="'+(cx+ax.dx*ru).toFixed(1)+'" cy="'+(cy+ax.dy*ru).toFixed(1)+'" r="3" fill="#E15E81"/>';
+    s+='<circle class="rd" cx="'+(cx+ax.dx*rt).toFixed(1)+'" cy="'+(cy+ax.dy*rt).toFixed(1)+'" r="3" fill="'+TOWN+'"/>';
+    s+='<circle class="rd" cx="'+(cx+ax.dx*ru).toFixed(1)+'" cy="'+(cy+ax.dy*ru).toFixed(1)+'" r="3" fill="'+YOU_LINE+'"/>';
   });
   var nU=escapeHtml(youName||'あなた'), nT=escapeHtml(townName||'1位の街');
   s+='<g font-size="12" font-weight="700">';
-  s+='<circle cx="70" cy="288" r="6" fill="#EE7C9B"/><text x="82" y="292" fill="#5C463E">'+nU+'</text>';
-  s+='<circle cx="185" cy="288" r="6" fill="#34B3A3"/><text x="197" y="292" fill="#5C463E">'+nT+'</text>';
+  s+='<circle cx="70" cy="288" r="6" fill="'+YOU+'"/><text x="82" y="292" fill="'+INK+'">'+nU+'</text>';
+  s+='<circle cx="185" cy="288" r="6" fill="'+TOWN+'"/><text x="197" y="292" fill="'+INK+'">'+nT+'</text>';
   s+='</g></svg>';
   return s;
 }
 
+/* ===================== 演出の共通部品（2026-09-25） ===================== */
+/* 端末の「視差効果を減らす」が有効なら、動きを省いて結果だけ出す */
+function reducedMotion(){
+  try{ return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }catch(e){ return false; }
+}
+/* 同じアニメーションを頭から再生し直す（クラスを外し、描画を確定させてから付け直す） */
+function restartAnim(el, cls, others){
+  if(!el || !el.classList) return;
+  (others||[]).concat([cls]).forEach(function(c){ el.classList.remove(c); });
+  void el.offsetWidth;
+  el.classList.add(cls);
+}
+/* 数字を0から数え上げる。最後はゆっくり止まる */
+function countUp(el, to, ms, wait, seq){
+  if(!el) return;
+  if(!ms){ el.textContent=String(to); return; }
+  el.textContent='0';
+  var steps=Math.max(1,Math.round(ms/30)), n=0;
+  setTimeout(function tick(){
+    if(seq!==undefined && seq!==revealSeq) return;
+    n++;
+    var p=n/steps, e=1-Math.pow(1-p,3);
+    el.textContent=String(n>=steps ? to : Math.round(to*e));
+    if(n<steps) setTimeout(tick,30);
+  }, wait||0);
+}
+
+/* レーダーチャートは、画面に入ったところで中心から広げる */
+var radarObs=null;
+function armRadar(){
+  var box=$('radar'); if(!box) return;
+  box.classList.remove('grow'); box.classList.remove('pre');
+  if(radarObs){ radarObs.disconnect(); radarObs=null; }
+  if(reducedMotion()) return;
+  box.classList.add('pre');
+  if(window.IntersectionObserver){
+    radarObs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ box.classList.add('grow'); if(radarObs){ radarObs.disconnect(); radarObs=null; } }
+      });
+    },{threshold:0.4});
+    radarObs.observe(box);
+  }else{
+    box.classList.add('grow');
+  }
+}
+
+/* ===================== 待機中の演出 ===================== */
+/* ブースのタブレットがしばらくさわられていないとき、トップで街の帯を流して
+   通りがかった人の目を引く。さわった瞬間に止める。 */
+var IDLE_MS=15000, idleTimer=null;
+function stopAttract(){ if(document.body) document.body.classList.remove('attract'); }
+function armIdle(){
+  if(idleTimer) clearTimeout(idleTimer);
+  stopAttract();
+  idleTimer=setTimeout(function(){
+    var st=$('s-start');
+    if(st && st.classList.contains('active') && !document.body.classList.contains('share-mode')){
+      document.body.classList.add('attract');
+    }
+  }, IDLE_MS);
+}
+function onUserActivity(){
+  var st=$('s-start');
+  if(st && st.classList.contains('active')) armIdle(); else stopAttract();
+}
+
 /* ===================== 発表演出 ===================== */
+var revealSeq=0;
+/* 街名が出たあと、この順・この時差（ms）で残りを見せる */
+var REVEAL_STAGE=[
+  {id:'townCatch', cls:'rise',    at:0},
+  {sel:'.meta',    cls:'rise',    at:120},
+  {id:'titleCard', cls:'flip-in', at:320},
+  {id:'townChips', cls:'rise',    at:560},
+  {id:'townDesc',  cls:'rise',    at:660}
+];
+function stageEl(st){ return st.id ? $(st.id) : document.querySelector(st.sel); }
 function revealTown(){
-  var res=state.result;
-  var nameEl=$('townName'), emojiEl=$('townEmoji'), reveal=$('revealMsg');
-  var hideIds=['townCatch','titleCard','townChips','townDesc'];
-  hideIds.forEach(function(id){ var e=$(id); if(e) e.style.visibility='hidden'; });
-  var metaEl=document.querySelector('.meta'); if(metaEl) metaEl.style.visibility='hidden';
-  if(reveal){ reveal.style.display=''; reveal.textContent='ドコドコドコ…🥁'; }
+  var res=state.result, seq=++revealSeq, still=reducedMotion();
+  var nameEl=$('townName'), emojiEl=$('townEmoji'), reveal=$('revealMsg'), pctEl=$('matchPct');
+  REVEAL_STAGE.forEach(function(st){
+    var e=stageEl(st); if(!e) return;
+    e.style.visibility='hidden'; e.style.animationDelay='';
+    e.classList.remove('rise'); e.classList.remove('flip-in');
+  });
+  if(pctEl) pctEl.textContent='0';
   nameEl.classList.remove('pop');
-  var roll=setInterval(function(){
-    var r=TOWNS[Math.floor(Math.random()*TOWNS.length)];
-    nameEl.textContent=r.n; emojiEl.innerHTML=iconHTML(r.emoji);
-  },70);
-  setTimeout(function(){
-    clearInterval(roll);
-    if(reveal) reveal.textContent='……';
-    setTimeout(function(){
-      nameEl.textContent=res.top.n;
-      emojiEl.innerHTML=iconHTML(res.top.emoji);
-      nameEl.classList.add('pop');
-      hideIds.forEach(function(id){ var e=$(id); if(e) e.style.visibility=''; });
-      if(metaEl) metaEl.style.visibility='';
-      if(reveal) reveal.textContent = res.pct>=92?'ババン！🎉✨' : (res.pct>=82?'ババン！🎉':'じゃじゃん！');
-      if(res.pct>=92) confetti(240,true);
-      else confetti(150,false);
-      setTimeout(function(){ if(reveal) reveal.style.display='none'; }, 1400);
-    }, 380);
-  }, 1300);
+  if(still){ land(); return; }
+
+  if(reveal){ reveal.style.display=''; reveal.textContent='ドコドコドコ…'; reveal.classList.add('drum'); }
+  nameEl.classList.add('spinning');
+  /* スロットのように、速く回してだんだん遅くする。
+     実測（前面タブ）で回転 約1.1秒＋じらし 約0.4秒＝約1.5秒。以前の1.7秒より少し短い */
+  var delay=62, last=null;
+  (function spin(){
+    if(seq!==revealSeq) return;
+    var r;
+    do{ r=TOWNS[Math.floor(Math.random()*TOWNS.length)]; }
+    while(TOWNS.length>2 && (r===last || r.k===res.top.k));   // 本命は最後まで見せない
+    last=r;
+    nameEl.textContent=r.n;
+    emojiEl.innerHTML=iconHTML(r.emoji);
+    restartAnim(emojiEl,'tick',['land']);
+    delay*=1.22;
+    if(delay<260){ setTimeout(spin, delay); return; }
+    if(reveal){ reveal.textContent='……'; reveal.classList.remove('drum'); }
+    setTimeout(land, 380);
+  })();
+
+  function land(){
+    if(seq!==revealSeq) return;
+    nameEl.classList.remove('spinning');
+    nameEl.textContent=res.top.n;
+    emojiEl.innerHTML=iconHTML(res.top.emoji);
+    if(reveal) reveal.classList.remove('drum');
+    if(!still){ restartAnim(nameEl,'pop'); restartAnim(emojiEl,'land',['tick']); }
+    REVEAL_STAGE.forEach(function(st){
+      var e=stageEl(st); if(!e) return;
+      e.style.visibility='';
+      if(still) return;
+      e.style.animationDelay=st.at+'ms';
+      restartAnim(e, st.cls, ['rise','flip-in']);
+    });
+    countUp(pctEl, res.pct, still?0:760, 140, seq);
+    if(reveal){
+      reveal.style.display='';
+      reveal.textContent = res.pct>=92 ? '★ ババン！ ★' : (res.pct>=82 ? 'ババン！' : 'じゃじゃん！');
+      setTimeout(function(){ if(seq===revealSeq) reveal.style.display='none'; }, 1400);
+    }
+    if(res.pct>=92) confetti(240,true);
+    else confetti(150,false);
+  }
 }
 
 /* ===================== 紙吹雪 ===================== */
@@ -3598,8 +3785,8 @@ function confetti(count,big){
   var cv=$('fx'); if(!cv||!cv.getContext) return;
   var ctx=cv.getContext('2d');
   cv.width=innerWidth; cv.height=innerHeight;
-  var cols=['#EE7C9B','#34B3A3','#F2D27A','#F2607E','#A8E0D8'];
-  var glyphs=['🏠','✨','🗝️','⭐'];
+  var cols=['#FF5E8E','#166B57','#FFD764','#FF89AA','#DDF4E9','#287A65'];
+  var glyphs=['★','✦','★'];   // 絵文字は端末ごとに絵柄が変わるので使わない
   var P=[];
   for(var i=0;i<count;i++){
     var isG = big && Math.random()<0.3;
@@ -3615,7 +3802,7 @@ function confetti(count,big){
     P.forEach(function(p){
       p.y+=p.vy; p.x+=p.vx; p.a+=p.va;
       ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillStyle=p.c;
-      if(p.g){ ctx.font=p.s+'px serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(p.g,0,0); }
+      if(p.g){ ctx.font='bold '+p.s+'px sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(p.g,0,0); }
       else { ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6); }
       ctx.restore();
     });
@@ -3653,7 +3840,7 @@ function makeSharePayload(){return {v:1,n:state.name,a:state.answers.slice(0)};}
 function makeShareUrl(){return RESULT_BASE_URL+'#share='+base64UrlEncode(JSON.stringify(makeSharePayload()));}
 function renderShareQr(){var host=$('shareQr');if(!host||!state.result||typeof qrcode!=='function')return;var qr=qrcode(0,'M');qr.addData(makeShareUrl());qr.make();host.innerHTML=qr.createImgTag(5,0,'スマホで診断結果を見るQRコード');}
 function openSharedResult(payload){if(!payload||payload.v!==1||!Array.isArray(payload.a)||payload.a.length!==QUESTIONS.length)return false;for(var i=0;i<payload.a.length;i++){if(typeof payload.a[i]!=='number'||payload.a[i]<0||payload.a[i]>=QUESTIONS[i].opts.length)return false;}var name=String(payload.n||'あなた').replace(/[\r\n]/g,'').slice(0,20);try{sessionStorage.setItem('repcamTownSharePayload',JSON.stringify(payload));}catch(e){}state={name:name||'あなた',qi:QUESTIONS.length,answers:payload.a.slice(0),result:null};document.body.classList.add('share-mode');computeResult(true);show('s-result');return true;}
-function renderViewerNotice(){document.body.classList.add('share-mode');$('s-result').innerHTML='<div class="panel" style="margin-top:16vh;text-align:center"><p style="margin:0 0 12px;color:#bf2f61;font-size:14px;font-weight:800;letter-spacing:.08em">Re▶CAMPUS</p><div style="font-size:42px">✨</div><h2 style="margin:10px 0;color:#174f41">街診断</h2><p style="margin:0;color:#59726b;line-height:1.8">このページは、診断結果を見るためのページです。<br>診断は会場のブースでお楽しみください。</p></div>';show('s-result');}
+function renderViewerNotice(){document.body.classList.add('share-mode');$('s-result').innerHTML='<div class="panel" style="margin-top:16vh;text-align:center"><p style="margin:0 0 12px;color:#bf2f61;font-size:14px;font-weight:800;letter-spacing:.08em">Re▶CAMPUS</p><div style="font-size:40px;color:#FF5E8E">★</div><h2 style="margin:10px 0;color:#174f41">街診断</h2><p style="margin:0;color:#59726b;line-height:1.8">このページは、診断結果を見るためのページです。<br>診断は会場のブースでお楽しみください。</p></div>';show('s-result');}
 function readSharedResult(){var p='#share=';if(location.hash.indexOf(p)===0){try{return openSharedResult(JSON.parse(base64UrlDecode(location.hash.slice(p.length))));}catch(e){return false;}}var saved='';try{saved=sessionStorage.getItem('repcamTownSharePayload')||'';}catch(e){}if(!saved){if(location.pathname.indexOf('/repcam_town_result/')>=0){renderViewerNotice();return true;}return false;}try{return openSharedResult(JSON.parse(saved));}catch(e){clearShareSession();if(location.pathname.indexOf('/repcam_town_result/')>=0){renderViewerNotice();return true;}return false;}}
 
 /* ===================== やり直し ===================== */
@@ -3675,6 +3862,16 @@ function restart(){
   if(window.addEventListener){
     window.addEventListener('resize', function(){ scrollToSlide(); updateSlider(); });
   }
+  var ticker=$('townTicker');
+  if(ticker){
+    var one=TOWNS.map(function(t){ return '<span>'+iconHTML(t.emoji)+escapeHtml(t.n)+'</span>'; }).join('');
+    ticker.innerHTML=one+one;   // 2周ぶん並べ、半分流れたら頭に戻すと継ぎ目が見えない
+  }
+  if(document.addEventListener){
+    ['pointerdown','keydown','touchstart'].forEach(function(ev){ document.addEventListener(ev, onUserActivity, {passive:true}); });
+  }
+  if(window.addEventListener){ window.addEventListener('scroll', onUserActivity, {passive:true}); }
+  armIdle();
   readSharedResult();
 })();
 </script>
