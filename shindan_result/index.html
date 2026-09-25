@@ -303,6 +303,48 @@
   .completion-seal{position:absolute;top:-17px;right:12px;display:block;padding:6px 12px;border:2px double var(--festival-green);border-radius:999px;background:#fff9f0;color:var(--festival-green);font-size:12px;font-weight:900;transform:rotate(7deg);pointer-events:none}
   .art-seal,.rarity-SSR,.sparkle-deco,.loading-illustration{animation:none}
   @media(prefers-reduced-motion:reduce){.cover-art.is-arriving,.question-card.is-entering,.stamp-track .is-new,.chip.is-new-selection::after,.result-shell.is-arriving,.result-shell.is-arriving .result-emblem{animation:none!important}}
+  /* ===== 2026-09-25 デザイン改善（Claude Code）===== */
+  /* 2. 日本語の改行：文節・句読点の区切りで折り返す。iPhoneのSafariは auto-phrase 非対応なので、主要な文は .phrase でも区切る */
+  .phrase{display:inline-block}
+  .opt-label,.ask-text{min-width:0}
+  #wrap h2,#wrap h3,.opt,.result-quote,.question-list li,.next-step p,.consult-closing,.section-note,.line-contact p,.result-details p,.comparison span,.progress-message,.cover-description{word-break:auto-phrase;line-break:strict}
+  #wrap h2,#wrap h3,.result-quote,.next-step p,.consult-closing,.section-note{text-wrap:balance}
+  .result-details p,.comparison span,.question-list li{text-wrap:pretty}
+  /* 3. 一言メッセージを結果の主役にする */
+  .result-summary{padding:26px 20px}
+  .result-quote{margin:0;font-family:'Yu Mincho','YuMincho','Hiragino Mincho ProN','Noto Serif JP',serif;font-weight:600;font-size:clamp(21px,5.4vw,27px);line-height:1.7;letter-spacing:.02em;color:#16382a}
+  .quote-mark{color:#c93670;font-weight:400}
+  /* 4. レア度を判子の形に（学園祭の配色に合わせる） */
+  .rarity-wrap{text-align:center;margin:10px 0 4px}
+  .rarity-stamp{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:12px;max-width:100%;padding:7px 18px 7px 7px;border:2px solid var(--tier);border-radius:999px;background:var(--tier-bg);color:var(--tier);text-align:left}
+  .rarity-seal{flex:0 0 auto;width:48px;height:48px;display:grid;place-items:center;border:3px double var(--tier);border-radius:50%;background:#fff;font-family:'Dela Gothic One',sans-serif;font-size:15px;line-height:1;transform:rotate(-8deg)}
+  .rarity-text{display:flex;flex-direction:column;line-height:1.45}
+  .rarity-text b{font-size:15px;font-weight:900}
+  .rarity-text small{font-size:12px;font-weight:500;color:#52665c}
+  .tier-SSR{--tier:#8f5a00;--tier-bg:#fff4cf}
+  .tier-SR{--tier:#b3265f;--tier-bg:#ffe9f1}
+  .tier-R{--tier:#07543a;--tier-bg:#e6f4ea}
+  .tier-N{--tier:#5c6b63;--tier-bg:#fff}
+  .tier-N .rarity-seal{border-style:solid;border-width:2px;font-size:17px}
+  .tier-SSR.is-first:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%);transform:translateX(-120%);animation:rarity-shine 1s ease-out .8s 1 both;pointer-events:none}
+  @keyframes rarity-shine{to{transform:translateX(120%)}}
+  /* 1. 結果発表：5つのスタンプの続きとして、タイプの絵を判子のように押す（約0.8秒・初回だけ） */
+  .result-emblem{position:relative}
+  .result-shell.is-arriving .result-emblem{animation:result-stamp .5s cubic-bezier(.2,.9,.3,1.2) .05s both}
+  .result-shell.is-arriving .result-emblem:after{content:"";position:absolute;inset:-8px;border:3px solid #c93670;border-radius:inherit;opacity:0;animation:ink-ring .5s ease-out .32s both;pointer-events:none}
+  .result-shell.is-arriving .result-heading h2{animation:result-name .3s ease-out .38s both}
+  .result-shell.is-arriving .rarity-seal{animation:seal-land .3s ease-out .5s both}
+  @keyframes result-stamp{0%{opacity:0;transform:scale(1.25) rotate(-8deg)}55%{opacity:1;transform:scale(.95) rotate(1deg)}100%{opacity:1;transform:none}}
+  @keyframes ink-ring{0%{opacity:.6;transform:scale(.92)}100%{opacity:0;transform:scale(1.1)}}
+  @keyframes result-name{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes seal-land{0%{opacity:0;transform:rotate(-8deg) scale(1.5)}70%{opacity:1;transform:rotate(-8deg) scale(.92)}100%{opacity:1;transform:rotate(-8deg)}}
+  /* 5. レーダー：画面に入ったら中心から描き込む（初回だけ） */
+  .radar .radar-shape,.radar .radar-dot{transform-box:view-box;transform-origin:150px 120px}
+  .radar-pending .radar-shape,.radar-pending .radar-dot{opacity:0;transform:scale(.08)}
+  .radar.is-drawing .radar-shape{animation:radar-grow .65s cubic-bezier(.2,.8,.3,1) both}
+  .radar.is-drawing .radar-dot{animation:radar-grow .65s cubic-bezier(.2,.8,.3,1) .08s both}
+  @keyframes radar-grow{from{opacity:.15;transform:scale(.08)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.radar-pending .radar-shape,.radar-pending .radar-dot{opacity:1!important;transform:none!important}.result-shell.is-arriving .result-emblem:after{display:none}}
 </style>
 </head>
 <body>
@@ -3036,14 +3078,14 @@ function renderQuiz(justAnswered=-1){
   const progressMessage = i===QUESTIONS.length-1 ? 'ラスト1問！' : (i>=Math.floor(QUESTIONS.length/2) ? `あと${QUESTIONS.length-i}問` : `${i}問回答済み`);
   const opts = Q.opts.map((o,idx)=>`
     <button class="opt" onclick="choose(${idx},${i})">
-      <span class="badge">${["A","B","C"][idx]}</span>${esc(o.label)}
+      <span class="badge">${["A","B","C"][idx]}</span><span class="opt-label">${phraseHTML(o.label)}</span>
     </button>`).join("");
   wrap.innerHTML = `
     <div>
       <div class="quiz-kicker"><span>質問番号</span><span>Q${i+1} / ${QUESTIONS.length}</span></div>
       <ol class="stamp-track" aria-label="診断の進み具合">${stamps}</ol>
       <p class="progress-message" aria-live="polite">${progressMessage}</p>
-      <section class="question-card is-entering" aria-labelledby="questionTitle"><h2 id="questionTitle" tabindex="-1" style="line-height:1.5;font-weight:900;margin:0 0 24px;min-height:56px;">${esc(Q.q)}</h2>${opts}</section>
+      <section class="question-card is-entering" aria-labelledby="questionTitle"><h2 id="questionTitle" tabindex="-1" style="line-height:1.5;font-weight:900;margin:0 0 24px;min-height:56px;">${phraseHTML(Q.q)}</h2>${opts}</section>
       <button class="quiz-back" onclick="goBack()">← ひとつ戻る</button>
     </div>`;
   requestAnimationFrame(()=>{ const title=document.getElementById('questionTitle'); if(title) title.focus({preventScroll:true}); });
@@ -3172,17 +3214,46 @@ function getRarityTier(pct, total){
   return "N";                    // よくあるタイプ
 }
 // レア度バッジのHTMLを生成
-function buildRarityHTML(tier, pct, sub){
-  const meta = {
-    SSR: {label:"SSR", icon:'<span class="sparkle-deco">🌟</span><span class="sparkle-deco">✨</span>', caption:`出現率 ${pct}%　最高レア！！`},
-    SR:  {label:"SR",  icon:"✨", caption:`出現率 ${pct}%　レアタイプ！`},
-    R:   {label:"R",   icon:"🔹", caption:`出現率 ${pct}%　少し珍しいタイプ`},
-    N:   {label:"N",   icon:"",   caption:`出現率 ${pct}%`}
-  }[tier];
-  const pill = `<span class="rarity-pill rarity-${tier}">${meta.icon?meta.icon+" ":""}${meta.label}／${meta.caption} <span style="font-weight:400;opacity:.75;">${sub}</span></span>`;
-  return `<div style="text-align:center;margin:8px 0 2px;">${pill}</div>`;
+// 句読点の直後で文を区切り、句ごとに折り返しを抑える。
+// iPhone の Safari は CSS の word-break:auto-phrase に対応していないため、主要な文はこちらでも区切る。
+// （後読みの正規表現は古い Safari で構文エラーになるので使わない）
+function phraseHTML(text){
+  return String(text).replace(/([、。！？])/g, "$1\u0001").split("\u0001")
+    .filter(p => p !== "").map(p => `<span class="phrase">${esc(p)}</span>`).join("");
 }
-function axisMeterHTML(accent){
+// 一言メッセージ用：「」を最初と最後の句の中に入れ、かっこだけが改行されないようにする
+function quoteHTML(text){
+  const parts = String(text).replace(/([、。！？])/g, "$1\u0001").split("\u0001").filter(p => p !== "");
+  const last = parts.length - 1;
+  return parts.map((p, i) => `<span class="phrase">${i === 0 ? '<span class="quote-mark">「</span>' : ''}${esc(p)}${i === last ? '<span class="quote-mark">」</span>' : ''}</span>`).join("");
+}
+// レーダーチャート：画面に入ったら一度だけ描き込む
+let radarObserver = null;
+function stopRadarDraw(){
+  if(radarObserver){ radarObserver.disconnect(); radarObserver = null; }
+}
+function startRadarDraw(){
+  stopRadarDraw();
+  const meter = document.getElementById("radarMeter");
+  if(!meter) return;
+  radarObserver = new IntersectionObserver(entries => {
+    for(const entry of entries){
+      if(!entry.isIntersecting) continue;
+      if(entry.target.classList){ entry.target.classList.remove("radar-pending"); entry.target.classList.add("is-drawing"); }
+      stopRadarDraw();
+    }
+  }, {threshold: 0.35});
+  radarObserver.observe(meter);
+}
+// レア度を判子の形で出す（SSR は初回だけ一度光らせる）
+function buildRarityHTML(tier, pct, sub, first){
+  const label = {SSR:"最高レア！！", SR:"レアタイプ！", R:"少し珍しいタイプ", N:""}[tier];
+  const main = label || `出現率 ${pct}%`;
+  const detail = label ? `出現率 ${pct}%${sub}` : sub;
+  const shine = (first && tier === "SSR") ? " is-first" : "";
+  return `<div class="rarity-wrap"><div class="rarity-stamp tier-${tier}${shine}"><span class="rarity-seal">${tier}</span><span class="rarity-text"><b>${main}</b><small>${detail}</small></span></div></div>`;
+}
+function axisMeterHTML(accent, animate){
   const g = QUESTIONS[4].opts[state.answers[4]].g;
   const lean = i => ((QUESTIONS[i].opts[state.answers[i]].val + g) + 1.5) / 3; // 0..1
   const tQ=lean(0), tC=lean(1), tS=lean(2), tM=lean(3);
@@ -3196,15 +3267,15 @@ function axisMeterHTML(accent){
   const ring=r=>poles.map((_,i)=>pt(i,r).join(",")).join(" ");
   const spokes=poles.map((_,i)=>{const p=pt(i,R);return `<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="#ddd0b6" stroke-width="1"/>`;}).join("");
   const data=poles.map((p,i)=>pt(i,Math.max(0.07,p.val)*R).join(",")).join(" ");
-  const dots=poles.map((p,i)=>{const q=pt(i,Math.max(0.07,p.val)*R);return `<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="${accent}"/>`;}).join("");
+  const dots=poles.map((p,i)=>{const q=pt(i,Math.max(0.07,p.val)*R);return `<circle class="radar-dot" cx="${q[0]}" cy="${q[1]}" r="3" fill="${accent}"/>`;}).join("");
   const labels=poles.map((p,i)=>{const q=pt(i,lr);const c=p.val>0.5?accent:"#b0a8b0";return `<text x="${q[0]}" y="${(parseFloat(q[1])+3.5).toFixed(1)}" font-size="11" font-weight="700" fill="${c}" text-anchor="middle">${p.l}</text>`;}).join("");
-  return `<div style="margin:2px 0 14px;text-align:center;">
+  return `<div id="radarMeter" class="radar${animate?' radar-pending':''}" style="margin:2px 0 14px;text-align:center;">
       <div style="font-size:12px;font-weight:900;letter-spacing:1px;color:${accent};margin-bottom:2px;">あなたの傾向（4軸）</div>
       <svg viewBox="0 0 300 240" width="100%" style="max-width:300px;display:block;margin:0 auto;">
         <polygon points="${ring(R)}" fill="none" stroke="rgba(236,72,153,.18)" stroke-width="1"/>
         <polygon points="${ring(R*0.5)}" fill="none" stroke="rgba(0,0,0,.1)" stroke-width="1"/>
         ${spokes}
-        <polygon points="${data}" fill="${accent}" fill-opacity="0.22" stroke="${accent}" stroke-width="2.5" stroke-linejoin="round"/>
+        <polygon class="radar-shape" points="${data}" fill="${accent}" fill-opacity="0.22" stroke="${accent}" stroke-width="2.5" stroke-linejoin="round"/>
         ${dots}
         ${labels}
       </svg>
@@ -3220,8 +3291,10 @@ function renderResult(view){
   const st = getStats(state.type, t.name);
   const rarity = getRarityTier(st.pct, st.total);  // SSR / SR / R / N の4段階
   const sub = `（全${st.total}人中${st.typeCount}人）`;
-  const rarityHTML = buildRarityHTML(rarity, st.pct, sub);
-  const meterHTML = axisMeterHTML(t.accent);
+  const rarityHTML = buildRarityHTML(rarity, st.pct, sub, firstDisplay);
+  const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const animateRadar = firstDisplay && !reduceMotion && typeof IntersectionObserver === 'function';
+  const meterHTML = axisMeterHTML(t.accent, animateRadar);
   // 結果持ち帰り用QR（ブースの結果画面のみ表示）
   let qrHTML = "";
   if(!view){
@@ -3252,7 +3325,7 @@ function renderResult(view){
   const hot = (state.timing === "今すぐ" || state.timing === "1年以内");
   let asksHTML = "";
   if((t.asks||[]).length){
-    const rows = t.asks.map(q=>`<li>${esc(q)}</li>`).join("");
+    const rows = t.asks.map(q=>`<li><span class="ask-text">${phraseHTML(q)}</span></li>`).join("");
     const closing = view
       ? "気になったら、公式LINEから聞いてみてください"
       : (hot ? "気になる質問を1つ選んで、隣のスタッフと話してみませんか。"
@@ -3291,7 +3364,7 @@ function renderResult(view){
         <h2>${t.name}</h2>
         <div class="type-code">TYPE ${state.type} / 16 TYPES</div>
         ${rarityHTML}
-        <div class="result-summary"><p class="result-quote">${esc(taiko)}</p></div>
+        <div class="result-summary"><p class="result-quote">${quoteHTML(taiko.replace(/。$/, ""))}</p></div>
         </header>
         ${moyaLine}
         <section class="result-details" aria-label="強みと、これからの動き方">
@@ -3301,7 +3374,7 @@ function renderResult(view){
         <h3>あなたに合う転職の進め方</h3><p>${fmt3(t.susumekata)}</p>
         <h3>気をつけたいこと</h3><p>${t.jirai}</p>
         </section>
-        <section class="next-step"><p class="eyebrow">YOUR NEXT STEP</p><p>${t.ippo}</p></section>
+        <section class="next-step"><p class="eyebrow">YOUR NEXT STEP</p><p>${phraseHTML(t.ippo)}</p></section>
         ${asksHTML}
         <div class="line-contact"><p>${lineLead}</p><a class="line-button" href="https://lin.ee/xobgo1a" target="_blank" rel="noopener">LINEで転職相談する <span aria-hidden="true">↗</span></a></div>
         ${qrHTML}
@@ -3314,6 +3387,7 @@ function renderResult(view){
   resultCelebrated=true;
   completeQuizAttempt();
   window.scrollTo(0,0);
+  if(animateRadar) startRadarDraw(); else stopRadarDraw();
   if(firstDisplay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     try { launchConfetti(t.accent); } catch(e){ stopScreenEffects(); }
   }
