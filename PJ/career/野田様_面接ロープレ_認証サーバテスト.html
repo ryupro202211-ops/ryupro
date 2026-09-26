@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>面談ロープレ資料 | 野田様 × 認証サーバテスト業務(派遣)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+    background: linear-gradient(180deg, #FFF5F7 0%, #F4F9FC 40%, #EEF3F8 100%);
+    color: #2c3e50;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #E8B4C8 0%, #B4C8E8 100%);
+    color: white;
+    padding: 32px 28px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(180, 200, 232, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🌸";
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 60px;
+    opacity: 0.3;
+  }
+  .hero .kicker { font-size: 12px; opacity: 0.9; margin-bottom: 6px; letter-spacing: 0.1em; }
+  .hero h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .hero .info {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 13px;
+  }
+  .hero .info div { padding: 3px 0; }
+  .hero .info strong { display: inline-block; min-width: 65px; opacity: 0.9; font-weight: 500; }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 18px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed #F4C6D5;
+  }
+  .section-header .icon { font-size: 24px; }
+  .section-header h2 {
+    font-size: 18px;
+    color: #4A6FA5;
+    font-weight: 700;
+  }
+
+  /* Timeline */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-item .time {
+    color: #E67E22;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .timeline-item .content { font-size: 13px; }
+  .timeline-item .content strong { color: #2c3e50; font-size: 14px; }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 13px;
+    border-bottom: 1px dashed #EEF3F8;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    color: #4A6FA5;
+    font-size: 20px;
+  }
+  .checklist li strong { color: #2c3e50; }
+  .checklist li .note { font-size: 11px; color: #7f8c8d; display: block; margin-top: 2px; }
+
+  /* Q&A */
+  .qa {
+    margin-bottom: 22px;
+    padding: 18px;
+    background: linear-gradient(135deg, #FFF9F0 0%, #F4F9FC 100%);
+    border-radius: 12px;
+    border-left: 4px solid #F4C6D5;
+  }
+  .qa-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A6FA5;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .qa-q .qmark {
+    background: #4A6FA5;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    font-size: 13px;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 8px;
+    color: #444;
+  }
+  .qa-a strong { color: #2c3e50; }
+  .qa-a em {
+    background: #FFF3E0;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+    font-weight: 600;
+    color: #B7480B;
+  }
+  .qa-tip {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-top: 8px;
+    padding-left: 12px;
+    border-left: 2px solid #F4C6D5;
+  }
+
+  /* NG list */
+  .ng-list {
+    background: #FFEBEE;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #EF5350;
+  }
+  .ng-list h3 { font-size: 14px; color: #C62828; margin-bottom: 10px; }
+  .ng-list ul { list-style: none; }
+  .ng-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .ng-list li::before {
+    content: "❌";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Good list */
+  .good-list {
+    background: #F0FFF4;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #48BB78;
+  }
+  .good-list h3 { font-size: 14px; color: #276749; margin-bottom: 10px; }
+  .good-list ul { list-style: none; }
+  .good-list li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    font-size: 13px;
+    color: #555;
+  }
+  .good-list li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    top: 6px;
+  }
+
+  /* Callout */
+  .callout {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFF9F0 100%);
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid #F39C12;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #555;
+  }
+  .callout strong { color: #B7480B; }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    color: #95a5a6;
+    font-size: 11px;
+  }
+
+  /* Reverse Q */
+  .reverse-q {
+    background: #EEF3F8;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border-left: 4px solid #4A6FA5;
+  }
+  .reverse-q strong { color: #4A6FA5; }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .section, .hero { break-inside: avoid; box-shadow: none; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 12px; }
+    .hero { padding: 24px 20px; }
+    .section { padding: 20px; }
+    .timeline-item { grid-template-columns: 70px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="kicker">📝 面談ロープレ資料【派遣・職場見学】</div>
+  <h1>自社開発セキュリティ製品 認証サーバのテスト業務</h1>
+  <div style="font-size:12px;opacity:0.95;margin-top:6px">これまでの中で、野田様の経験といちばん噛み合う案件です。テストの経験を「強み」として、そのまま話してください🌸</div>
+  <div class="info">
+    <div><strong>💻 形式</strong><em>オンライン面談</em>(職場見学・顔合わせ)</div>
+    <div><strong>🏢 企業</strong>情報処理サービス会社(従業員501〜1000人)／コンピュータネットワーク関連システムの開発販売</div>
+    <div><strong>🧪 職種</strong>自社開発 認証サーバのテスト業務(動作確認・結果記録・不具合報告・テスト項目の改善)</div>
+    <div><strong>📍 勤務地</strong>新宿三丁目駅 徒歩1分／業務に慣れたら在宅OK(週1〜2出社)</div>
+    <div><strong>🕘 時間</strong>9:00〜17:30(実働7.5h)・土日休み・残業 月10〜20h</div>
+    <div><strong>💰 時給</strong><em>2,200円〜</em>(月収例 35.7〜38.5万円)</div>
+    <div><strong>📅 開始</strong>2026/10/13〜長期(12/1まで相談可)／初回2ヶ月契約・更新予定あり</div>
+  </div>
+</div>
+
+<div class="section" style="background:linear-gradient(135deg,#FFF3E0 0%,#FFF9F0 100%);border:2px solid #E67E22">
+  <div class="section-header" style="border-bottom-color:#E67E22"><span class="icon">🎯</span><h2>今回いちばん大事なこと</h2></div>
+  <div class="callout" style="border-left-color:#48BB78;background:linear-gradient(135deg,#F0FFF4 0%,#F4F9FC 100%)">
+    <strong>この仕事は「テストそのもの」が本業です。</strong><br>
+    正社員の面接では、テストや手順書の経験が「上流へ行くまでの通過点」に聞こえてしまい、うまく伝わりませんでした。<br>
+    今回は逆です。<strong>テストの経験が、そのまま即戦力の証明になります。</strong>
+  </div>
+  <div class="ng-list" style="margin-top:14px">
+    <h3>今回は言わないこと</h3>
+    <ul>
+      <li>「早く設計・構築に進みたい」 → この仕事への意欲が低く見えます</li>
+      <li>「今の仕事は物足りない」 → 同じテスト業務なので、同じ理由で辞めると思われます</li>
+    </ul>
+  </div>
+  <div class="good-list" style="margin-top:12px">
+    <h3>代わりにこう伝える</h3>
+    <ul>
+      <li>「テストで不具合を見つけて、品質を上げることにやりがいを感じています」</li>
+      <li>「CCNAで学んだネットワークの知識を、製品のテストで実際に使いたいです」</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><span class="icon">✅</span><h2>求められている経験と、野田様の答え</h2></div>
+  <div class="timeline-item"><div class="time">テスト・検証経験</div><div class="content"><strong>情報開示システムの再構築で、単体テスト・結合テストの実施とテスト仕様書の作成を担当</strong><br><span style="font-size:12px;color:#7f8c8d">→ 企業の必須経験そのものです。最初に出してください</span></div></div>
+  <div class="timeline-item"><div class="time">TCP/IP・ルーティング・DNS</div><div class="content"><strong>2025年7月にCCNAを取得</strong><br><span style="font-size:12px;color:#7f8c8d">→ 入社翌月に取得。自分で学べる人だという証拠にもなります</span></div></div>
+  <div class="timeline-item"><div class="time">Windows / Linux</div><div class="content"><strong>業務でWindows Serverを使用、2025年9月にLinuC Level1を取得</strong></div></div>
+  <div class="timeline-item"><div class="time">テスト項目の改善・観点の提案</div><div class="content"><strong>セルフレビューチェックシートを自分で作り、レビュー指摘を減らした</strong><br><span style="font-size:12px;color:#7f8c8d">→ 「既存テスト項目の改善」とほぼ同じ仕事です。ここがいちばんの差別化になります</span></div></div>
+</div>
+
+<div class="section">
+  <div class="section-header"><span class="icon">⏱</span><h2>面談の流れ(想定 30〜45分)</h2></div>
+  <div class="timeline-item"><div class="time">1</div><div class="content"><strong>派遣会社の担当者から紹介</strong>(野田様の経歴を担当者が説明します)</div></div>
+  <div class="timeline-item"><div class="time">2</div><div class="content"><strong>自己紹介</strong>(1〜2分)</div></div>
+  <div class="timeline-item"><div class="time">3</div><div class="content"><strong>企業から業務説明</strong> → うなずき・メモ</div></div>
+  <div class="timeline-item"><div class="time">4</div><div class="content"><strong>経験・スキルの確認</strong>(ここが中心)</div></div>
+  <div class="timeline-item"><div class="time">5</div><div class="content"><strong>逆質問</strong></div></div>
+  <div class="callout">派遣の職場見学は「選考」ではなく「お互いの確認」の場という建前です。志望動機を深掘りされることは少なく、<strong>できること・やってきたことを具体的に話せるか</strong>が見られます。</div>
+</div>
+
+<div class="section">
+  <div class="section-header"><span class="icon">💬</span><h2>想定質問と答え方</h2></div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q1</span>簡単に自己紹介をお願いします。</div>
+    <div class="qa-a">「野田麻菜美と申します。本日はよろしくお願いいたします。<br>
+    2025年6月にSI企業へ入社し、<em>ITインフラエンジニアとして1年3ヶ月</em>働いております。<br>
+    情報開示システムの再構築案件で、<em>単体テスト・結合テストの実施とテスト仕様書の作成</em>を担当してきました。<br>
+    業務と並行して、<em>入社翌月にCCNA、9月にLinuC Level1</em>を取得しております。<br>
+    今回のテスト業務は、これまでの経験とネットワークの知識をそのまま活かせると思い、お話を伺えることを楽しみにしておりました。」</div>
+    <div class="qa-tip">💡 最後の一文で「なぜこの仕事か」まで言い切っておくと、後の質問が楽になります。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q2</span>テストの経験について、具体的に教えてください。</div>
+    <div class="qa-a"><strong>【何を・どうやって・どうだったか】</strong><br><br>
+    「情報開示システムのバックエンド機能を作り直す案件で、<em>単体テストと結合テスト</em>を担当しました。<br>
+    テスト仕様書をもとに動作を確認し、結果を記録して、想定と違う動きがあれば報告する流れです。<br>
+    <em>テスト仕様書の作成</em>も担当したので、どこを確認すれば漏れがないかを考えるところからやっていました。」</div>
+    <div class="qa-tip">💡 この後に「何件くらい」「どんな不具合を見つけたか」と聞かれやすいです。<strong>印象に残っている不具合を1つ</strong>思い出しておいてください(どんな症状で、どう報告したか)。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q3</span>テスト項目の改善や、工夫したことはありますか?</div>
+    <div class="qa-a"><strong>【ここが最大のアピールポイント】</strong><br><br>
+    「ドキュメントのレビューで同じ指摘が繰り返されていたので、<em>確認項目をまとめたセルフレビューチェックシートを自分で作り</em>、提出前に必ず確認するようにしました。<br>
+    その結果、<em>レビューでの指摘が減り</em>、チーム内でも使ってもらえるようになりました。<br>
+    御社のお仕事でも、テストを実施するだけでなく、<em>抜けやすい観点を洗い出して項目を良くしていく</em>ところに貢献したいと考えています。」</div>
+    <div class="qa-tip">💡 求人の「既存テスト項目改善、テスト観点の提案」とほぼ同じ話です。求人の言葉につなげて締めてください。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q4</span>ネットワークの知識はどのくらいありますか?</div>
+    <div class="qa-a">「CCNAの学習で、<em>TCP/IP、サブネット、ルーティング、DNS</em>といった基礎は理解しています。業務ではCisco機器の設定を手順に沿って行ったことがあります。<br>
+    <em>認証の仕組み(RADIUSやLDAPなど)は実務経験がないので、いま勉強を始めています。</em>製品知識は入ってから早く身につけたいと思っています。」</div>
+    <div class="qa-tip">💡 分からないことは「分からない」と言ってかまいません。<strong>「勉強を始めている」と添える</strong>のがポイントです。面談前にRADIUS・LDAPを検索して、仕組みをざっと見ておくと安心です。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q5</span>なぜ正社員から派遣に切り替えるのですか?</div>
+    <div class="qa-a">「今の経験を活かして、<em>まずは技術を確実に身につけられる現場</em>で働きたいと考えました。<br>
+    派遣の担当の方から、テストに専念できて、製品のことも学べるお仕事だと伺い、<em>今の自分に合っている</em>と感じました。」</div>
+    <div class="qa-tip">⚠️ 現職の不満は言わないでください。「合っている仕事を選んだ」という前向きな理由だけで十分です。</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q6</span>在宅勤務の経験や、出社について問題ありませんか?</div>
+    <div class="qa-a">「最初は出社して製品や業務を覚えたいので、<em>出社が多くても問題ありません</em>。慣れてからの在宅も、報告・連絡をこまめにして進めます。」</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-q"><span class="qmark">Q7</span>いつから働けますか?</div>
+    <div class="qa-a">「<em>○月○日から</em>勤務可能です。」<br>
+    <span style="font-size:12px;color:#7f8c8d">※開始日は10/13〜、12/1まで相談可です。<strong>現職の退職時期を面談前にCAと確認</strong>してください。</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header"><span class="icon">🙋</span><h2>逆質問(2つ用意)</h2></div>
+  <div class="reverse-q"><strong>① 仕事の中身</strong><br>「最初の1〜2ヶ月は、どのような順番で製品知識を身につけていくことが多いでしょうか。事前に勉強しておくとよいことがあれば教えてください。」</div>
+  <div class="reverse-q"><strong>② チーム</strong><br>「テストは何名くらいのチームで進めていますか。不具合を見つけたときは、どなたに報告する流れでしょうか。」</div>
+  <div class="reverse-q" style="border-left-color:#E67E22"><strong>③ 聞けたら(残業)</strong><br>「残業は月10〜20時間と伺っていますが、忙しい時期はありますか。」<br><span style="font-size:12px;color:#7f8c8d">※求人票に「残業20H以上」の表記もあるため。聞きづらければCAが派遣会社に確認します。</span></div>
+</div>
+
+<div class="section" style="background:linear-gradient(135deg,#F4F9FC 0%,#EEF3F8 100%);border-left:6px solid #4A6FA5">
+  <div class="section-header"><span class="icon">🗣</span><h2>話し方(前回から続けて)</h2></div>
+  <ul class="checklist">
+    <li><strong>質問が終わったら3秒待ってから話す</strong></li>
+    <li><strong>一言目は結論から</strong>(「はい、あります。〜」「〜を担当していました」)</li>
+    <li><strong>画面ではなくカメラを見て話す</strong></li>
+    <li><strong>スマホとPCの通知を切る</strong>・背景はシンプルに・服装はオフィスカジュアル以上</li>
+    <li><strong>10分前にはURLを開いて接続確認</strong></li>
+  </ul>
+</div>
+
+<div class="footer">株式会社UCHIAGE キャリアアドバイザー作成 | 野田様専用資料<br><span style="font-size:10px">※本資料は野田様専用です。第三者への共有はご遠慮ください。</span></div>
+
+</div>
+</body>
+</html>
