@@ -276,7 +276,7 @@ footer{font-size:12px}
     <div class="sec-head"><span class="sec-index">02</span><h2>ご希望条件</h2></div>
     <div class="panel criteria">
       <!-- CUSTOMIZE: 2〜8項目。<div><span class="k">項目</span><span class="v">値</span></div> -->
-      <div><span class="k">ご予算</span><span class="v">家賃・管理費込み 9万円以内</span></div>
+      <div><span class="k">ご予算</span><span class="v">家賃・管理費込み 10万円以内</span></div>
       <div><span class="k">間取り</span><span class="v">1R・1K</span></div>
       <div><span class="k">エリア</span><span class="v">浜松町・田町・三田 周辺</span></div>
       <div><span class="k">所在階</span><span class="v">2階以上</span></div>
@@ -430,6 +430,147 @@ const PROPERTIES = [
     cons: ['ルームシェアはできません', '水道・給湯の費用は別途かかります'],
     addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/07.pdf',
   },
+  {
+    id: '25', name: '田町サンハイツ', unit: '507号室',
+    line: '山手線', station: '田町', walk: 4,
+    size: 17.36, layout: 'ワンルーム',
+    rent: 75000, kanri: 16000, total: 91000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1976, structure: 'SRC', available: '相談', facing: '北西',
+    tags: [], pros: ['田町駅から徒歩4分です'],
+    cons: ['定期借家契約（3年）です'],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/25.pdf',
+  },
+  {
+    id: '26', name: '東京ベイビュウ', unit: '313号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 16.50, layout: 'ワンルーム',
+    rent: 86000, kanri: 5000, total: 91000,
+    deposit: '敷金なし', reikin: '礼金1ヶ月',
+    year: 1980, structure: 'SRC', available: '2026年10月下旬予定',
+    tags: [], pros: ['田町駅から徒歩10分です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/26.pdf',
+  },
+  {
+    id: '27', name: '東京ベイビュウ', unit: '818号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 16.50, layout: 'ワンルーム',
+    rent: 85000, kanri: 8000, total: 93000,
+    deposit: '敷金なし', reikin: '礼金1ヶ月',
+    year: 1980, structure: 'SRC',
+    tags: [], pros: ['8階のお部屋です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/27.pdf',
+  },
+  {
+    id: '28', name: 'ライオンズプラザ芝公園', unit: '308号室',
+    line: '都営三田線', station: '芝公園', walk: 5,
+    size: 18.21, layout: '1K',
+    rent: 85000, kanri: 8000, total: 93000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1981, structure: '鉄骨造', available: '即入居可', facing: '南',
+    tags: [], pros: ['芝公園駅から徒歩5分です', '南向きです'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/28.pdf',
+  },
+  {
+    id: '29', name: 'ハイツ芝大門', unit: '507号室',
+    line: '山手線', station: '浜松町', walk: 8,
+    size: 16.46, layout: 'ワンルーム',
+    rent: 89000, kanri: 5000, total: 94000,
+    deposit: '敷金なし', reikin: '礼金1ヶ月',
+    year: 1980, structure: 'SRC', facing: '西',
+    tags: [], pros: ['浜松町駅から徒歩8分です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/29.pdf',
+  },
+  {
+    id: '30', name: '芝ビルディング', unit: '804号室',
+    line: '都営三田線', station: '三田', walk: 6,
+    size: 21.75, layout: 'ワンルーム',
+    rent: 85000, kanri: 10000, total: 95000,
+    deposit: '敷金なし', reikin: '礼金なし',
+    year: 1981, structure: 'SRC', available: '相談',
+    tags: [], pros: ['三田駅から徒歩6分です', '専有面積は21.75㎡です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/30.pdf',
+  },
+  {
+    id: '31', name: 'ライオンズマンションフェリス三田', unit: '',
+    line: '山手線', station: '田町', walk: 5,
+    size: 28.35, layout: 'ワンルーム',
+    rent: 95000, kanri: 0, total: 95000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1979, structure: 'SRC',
+    tags: [], pros: ['田町駅から徒歩5分です', '専有面積は28.35㎡です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/31.pdf',
+  },
+  {
+    id: '32', name: '東京ベイビュウ', unit: '402号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 16.50, layout: 'ワンルーム',
+    rent: 85000, kanri: 10000, total: 95000,
+    deposit: '敷金8.5万円', reikin: '礼金8.5万円',
+    year: 1980, structure: 'SRC', facing: '南',
+    tags: [], pros: ['4階の南向きのお部屋です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/32.pdf',
+  },
+  {
+    id: '33', name: 'DIKマンション新橋', unit: '407号室',
+    line: '都営浅草線', station: '新橋', walk: 7,
+    size: 21.35, layout: 'ワンルーム',
+    rent: 84000, kanri: 11000, total: 95000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1977, facing: '北東',
+    tags: [], pros: ['新橋駅から徒歩7分です', '専有面積は21.35㎡です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/33.pdf',
+  },
+  {
+    id: '34', name: '東京ベイビュウ', unit: '622号室',
+    line: '山手線', station: '田町', walk: 10,
+    size: 16.50, layout: 'ワンルーム',
+    rent: 87000, kanri: 10000, total: 97000,
+    deposit: '敷金8.7万円', reikin: '礼金8.7万円',
+    year: 1980, structure: 'SRC', facing: '北',
+    tags: [], pros: ['6階のお部屋です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/34.pdf',
+  },
+  {
+    id: '35', name: 'マートルコート三田', unit: '501号室',
+    line: '都営三田線', station: '三田', walk: 5,
+    size: 22.64, layout: 'ワンルーム',
+    rent: 90000, kanri: 8000, total: 98000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1984, structure: 'SRC', available: '相談',
+    tags: [], pros: ['三田駅から徒歩5分です', '専有面積は22.64㎡です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/35.pdf',
+  },
+  {
+    id: '36', name: 'ヴェルヒルズ芝浦', unit: '7階',
+    line: '山手線', station: '田町', walk: 5,
+    size: 20.27, layout: '1K',
+    rent: 89000, kanri: 10000, total: 99000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 2001, structure: 'SRC', available: '相談', facing: '南西',
+    tags: [], pros: ['田町駅から徒歩5分です', '南西向きです'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/36.pdf',
+  },
+  {
+    id: '37', name: '三田ベルメゾン', unit: '202号室',
+    line: '都営浅草線', station: '三田', walk: 7,
+    size: 21.00, layout: '1K',
+    rent: 95000, kanri: 5000, total: 100000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1997, structure: 'RC', available: '即入居可',
+    tags: [], pros: ['三田駅から徒歩7分です', '専有面積は21㎡です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/37.pdf',
+  },
+  {
+    id: '38', name: 'ライオンズプラザ芝公園', unit: '205号室',
+    line: '都営三田線', station: '芝公園', walk: 5,
+    size: 21.05, layout: '1K',
+    rent: 100000, kanri: 0, total: 100000,
+    deposit: '敷金10万円', reikin: '礼金10万円',
+    year: 1981, structure: 'SRC', facing: '南西',
+    tags: [], pros: ['芝公園駅から徒歩5分です', '専有面積は21.05㎡です'], cons: [],
+    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/38.pdf',
+  },
 ];
 
 // ---------- 派生値：手で書かない。ここが計算するのでズレようがない ----------
@@ -521,9 +662,10 @@ function cardHtml(p) {
   const tags = (p.tags || []).filter(t => !DUPE_TAG.test(strip(t.t))).map(t =>
     '<span class="' + (t.c === 'warn' ? 'tag warn' : (t.c === 'new' ? 'tag hi' : 'tag')) + '">' + strip(t.t) + '</span>').join('');
   const pdfHref = p.pdfPath || (p.driveId ? 'https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view' : '');
+  const floorplanSrc = 'moriyama-floorplans/' + encodeURIComponent(p.id) + '.jpg';
   const floorplan = pdfHref
     ? '<div class="floorplan-heading">お部屋の図面</div>'
-      + '<a class="floorplan-image-link" href="moriyama-floorplans/' + encodeURIComponent(p.id) + '.jpg" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="moriyama-floorplans/' + encodeURIComponent(p.id) + '.jpg" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
+      + '<a class="floorplan-image-link" href="' + floorplanSrc + '" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="' + floorplanSrc + '" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
       + '<a class="floorplan-fallback" href="' + pdfHref + '" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>'
     : '<div class="contact-note">図面や内見については、担当者へLINEまたはメールでお問い合わせください。</div>';
   return ''
@@ -583,7 +725,7 @@ function buildChips(kind) {
 
 function buildBudget() {
   const sel = document.getElementById('rentcap');
-  const cap = Number('90000') || maxTotal;
+  const cap = Number('100000') || maxTotal;
   const step = 10000;
   const opts = [{ v: String(cap), t: '〜' + yen(cap) + '円' }];
   for (let v = cap - step; minTotal && v > minTotal; v -= step) {
