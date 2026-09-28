@@ -395,18 +395,6 @@ const PROPERTIES = [
     addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/05.pdf',
   },
   {
-    id: '07', name: 'サンハイム田町', unit: '1115号室',
-    line: '山手線', station: '田町', walk: 10,
-    size: 13.77, layout: 'ワンルーム',
-    rent: 80000, kanri: 5000, total: 85000,
-    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
-    year: 1975, structure: 'SRC', available: '即入居可', facing: '北西',
-    tags: [],
-    pros: ['田町駅から徒歩10分の最上階です', '室内洗濯機置場とモニター付きインターホンがあります'],
-    cons: ['ルームシェアはできません', '水道・給湯の費用は別途かかります'],
-    addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/07.pdf',
-  },
-  {
     id: '25', name: '田町サンハイツ', unit: '507号室',
     line: '山手線', station: '田町', walk: 4,
     size: 17.36, layout: 'ワンルーム',
@@ -527,6 +515,50 @@ const PROPERTIES = [
     tags: [], pros: ['三田駅から徒歩7分です', '専有面積は21㎡です'], cons: [],
     addedAt: '2026-09-28', pdfPath: 'moriyama-floorplans/37.pdf',
   },
+  {
+    id: '39', name: 'サンハイム田町', unit: '329号室',
+    line: '山手線', station: '田町', walk: 11,
+    size: 13.77, layout: 'ワンルーム',
+    rent: 70000, kanri: 0, total: 70000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1975, structure: 'SRC', available: '相談', facing: '西',
+    tags: [], pros: ['田町駅から徒歩11分、芝浦ふ頭駅から徒歩3分です'],
+    cons: ['現在居住中です。入居時期と募集状況はご案内前に確認します'],
+    addedAt: '2026-09-28', floorplanImage: true,
+  },
+  {
+    id: '40', name: '東京ベイビュウ', unit: '809号室',
+    line: '山手線', station: '田町', walk: 8,
+    size: 16.50, layout: 'ワンルーム',
+    rent: 80000, kanri: 0, total: 80000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1980, structure: 'SRC', available: '相談',
+    tags: [], pros: ['田町駅から徒歩8分、8階のお部屋です'],
+    cons: ['資料により賃料が7.8万円と8万円で異なります。ご案内前に確認します'],
+    addedAt: '2026-09-28', floorplanImage: true,
+  },
+  {
+    id: '41', name: '三田ハウス', unit: '232号室',
+    line: '都営三田線', station: '白金高輪', walk: 8,
+    size: 20.37, layout: 'ワンルーム',
+    rent: 79000, kanri: 10000, total: 89000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1972, structure: 'SRC', available: '即入居可', facing: '南',
+    tags: [], pros: ['白金高輪駅から徒歩8分です'],
+    cons: ['ルームシェアはできません。募集状況はご案内前に確認します'],
+    addedAt: '2026-09-28', floorplanImage: true,
+  },
+  {
+    id: '42', name: 'パークウェル芝公園', unit: '102号室',
+    line: '都営三田線', station: '芝公園', walk: 2,
+    size: 20.57, layout: '1K',
+    rent: 99000, kanri: 0, total: 99000,
+    deposit: '敷金1ヶ月', reikin: '礼金1ヶ月',
+    year: 1999, structure: 'RC', available: '2026年11月下旬予定', facing: '南',
+    tags: [], pros: ['芝公園駅から徒歩2分の角部屋です'],
+    cons: ['1階・単身者限定のお部屋です。現在居住中のため、募集状況はご案内前に確認します'],
+    addedAt: '2026-09-28', floorplanImage: true,
+  },
 ];
 
 // ---------- 派生値：手で書かない。ここが計算するのでズレようがない ----------
@@ -619,10 +651,10 @@ function cardHtml(p) {
     '<span class="' + (t.c === 'warn' ? 'tag warn' : (t.c === 'new' ? 'tag hi' : 'tag')) + '">' + strip(t.t) + '</span>').join('');
   const pdfHref = p.pdfPath || (p.driveId ? 'https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view' : '');
   const floorplanSrc = 'moriyama-floorplans/' + encodeURIComponent(p.id) + '.jpg';
-  const floorplan = pdfHref
+  const floorplan = (pdfHref || p.floorplanImage)
     ? '<div class="floorplan-heading">お部屋の図面</div>'
       + '<a class="floorplan-image-link" href="' + floorplanSrc + '" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="' + floorplanSrc + '" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
-      + '<a class="floorplan-fallback" href="' + pdfHref + '" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>'
+      + (pdfHref ? '<a class="floorplan-fallback" href="' + pdfHref + '" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>' : '')
     : '<div class="contact-note">図面や内見については、担当者へLINEまたはメールでお問い合わせください。</div>';
   return ''
   + '<article class="card">'
