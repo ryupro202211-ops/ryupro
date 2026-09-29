@@ -72,7 +72,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
       <div class="fact"><span class="k">ご紹介件数</span><span class="v" id="f-count">–</span></div>
       <div class="fact"><span class="k">管理費込み賃料</span><span class="v" id="f-rent">–</span></div>
       <div class="fact"><span class="k">専有面積</span><span class="v" id="f-size">–</span></div>
-      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026-08-13</span></div>
+      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026-09-29</span></div>
     </div>
   </div>
 </header>
@@ -83,16 +83,16 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
     <div class="sec-head"><span class="sec-index">02</span><h2>ご希望条件</h2></div>
     <div class="panel criteria">
       <!-- CUSTOMIZE: 2〜8項目。<div><span class="k">項目</span><span class="v">値</span></div> -->
-      <div><span class="k">ご予算（管込）</span><span class="v">70,000円まで</span></div>
+      <div><span class="k">ご予算（管込）</span><span class="v">75,000円まで<br>（70,000円前後が理想）</span></div>
       <div><span class="k">初期費用</span><span class="v">250,000円程度</span></div>
       <div><span class="k">広さ</span><span class="v">25㎡以上</span></div>
-      <div><span class="k">間取り</span><span class="v">ワンルーム／1K／1DK</span></div>
+      <div><span class="k">間取り</span><span class="v">1DK以上（扉で仕切れる部屋）</span></div>
       <div><span class="k">駅からの徒歩</span><span class="v">15分以内目安（20分まで許容）</span></div>
       <div><span class="k">築年数</span><span class="v">築15年以内目安</span></div>
       <div><span class="k">階数</span><span class="v">2階以上</span></div>
       <div><span class="k">職場</span><span class="v">麻布台一丁目</span></div>
       <div><span class="k">職場最寄駅</span><span class="v">神谷町／六本木一丁目<br>徒歩4〜7分（日比谷線・南北線）</span></div>
-      <div><span class="k">通勤時間</span><span class="v">60分・乗換2回まで<br>池袋に出やすい沿線</span></div>
+      <div><span class="k">通勤時間</span><span class="v">六本木一丁目まで<br>電車＋自転車で約1時間</span></div>
       <div><span class="k">推奨沿線</span><span class="v">東武東上／スカイツリー／TX</span></div>
       <div><span class="k">必須設備</span><span class="v">バストイレ別／独立洗面台／<br>オートロック／モニターホン／<br>宅配BOX／室内洗濯機置場</span></div>
       <div><span class="k">その他</span><span class="v">敷礼なし優先／単身入居</span></div>
@@ -148,7 +148,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
   </section>
 <section class="contact-panel" id="contact"><h2>気になるお部屋はありましたか？</h2><p>物件名を添えて、担当者へLINEまたはメールでお知らせください。<br>最新の募集状況を確認し、内見の日程をご案内します。</p></section>
 </main></div>
-<div class="wrap"><footer><div class="footer-brand">住まいのしおり</div>掲載情報は 2026-08-13 時点のものです。募集状況は変わるため、内見をご希望の際は担当者へお問い合わせください。</footer></div>
+<div class="wrap"><footer><div class="footer-brand">住まいのしおり</div>掲載情報は 2026-09-29 時点のものです。募集状況は変わるため、内見をご希望の際は担当者へお問い合わせください。</footer></div>
 
 <div class="modal-backdrop" id="modal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -170,7 +170,7 @@ details.more{border-top:1px solid var(--line)}details.more>summary{padding:14px 
 const SHOW_RANK_BADGES = false;
 
 // NEWバッジのしきい値。addedAt >= NEW_SINCE の物件に「NEW」が付く。
-const NEW_SINCE = '2026-08-13';
+const NEW_SINCE = '2026-09-29';
 
 const PROPERTIES = [
 
@@ -356,6 +356,90 @@ const PROPERTIES = [
     addedAt: '2026-08-03',
     driveId: '1oiaxFd84HqZrskVoIlF6coO56yQeTwuH',
   },
+  {
+    id: '07', name: 'ファミリーウォーマーA', unit: '06号室（2階）',
+    line: '埼玉高速', station: '戸塚安行', walk: 21,
+    size: 47.85, layout: '2LDK',
+    rent: 62000, kanri: 3000, total: 65000,
+    deposit: '敷1ヶ月', reikin: '礼なし',
+    year: 1994, structure: '木造',
+    available: '2026年10月下旬〜',
+    facing: '南西',
+    tags: [
+      {t:'2LDK・ゆとりの広さ', c:'new'},
+      {t:'独立洗面所', c:''},
+      {t:'礼金なし', c:''},
+      {t:'駐輪場あり', c:''}
+    ],
+    pros: [
+      'LDK11.5畳＋洋室5畳＋和室6畳の2LDK・47.85㎡で、扉で仕切れる部屋が2つ',
+      'バス・トイレ別／独立洗面所／室内洗濯機置場',
+      '2階・南西向き・振り分けの間取り',
+      '埼玉高速線「戸塚安行」駅まで自転車で約7分・南北線直通で六本木一丁目まで乗り換えなし',
+      '駅まで平坦な道・閑静な住宅街'
+    ],
+    cons: [
+      '駅から徒歩21分のため、自転車での通勤が前提です',
+      'オートロックなし',
+      '鍵交換・消毒などの一時金が合わせて約5万円かかります'
+    ],
+    addedAt: '2026-09-29',
+    driveId: '1qkveROOYBKuvgKIpGHZdhkWqKIWQWt6P',
+  },
+  {
+    id: '08', name: 'セフティハウスG', unit: '203号室（2階）',
+    line: '埼玉高速', station: '川口元郷', walk: 15,
+    size: 38.00, layout: '1LDK',
+    rent: 62000, kanri: 3000, total: 65000,
+    deposit: '敷なし', reikin: '礼1ヶ月',
+    year: 1990, structure: '鉄骨造',
+    available: '即入居可',
+    tags: [
+      {t:'2025年リノベーション済み', c:'new'},
+      {t:'1LDK 38㎡', c:''},
+      {t:'ネット無料', c:''},
+      {t:'駐輪場無料', c:''}
+    ],
+    pros: [
+      '2025年にリノベーション済み（キッチン・床・壁紙を新しく）',
+      'LDK11.3畳＋洋室5.9畳の1LDK・38㎡。寝室を扉で仕切れます',
+      'バス・トイレ別／洗面台／室内洗濯機置場・インターネット無料',
+      '埼玉高速線「川口元郷」駅まで自転車で約5分・南北線直通で六本木一丁目まで乗り換えなし',
+      'OKストアまで徒歩2分・駐輪場無料'
+    ],
+    cons: [
+      '建物は1990年築（室内はリノベーション済み）',
+      'オートロックなし'
+    ],
+    addedAt: '2026-09-29',
+    driveId: '1u0lEHosXlcIRAaPJYl67nUIIHdynNey0',
+  },
+  {
+    id: '09', name: 'サンハイツアサヒ', unit: '303号室（3階）',
+    line: '埼玉高速', station: '川口元郷', walk: 12,
+    size: 44.75, layout: '2DK',
+    rent: 70000, kanri: 3000, total: 73000,
+    deposit: '敷1ヶ月', reikin: '礼1ヶ月',
+    year: 1990, structure: '鉄骨造',
+    tags: [
+      {t:'2DK 44㎡', c:'new'},
+      {t:'振り分けの間取り', c:''},
+      {t:'日当たり良好', c:''}
+    ],
+    pros: [
+      'DK8畳＋和室6畳×2の2DK・44.75㎡。どちらの部屋も扉で仕切れます',
+      '3階建ての3階・日当たり良好',
+      'バス・トイレ別／洗面スペース',
+      '埼玉高速線「川口元郷」駅まで自転車で約4分・南北線直通で六本木一丁目まで乗り換えなし'
+    ],
+    cons: [
+      '洋室ではなく和室が2部屋です',
+      'オートロックなし・1990年築',
+      '喫煙不可のお部屋です'
+    ],
+    addedAt: '2026-09-29',
+    driveId: '1k6EXThgQDRnLaR785LBr0WigY4W4nrwG',
+  },
 ];
 
 // ---------- 派生値：手で書かない。ここが計算するのでズレようがない ----------
@@ -500,7 +584,7 @@ function buildChips(kind) {
 
 function buildBudget() {
   const sel = document.getElementById('rentcap');
-  const cap = Number('70000') || maxTotal;
+  const cap = Number('75000') || maxTotal;
   const step = 10000;
   const opts = [{ v: 'all', t: 'すべて' }];
   for (let v = Math.ceil(cap / step) * step; v > minTotal; v -= step) {
