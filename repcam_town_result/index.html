@@ -96,7 +96,7 @@
     font-size:16px;font-weight:600;color:var(--ink);transition:border-color .15s,transform .1s,background .15s;}
   .opt:active{transform:scale(.99);}
   .opt .ic{font-size:24px;flex:0 0 auto;width:34px;text-align:center;}
-  .opt:hover{border-color:var(--b);background:var(--b-soft);}
+  @media(hover:hover){.opt:hover{border-color:var(--b);background:var(--b-soft);}}
   .backline{text-align:center;margin-top:18px;}
   .backline button{background:none;border:none;color:var(--ink-soft);font-family:var(--sans);
     font-size:13px;cursor:pointer;text-decoration:underline;}
@@ -303,7 +303,7 @@
   .bar i{background:var(--a);}.q{font-size:25px;line-height:1.7;margin-bottom:26px;}
   .q .num{color:var(--b);font-weight:500;margin-bottom:12px;}.opt{min-height:76px;padding:18px;border-radius:12px;font-weight:500;}
   .opt .ic{font-size:24px;background:var(--paper);border-radius:8px;width:42px;line-height:42px;}
-  .opt:hover{border-color:var(--a);background:var(--a-soft);}
+  @media(hover:hover){.opt:hover{border-color:var(--a);background:var(--a-soft);}}
   .backline button{min-height:44px;}.note{color:var(--ink-soft);}
   .result-head{margin:30px 0 18px;}.score-card{padding:32px;border:1px solid var(--line);border-top:4px solid var(--a);box-shadow:none;}
   .reveal-msg{font-weight:500;font-size:13px;}.town-emoji{font-size:38px;margin:16px 0 10px;}
@@ -395,7 +395,7 @@ body{background-color:#FFF8EF;background-image:radial-gradient(circle at 10% 8%,
 .seat{border:2px dashed var(--festival-pink);background:#fffdf7;}.seat .tag{background:var(--festival-pink-soft);padding:3px 10px;border-radius:99px;}  /* 文字はテラコッタのまま。深緑の地だと読めなかった */.s-name .hero{border:3px solid var(--festival-green);box-shadow:6px 6px 0 var(--festival-pink-soft);}
 .stamp-count{padding:10px 13px;border:2px dashed var(--festival-pink);border-radius:14px;background:#fffdf7;box-shadow:3px 3px 0 var(--festival-green-soft);}.stamp-count .who{color:var(--festival-green);}.stamp-count .dot{background:var(--festival-pink)!important;}.stamp-count .count{padding:2px 8px;border-radius:99px;background:var(--festival-green);color:#fff;}
 .bar{height:10px;border:2px solid var(--festival-green);background:#fffdf7;}.bar i{background:repeating-linear-gradient(135deg,var(--festival-pink) 0 10px,#FF89AA 10px 20px);}.q{padding:13px 15px;border-left:7px solid var(--festival-pink);border-bottom:2px dashed var(--festival-green);color:var(--festival-green);background:#fffdf7;transform:rotate(-.4deg);}.q .num{color:var(--festival-pink);font-weight:900;}
-.opt{border:2px solid var(--festival-green);border-radius:16px;background:#fffdf7;box-shadow:3px 3px 0 var(--festival-green-soft);}.opt:nth-child(even){border-color:var(--festival-pink);box-shadow:3px 3px 0 var(--festival-pink-soft);}.opt:hover{background:var(--festival-pink-soft);border-color:var(--festival-pink);}.backline button{color:var(--festival-green);font-weight:800;}
+.opt{border:2px solid var(--festival-green);border-radius:16px;background:#fffdf7;box-shadow:3px 3px 0 var(--festival-green-soft);}.opt:nth-child(even){border-color:var(--festival-pink);box-shadow:3px 3px 0 var(--festival-pink-soft);}@media(hover:hover){.opt:hover{background:var(--festival-pink-soft);border-color:var(--festival-pink);}}.backline button{color:var(--festival-green);font-weight:800;}
 .festival-ribbon{position:relative;display:inline-block;padding:6px 18px;color:#fff;background:var(--festival-green);font-weight:900;letter-spacing:.14em;box-shadow:4px 4px 0 var(--festival-pink);}.festival-ribbon::before,.festival-ribbon::after{content:'★';position:absolute;top:5px;color:var(--festival-yellow);}.festival-ribbon::before{left:-18px}.festival-ribbon::after{right:-18px}.score-card{border:3px solid var(--festival-green);border-radius:22px;background:#fffdf7;box-shadow:8px 8px 0 rgba(255,94,142,.25);}.town-name{background:linear-gradient(90deg,var(--festival-green),var(--festival-pink));-webkit-background-clip:text;background-clip:text;}.meta div{border:2px dashed var(--festival-green);background:#fff;}.meta div+div{border-color:var(--festival-pink);}.title-card{border:2px solid var(--festival-pink);background:linear-gradient(135deg,#FFF1F6,#F2FFF8);}.chips span{border-color:var(--festival-green)!important;background:var(--festival-green-soft)!important;}.comment{border-top:2px dashed var(--festival-pink);}
 .panel,.town-detail,.runner-section{border-color:var(--festival-green)!important;}.section-title{color:var(--festival-green)!important;}.slide-label,.rslide-label{background:var(--festival-pink)!important;}footer{color:var(--festival-green);font-weight:800;letter-spacing:.08em;}
 @media(max-width:480px){.festival-hero h1{font-size:31px}.festival-banner{font-size:11px}.stamp-count{padding:8px 10px}.q{font-size:20px}}
@@ -3234,7 +3234,7 @@ function renderQuestion(dir){
     var el=document.createElement('button');
     el.className='opt';
     el.innerHTML='<span class="ic">'+iconHTML(o.ic)+'</span><span>'+o.t+'</span>';
-    el.onclick=function(){ choose(i, qAt); };
+    el.onclick=function(){ if(el.blur) el.blur(); choose(i, qAt); };
     box.appendChild(el);
   });
   if(dir && !reducedMotion()){
