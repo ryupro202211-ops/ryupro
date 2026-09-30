@@ -356,11 +356,11 @@ const PROPERTIES = [
   },
   {
     id:'02', name:'さかえコーポ', unit:'201号室', line:'西武池袋線', station:'保谷', walk:13,
-    size:37.68, layout:'2DK', rent:70000, kanri:0, total:70000, managementUnconfirmed:true, cooktopPriority:2,
+    size:37.68, layout:'2DK', rent:70000, kanri:0, total:70000, cooktopPriority:2,
     deposit:'敷1ヶ月', reikin:'礼1ヶ月', year:1997, structure:'木造', available:'即入居可', facing:'南',
-    tags:[{t:'保谷駅徒歩13分',c:'new'},{t:'3口コンロ',c:''},{t:'管理費要確認',c:'warn'}],
+    tags:[{t:'保谷駅徒歩13分',c:'new'},{t:'3口コンロ',c:''},{t:'管理費・共益費0円',c:''}],
     pros:['2階の2DK。室内洗濯機置場、バス・トイレ別、エアコン、独立洗面台があります。','駐輪場、3口コンロ、インターネット対応の記載があります。'],
-    cons:['管理費・共益費の記載がないため、月額合計は確認中です。','月額保証料は最低1,600円です。表示賃料に足すと71,600円ですが、管理費が別にあれば増えます。'],
+    cons:['管理費・共益費は0円です。賃料と合わせて月70,000円です。','月額保証料は最低1,600円です。賃料と合わせると月71,600円です。'],
     addedAt:'2026-09-25', floorplanJpg:'sato-floorplans/02.jpg', driveId:''
   },
   {
@@ -503,7 +503,7 @@ function cardHtml(p) {
   +     '<h3>' + p.name + '<span> ' + (p.unit || '') + '</span></h3>'
   +     '<div class="access">' + p.line + '「' + p.station + '」徒歩' + p.walk + '分</div>'
   +     '<div class="price-row"><div><span class="price-label">賃料＋確認済み管理費</span><div class="price">' + (p.total / 10000).toLocaleString('ja-JP', {maximumFractionDigits: 4}) + '<small>万円</small></div></div>'
-  +       '<div class="price-note">賃料 ' + yen(p.rent) + '円<br>管理費 ' + (p.managementUnconfirmed ? '要確認' : (p.kanri === 0 ? 'なし' : yen(p.kanri) + '円')) + '</div></div>'
+  +       '<div class="price-note">賃料 ' + yen(p.rent) + '円<br>管理費 ' + (p.managementUnconfirmed ? '要確認' : (p.kanri === 0 ? '0円' : yen(p.kanri) + '円')) + '</div></div>'
   +   '</div>'
   +   '<div class="specs">'
   +     '<div class="spec-col">'
