@@ -490,7 +490,7 @@ const PROPERTIES = [
 const yen = n => n.toLocaleString('ja-JP');
 const man = n => (n / 10000).toFixed(1);
 const THIS_YEAR = new Date().getFullYear();
-const AGE = p => THIS_YEAR - p.year;
+const AGE = p => THIS_YEAR - p.year - (p.builtMonth && new Date().getMonth() + 1 < Number(p.builtMonth.match(/年(\d+)月/)[1]) ? 1 : 0);
 
 const totals = PROPERTIES.map(p => p.total);
 const sizes = PROPERTIES.map(p => p.size);
