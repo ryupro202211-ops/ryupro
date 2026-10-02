@@ -7,7 +7,7 @@ if (out !== path.join(root, '_site')) throw new Error('Unexpected build output p
 const excluded = /(^|\/)(docs|tests|node_modules|\.git|\.github|\.claude|__pycache__|_site|tools|test-results|playwright-report|blob-report|coverage)(\/|$)|(^|\/)(package\.json|package-lock\.json|server\.js|start\.sh|playwright\.config\.(?:js|cjs|mjs|ts)|\.gitignore|blog\/CONTENT-PLAN\.md|blog\/data\/theme-plan\.json)$/i;
 const secret = /(^|\/)(\.env[^/]*|\.npmrc|\.pypirc|id_rsa(\..*)?|id_ed25519(\..*)?|[^/]*(secret|credential|private[-_]?key)[^/]*|[^/]+\.(pem|key|p12|pfx|keystore))$/i;
 const files = execFileSync('git', ['ls-files', '-z'], { cwd: root }).toString().split('\0').filter(Boolean);
-for (const file of ['assets/css/corporate.css', 'assets/css/corporate-motion.css', 'assets/js/corporate.js', 'assets/js/contact.js', 'assets/js/corporate-motion.js']) if (!files.includes(file)) files.push(file);
+for (const file of ['assets/css/corporate.css', 'assets/css/corporate-motion.css', 'assets/js/corporate.js', 'assets/js/contact.js', 'assets/js/contact-gas.js', 'assets/js/contact-settings.js', 'assets/js/corporate-motion.js']) if (!files.includes(file)) files.push(file);
 const allowed = files.filter(file => !excluded.test(file.replace(/\\/g, '/')) && !secret.test(file.replace(/\\/g, '/')));
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });

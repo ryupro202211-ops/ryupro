@@ -8,7 +8,7 @@ if (channel) use.channel = channel;
 const webServer = {
   command: 'node server.js --dir _site',
   url: baseURL,
-  env: { PORT: previewPort },
+  env: { PORT: previewPort, RYUPRO_CONTACT_TEST_MODE: '1' },
   timeout: 60_000,
   reuseExistingServer: false
 };

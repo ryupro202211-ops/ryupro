@@ -8,6 +8,20 @@ const pages = [
 ];
 const apiEndpoint = 'https://contact.test/api';
 
+test('test server never serves the production Google contact endpoint', async ({ request }) => {
+  const response = await request.get('assets/js/contact-settings.js');
+  const settings = await response.text();
+  expect(settings).toContain("endpoint: ''");
+  expect(settings).not.toContain('script.google.com');
+});
+
+// CI must never send to the deployed GAS endpoint. API tests inject their own mocks.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    window.ryuproContactSettings = window.ryuproContactSettings || { mode: 'mailto' };
+  });
+});
+
 async function openApiContact(page, { timeoutMs = 10_000, acknowledgement = true, accepted = true, endpoint = apiEndpoint } = {}) {
   await page.addInitScript(settings => {
     window.ryuproContactSettings = settings;
@@ -15,18 +29,12 @@ async function openApiContact(page, { timeoutMs = 10_000, acknowledgement = true
   await page.goto('contact/?type=career&source=services', { waitUntil: 'domcontentloaded' });
   if (acknowledgement) {
     await page.locator('#contactForm').evaluate(form => {
-      const label = document.createElement('label');
-      label.htmlFor = 'privacyAccepted';
-      label.textContent = 'テスト用の確認項目';
-      const checkbox = document.createElement('input');
-      checkbox.id = 'privacyAccepted';
-      checkbox.name = 'privacyAccepted';
-      checkbox.type = 'checkbox';
+      const checkbox = form.elements.privacyAccepted;
+      checkbox.closest('#privacyField').hidden = false;
       checkbox.required = true;
-      form.append(label, checkbox);
     });
     if (accepted) await page.locator('#privacyAccepted').check();
-  }
+  } else await page.locator('#privacyField').evaluate(field => field.remove());
   await page.locator('#name').fill('テスト利用者');
   await page.locator('#email').fill('test@example.com');
   await page.locator('#message').fill('接続確認用の内容');
@@ -273,6 +281,7 @@ test('accepts API submissions only after a valid acknowledgement and receipt', a
     type: 'career',
     name: 'テスト利用者',
     email: 'test@example.com',
+    subject: 'キャリアについてのお問い合わせ',
     message: '接続確認用の内容',
     source: 'services',
     privacyAccepted: true,
@@ -280,6 +289,23 @@ test('accepts API submissions only after a valid acknowledgement and receipt', a
   });
   expect(submittedKey).toMatch(/^[0-9a-f-]{36}$/i);
   expect(await page.locator('#formStatus').textContent()).not.toContain('private-test-receipt');
+  await expect(page.locator('#contactForm')).toBeHidden();
+  await expect(page.locator('#contactComplete')).toBeVisible();
+  await expect(page.locator('#contactComplete')).toBeFocused();
+});
+
+test('rejects invalid email and prevents another request after completion', async ({ page }) => {
+  const count = await mockContactApi(page, route => respondWithJson(route, 202, { ok: true, receiptId: 'mock-receipt' }));
+  const submit = await openApiContact(page);
+  await page.locator('#email').fill('invalid-address');
+  await submit.click();
+  expect(count()).toBe(0);
+  expect(await page.locator('#email').evaluate(el => el.validity.typeMismatch)).toBe(true);
+  await page.locator('#email').fill('test@example.com');
+  await submit.click();
+  await expect(page.locator('#contactComplete')).toBeVisible();
+  await page.locator('#contactForm').evaluate(form => form.dispatchEvent(new Event('submit', { cancelable: true })));
+  expect(count()).toBe(1);
 });
 
 const rejectedApiResponses = [

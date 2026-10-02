@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111314">
   <title>お問い合わせ | 合同会社ryupro</title>
-  <meta name="description" content="イベントやコミュニティ、キャリア、暮らしについてのご相談はこちら。メールアプリを使ってお問い合わせいただけます。">
+  <meta name="description" content="イベントやコミュニティ、キャリア、暮らしについてのご相談はこちら。お問い合わせ内容をお聞かせください。">
   <link rel="canonical" href="https://ryupro202211-ops.github.io/ryupro/contact/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="合同会社ryupro">
@@ -17,6 +17,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/ryupro/assets/css/corporate.css">
+  <script src="/ryupro/assets/js/contact-settings.js" defer></script>
+  <script src="/ryupro/assets/js/contact-gas.js" defer></script>
   <script src="/ryupro/assets/js/contact.js" defer></script>
 </head>
 <body class="corporate-site contact-page">
@@ -41,6 +43,11 @@
         <p id="mailtoNotice">入力内容をメールアプリの新規メールに引き継ぎます。サイトから自動送信はしません。メールアプリで内容を確認し、送信してください。</p>
       </div>
 
+      <section id="contactComplete" hidden aria-labelledby="contactCompleteTitle" tabindex="-1">
+        <h2 id="contactCompleteTitle">お問い合わせを受け付けました</h2>
+        <p>内容を確認のうえ、ご入力のメールアドレスへご連絡します。</p>
+        <a class="text-link" href="/ryupro/">トップへ戻る</a>
+      </section>
       <form id="contactForm" class="contact-form">
         <div class="form-field">
           <label for="type">相談したいこと<span class="field-required">必須</span></label>
@@ -71,6 +78,10 @@
           <textarea id="message" name="message" rows="8" maxlength="5000" required></textarea>
           <span class="field-hint">5,000文字以内</span>
         </div>
+        <div id="privacyField" class="form-field" hidden>
+          <label for="privacyAccepted"><input id="privacyAccepted" name="privacyAccepted" type="checkbox"> 名前・メールアドレス・お問い合わせ内容をGoogleで処理し、ryuproの担当者へのメール通知に使用することを確認しました。</label>
+        </div>
+        <div hidden aria-hidden="true"><label for="website">ウェブサイト</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" value=""></div>
         <input id="source" name="source" type="hidden" value="direct">
         <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
         <button class="button button-primary form-submit" type="submit" disabled>メールアプリを開く<span aria-hidden="true">↗</span></button>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><base target="_top"></head>
+<body><p>お問い合わせの送信に接続しています。</p>
+<script>
+(() => {
+  const channel = '<?= channel ?>';
+  const parentOrigin = '<?= parentOrigin ?>';
+  let parentWindow = null;
+  let busy = false;
+  const reply = (kind, extra = {}) => window.top.postMessage({ kind, channel, ...extra }, parentOrigin);
+  window.addEventListener('message', event => {
+    if (event.origin !== parentOrigin || event.source !== window.top || event.data?.channel !== channel) return;
+    if (event.data.kind === 'ryupro-connect') {
+      parentWindow = event.source;
+      reply('ryupro-connected');
+      return;
+    }
+    if (event.data.kind !== 'ryupro-submit' || event.source !== parentWindow || busy) return;
+    busy = true;
+    const key = event.data.payload?.idempotencyKey;
+    google.script.run.withSuccessHandler(result => {
+      busy = false;
+      reply('ryupro-result', { key, result });
+    }).withFailureHandler(() => {
+      busy = false;
+      reply('ryupro-result', { key, result: { ok: false, code: 'unavailable' } });
+    }).submitContact(event.data.payload);
+  });
+  reply('ryupro-ready');
+})();
+</script></body></html>

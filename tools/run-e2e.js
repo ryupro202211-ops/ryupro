@@ -28,7 +28,7 @@ function assertPortAvailable() {
 async function startPreview() {
   const child = spawn(process.execPath, [path.join(root, 'server.js'), '--dir', '_site'], {
     cwd: root,
-    env: { ...process.env, PORT: String(port) },
+    env: { ...process.env, PORT: String(port), RYUPRO_CONTACT_TEST_MODE: '1' },
     stdio: 'inherit'
   });
   const exitPromise = exited(child);

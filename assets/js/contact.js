@@ -29,7 +29,7 @@
 
   const settings = window.ryuproContactSettings || {};
   const endpoint = (() => {
-    if (settings.mode !== 'api') return '';
+    if (!['api', 'gas'].includes(settings.mode) || !settings.endpoint) return '';
     try {
       const url = new URL(settings.endpoint, window.location.href);
       const isLocalHttp = url.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(url.hostname);
@@ -40,17 +40,24 @@
     }
   })();
   const apiMode = Boolean(endpoint);
+  const gasMode = apiMode && settings.mode === 'gas';
   const configuredTimeout = Number(settings.timeoutMs);
   const timeoutMs = Number.isFinite(configuredTimeout) && configuredTimeout > 0
     ? Math.min(configuredTimeout, 30_000)
     : 10_000;
   let isSubmitting = false;
+  let isComplete = false;
   let lastPayloadFingerprint = '';
   let lastIdempotencyKey = '';
 
   if (apiMode) {
     const labelNode = [...button.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
     if (labelNode) labelNode.textContent = 'お問い合わせを送信';
+  }
+  if (gasMode) {
+    document.querySelector('#privacyField').hidden = false;
+    form.elements.privacyAccepted.required = true;
+    document.querySelector('#mailtoNotice').textContent = 'ご入力の内容をGoogleの仕組みで処理し、合同会社ryuproの担当者へメールで通知します。送信が確認できた後に完了画面を表示します。';
   }
   button.disabled = false;
 
@@ -62,7 +69,7 @@
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || isComplete) return;
 
     const name = form.elements.name;
     const email = form.elements.email;
@@ -84,7 +91,7 @@
     }
 
     const acknowledgement = form.elements.namedItem('privacyAccepted');
-    if (!acknowledgement || acknowledgement.type !== 'checkbox') {
+    if (!acknowledgement || acknowledgement.type !== 'checkbox' || acknowledgement.closest('[hidden]')) {
       status.textContent = '送信前の確認項目が表示されていないため、Webから送信できません。';
       return;
     }
@@ -95,6 +102,7 @@
       type: chosenType,
       name: name.value.trim(),
       email: email.value.trim(),
+      subject: subject.value.trim() || buildSubject(chosenType),
       message: message.value.trim(),
       source: chosenSource,
       privacyAccepted: true
@@ -109,6 +117,7 @@
       lastIdempotencyKey = window.crypto.randomUUID();
     }
     payload.idempotencyKey = lastIdempotencyKey;
+    if (gasMode) payload.website = form.elements.website.value;
 
     isSubmitting = true;
     button.disabled = true;
@@ -116,7 +125,11 @@
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const response = await fetch(endpoint, {
+      let result;
+      if (gasMode) {
+        result = await window.ryuproGasSubmit(endpoint, payload, timeoutMs);
+      } else {
+        const response = await fetch(endpoint, {
         method: 'POST',
         credentials: 'omit',
         redirect: 'error',
@@ -128,14 +141,27 @@
         signal: controller.signal
       });
       if (![200, 201, 202].includes(response.status)) throw new Error('unconfirmed');
-      const result = await response.json();
+        result = await response.json();
+      }
       if (!result || result.ok !== true || typeof result.receiptId !== 'string' || !result.receiptId.trim()) {
-        throw new Error('unconfirmed');
+        throw Object.assign(new Error('unconfirmed'), { code: result?.code });
       }
       status.textContent = 'お問い合わせを受け付けました。';
+      isComplete = true;
       button.disabled = true;
-    } catch {
-      status.textContent = '送信結果を確認できませんでした。入力内容は残っています。同じ内容で再試行できます。';
+      const complete = document.querySelector('#contactComplete');
+      if (complete) {
+        form.hidden = true;
+        document.querySelector('.contact-form-intro').hidden = true;
+        complete.hidden = false;
+        complete.focus();
+      }
+    } catch (error) {
+      status.textContent = error.code === 'limit'
+        ? '現在、受付数の上限に達しています。入力内容は残っています。時間をおいて再試行するか、下記メールアドレスへご連絡ください。'
+        : error.code === 'uncertain'
+          ? '送信結果を確認できませんでした。重複を避けるため自動で再送しません。入力内容は残っています。下記メールアドレスへご確認ください。'
+          : '送信結果を確認できませんでした。入力内容は残っています。同じ内容で再試行できます。';
       button.disabled = false;
     } finally {
       window.clearTimeout(timeout);
