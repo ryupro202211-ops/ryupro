@@ -2867,7 +2867,7 @@ function axisExplanationHTML(ans){
 }
 function typeContextHTML(ans){
   const neutral=neutralAxisLabels(ans);
-  if(neutral.length) return `<p class="type-context">中立の軸：${neutral.join("、")}。この軸はグラフでも中立です。16タイプの表示上は同点をA側に置いた参考候補を表示しており、その側が強いという意味ではありません。</p>`;
+  if(neutral.length) return "";
   return `<p class="type-context">回答から見た、いまの働き方の傾向です。5問だけで能力や性格を確定するものではありません。</p>`;
 }
 const esc = t => (t||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
