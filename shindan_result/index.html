@@ -2958,6 +2958,7 @@ let answerUnlockTimer=null;
 let answerLocked=false;
 let recordSent=false;
 function enterScreen(name){
+  if(name!=="result" && name!=="reveal") cancelStatsLoad();
   currentScreen=name;
   screenGeneration++;
   if(answerUnlockTimer!==null) clearTimeout(answerUnlockTimer);
@@ -3039,6 +3040,7 @@ function submitProfile(){
 }
 
 function resetState(){
+  cancelStatsLoad();
   stopScreenEffects();
   if(revealTimer!==null) clearTimeout(revealTimer);
   revealTimer=null; revealPending=false;
@@ -3175,7 +3177,7 @@ function stopScreenEffects(){
   activeConfetti.canvas.remove();
   activeConfetti=null;
 }
-window.addEventListener?.("pagehide", stopScreenEffects);
+window.addEventListener?.("pagehide", ()=>{ stopScreenEffects(); cancelStatsLoad(); updateStatsDisplay(); });
 document.addEventListener?.("visibilitychange", ()=>{ if(document.hidden) stopScreenEffects(); });
 function launchConfetti(accent){
   const host=wrap.querySelector(".result-heading");
@@ -3214,8 +3216,17 @@ function launchConfetti(accent){
 let STATS = { total:0, counts:{}, loaded:false, status:"loading" };
 let statsRequest=0;
 let cancelStatsRequest=null;
-function refreshStats(){
+function cancelStatsLoad(){
+  statsRequest++;
   if(cancelStatsRequest) cancelStatsRequest();
+  if(STATS.status==="loading") STATS={total:0,counts:{},loaded:false,status:"unavailable"};
+}
+function retryStats(){
+  if(currentScreen!=="result" || STATS.status!=="unavailable" || cancelStatsRequest) return;
+  refreshStats();
+}
+function refreshStats(){
+  if(cancelStatsRequest) return;
   if(!SHEET_ENDPOINT){ STATS={total:0,counts:{},loaded:false,status:"unavailable"}; updateStatsDisplay(); return; }
   const request=++statsRequest;
   STATS={total:0,counts:{},loaded:false,status:"loading"};
@@ -3241,7 +3252,7 @@ function refreshStats(){
     script=document.createElement("script"); script.id=cb;
     script.src=SHEET_ENDPOINT+(SHEET_ENDPOINT.includes("?")?"&":"?")+"callback="+cb+"&_="+Date.now();
     script.onerror=()=>finish(null);
-    timer=setTimeout(()=>finish(null),8000);
+    timer=setTimeout(()=>finish(null),15000);
     document.head.appendChild(script);
   } catch(e){ finish(null); }
 }
@@ -3254,7 +3265,7 @@ function resultStatsHTML(first=false){
   const t=TYPES[state.type]; if(!t) return "";
   const st=getStats(state.type,t.name);
   if(st.status==="loading") return '<p class="stats-status">出現率を読み込み中…</p>';
-  if(st.status!=="ready") return '<p class="stats-status">出現率を取得できませんでした。診断結果はそのままご覧いただけます。</p>';
+  if(st.status!=="ready") return '<p class="stats-status">出現率を取得できませんでした。診断結果はそのままご覧いただけます。</p><button type="button" class="ghost stats-retry" onclick="retryStats()">出現率を再取得</button>';
   if(st.total===0) return '<p class="stats-status">集計データはまだありません。</p>';
   return buildRarityHTML(getRarityTier(st.pct,st.total),st.pct,`（集計${st.total}件中${st.typeCount}件）`,first)+'<p class="stats-note" style="font-size:11px;color:#8a8a96;">旧判定を含む過去の回答件数の割合です。人数や能力の優劣を示すものではありません。</p>';
 }
