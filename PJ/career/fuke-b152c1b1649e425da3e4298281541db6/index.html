@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福家様 | 転職サポート マイページ</title>
+<link rel="icon" type="image/png" href="assets/step-up-icon.png">
+<link rel="apple-touch-icon" href="assets/step-up-icon.png">
+<style>
+  /* ═══════════════════════════════════════════
+     DESIGN TOKENS
+     ═══════════════════════════════════════════ */
+  :root {
+    /* Sakura — primary accent */
+    --sakura-50:  #FDF7F9;
+    --sakura-100: #F9EAF0;
+    --sakura-200: #F1D3E0;
+    --sakura-300: #E4B0C6;
+    --sakura-400: #D68CAB;
+    --sakura-500: #C46E91;
+
+    /* Slate — secondary / brand blue */
+    --slate-50:  #F7F9FC;
+    --slate-100: #EDF2F8;
+    --slate-200: #DCE6F1;
+    --slate-300: #C2D2E5;
+    --slate-500: #7C93B3;
+    --slate-600: #4A6FA5;
+    --slate-700: #3A5883;
+
+    /* Ink */
+    --ink-900: #22303F;
+    --ink-700: #3E4C5D;
+    --ink-500: #6B7787;
+    --ink-400: #96A2B1;
+    --ink-200: #E4E9EF;
+
+    --surface:     #FFFFFF;
+    --surface-alt: #FAFCFE;
+    --canvas:      #F4F7FB;
+
+    /* Radius */
+    --r-xs: 8px;
+    --r-sm: 12px;
+    --r-md: 18px;
+    --r-lg: 26px;
+    --r-pill: 999px;
+
+    /* Elevation — soft, layered */
+    --e1: 0 1px 2px rgba(34,48,63,.04), 0 2px 8px rgba(34,48,63,.045);
+    --e2: 0 2px 4px rgba(34,48,63,.04), 0 10px 28px rgba(34,48,63,.065);
+    --e3: 0 4px 10px rgba(34,48,63,.05), 0 20px 56px rgba(34,48,63,.10);
+    --ring: 0 0 0 3px rgba(214,140,171,.35);
+
+    --sp: 4px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans",
+                 "Yu Gothic UI", "Noto Sans JP", "Meiryo", sans-serif;
+    /* palt tightens Japanese punctuation — the single biggest JP typography win */
+    font-feature-settings: "palt" 1;
+    background:
+      radial-gradient(900px 520px at 12% -8%,  rgba(244,214,228,.55), transparent 62%),
+      radial-gradient(760px 480px at 92% 4%,   rgba(206,224,244,.50), transparent 60%),
+      linear-gradient(180deg, #FDF9FB 0%, var(--canvas) 42%, #EEF3F9 100%);
+    background-attachment: fixed;
+    color: var(--ink-700);
+    min-height: 100vh;
+    line-height: 1.72;
+    letter-spacing: .012em;
+  }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 28px 20px 8px; }
+
+  a { color: var(--slate-600); }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--ring);
+    border-radius: var(--r-xs);
+  }
+
+  /* ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 46px 36px 42px;
+    border-radius: var(--r-lg);
+    margin-bottom: 26px;
+    color: #fff;
+    /* Layer 1: scrim for text legibility. Layer 2: generated sakura photograph.
+       Layer 3: gradient fallback if the image ever fails to decode. */
+    background:
+      linear-gradient(102deg,
+        rgba(126, 68, 100, .91) 0%,
+        rgba(134, 100, 138, .74) 32%,
+        rgba(126, 141, 184, .42) 60%,
+        rgba(150, 170, 205, .12) 100%),
+      url("data:image/jpeg;base64,/9j/4QP8RXhpZgAASUkqAAgAAAAIAA8BAgAFAAAAfgAAABIBAwABAAAAAQAAABoBBQABAAAAbgAAABsBBQABAAAAdgAAACgBAwABAAAAAgAAABMCAwABAAAAAQAAAGmHBAABAAAApgMAAIaSBwAhAwAAhAAAAAAAAABIAAAAAQAAAEgAAAABAAAAc2FuYQAAQVNDSUkAAAB7InByb21wdCI6Im11dGVkIGR1c3R5IHJvc2UgYW5kIHNvZnQgcGVyaXdpbmtsZSBibHVlIGFic3RyYWN0IGdyYWRpZW50LCBmYWludCBjaGVycnkgYmxvc3NvbSBzaWxob3VldHRlcywgamFwYW5lc2UgbWluaW1hbGlzbSwgd2FzaGkgcGFwZXIgdGV4dHVyZSwgZGVzYXR1cmF0ZWQgZWxlZ2FudCBwYWxldHRlLCBsb3RzIG9mIGVtcHR5IHNwYWNlIGluIGNlbnRlciwgcGFub3JhbWljIGJhbm5lciwgbm8gdGV4dCIsIm9yaWdpbmFsUHJvbXB0IjoibXV0ZWQgZHVzdHkgcm9zZSBhbmQgc29mdCBwZXJpd2lua2xlIGJsdWUgYWJzdHJhY3QgZ3JhZGllbnQsIGZhaW50IGNoZXJyeSBibG9zc29tIHNpbGhvdWV0dGVzLCBqYXBhbmVzZSBtaW5pbWFsaXNtLCB3YXNoaSBwYXBlciB0ZXh0dXJlLCBkZXNhdHVyYXRlZCBlbGVnYW50IHBhbGV0dGUsIGxvdHMgb2YgZW1wdHkgc3BhY2UgaW4gY2VudGVyLCBwYW5vcmFtaWMgYmFubmVyLCBubyB0ZXh0Iiwid2lkdGgiOjEzNDcsImhlaWdodCI6NDM3LCJzZWVkIjoyMSwibW9kZWwiOiJzYW5hIiwiZW5oYW5jZSI6ZmFsc2UsIm5vbG9nbyI6dHJ1ZSwibmVnYXRpdmVfcHJvbXB0IjoidW5kZWZpbmVkIiwibm9mZWVkIjpmYWxzZSwic2FmZSI6ZmFsc2UsInF1YWxpdHkiOiJtZWRpdW0iLCJpbWFnZSI6W10sInRyYW5zcGFyZW50IjpmYWxzZSwiaXNNYXR1cmUiOmZhbHNlLCJpc0NoaWxkIjpmYWxzZSwidHJhY2tpbmdEYXRhIjp7ImFjdHVhbE1vZGVsIjoic2FuYSIsInVzYWdlIjp7ImNvbXBsZXRpb25JbWFnZVRva2VucyI6MSwidG90YWxUb2tlbkNvdW50IjoxfX19AAYAAJAHAAQAAAAwMjEwAZEHAAQAAAABAgMAAKAHAAQAAAAwMTAwAaADAAEAAAD//wAAAqAEAAEAAABDBQAAA6AEAAEAAAC1AQAAAAAAAP/bAEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMcFhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/AABEIAbUFQwMBIgACEQEDEQH/xAAbAAEBAQADAQEAAAAAAAAAAAAAAQIDBAUGB//EADYQAQACAgECBQMDAwMEAQUAAAABEQIDIQQSBTFBUWETcYEiMpEGFDMjQlIVYqHwchZDgqKx/8QAGgEBAQEBAQEBAAAAAAAAAAAAAAECAwQFBv/EACcRAQEBAQACAgICAwACAwAAAAARAQIDEiExBBNBURQiMkJhFVJx/9oADAMBAAIRAxEAPwDv2Wswj6Dwlsy0kglIoCBS0tIzRS0AgAhZagJyvICgKCCgIKAgoAABRQAUUAFFABRQIFFABRQAUUAFFACCiiCn8ggBQAKQAKQCgpFD+T+SkA/k/kpBF/k/kpEU/k5CAcnIQDk5CAcgQD+T+QiC/wAn8hEACC0AFFAIUAKgqBFEAgAEAAgCggqCAAAAAAFJS2WCUUoCUtiSotoEiQ4ACFlgELLAIWWChZYCQssAhZYBCywCFlgELLAIWWAQssAhZYBCywCFlgELLAIWWARYQooIBRQQCgAAAAAACywAssP5AAoAsoAKP5AKKUgEopfVaWjNLSrBRKGqCjUoSjk2qUAJRSiiUUoCUjQDJTQozRQAtFQWWgoABQClFAEKKAASywUSywUSy1FEssgolloKJZYKJagDIC0UgC0UgDSUjQJS0AFJSgJSjINDIDQllgoyLBpKQILRSALSsgNDIDQyCNDIDQyA0MgNDK2CpRaAtQUgDQyAtQVCANDIDSVCHILRScnILRScnILRMJclyBRRZYFEwllgAACWWCiWWC1AllqioJYNCAKJZYKJZYKICKAoAAEAC0UgC0UgC0IAsoABMABS0n8ALRSAFFIoFLRZYFFFlgUUWWBRScgmrSTBQABQLRSALRRyADQDJS/g/AJRS8KKlFQoCUUoCUUqWGFKAaoAhKKjm6JZagFlwlKCWoAllqAllqKJZZ+T8glragJZagJZaiiWWoCWWqUBZZRQFlqAlllKCTKWAFlgBZYAWWAFlgBZYAAAWWAFlhQFllAAAAAAABYAWWAFlhQFllAFlgBZYCFlgBZZRQpZZRQFllAFlgBZYAWWAhZZRQFlnBwBZYUBZZRQFllAFpagFwXBX2K+wFwlwAFwXAoJcFwAJcKFAgtJQAdq0CKUUpAKKgQCigAooQCilIBS0CKUUBZZRQFllFAWWlFAtlwlLQFwFFAItFBCwooAKKADtKALKKACl7REFo7QQXtO0FSjt+SgUKKgBKWigAoiBQtaKBClooCkWgEpaAEKWYsgEpYgWgKAASlHNtKKACigAootLBaSiy1CigAooAKKBYJRShBKKUIJRShBKKUAooAKSlASilASilASilASkppkCigBaKUBKKUBKKUBKKUBKKUQSilASilASilASilASilFEopQGaKA0KKBBaKUBKKUBKKLLAoossCiiywKKLUEopUsCiiywKKLLEKKLLAoostQoossCii1BKKVLApKWywSilssEopbLBKKW1BmihoGaKaZsCiiywQWyAQWy1ECywBbLEQWywEpbLBOV5LAOTloBkWywQaAZGgGRoBkaAZGmbA5FssFEtbVBKUACSgBaSgIOVAQUBLW1QBFooQoqTksCIkLLBeRLWxRFsBFQoFs9ChoSloGdAgaMEoUaGRplwdUsJALLKKBLLKKULLE4UWywGTg4BQ4OABLLUBLWxKBbSyigLLKKAssooF4OEqCoBbLSigLLKKBWWgGWhKBRKKGlEooEFooEFopBAooAKKACigBaKBBaKUQWigUSigVlaKBBaKBBaKBFgooDg4KKQODgooFEooFEooFLSigWxKKBQATg4QGYvBwgEaGRSNDLQQThQInBwoCcHCgAAAAAycA0M0UDTJRSAFAFAAUUChRQtAlFLRQkQWigiC0tKRloooEopaKBKKaqSpBng4WigTg4WjtCJwVC9pQkSoKWigSilopRKKWigSlKWkIgtH4CIKAAtFEAUFogEKGkoEJ+5QCcigiWKUCC0UCC0lAclgDVogCiTIKpBZANANCSUspLg7J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") 78% 66% / cover no-repeat,
+      linear-gradient(118deg, #E0A9C1 0%, #C9AFD4 46%, #A3BEE4 100%);
+    box-shadow: var(--e3);
+  }
+  /* fine diagonal weave — texture without noise */
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: repeating-linear-gradient(
+      58deg,
+      rgba(255,255,255,.07) 0px,
+      rgba(255,255,255,.07) 1px,
+      transparent 1px,
+      transparent 11px
+    );
+    mask-image: linear-gradient(105deg, transparent 30%, #000 100%);
+    -webkit-mask-image: linear-gradient(105deg, transparent 30%, #000 100%);
+  }
+  /* soft light bloom, bottom-right */
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -70px;
+    bottom: -110px;
+    width: 300px;
+    height: 300px;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.34) 0%, transparent 68%);
+  }
+  .hero .greeting {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .13em;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    background: rgba(255,255,255,.20);
+    border: 1px solid rgba(255,255,255,.32);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    line-height: 1.34;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 20px rgba(90,60,80,.18);
+  }
+  .hero .sub {
+    font-size: 13.5px;
+    line-height: 1.8;
+    max-width: 46ch;
+    color: rgba(255,255,255,.95);
+    text-shadow: 0 1px 12px rgba(70,40,60,.28);
+  }
+
+  /* ═══════════════════════════════════════════
+     STAT CARDS
+     ═══════════════════════════════════════════ */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    gap: 14px;
+    margin-bottom: 26px;
+  }
+  .stat {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    padding: 22px 16px 20px;
+    border-radius: var(--r-md);
+    text-align: center;
+    border: 1px solid rgba(220,230,241,.85);
+    box-shadow: var(--e1);
+    transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
+  }
+  .stat::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--sakura-300), var(--slate-300));
+    opacity: .9;
+  }
+  .stat:hover { transform: translateY(-3px); box-shadow: var(--e2); }
+  .stat .icon { font-size: 21px; opacity: .85; margin-bottom: 6px; }
+  .stat .num {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--slate-700);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.02em;
+  }
+  .stat .label {
+    font-size: 11px;
+    color: var(--ink-500);
+    margin-top: 6px;
+    letter-spacing: .06em;
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION
+     ═══════════════════════════════════════════ */
+  .section {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    padding: 30px 30px 28px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(220,230,241,.75);
+    box-shadow: var(--e2);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 22px;
+    padding-bottom: 15px;
+    position: relative;
+  }
+  .section-header::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--sakura-200) 0%, var(--slate-200) 38%, transparent 100%);
+  }
+  .section-header .icon { font-size: 20px; opacity: .9; }
+  .section-header h2 {
+    font-size: 17px;
+    color: var(--ink-900);
+    font-weight: 700;
+    letter-spacing: .03em;
+  }
+
+  /* ═══════════════════════════════════════════
+     INTERVIEW CARD
+     ═══════════════════════════════════════════ */
+  .interview-card {
+    position: relative;
+    background: linear-gradient(135deg, #FFFBF1 0%, #FFF4F0 100%);
+    padding: 22px 24px;
+    border-radius: var(--r-md);
+    border: 1px solid #F6E2C4;
+    box-shadow: var(--e1);
+    margin-bottom: 14px;
+  }
+  .interview-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 14px; bottom: 14px;
+    width: 4px;
+    border-radius: var(--r-pill);
+    background: linear-gradient(180deg, #F5A623, #E8734A);
+  }
+  .interview-empty {
+    text-align: center;
+    padding: 34px 24px;
+    color: var(--ink-400);
+    background: var(--surface-alt);
+    border-radius: var(--r-md);
+    border: 1.5px dashed var(--slate-200);
+    font-size: 13px;
+  }
+  .interview-empty .icon { font-size: 30px; margin-bottom: 10px; opacity: .5; }
+  .interview-card .company {
+    font-weight: 700;
+    color: #C4622A;
+    font-size: 13px;
+    letter-spacing: .04em;
+    margin-bottom: 4px;
+  }
+  .interview-card .datetime {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink-900);
+    letter-spacing: -.005em;
+    font-variant-numeric: tabular-nums;
+    margin: 6px 0 4px;
+  }
+  .interview-card .details {
+    background: rgba(255,255,255,.78);
+    padding: 14px 16px;
+    border-radius: var(--r-sm);
+    border: 1px solid rgba(246,226,196,.7);
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  .interview-card .details .row {
+    display: flex;
+    gap: 12px;
+    padding: 5px 0;
+    align-items: baseline;
+  }
+  .interview-card .details .row .k {
+    color: var(--ink-500);
+    min-width: 72px;
+    font-size: 12px;
+  }
+
+  /* ═══════════════════════════════════════════
+     JOB CARD
+     ═══════════════════════════════════════════ */
+  .job {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--r-md);
+    padding: 24px 26px;
+    margin-bottom: 14px;
+    background: var(--surface);
+    border: 1px solid rgba(220,230,241,.9);
+    box-shadow: var(--e1);
+    transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s, border-color .22s;
+  }
+  .job::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--slate-300);
+  }
+  .job:hover {
+    box-shadow: var(--e2);
+    border-color: var(--slate-200);
+    transform: translateY(-2px);
+  }
+
+  .job.status-proposed::before           { background: linear-gradient(180deg,#F5B041,#E8A034); }
+  .job.status-considering::before        { background: linear-gradient(180deg,#EE9A4D,#DE7F32); }
+  .job.status-applying::before           { background: linear-gradient(180deg,#5DADE2,#3B94D0); }
+  .job.status-applied::before            { background: linear-gradient(180deg,#4A94C9,#2E7DB5); }
+  .job.status-screening::before          { background: linear-gradient(180deg,#A87BC7,#8E5FB0); }
+  .job.status-arrangingInterview::before { background: linear-gradient(180deg,#E8834A,#D3652C); }
+  .job.status-interviewScheduled::before { background: linear-gradient(180deg,#EC6A5E,#D9453A); }
+  .job.status-interviewed::before        { background: linear-gradient(180deg,#9B6BC4,#7E45AC); }
+  .job.status-offer::before              { background: linear-gradient(180deg,#4FC383,#2FA463); }
+  .job.status-accepted::before           { background: linear-gradient(180deg,#3EBFA5,#1D9C83); }
+  .job.status-declined::before           { background: #C3CCD6; }
+  .job.status-closed::before             { background: #D2D8DE; }
+
+  .job.status-arrangingInterview { background: linear-gradient(135deg,#FFF8F2 0%, var(--surface) 46%); }
+  .job.status-interviewScheduled { background: linear-gradient(135deg,#FFF6F4 0%, var(--surface) 40%); }
+  .job.status-offer              { background: linear-gradient(135deg,#F2FCF6 0%, var(--surface) 40%); }
+  .job.status-declined,
+  .job.status-closed             { opacity: .72; }
+  .job.status-declined:hover,
+  .job.status-closed:hover       { opacity: 1; }
+
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .job-title { flex: 1; min-width: 200px; }
+  .job-title h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink-900);
+    letter-spacing: .015em;
+    line-height: 1.5;
+    margin-bottom: 3px;
+  }
+  .job-title .role {
+    font-size: 12.5px;
+    color: var(--ink-500);
+    line-height: 1.62;
+  }
+
+  .new-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF7A7A 0%, #FF9A5B 100%);
+    color: #fff;
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: var(--r-pill);
+    margin-left: 9px;
+    vertical-align: 2px;
+    letter-spacing: .12em;
+    box-shadow: 0 2px 9px rgba(255,122,122,.4);
+  }
+
+  .status-pill {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: var(--r-pill);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .status-pill.status-proposed           { background:#FEF6E9; color:#B9750F; border-color:#F7E2BE; }
+  .status-pill.status-considering        { background:#FDEEDD; color:#A85519; border-color:#F6D8B8; }
+  .status-pill.status-applying           { background:#E7F2FB; color:#22689B; border-color:#C9E1F4; }
+  .status-pill.status-applied            { background:#DBEBF8; color:#1A5276; border-color:#BBD9EF; }
+  .status-pill.status-screening          { background:#F1E9F7; color:#6B3E96; border-color:#DFCDEE; }
+  .status-pill.status-arrangingInterview { background:#FDEADD; color:#9A4213; border-color:#F5D2BA; }
+  .status-pill.status-interviewScheduled { background:#FDE7E4; color:#A9302A; border-color:#F6C9C4; }
+  .status-pill.status-interviewed        { background:#EEE3F6; color:#5B2C81; border-color:#DCC8EC; }
+  .status-pill.status-offer              { background:#E2F7EA; color:#11683B; border-color:#BFE9D1; }
+  .status-pill.status-accepted           { background:#DEF5EF; color:#0D6E5C; border-color:#B9E7DC; }
+  .status-pill.status-declined           { background:#F0F3F5; color:#78848F; border-color:#E1E7EC; }
+  .status-pill.status-closed             { background:#EDEFF1; color:#69757F; border-color:#DFE3E7; }
+
+  /* Appeal points */
+  .appeal {
+    background: linear-gradient(135deg, var(--sakura-50) 0%, var(--slate-50) 100%);
+    border: 1px solid rgba(241,211,224,.7);
+    padding: 14px 18px 14px 16px;
+    margin: 14px 0;
+    border-radius: var(--r-sm);
+    font-size: 13px;
+    color: var(--ink-700);
+    list-style: none;
+  }
+  .appeal li {
+    padding: 5px 0 5px 24px;
+    position: relative;
+    line-height: 1.72;
+  }
+  .appeal li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    color: var(--sakura-400);
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  /* Conditions — chip row */
+  .conditions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 14px 0;
+  }
+  .cond {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    padding: 7px 13px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--r-pill);
+    line-height: 1.5;
+  }
+  .cond .k { color: var(--ink-400); font-size: 11px; letter-spacing: .02em; }
+  .cond .v { font-weight: 600; color: var(--ink-900); }
+
+  .job-actions {
+    display: flex;
+    gap: 9px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* ═══════════════════════════════════════════
+     BUTTONS
+     ═══════════════════════════════════════════ */
+  .btn, .btn-calendar {
+    padding: 11px 22px;
+    border-radius: var(--r-pill);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform .16s cubic-bezier(.22,1,.36,1), box-shadow .2s, filter .2s;
+  }
+  .btn-primary {
+    background: linear-gradient(126deg, var(--sakura-400) 0%, #B9A2D6 52%, #7FA3D4 100%);
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(180,150,190,.38);
+  }
+  .btn-primary:hover { filter: brightness(1.05); box-shadow: 0 6px 20px rgba(180,150,190,.46); }
+  .btn-secondary, .btn-calendar {
+    background: var(--surface);
+    color: var(--slate-600);
+    border: 1.5px solid var(--slate-200);
+    box-shadow: var(--e1);
+  }
+  .btn-secondary:hover, .btn-calendar:hover {
+    border-color: var(--slate-300);
+    box-shadow: var(--e2);
+  }
+  .btn-calendar { margin-left: 8px; }
+  .btn:hover, .btn-calendar:hover { transform: translateY(-2px); }
+  .btn:active, .btn-calendar:active { transform: translateY(0); }
+
+  /* ═══════════════════════════════════════════
+     TIMELINE
+     ═══════════════════════════════════════════ */
+  .timeline {
+    margin-top: 12px;
+    padding: 16px 18px;
+    background: var(--surface-alt);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--slate-100);
+    font-size: 12px;
+  }
+  .timeline-title {
+    color: var(--ink-400);
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 10.5px;
+    letter-spacing: .1em;
+  }
+  .timeline-entry {
+    display: flex;
+    gap: 14px;
+    padding: 8px 0 8px 16px;
+    position: relative;
+    border-bottom: 1px solid rgba(34,48,63,.045);
+    line-height: 1.7;
+  }
+  .timeline-entry::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 15px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--slate-300);
+  }
+  /* connecting rail */
+  .timeline-entry::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 20px;
+    bottom: -8px;
+    width: 1px;
+    background: var(--slate-200);
+  }
+  .timeline-entry:last-child { border-bottom: none; }
+  .timeline-entry:last-child::after { display: none; }
+  .timeline-entry:first-child::before { background: var(--sakura-400); }
+  .timeline-entry .date {
+    min-width: 84px;
+    color: var(--slate-600);
+    font-weight: 700;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ═══════════════════════════════════════════
+     CONTACT
+     ═══════════════════════════════════════════ */
+  .contact-card {
+    background: linear-gradient(135deg, var(--sakura-50) 0%, var(--slate-50) 100%);
+    padding: 24px 26px;
+    border-radius: var(--r-md);
+    margin-top: 18px;
+    text-align: center;
+    border: 1px solid var(--sakura-200);
+  }
+  .contact-card .name {
+    font-weight: 700;
+    color: var(--ink-900);
+    margin-bottom: 3px;
+    font-size: 15px;
+    letter-spacing: .03em;
+  }
+  .contact-card .role { font-size: 12px; color: var(--ink-500); margin-bottom: 14px; }
+  .contact-btns { display: flex; gap: 9px; justify-content: center; flex-wrap: wrap; }
+
+  /* ═══════════════════════════════════════════
+     TIPS
+     ═══════════════════════════════════════════ */
+  .tips { font-size: 12.5px; color: var(--ink-700); }
+  .tips ul { padding-left: 20px; }
+  .tips li { padding: 5px 0; line-height: 1.75; }
+
+  /* ═══════════════════════════════════════════
+     COUNTDOWN & TODAY BANNER
+     ═══════════════════════════════════════════ */
+  .countdown {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: var(--r-pill);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    margin-top: 10px;
+    background: var(--slate-100);
+    color: var(--slate-700);
+    border: 1px solid var(--slate-200);
+  }
+  .countdown-soon {
+    background: #FEF8E7;
+    color: #96760A;
+    border-color: #F3E0A8;
+  }
+  .countdown-urgent {
+    background: #FDEEDD;
+    color: #9A4213;
+    border-color: #F2C9A5;
+  }
+  .countdown-today {
+    background: linear-gradient(126deg, #E85D50 0%, #C93A2E 100%);
+    color: #fff;
+    font-size: 14.5px;
+    padding: 11px 22px;
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(220,70,58,.34);
+  }
+
+  .today-banner {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(122deg, #E8573F 0%, #EE7B3C 55%, #F2A03C 100%);
+    color: #fff;
+    padding: 22px 26px;
+    border-radius: var(--r-md);
+    margin-bottom: 22px;
+    box-shadow: 0 8px 30px rgba(226,90,55,.32);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .today-banner::after {
+    content: "";
+    position: absolute;
+    right: -50px;
+    top: -70px;
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.24) 0%, transparent 68%);
+  }
+  .today-banner .icon { font-size: 34px; flex-shrink: 0; }
+  .today-banner .content { flex: 1; position: relative; }
+  .today-banner .title {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: .03em;
+    margin-bottom: 3px;
+  }
+  .today-banner .detail { font-size: 13px; opacity: .96; line-height: 1.68; }
+
+  /* ═══════════════════════════════════════════
+     DETAILS / TOGGLE
+     ═══════════════════════════════════════════ */
+  details { margin-top: 10px; }
+  details summary {
+    cursor: pointer;
+    padding: 9px 15px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--r-pill);
+    color: var(--slate-600);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    list-style: none;
+    display: inline-block;
+    transition: background .2s, border-color .2s;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary:hover { background: var(--slate-100); border-color: var(--slate-300); }
+  details summary::before {
+    content: "";
+    display: inline-block;
+    transition: transform .24s cubic-bezier(.22,1,.36,1);
+    font-size: 8px;
+    margin-right: 6px;
+    vertical-align: 1px;
+    opacity: .7;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+
+  /* ═══════════════════════════════════════════
+     STATUS GROUPS
+     ═══════════════════════════════════════════ */
+  .status-group {
+    margin-bottom: 14px;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid rgba(220,230,241,.9);
+    box-shadow: var(--e1);
+  }
+  .status-group summary {
+    padding: 17px 22px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    font-weight: 700;
+    color: var(--ink-900);
+    background: var(--surface);
+    border: none;
+    border-radius: 0;
+    border-left: 4px solid var(--slate-300);
+    transition: background .2s;
+  }
+  .status-group summary:hover { background: var(--slate-50); }
+  .status-group summary::before {
+    content: "";
+    font-size: 9px;
+    color: var(--ink-400);
+    transition: transform .24s cubic-bezier(.22,1,.36,1);
+    display: inline-block;
+    margin-right: 0;
+    opacity: 1;
+    vertical-align: baseline;
+  }
+  .status-group[open] summary::before { transform: rotate(90deg); }
+  .status-group[open] summary { border-bottom: 1px solid var(--slate-100); }
+  .status-group .group-icon { font-size: 19px; line-height: 1; }
+  .status-group .group-label {
+    flex: 1;
+    font-size: 14.5px;
+    letter-spacing: .035em;
+  }
+  .status-group .group-count {
+    background: var(--slate-100);
+    color: var(--slate-700);
+    padding: 4px 13px;
+    border-radius: var(--r-pill);
+    font-size: 12px;
+    font-weight: 700;
+    min-width: 38px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .status-group .group-content {
+    padding: 16px 18px 18px;
+    background: var(--surface-alt);
+  }
+  .status-group .group-content .job:last-child { margin-bottom: 0; }
+
+  /* Per-status accents — a rail + a count chip, nothing louder */
+  .status-group.status-group-interviewScheduled summary { border-left-color:#D9453A; }
+  .status-group.status-group-interviewScheduled .group-count { background:#FDE7E4; color:#A9302A; }
+
+  .status-group.status-group-arrangingInterview summary { border-left-color:#D3652C; }
+  .status-group.status-group-arrangingInterview .group-count { background:#FDEADD; color:#9A4213; }
+
+  .status-group.status-group-interviewed summary { border-left-color:#7E45AC; }
+  .status-group.status-group-interviewed .group-count { background:#EEE3F6; color:#5B2C81; }
+
+  .status-group.status-group-offer summary { border-left-color:#2FA463; }
+  .status-group.status-group-offer .group-count { background:#E2F7EA; color:#11683B; }
+
+  .status-group.status-group-accepted summary { border-left-color:#1D9C83; }
+  .status-group.status-group-accepted .group-count { background:#DEF5EF; color:#0D6E5C; }
+
+  .status-group.status-group-screening summary { border-left-color:#8E5FB0; }
+  .status-group.status-group-screening .group-count { background:#F1E9F7; color:#6B3E96; }
+
+  .status-group.status-group-applied summary { border-left-color:#2E7DB5; }
+  .status-group.status-group-applied .group-count { background:#DBEBF8; color:#1A5276; }
+
+  .status-group.status-group-applying summary { border-left-color:#3B94D0; }
+  .status-group.status-group-applying .group-count { background:#E7F2FB; color:#22689B; }
+
+  .status-group.status-group-proposed summary { border-left-color:#E8A034; }
+  .status-group.status-group-proposed .group-count { background:#FEF6E9; color:#B9750F; }
+
+  .status-group.status-group-considering summary { border-left-color:#DE7F32; }
+  .status-group.status-group-considering .group-count { background:#FDEEDD; color:#A85519; }
+
+  .status-group.status-group-declined summary,
+  .status-group.status-group-closed summary {
+    border-left-color:#B8C2CC;
+    color: var(--ink-500);
+  }
+  .status-group.status-group-declined .group-count,
+  .status-group.status-group-closed .group-count { background:#F0F3F5; color:#78848F; }
+
+  /* ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ */
+  .footer {
+    text-align: center;
+    padding: 28px 20px 36px;
+    color: var(--ink-400);
+    font-size: 11px;
+    letter-spacing: .04em;
+    line-height: 1.9;
+  }
+
+  /* ═══════════════════════════════════════════
+     MOTION — opt-in only
+     ═══════════════════════════════════════════ */
+  @media (prefers-reduced-motion: no-preference) {
+    .new-badge { animation: newPulse 2.4s ease-in-out infinite; }
+    @keyframes newPulse {
+      0%, 100% { transform: scale(1);    box-shadow: 0 2px 9px  rgba(255,122,122,.40); }
+      50%      { transform: scale(1.07); box-shadow: 0 3px 14px rgba(255,122,122,.58); }
+    }
+    .countdown-urgent, .countdown-today { animation: countdownPulse 2.2s ease-in-out infinite; }
+    @keyframes countdownPulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.035); }
+    }
+    .today-banner { animation: bannerRise .62s cubic-bezier(.22,1,.36,1) both; }
+    @keyframes bannerRise {
+      from { transform: translateY(-16px); opacity: 0; }
+      to   { transform: translateY(0);     opacity: 1; }
+    }
+    .hero { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) both; }
+    .stats { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) .06s both; }
+    @keyframes fadeUp {
+      from { transform: translateY(12px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════ */
+  @media (max-width: 640px) {
+    .container { padding: 16px 13px 4px; }
+    .hero {
+      padding: 32px 22px 30px;
+      border-radius: var(--r-md);
+      background-position: 0 0, 88% 72%, 0 0;
+    }
+    .hero::after { display: none; }
+    .hero h1 { font-size: 22px; }
+    .hero .sub { font-size: 12.5px; }
+    .stats { gap: 10px; grid-template-columns: repeat(auto-fit, minmax(102px, 1fr)); }
+    .stat { padding: 18px 10px 16px; }
+    .stat .num { font-size: 31px; }
+    .section { padding: 22px 17px 20px; border-radius: var(--r-md); }
+    .job { padding: 18px 17px; }
+    .status-group summary { padding: 14px 16px; gap: 10px; }
+    .status-group .group-content { padding: 12px 12px 14px; }
+    .today-banner { padding: 18px; gap: 13px; }
+    .today-banner .icon { font-size: 28px; }
+    .interview-card { padding: 18px 18px 18px 20px; }
+    .interview-card .datetime { font-size: 19px; }
+    .timeline-entry { flex-direction: column; gap: 2px; }
+    .timeline-entry .date { min-width: 0; }
+  }
+
+  /* ═══════════════════════════════════════════
+     PRINT
+     ═══════════════════════════════════════════ */
+  @media print {
+    body { background: #fff; }
+    .hero, .section, .job, .status-group { box-shadow: none; break-inside: avoid; }
+    .btn, .btn-calendar { display: none; }
+    details { open: true; }
+  }
+  /* Editorial theme — presentation only; candidate records remain unchanged. */
+  :root {
+    --canvas: #FFFCF7;
+    --surface-alt: #FFF8F2;
+    --navy: #B94343;
+    --navy-deep: #963434;
+    --gold: #F7BE57;
+    --hero-muted: #68554F;
+    --peach: #FFE3D3;
+    --butter: #FFF2C8;
+    --mint: #DDF4EA;
+    --mint-ink: #246A58;
+    --hero-ink: #573E39;
+    --ink-900: #243543;
+    --ink-700: #43515B;
+    --ink-500: #626F78;
+    --ink-400: #697780;
+    --ink-200: #EEDFD5;
+    --slate-50: #F0FAF6;
+    --slate-100: #E3F5ED;
+    --slate-200: #C4E8D9;
+    --slate-300: #91CDB5;
+    --slate-500: #3D8A72;
+    --slate-600: #28725C;
+    --slate-700: #205D4C;
+    --sakura-50: #FFF6F2;
+    --sakura-100: #FFE9DF;
+    --sakura-200: #FFD1BF;
+    --sakura-300: #F6AB94;
+    --sakura-400: #BE4F45;
+    --sakura-500: #A33C35;
+    --e1: 0 2px 8px rgba(21,43,59,.025);
+    --e2: 0 8px 30px rgba(21,43,59,.04);
+    --e3: 0 16px 40px rgba(21,43,59,.10);
+    --ring: 0 0 0 3px rgba(54,87,107,.35);
+  }
+  html { scroll-padding-top: 24px; }
+  body { background: var(--canvas); line-height: 1.85; }
+  .container { max-width: 1040px; padding: 28px 32px 8px; }
+  .masthead { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 0 2px 26px; }
+  .brand { color: var(--navy); font-size: 18px; font-weight: 800; letter-spacing: .2em; }
+  .brand small { display: block; font-size: 10px; font-weight: 500; letter-spacing: .11em; color: var(--ink-500); }
+  .page-nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .page-nav a { text-decoration: none; font-size: 13px; padding: 10px 0; color: var(--ink-700); }
+  .page-nav a:hover { color: var(--navy); text-decoration: underline; text-underline-offset: 6px; }
+  .hero { padding: 48px; border-radius: var(--r-lg); background: linear-gradient(115deg, var(--peach) 0%, var(--butter) 58%, var(--mint) 100%); color: var(--hero-ink); box-shadow: var(--e2); margin-bottom: 20px; }
+  .hero::before { inset: auto -90px -220px auto; width: 540px; height: 540px; border: 1px solid var(--gold); border-radius: 50%; background: none; mask-image: none; -webkit-mask-image: none; opacity: .35; }
+  .hero::after { right: -20px; bottom: -160px; width: 400px; height: 400px; border: 1px solid var(--gold); background: none; opacity: .35; }
+  .hero .greeting { padding: 0; background: none; border: 0; border-radius: 0; backdrop-filter: none; font-size: 12px; color: var(--hero-muted); letter-spacing: .08em; margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(25px, 3.8vw, 36px); letter-spacing: .07em; line-height: 1.5; font-weight: 600; text-shadow: none; margin-bottom: 14px; }
+  .hero-identity { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+  .hero-identity h1 { margin-bottom: 0; }
+  .mypage-icon { width: 72px; height: 72px; flex-shrink: 0; border-radius: var(--r-md); object-fit: cover; }
+  @media (max-width: 640px) {
+    .hero-identity { gap: 12px; }
+    .mypage-icon { width: 48px; height: 48px; border-radius: var(--r-sm); }
+    .hero-identity h1 { font-size: clamp(20px, 5vw, 25px); letter-spacing: .02em; }
+  }
+  .hero .sub { color: var(--hero-muted); font-size: 14px; line-height: 1.9; text-shadow: none; max-width: 50ch; }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; background: var(--surface); border: 1px solid var(--ink-200); border-radius: var(--r-md); overflow: hidden; margin-bottom: 42px; }
+  .stat { padding: 25px 28px; border: 0; border-right: 1px solid var(--ink-200); border-radius: 0; box-shadow: none; text-align: left; }
+  .stat:last-child { border-right: 0; }
+  .stat:nth-child(1) { background: var(--sakura-50); }
+  .stat:nth-child(2) { background: var(--slate-50); }
+  .stat:nth-child(3) { background: var(--butter); }
+  .stat:nth-child(2) .num { color: var(--mint-ink); }
+  .stat:nth-child(3) .num { color: var(--hero-ink); }
+  .stat::before, .stat .icon { display: none; }
+  .stat:hover { transform: none; box-shadow: none; }
+  .stat .num { font-size: 38px; font-weight: 500; color: var(--navy); }
+  .stat .label { font-size: 13px; margin-top: 10px; letter-spacing: .03em; }
+  .section { padding: 30px; margin-bottom: 28px; border-color: var(--ink-200); box-shadow: var(--e1); }
+  .section-header { gap: 12px; margin-bottom: 24px; padding-bottom: 18px; }
+  .section-header::after { background: var(--ink-200); }
+  .section-header .icon { display: none; }
+  .section-header h2 { font-size: 19px; font-weight: 600; letter-spacing: .045em; }
+  .section-number { color: var(--sakura-400); font-size: 12px; letter-spacing: .1em; font-variant-numeric: tabular-nums; }
+  .interview-empty { padding: 24px; font-size: 14px; border: 1px solid var(--ink-200); color: var(--ink-500); }
+  .interview-empty .icon { display: none; }
+  .status-group { border-color: var(--ink-200); border-radius: var(--r-sm); box-shadow: none; margin-bottom: 16px; }
+  .status-group > summary { padding: 20px 22px; }
+  .status-group .group-icon { display: none; }
+  .status-group .group-label { font-size: 15px; }
+  .status-group .group-content { padding: 20px; background: var(--surface-alt); }
+  .status-group .group-content details > summary { display: inline-flex; padding: 10px 14px; border: 1px solid var(--slate-200); border-radius: var(--r-xs); font-weight: 500; }
+  .status-group .group-content details:not([open]) > summary::before { transform: none; }
+  .job { padding: 26px; border-radius: var(--r-sm); border-color: var(--ink-200); box-shadow: none; }
+  .job::before { display: none; }
+  .job:hover { transform: none; box-shadow: var(--e1); }
+  .job.status-declined, .job.status-closed { opacity: 1; }
+  .job-title { min-width: 0; }
+  .job-title h3 { font-size: 19px; line-height: 1.65; letter-spacing: .02em; }
+  .job-title .role { font-size: 14px; }
+  .status-pill { font-size: 12px; padding: 5px 12px; }
+  .appeal { background: var(--surface-alt); border-color: var(--ink-200); font-size: 14px; padding: 16px; }
+  .appeal li::before { color: var(--slate-600); }
+  .conditions { gap: 8px; }
+  .cond { border-radius: var(--r-xs); padding: 8px 12px; max-width: 100%; }
+  .cond .k { color: var(--ink-500); flex-shrink: 0; }
+  .cond .v { overflow-wrap: anywhere; }
+  .btn, .btn-calendar { min-height: 44px; border-radius: var(--r-xs); justify-content: center; }
+  .btn-primary { background: var(--navy); box-shadow: none; }
+  .btn-primary:hover { background: var(--navy-deep); box-shadow: var(--e1); }
+  .new-badge { background: var(--navy); box-shadow: none; animation: none; }
+  .timeline { font-size: 13px; padding: 18px; }
+  .timeline-title { font-size: 12px; }
+  .timeline-entry .date { font-size: 12px; }
+  .tips { font-size: 14px; }
+  #help > details { border-bottom: 1px solid var(--ink-200); margin-top: 0; padding: 4px 0; }
+  #help > details:last-child { border: 0; }
+  #help > details > summary { display: block; background: none; border: 0; border-radius: var(--r-xs); padding: 16px 0; font-size: 14px; color: var(--ink-700); }
+  .footer { padding: 18px 12px 40px; font-size: 12px; line-height: 2; }
+  .job, .timeline-entry, .interview-card { overflow-wrap: anywhere; }
+  @media (max-width: 640px) {
+    .container { padding: 20px 16px 4px; }
+    .masthead { padding-bottom: 20px; gap: 12px; }
+    .brand { font-size: 15px; }
+    .brand small { font-size: 9px; letter-spacing: .03em; }
+    .page-nav { gap: 14px; }
+    .page-nav a { font-size: 12px; }
+    .page-nav a:last-child { display: none; }
+    .hero { padding: 30px 24px; border-radius: var(--r-md); }
+    .hero .sub { font-size: 13px; }
+    .hero::before { right: -300px; }
+    .stats { margin-bottom: 28px; }
+    .stat { padding: 20px 12px; text-align: center; }
+    .stat .num { font-size: 30px; }
+    .stat .label { font-size: 11px; letter-spacing: 0; }
+    .section { padding: 20px 16px; border-radius: var(--r-md); margin-bottom: 20px; }
+    .section-header h2 { font-size: 16px; }
+    .section-header { gap: 10px; margin-bottom: 18px; }
+    .status-group > summary { padding: 17px 12px; gap: 9px; }
+    .status-group .group-label { font-size: 13px; }
+    .status-group .group-count { padding: 4px 9px; }
+    .status-group .group-content { padding: 10px; }
+    .job { padding: 18px 14px; }
+    .job-head { flex-direction: column; gap: 10px; }
+    .job-title h3 { font-size: 17px; }
+    .job-title .role, .appeal { font-size: 13px; }
+    .appeal { padding: 12px; }
+    .conditions { flex-direction: column; align-items: flex-start; }
+    .timeline-entry { flex-direction: column; gap: 2px; }
+    .btn { width: 100%; padding: 11px 14px; }
+    .interview-card .details .row { flex-wrap: wrap; gap: 4px 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  @media print {
+    .masthead, .page-nav { display: none; }
+    .hero { background: none; color: var(--ink-900); border: 1px solid var(--ink-200); }
+    .hero .greeting, .hero .sub { color: var(--ink-700); }
+  }
+  /* Generated icon atlas: six columns and six rows. */
+  .image-icon {
+    display: inline-block; width: 1.65em; height: 1.65em;
+    vertical-align: -.4em; flex-shrink: 0; margin-right: .2em;
+    background-image: url('assets/ui-icons.png');
+    background-size: 600% 600%; background-repeat: no-repeat;
+    background-position: calc(var(--icon-col) * 20%) calc(var(--icon-row) * 20%);
+    background-color: var(--butter); border-radius: var(--r-xs);
+  }
+  .stat .icon, .status-group .group-icon, .interview-empty .icon { display: block; }
+  .stat .icon { margin-bottom: 8px; }
+  .status-group .group-icon { font-size: 18px; }
+  .btn .image-icon, .btn-calendar .image-icon { font-size: 14px; }
+  .appeal li::before, details > summary::before, .status-group > summary::before {
+    content: ''; display: inline-block; width: 20px; height: 20px; flex-shrink: 0;
+    background-image: url('assets/ui-icons.png');
+    background-size: 600% 600%; background-repeat: no-repeat;
+    background-position: 0% 0%; background-color: var(--canvas);
+    border-radius: var(--r-xs); vertical-align: middle;
+  }
+  .appeal li::before { background-position: 100% 0%; }
+</style>
+</head>
+<body>
+<div class="container">
+<header class="masthead">
+  <div class="brand">UCHIAGE<small>転職サポート</small></div>
+  <nav class="page-nav" aria-label="ページ内メニュー">
+    <a href="#schedule">面接予定</a>
+    <a href="#opportunities">選考状況</a>
+    <a href="#help">よくあるご質問</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="greeting" id="greeting">こんにちは</div>
+  <div class="hero-identity">
+    <img class="mypage-icon" src="assets/step-up-icon.png" alt="" width="72" height="72" decoding="async">
+    <h1>福家様のマイページ</h1>
+  </div>
+  <div class="sub">選考状況や面接の予定、ご紹介中の求人を確認できます。</div>
+</div>
+
+<section class="section" aria-label="ご希望と確認事項"><h2>大切にしたい働き方</h2><p>プライベートの時間を確保できることを優先し、営業・カスタマーサクセスの求人を検討しています。</p><ul><li>土日祝休み・夜勤なし・転勤なし</li><li>飛び込み営業・新規開拓のテレアポ業務なし</li><li>希望年収：420万円以上</li><li>普通自動車免許を必要としない仕事</li></ul><p>選考状況の最終確認：2026年10月5日／ページ作成：2026年10月6日</p><p>ラクスのCSは転勤の記載がないため、転勤なしで勤務できるか確認を依頼しています。</p><p>求人票の閲覧リンクは準備中です。求人の詳細は担当キャリアアドバイザーへお問い合わせください。</p></section>
+<!-- TODAY BANNER (面接当日のみ表示) -->
+<div id="todayBanner"></div>
+
+<!-- STATS -->
+<div class="stats" id="stats"></div>
+
+<!-- 面談スケジュール -->
+<div class="section" id="schedule">
+  <div class="section-header">
+    <span class="section-number" aria-hidden="true">01</span>
+    <h2>今後の面談スケジュール</h2>
+  </div>
+  <div id="interviewList"></div>
+</div>
+
+<!-- ご紹介中の案件 -->
+<div class="section" id="opportunities">
+  <div class="section-header">
+    <span class="section-number" aria-hidden="true">02</span>
+    <h2>ご紹介中の案件</h2>
+  </div>
+  <div id="jobList"></div>
+</div>
+
+<!-- お役立ち情報 -->
+<div class="section" id="help">
+  <div class="section-header">
+    <span class="section-number" aria-hidden="true">03</span>
+    <h2>よくあるご質問</h2>
+  </div>
+  <details>
+    <summary>面談前に何を準備すればいい?</summary>
+    <div class="tips" style="margin-top:10px;padding:12px;background:#F8F9FA;border-radius:8px">
+      <ul>
+        <li>企業HP・求人票の再確認(強み・事業・カルチャー)</li>
+        <li>志望動機の言語化(なぜこの会社か・現職での経験がどう活きるか)</li>
+        <li>逆質問を3つ準備(残業実態・配属先・キャリアパスなど)</li>
+        <li>身だしなみ:スーツ推奨(オンラインでも)</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>退職までのスケジュールは?</summary>
+    <div class="tips" style="margin-top:10px;padding:12px;background:#F8F9FA;border-radius:8px">
+      <ul>
+        <li>就業規則と引き継ぎに必要な期間を確認し、入社日を調整します</li>
+        <li>就業規則を確認し、退職申し出のタイミングを担当CAへ相談</li>
+        <li>有給消化・引継ぎ期間を考慮した計画を一緒に組みます</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>「気になる」と伝えた後の流れは?</summary>
+    <div class="tips" style="margin-top:10px;padding:12px;background:#F8F9FA;border-radius:8px">
+      <ul>
+        <li>応募のご希望を確認してから、担当キャリアアドバイザーが応募手続きを進めます</li>
+        <li>書類選考 → 書類通過後に面接日程調整</li>
+        <li>面接の候補日は、ご都合を伺って調整します</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<div class="footer">
+  福家様専用のマイページです。<br>選考情報は担当キャリアアドバイザーが更新します。
+</div>
+
+</div>
+
+<script>
+// ========== DATA ==========
+const STATUS_MAP = {
+  proposed: { label: 'ご提案中', desc: 'まずは求人内容をご覧ください', step: 1 },
+  considering: { label: '検討中', desc: 'ゆっくりご検討ください', step: 1 },
+  applying: { label: '応募準備中', desc: '書類を整えて応募手続き中です', step: 2 },
+  screening: { label: '書類選考中', desc: '企業側で書類選考が進んでいます', step: 3 },
+  arrangingInterview: { label: '一次面接調整中', desc: '書類選考通過!面接日程を調整しています', step: 4 },
+  interviewScheduled: { label: '面接予定', desc: '面接日が決定しています', step: 4 },
+  interviewed: { label: '面接済', desc: '結果連絡をお待ちください', step: 5 },
+  offer: { label: '内定', desc: '🎉 おめでとうございます!', step: 6 },
+  accepted: { label: '内定承諾', desc: '入社準備を進めています', step: 7 },
+  declined: { label: 'お見送り', desc: '', step: 0 },
+  closed: { label: '募集終了', desc: '', step: 0 },
+};
+
+const DATA = {
+  "candidate": {
+    "name": "福家"
+  },
+  "jobs": [
+    {
+      "id": "fuke-1",
+      "priority": 1,
+      "company": "株式会社ラクス",
+      "handler": "株式会社Niarail",
+      "role": "反響フィールドセールス（メールディーラー）",
+      "location": "東京",
+      "workTime": "09:00〜18:00",
+      "nightShift": "なし",
+      "overtime": "月20時間以下（求人票記載）",
+      "holidays": "土日祝休み・年間休日120日",
+      "appeal": [
+        "課題のヒアリングと提案の経験を活かせる",
+        "反響顧客への商談を担当",
+        "転勤なし（求人票記載）"
+      ],
+      "url": "",
+      "status": "screening",
+      "interview": null,
+      "isNew": true,
+      "timeline": [
+        {
+          "date": "2026-10-05",
+          "event": "応募完了。営業・CS共通の職務経歴書を提出しました。"
+        },
+        {
+          "date": "2026-10-05",
+          "event": "書類選考中を確認。面接日程は未定です。"
+        }
+      ]
+    },
+    {
+      "id": "fuke-2",
+      "priority": 2,
+      "company": "株式会社ラクス",
+      "handler": "グラハムキャリア株式会社",
+      "role": "カスタマーサクセス（東京）",
+      "location": "東京",
+      "workTime": "09:00〜18:00",
+      "nightShift": "なし",
+      "overtime": "月20時間以下（求人票記載）",
+      "holidays": "土日祝休み・年間休日124日",
+      "appeal": [
+        "課題のヒアリングと提案の経験を活かせる",
+        "導入後のお客様への活用支援・運用提案を担当",
+        "転勤なしでの勤務可否を応募時に確認依頼済み。回答待ち"
+      ],
+      "url": "",
+      "status": "screening",
+      "interview": null,
+      "isNew": true,
+      "timeline": [
+        {
+          "date": "2026-10-05",
+          "event": "応募完了。営業・CS共通の職務経歴書を提出しました。"
+        },
+        {
+          "date": "2026-10-05",
+          "event": "書類選考中を確認。面接日程は未定です。"
+        }
+      ]
+    }
+  ]
+};
+
+// ========== INIT ==========
+// Always use the latest DATA from code (single source of truth via git).
+// Clear any stale localStorage from earlier versions.
+try { localStorage.removeItem('fuke_mypage'); } catch(e) {}
+
+let data = JSON.parse(JSON.stringify(DATA));
+
+// ========== RENDER ==========
+function greeting() {
+  const h = new Date().getHours();
+  let g = 'こんにちは';
+  if (h < 10) g = 'おはようございます';
+  else if (h >= 18) g = 'こんばんは';
+  document.getElementById('greeting').textContent = g;
+}
+
+function renderStats() {
+  const active = data.jobs.filter(j => !['declined', 'accepted', 'closed'].includes(j.status));
+  const interviews = data.jobs.filter(isUpcomingInterview);
+  const offers = data.jobs.filter(j => j.status === 'offer').length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat">
+      <div class="icon">💼</div>
+      <div class="num">${active.length}</div>
+      <div class="label">検討・選考中</div>
+    </div>
+    <div class="stat">
+      <div class="icon">📅</div>
+      <div class="num">${interviews.length}</div>
+      <div class="label">面談予定</div>
+    </div>
+    <div class="stat">
+      <div class="icon">🎉</div>
+      <div class="num">${offers}</div>
+      <div class="label">内定</div>
+    </div>
+  `;
+}
+
+// 日付文字列から YYYY-MM-DD を抽出し、今日との差分(日数)を返す
+function daysUntilInterview(dateStr) {
+  const m = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return null;
+  const target = new Date(parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]));
+  target.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Math.round((target - today) / (1000 * 60 * 60 * 24));
+}
+
+// 面談スケジュールに表示すべき案件かどうか
+//  ・「日程調整中」「面接予定」のみ対象(面接後・お見送り・募集終了は出さない)
+//  ・面接日が過ぎたものは非表示。当日は終日表示したままにする
+function isUpcomingInterview(j) {
+  if (!j.interview) return false;
+  if (!['arrangingInterview', 'interviewScheduled'].includes(j.status)) return false;
+  if (!j.interview.date) return true;              // 日程調整中
+  const d = daysUntilInterview(j.interview.date);
+  return d === null || d >= 0;
+}
+
+// カウントダウン表示HTMLを生成
+function countdownHtml(dateStr) {
+  const days = daysUntilInterview(dateStr);
+  if (days === null) return '';
+  if (days < 0) return `<div class="countdown">面接から ${-days} 日経過</div>`;
+  if (days === 0) return `<div class="countdown countdown-today">🔔 本日面接です!</div>`;
+  if (days === 1) return `<div class="countdown countdown-urgent">⚠️ 面接まで あと 1 日</div>`;
+  if (days <= 3) return `<div class="countdown countdown-urgent">⏰ 面接まで あと ${days} 日</div>`;
+  if (days <= 7) return `<div class="countdown countdown-soon">📅 面接まで あと ${days} 日</div>`;
+  return `<div class="countdown">📅 面接まで あと ${days} 日</div>`;
+}
+
+// 日付文字列と時刻から Date を生成 (例: '2026-07-07 (火)' + '18:00〜19:00')
+function parseInterviewDateTime(dateStr, timeStr) {
+  const d = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!d) return null;
+  const t = (timeStr || '').match(/(\d{1,2}):(\d{2}).*?(\d{1,2}):(\d{2})/);
+  const startH = t ? parseInt(t[1]) : 10;
+  const startM = t ? parseInt(t[2]) : 0;
+  const endH = t ? parseInt(t[3]) : startH + 1;
+  const endM = t ? parseInt(t[4]) : startM;
+  return {
+    start: new Date(parseInt(d[1]), parseInt(d[2]) - 1, parseInt(d[3]), startH, startM),
+    end: new Date(parseInt(d[1]), parseInt(d[2]) - 1, parseInt(d[3]), endH, endM),
+  };
+}
+
+// Googleカレンダー予約リンクを開く
+function openGoogleCalendar(jobId) {
+  const job = data.jobs.find(j => j.id === jobId);
+  if (!job || !job.interview) return;
+  const iv = job.interview;
+  const dt = parseInterviewDateTime(iv.date, iv.time);
+  if (!dt) { alert('日程情報が不完全です'); return; }
+
+  const pad = n => String(n).padStart(2, '0');
+  const fmt = d => `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+
+  const details = [
+    iv.format ? `形式: ${iv.format}` : '',
+    iv.meetingUrl ? `\nTeams URL:\n${iv.meetingUrl}` : '',
+    iv.meetingId ? `\nミーティングID: ${iv.meetingId}` : '',
+    iv.passcode ? `\nパスコード: ${iv.passcode}` : '',
+    iv.changeContact ? `\n\n日程変更: ${iv.changeContact}` : '',
+  ].filter(Boolean).join('');
+
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: `${iv.round || '面接'} / ${job.company}`,
+    dates: `${fmt(dt.start)}/${fmt(dt.end)}`,
+    details: details,
+    location: iv.format || 'オンライン',
+    ctz: 'Asia/Tokyo',
+  });
+
+  window.open(`https://calendar.google.com/calendar/render?${params.toString()}`, '_blank');
+}
+
+// 本日面接のあるジョブがあればトップにバナー表示
+function renderTodayBanner() {
+  const el = document.getElementById('todayBanner');
+  const todays = data.jobs.filter(j =>
+    j.interview && j.interview.date &&
+    !['declined', 'closed'].includes(j.status) &&
+    daysUntilInterview(j.interview.date) === 0
+  );
+  if (!todays.length) { el.innerHTML = ''; return; }
+  el.innerHTML = todays.map(j => {
+    const iv = j.interview;
+    return `
+      <div class="today-banner">
+        <div class="icon">🔔</div>
+        <div class="content">
+          <div class="title">本日 ${iv.time || ''} から面接です</div>
+          <div class="detail">${j.company} / ${iv.round || '面接'} ・ ${iv.format || ''}</div>
+        </div>
+        ${iv.meetingUrl ? `<a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="background:white;color:#E74C3C;font-weight:700">🎥 参加する</a>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function renderInterviews() {
+  const list = data.jobs.filter(isUpcomingInterview);
+  const el = document.getElementById('interviewList');
+  if (!list.length) {
+    el.innerHTML = `
+      <div class="interview-empty">
+        <div class="icon">🕰️</div>
+        <div style="font-size:14px;margin-bottom:4px">現在、確定した面談予定はありません</div>
+        <div style="font-size:12px">応募後、面談日が決まり次第こちらに表示されます</div>
+      </div>`;
+    return;
+  }
+  el.innerHTML = list.map(j => {
+    const iv = j.interview;
+    const isArranging = !iv.date;
+    return `
+      <div class="interview-card ${isArranging ? 'is-arranging' : ''}">
+        <div class="company">${j.company}</div>
+        <div style="font-size:12px;color:#7f8c8d">${iv.round || '面接'}</div>
+        ${isArranging
+          ? `<div class="datetime" style="font-size:16px">📆 日程調整中</div>`
+          : `<div class="datetime">📅 ${iv.date} ${iv.time || ''}</div>`
+        }
+        ${!isArranging ? countdownHtml(iv.date) : ''}
+        <div class="details">
+          <div class="row"><div class="k">形式</div><div>${iv.format || '未定'}</div></div>
+          ${iv.location ? `<div class="row"><div class="k">場所</div><div style="white-space:pre-line">${iv.location}</div></div>` : ''}
+          ${iv.mapUrl ? `<div class="row"><div class="k">地図</div><div><a href="${iv.mapUrl}" target="_blank" style="color:#3498DB;text-decoration:underline">Googleマップで開く</a></div></div>` : ''}
+          ${iv.interviewer ? `<div class="row"><div class="k">面接官</div><div>${iv.interviewer}</div></div>` : ''}
+          ${iv.duration ? `<div class="row"><div class="k">所要時間</div><div>${iv.duration}</div></div>` : ''}
+          ${iv.meetingId ? `<div class="row"><div class="k">ミーティングID</div><div style="font-family:monospace">${iv.meetingId}</div></div>` : ''}
+          ${iv.passcode ? `<div class="row"><div class="k">パスコード</div><div style="font-family:monospace;font-weight:700">${iv.passcode}</div></div>` : ''}
+          ${iv.prep ? `<div class="row"><div class="k">事前準備</div><div>${iv.prep}</div></div>` : ''}
+          ${iv.changeContact ? `<div class="row"><div class="k">日程変更</div><div style="font-size:11px;color:#555">${iv.changeContact}</div></div>` : ''}
+          ${iv.note ? `<div class="row"><div class="k">ご案内</div><div style="color:#D35400;font-weight:600">${iv.note}</div></div>` : ''}
+        </div>
+        ${!isArranging || iv.meetingUrl ? `
+          <div style="margin-top:14px;text-align:center">
+            ${iv.meetingUrl ? `<a href="${iv.meetingUrl}" target="_blank" class="btn btn-primary" style="font-size:14px;padding:12px 24px">🎥 ${iv.meetingLabel || 'オンライン面接に参加する'}</a>` : ''}
+            ${!isArranging ? `<button onclick="openGoogleCalendar('${j.id}')" class="btn-calendar">📅 Googleカレンダーに追加</button>` : ''}
+            ${iv.meetingUrl ? `<div style="font-size:11px;color:#7f8c8d;margin-top:6px">面接時刻になりましたらクリックしてください</div>` : ''}
+          </div>
+          ${iv.prepGuideUrl ? `
+          <div style="margin-top:10px;padding:14px 16px;background:linear-gradient(135deg,#FFF5F7 0%,#F4F9FC 100%);border:2px dashed #F4C6D5;border-radius:12px;text-align:center">
+            <div style="font-size:12px;color:#4A6FA5;font-weight:700;margin-bottom:8px">📝 面接前にぜひご一読ください</div>
+            <a href="${iv.prepGuideUrl}" target="_blank" class="btn btn-primary" style="font-size:13px;padding:10px 20px">🌸 面接ロープレ対策資料を開く</a>
+            <div style="font-size:11px;color:#7f8c8d;margin-top:8px">想定質問・回答例・逆質問・NGワードなど収録</div>
+          </div>` : ''}
+          ${iv.preInterviewTasks && iv.preInterviewTasks.length ? `
+          <div style="margin-top:12px;padding:14px 16px;background:#FFF9E7;border:2px solid #F1C40F;border-radius:12px">
+            <div style="font-size:13px;color:#B7950B;font-weight:800;margin-bottom:6px">⚠️ 事前対応が必要です</div>
+            ${iv.preInterviewDeadline ? `<div style="font-size:12px;color:#7D6608;font-weight:700;margin-bottom:10px">⏰ 期限:${iv.preInterviewDeadline}</div>` : ''}
+            ${iv.preInterviewTasks.map(t => `
+              <div style="background:white;padding:10px 12px;border-radius:8px;margin-bottom:6px">
+                <div style="font-size:13px;font-weight:700;color:#2c3e50;margin-bottom:4px">${t.title}</div>
+                ${t.note ? `<div style="font-size:11px;color:#7f8c8d;margin-bottom:6px">${t.note}</div>` : ''}
+                ${t.url ? `<a href="${t.url}" target="_blank" class="btn btn-primary" style="font-size:12px;padding:6px 14px">▶ 対応する</a>` : ''}
+              </div>
+            `).join('')}
+            <div style="font-size:11px;color:#7f8c8d;margin-top:6px">※完了報告不要(企業側で確認できます)</div>
+          </div>` : ''}
+          ${iv.postInterviewTask ? `
+          <div style="margin-top:10px;padding:12px 16px;background:#EAF3FB;border-left:4px solid #3498DB;border-radius:8px">
+            <div style="font-size:12px;color:#2874A6;font-weight:700;margin-bottom:6px">📮 面接後のアンケート(${iv.postInterviewTask.deadline})</div>
+            <div style="font-size:12px;color:#555;margin-bottom:6px">${iv.postInterviewTask.title}</div>
+            <a href="${iv.postInterviewTask.url}" target="_blank" style="font-size:11px;color:#3498DB;text-decoration:underline;word-break:break-all">▶ 面接後にこちらから回答</a>
+          </div>` : ''}` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function renderJobs() {
+  // Group by status
+  const groups = {};
+  data.jobs.forEach(j => {
+    if (!groups[j.status]) groups[j.status] = [];
+    groups[j.status].push(j);
+  });
+
+  // Display order (top to bottom)
+  const groupOrder = [
+    'interviewScheduled',
+    'arrangingInterview',
+    'interviewed',
+    'offer',
+    'accepted',
+    'passed',
+    'screening',
+    'applying',
+    'considering',
+    'proposed',
+    'declined',
+    'closed',
+  ];
+
+  // Which groups start expanded
+  const defaultOpen = new Set([
+    'interviewScheduled',
+    'arrangingInterview',
+    'interviewed',
+    'offer',
+    'accepted',
+    'proposed',
+    'considering',
+  ]);
+
+  const groupIcons = {
+    interviewScheduled: '🎥',
+    arrangingInterview: '📅',
+    interviewed: '💬',
+    offer: '🎉',
+    accepted: '✨',
+    passed: '✅',
+    screening: '📄',
+    applying: '✏️',
+    considering: '🤔',
+    proposed: '💌',
+    declined: '🚪',
+    closed: '🔒',
+  };
+
+  const html = groupOrder
+    .filter(s => groups[s]?.length)
+    .map(s => {
+      const jobs = groups[s].sort((a,b) => (a.priority||99)-(b.priority||99));
+      const info = STATUS_MAP[s] || { label: s };
+      const isOpen = defaultOpen.has(s);
+      return `
+        <details class="status-group status-group-${s}" ${isOpen ? 'open' : ''}>
+          <summary>
+            <span class="group-icon">${groupIcons[s] || '📋'}</span>
+            <span class="group-label">${info.label}</span>
+            <span class="group-count">${jobs.length}件</span>
+          </summary>
+          <div class="group-content">
+            ${jobs.map(renderJobCard).join('')}
+          </div>
+        </details>
+      `;
+    }).join('');
+
+  document.getElementById('jobList').innerHTML = html || '<div style="padding:24px;background:white;border-radius:12px;text-align:center;color:#7f8c8d">案件はまだありません</div>';
+}
+
+function renderJobCard(j) {
+  const s = STATUS_MAP[j.status] || STATUS_MAP.proposed;
+  const timelineHtml = j.timeline?.length ? `
+    <details>
+      <summary>これまでの経緯を見る</summary>
+      <div class="timeline">
+        ${j.timeline.slice().reverse().map(t => `
+          <div class="timeline-entry">
+            <div class="date">${t.date}</div>
+            <div>${t.event}</div>
+          </div>
+        `).join('')}
+      </div>
+    </details>
+  ` : '';
+
+  return `
+    <div class="job status-${j.status}">
+      <div class="job-head">
+        <div class="job-title">
+          <h3>${j.company}${j.isNew ? '<span class="new-badge">NEW</span>' : ''}</h3>
+          <div class="role">${j.role}</div>
+        </div>
+        <span class="status-pill status-${j.status}">${s.label}</span>
+      </div>
+
+      <div style="font-size:11px;color:#7f8c8d;margin-bottom:8px">${s.desc}</div>
+
+      <ul class="appeal">
+        ${(Array.isArray(j.appeal) ? j.appeal : [j.appeal]).map(a => `<li>${a}</li>`).join('')}
+      </ul>
+
+      <div class="conditions">
+        <div class="cond"><span class="k">📍勤務地</span><span class="v">${j.location}</span></div>
+        <div class="cond"><span class="k">🕐勤務時間</span><span class="v">${j.workTime}</span></div>
+        <div class="cond"><span class="k">🌙夜間勤務</span><span class="v">${j.nightShift}</span></div>
+        <div class="cond"><span class="k">⏱残業</span><span class="v">${j.overtime}</span></div>
+        <div class="cond"><span class="k">📅休日</span><span class="v">${j.holidays}</span></div>
+      </div>
+
+      <div class="job-actions">
+        ${j.url ? `<a href="${j.url}" target="_blank" rel="noopener" class="btn btn-primary">求人票を見る</a>` : '<span>求人票の閲覧リンクは準備中です</span>'}
+      </div>
+
+      ${timelineHtml}
+    </div>
+  `;
+}
+
+function replaceTextIcons() {
+  const glyphs = [
+    '▶','🎉','⭐','📅','📝','✅',
+    '📌','🚪','⚠','🔄','📊','💡',
+    '📎','🎯','💰','👍','🏆','💌',
+    '💼','🔔','⏰','🎥','🕰','📆',
+    '🌸','📮','💬','✨','📄','✏',
+    '🤔','🔒','📋','📍','🌙','⏱'
+  ];
+  const aliases = { '🕐': 22, '✓': 5 };
+  const pattern = /\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*|✓/gu;
+  const walker = document.createTreeWalker(document.querySelector('.container'), NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return node.parentElement.closest('script,style,textarea,.image-icon')
+        ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const text = node.nodeValue;
+    const matches = [...text.matchAll(pattern)];
+    if (!matches.length) continue;
+    const fragment = document.createDocumentFragment();
+    let offset = 0;
+    for (const match of matches) {
+      fragment.append(text.slice(offset, match.index));
+      const glyph = match[0].replace(/\uFE0F/g, '');
+      const index = aliases[glyph] ?? glyphs.indexOf(glyph);
+      if (index >= 0) {
+        const icon = document.createElement('span');
+        icon.className = 'image-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.style.setProperty('--icon-col', index % 6);
+        icon.style.setProperty('--icon-row', Math.floor(index / 6));
+        fragment.append(icon);
+      } else fragment.append(match[0]);
+      offset = match.index + match[0].length;
+    }
+    fragment.append(text.slice(offset));
+    node.replaceWith(fragment);
+  }
+}
+
+function render() {
+  greeting();
+  renderTodayBanner();
+  renderStats();
+  renderInterviews();
+  renderJobs();
+  replaceTextIcons();
+}
+
+render();
+</script>
+</body>
+</html>
