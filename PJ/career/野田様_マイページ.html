@@ -1152,6 +1152,7 @@ const STATUS_MAP = {
   accepted: { label: '内定承諾', desc: '入社準備を進めています', step: 7 },
   declined: { label: 'お見送り', desc: '', step: 0 },
   closed: { label: '募集終了', desc: '', step: 0 },
+  ended: { label: '選考終了', desc: '', step: 0 },
 };
 
 const DATA = {
@@ -1623,7 +1624,7 @@ const DATA = {
         '転勤なし・研修充実で開発領域への転向を支援',
       ],
       url: 'https://circus-job.com/selections/4649849/job?jobDetailPublicToken=69d9b9d7-ad89-46a7-bde9-9a0d0b81d873',
-      status: 'arrangingInterview',
+      status: 'ended',
       isNew: false,
       interview: {
         round: '一次面接',
@@ -1639,6 +1640,7 @@ const DATA = {
         { date: '2026-09-09', event: '面接のご案内を受領。日程調整中です。予約枠で都合がつかない場合は、希望日時を複数提示して調整できます。' },
         { date: '2026-09-10', event: '📅 予約カレンダーを受領しました。一次面接はオンライン(Microsoft Teams)・60分です。空き枠は9月17日(木)の16:00と17:00、9月24日(木)の13:00〜20:00開始の8枠です' },
         { date: '2026-09-10', event: '💡 9月24日(木)の18:00以降であれば終業後にあたり、お休みを取らずに受けられます。ご希望の枠が決まりましたらCAが予約を入れます' },
+        { date: '2026-10-06', event: '選考終了となりました。' },
       ],
     },
     {
@@ -1925,7 +1927,7 @@ function greeting() {
 }
 
 function renderStats() {
-  const active = data.jobs.filter(j => !['declined', 'accepted', 'closed'].includes(j.status));
+  const active = data.jobs.filter(j => !['declined', 'accepted', 'closed', 'ended'].includes(j.status));
   const interviews = data.jobs.filter(isUpcomingInterview);
   const offers = data.jobs.filter(j => j.status === 'offer').length;
   document.getElementById('stats').innerHTML = `
@@ -2032,7 +2034,7 @@ function renderTodayBanner() {
   const el = document.getElementById('todayBanner');
   const todays = data.jobs.filter(j =>
     j.interview && j.interview.date &&
-    !['declined', 'closed'].includes(j.status) &&
+    !['declined', 'closed', 'ended'].includes(j.status) &&
     daysUntilInterview(j.interview.date) === 0
   );
   if (!todays.length) { el.innerHTML = ''; return; }
@@ -2145,6 +2147,7 @@ function renderJobs() {
     'proposed',
     'declined',
     'closed',
+    'ended',
   ];
 
   // Which groups start expanded
@@ -2171,6 +2174,7 @@ function renderJobs() {
     proposed: '💌',
     declined: '🚪',
     closed: '🔒',
+    ended: '🔒',
   };
 
   const html = groupOrder
