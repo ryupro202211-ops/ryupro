@@ -463,6 +463,15 @@ body.attract .ticket-btn{animation:nudge 1.8s ease-in-out infinite;}
 @media(prefers-reduced-motion:reduce){
   .radar.pre .rp,.radar.pre .rd{opacity:1!important;transform:none!important;}
 }
+
+.town-map{margin:20px 0 28px;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--paper-2)}
+.town-map h4{margin:0;font-size:20px;color:var(--festival-green)}
+.town-map-area{margin:5px 0 14px;font-size:15px;color:var(--ink-soft)}
+.town-map svg{display:block;width:100%;max-width:480px;height:auto;margin:auto;font-family:"Hiragino Sans","Yu Gothic",Meiryo,sans-serif}
+.town-map-note{margin:12px 0 0;font-size:12px;line-height:1.7;color:var(--ink-soft)}
+@media(max-width:480px){.town-map{padding:14px}.town-map h4{font-size:18px}}
+
+.return-top-town{display:block;margin:0 0 20px;padding:10px 16px;color:var(--festival-green);border:1px solid var(--festival-green);border-radius:10px;background:var(--paper-2);font:inherit;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -3414,6 +3423,44 @@ function townByKey(k){
   for(var i=0;i<TOWNS.length;i++){ if(TOWNS[i].k===k) return TOWNS[i]; }
   return null;
 }
+
+/* 街の位置は駅を基準にした概略。北が上、東西の縮尺は緯度に合わせる。 */
+var TOWN_LOCATIONS={
+ koenji:[35.7053,139.6497,'杉並区・東京の西側'],shimokita:[35.6615,139.667,'世田谷区・渋谷の西側'],
+ sancha:[35.6439,139.6702,'世田谷区・渋谷の南西'],nakano:[35.7058,139.6658,'中野区・新宿の西側'],
+ kichijoji:[35.7032,139.5798,'武蔵野市・23区の西側'],kitasenju:[35.7494,139.8051,'足立区・東京の北東'],
+ akabane:[35.7776,139.7209,'北区・東京の北側'],monnaka:[35.6719,139.7962,'江東区・東京駅の東側'],
+ nakameguro:[35.6443,139.6991,'目黒区・渋谷の南側'],ikebukuro:[35.7295,139.7109,'豊島区・新宿の北側'],
+ gakudai:[35.6289,139.6853,'目黒区・渋谷の南西'],jujo:[35.7603,139.7223,'北区・池袋の北側'],
+ asagaya:[35.7049,139.6358,'杉並区・新宿の西側'],nishiogi:[35.7038,139.5995,'杉並区・吉祥寺の東側'],
+ kiyosumi:[35.6821,139.7989,'江東区・東京駅の東側'],musashikoyama:[35.6205,139.7045,'品川区・目黒の南西'],
+ oimachi:[35.6063,139.7348,'品川区・品川駅の南側'],kamata:[35.5625,139.716,'大田区・東京の南側'],
+ nerima:[35.7379,139.6541,'練馬区・東京の北西'],jiyugaoka:[35.6073,139.6685,'目黒区・東京の南西']
+};
+function townMapHTML(k,name){
+ var p=TOWN_LOCATIONS[k];
+ if(!p) return '';
+ function xy(lat,lon){return [52+(lon-139.56)*1600,54+(35.80-lat)*1960];}
+ var pos=xy(p[0],p[1]);
+ var refs=[['新宿',35.6909,139.7003,-9,19],['渋谷',35.658,139.7016,-12,19],['東京駅',35.6812,139.7671,10,5],['池袋',35.7295,139.7109,10,-9],['上野',35.7138,139.7773,10,-8],['品川',35.6285,139.7388,10,5]];
+ var s='<svg viewBox="0 0 520 570" role="img" aria-label="東京の概略地図。'+escapeHtml(name)+'の位置をピンクで表示" xmlns="http://www.w3.org/2000/svg">';
+ s+='<rect x="1" y="1" width="518" height="568" rx="16" fill="#F6F4EE"/>';
+ s+='<path d="M385 400 Q433 384 482 408 L519 399 V569 H393 Q377 487 385 400" fill="#DCEEEB"/>';
+ s+='<text x="430" y="500" fill="#637168" font-size="16">東京湾</text>';
+ s+='<path d="M429 143 Q441 244 432 300 T455 407" fill="none" stroke="#C4DCD8" stroke-width="8"/>';
+ s+='<path d="M277 197 Q323 132 369 214 Q410 276 338 335 Q291 350 279 278 Z" fill="#EAF1E9" stroke="#709A85" stroke-width="3" stroke-dasharray="6 5"/>';
+ s+='<text x="302" y="245" font-size="14" fill="#637168">山手線</text>';
+ s+='<path d="M24 104 V72 M17 82 L24 72 L31 82" fill="none" stroke="#166B57" stroke-width="2"/><text x="18" y="62" fill="#166B57" font-size="16">北</text>';
+ s+='<text x="56" y="30" font-size="14" fill="#637168">西側</text><text x="458" y="30" font-size="14" fill="#637168">東側</text>';
+ Object.keys(TOWN_LOCATIONS).forEach(function(key){var q=TOWN_LOCATIONS[key],a=xy(q[0],q[1]);if(key!==k)s+='<circle cx="'+a[0].toFixed(1)+'" cy="'+a[1].toFixed(1)+'" r="3" fill="#BAC8BC"/>';});
+ refs.forEach(function(r){var a=xy(r[1],r[2]);s+='<circle cx="'+a[0].toFixed(1)+'" cy="'+a[1].toFixed(1)+'" r="4" fill="#166B57"/><text x="'+(a[0]+r[3]).toFixed(1)+'" y="'+(a[1]+r[4]).toFixed(1)+'" fill="#213D35" font-size="15" stroke="#F6F4EE" stroke-width="4" paint-order="stroke">'+r[0]+'</text>';});
+ var lx=Math.max(82,Math.min(428,pos[0])),ly=pos[1]<90?pos[1]+39:pos[1]-29;
+ s+='<circle cx="'+pos[0].toFixed(1)+'" cy="'+pos[1].toFixed(1)+'" r="15" fill="#FF5E8E" opacity=".18"/><circle cx="'+pos[0].toFixed(1)+'" cy="'+pos[1].toFixed(1)+'" r="7" fill="#D72D65" stroke="white" stroke-width="3"/>';
+ s+='<path d="M'+pos[0].toFixed(1)+' '+pos[1].toFixed(1)+' L'+lx.toFixed(1)+' '+ly.toFixed(1)+'" stroke="#D72D65" stroke-width="2"/>';
+ s+='<rect x="'+(lx-72).toFixed(1)+'" y="'+(ly-23).toFixed(1)+'" width="144" height="32" rx="8" fill="#D72D65"/><text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" text-anchor="middle" fill="white" font-size="18" font-weight="700">'+escapeHtml(name)+'</text></svg>';
+ return '<section class="town-map"><h4>'+escapeHtml(name)+'はこのあたり</h4><p class="town-map-area">'+escapeHtml(p[2])+'</p>'+s+'<p class="town-map-note">北が上の概略地図です。街の位置は駅を基準にしています。</p></section>';
+}
+
 function showDetail(k, quiet){
   var t=townByKey(k), d=DETAILS[k], box=$('townDetail');
   if(!t||!box) return;
@@ -3423,7 +3470,10 @@ function showDetail(k, quiet){
   function row(label,val,cls){
     return val? '<div class="td-row'+(cls?' '+cls:'')+'"><b>'+label+'</b><span>'+escapeHtml(val)+'</span></div>' : '';
   }
-  box.innerHTML='<h3>'+escapeHtml(t.n)+' ってどんな街？</h3>'
+  var first=state.result && state.result.top;
+  var back=first && first.k!==k ? '<button type="button" class="ghost return-top-town" onclick="showDetail(\''+first.k+'\')">1位の'+escapeHtml(first.n)+'に戻る</button>' : '';
+  box.innerHTML=back+'<h3>'+escapeHtml(t.n)+' ってどんな街？</h3>'
+    +townMapHTML(k,t.n)
     +photo
     +(d.lines?'<p class="td-lines">'+iconHTML('🚃')+' '+escapeHtml(d.lines)+'</p>':'')
     +(chips?'<div class="td-chips">'+chips+'</div>':'')
