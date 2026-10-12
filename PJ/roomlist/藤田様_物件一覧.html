@@ -259,6 +259,15 @@ footer{font-size:12px}
 .photo-note{font-size:11px;line-height:1.6;color:var(--ink-2);margin:10px 0 0}
 @media(max-width:600px){.property-photos{margin:0 18px 20px}.property-photo-grid img{height:220px}}
 @media(prefers-reduced-motion:reduce){.property-photo-grid{scroll-behavior:auto}}
+
+body.floorplan-popup-open{overflow:hidden}
+.floorplan-popup{width:min(1400px,96vw);max-width:96vw;max-height:92vh;padding:0;border:0;border-radius:12px;background:#fff;color:var(--ink);box-shadow:0 20px 80px #0005;overflow:auto}
+.floorplan-popup::backdrop{background:rgba(12,24,42,.75)}
+.floorplan-popup-header{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:#fff;border-bottom:1px solid var(--line)}
+.floorplan-popup-header h2{margin:0;font-size:16px;line-height:1.5}
+.floorplan-popup-header button{flex-shrink:0;border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px 12px;cursor:pointer;color:var(--ink);font:inherit}
+.floorplan-popup-image{display:block;width:100%;height:auto}
+@media(max-width:600px){.floorplan-popup-header{padding:10px 12px;gap:8px}.floorplan-popup-header h2{font-size:14px}}
 </style>
 </head>
 <body>
@@ -726,7 +735,7 @@ function cardHtml(p) {
   const floorplanDir = "fujita-floorplans";
   const floorplanSrc = p.floorplanJpg || (floorplanDir + '/' + encodeURIComponent(p.id) + '.jpg');
   const floorplan = '<div class="floorplan-heading">お部屋の図面</div>'
-    + '<a class="floorplan-image-link" href="' + floorplanSrc + '" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="' + floorplanSrc + '" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
+    + '<a class="floorplan-image-link" href="' + floorplanSrc + '" aria-haspopup="dialog" aria-controls="floorplan-popup" aria-label="図面を拡大する"><img src="' + floorplanSrc + '" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
     + (p.driveId ? '<a class="floorplan-fallback" href="https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>' : '');
 
   const photoEsc = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -843,5 +852,33 @@ document.getElementById('sort').addEventListener('change', e => { state.sort = e
 drawChart();
 apply();
 </script>
+
+<dialog id="floorplan-popup" class="floorplan-popup" aria-labelledby="floorplan-popup-title">
+  <div class="floorplan-popup-header"><h2 id="floorplan-popup-title">お部屋の図面</h2><button type="button" autofocus aria-label="図面の拡大表示を閉じる">閉じる ×</button></div>
+  <img class="floorplan-popup-image" alt="">
+</dialog>
+<script>
+const floorplanPopup = document.getElementById('floorplan-popup');
+const floorplanPopupImage = floorplanPopup.querySelector('img');
+document.addEventListener('click', event => {
+  const link = event.target.closest('.floorplan-image-link');
+  if (!link) return;
+  event.preventDefault();
+  floorplanPopupImage.src = link.href;
+  floorplanPopupImage.alt = link.querySelector('img').alt;
+  document.getElementById('floorplan-popup-title').textContent = floorplanPopupImage.alt;
+  floorplanPopup.showModal();
+  document.body.classList.add('floorplan-popup-open');
+});
+floorplanPopup.querySelector('button').addEventListener('click', () => floorplanPopup.close());
+floorplanPopup.addEventListener('click', event => {
+  if (event.target === floorplanPopup) floorplanPopup.close();
+});
+floorplanPopup.addEventListener('close', () => {
+  document.body.classList.remove('floorplan-popup-open');
+  floorplanPopupImage.removeAttribute('src');
+});
+</script>
+
 </body>
 </html>
