@@ -264,9 +264,12 @@ footer{font-size:12px}
 body.floorplan-popup-open{overflow:hidden}
 .floorplan-popup{width:min(1400px,96vw);max-width:96vw;max-height:92vh;padding:0;border:0;border-radius:12px;background:#fff;color:var(--ink);box-shadow:0 20px 80px #0005;overflow:auto}
 .floorplan-popup::backdrop{background:rgba(12,24,42,.75)}
-.floorplan-popup-header{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;background:#fff;border-bottom:1px solid var(--line)}
-.floorplan-popup-header h2{margin:0;font-size:16px;line-height:1.5}
+.floorplan-popup-header{position:sticky;top:0;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;background:#fff;border-bottom:1px solid var(--line)}
+.floorplan-popup-header h2{margin:0;font-size:16px;line-height:1.5;flex:1;min-width:0}
 .floorplan-popup-header button{flex-shrink:0;border:1px solid var(--line);border-radius:8px;background:#fff;padding:8px 12px;cursor:pointer;color:var(--ink);font:inherit}
+.floorplan-popup-navigation{display:flex;align-items:center;justify-content:center;gap:18px;flex-basis:100%}
+.floorplan-popup-navigation[hidden]{display:none}
+.floorplan-popup-navigation span{font-size:14px;min-width:50px;text-align:center}
 .floorplan-popup-image{display:block;width:100%;height:auto}
 @media(max-width:600px){.floorplan-popup-header{padding:10px 12px;gap:8px}.floorplan-popup-header h2{font-size:14px}}
 </style>
@@ -858,23 +861,50 @@ apply();
 </script>
 
 <dialog id="floorplan-popup" class="floorplan-popup" aria-labelledby="floorplan-popup-title">
-  <div class="floorplan-popup-header"><h2 id="floorplan-popup-title">図面・物件画像</h2><button type="button" autofocus aria-label="拡大表示を閉じる">閉じる ×</button></div>
+  <div class="floorplan-popup-header"><h2 id="floorplan-popup-title">図面・物件画像</h2><button class="popup-close" type="button" autofocus aria-label="拡大表示を閉じる">閉じる ×</button>
+    <div class="floorplan-popup-navigation" hidden><button type="button" class="popup-prev" aria-label="拡大表示の前の画像">←</button><span class="popup-count" aria-live="polite"></span><button type="button" class="popup-next" aria-label="拡大表示の次の画像">→</button></div>
+  </div>
   <img class="floorplan-popup-image" alt="">
 </dialog>
 <script>
 const floorplanPopup = document.getElementById('floorplan-popup');
 const floorplanPopupImage = floorplanPopup.querySelector('img');
+let popupMedia = [];
+let popupMediaIndex = 0;
+function renderPopupMedia() {
+  const item = popupMedia[popupMediaIndex];
+  floorplanPopupImage.src = item.src;
+  floorplanPopupImage.alt = item.alt;
+  document.getElementById('floorplan-popup-title').textContent = item.alt;
+  floorplanPopup.querySelector('.popup-count').textContent = (popupMediaIndex + 1) + ' / ' + popupMedia.length;
+  floorplanPopup.querySelector('.floorplan-popup-navigation').hidden = popupMedia.length < 2;
+  floorplanPopup.scrollTop = 0;
+}
+function movePopupMedia(direction) {
+  popupMediaIndex = (popupMediaIndex + direction + popupMedia.length) % popupMedia.length;
+  renderPopupMedia();
+}
 document.addEventListener('click', event => {
   const link = event.target.closest('.floorplan-image-link, .property-media-link');
   if (!link) return;
   event.preventDefault();
-  floorplanPopupImage.src = link.href;
-  floorplanPopupImage.alt = link.querySelector('img').alt;
-  document.getElementById('floorplan-popup-title').textContent = floorplanPopupImage.alt;
+  const section = link.closest('.property-photos');
+  const links = section ? Array.from(section.querySelectorAll('.property-media-link')) : [link];
+  popupMedia = links.map(item => ({src: item.href, alt: item.querySelector('img').alt}));
+  popupMediaIndex = links.indexOf(link);
+  renderPopupMedia();
   floorplanPopup.showModal();
   document.body.classList.add('floorplan-popup-open');
 });
-floorplanPopup.querySelector('button').addEventListener('click', () => floorplanPopup.close());
+floorplanPopup.querySelector('.popup-close').addEventListener('click', () => floorplanPopup.close());
+floorplanPopup.querySelector('.popup-prev').addEventListener('click', () => movePopupMedia(-1));
+floorplanPopup.querySelector('.popup-next').addEventListener('click', () => movePopupMedia(1));
+floorplanPopup.addEventListener('keydown', event => {
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+    event.preventDefault();
+    movePopupMedia(event.key === 'ArrowLeft' ? -1 : 1);
+  }
+});
 floorplanPopup.addEventListener('click', event => {
   if (event.target === floorplanPopup) floorplanPopup.close();
 });
