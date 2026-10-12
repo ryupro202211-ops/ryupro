@@ -244,6 +244,15 @@ footer{font-size:12px}
  .hero-visual{display:none}.hero-in{display:block}.hero-link{display:none}
  .grid{grid-template-columns:1fr 1fr}.price{color:inherit}
 }
+
+.property-photos{margin:0 22px 22px;min-width:0}
+.property-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.property-photo-grid figure{margin:0;min-width:0}
+.property-photo-grid a{display:block;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden;cursor:zoom-in}
+.property-photo-grid img{display:block;width:100%;height:150px;object-fit:contain}
+.property-photo-grid figcaption{font-size:11px;line-height:1.5;margin-top:4px}
+.photo-note{font-size:11px;line-height:1.6;color:var(--ink-2);margin:10px 0 0}
+@media(max-width:600px){.property-photos{margin:0 18px 20px}.property-photo-grid img{height:130px}}
 </style>
 </head>
 <body>
@@ -588,6 +597,40 @@ const PROPERTIES = [
     "家賃120,000円＋管理費10,000円＝130,000円。月額保証料1％を総額にかけると1,300円が加わり、月額131,300円です。家賃は検討上限の12万円です。",
     "初期費用は約65.9万円＋日割り等の試算で、目安60万円を超えます。前家賃等1ヶ月、初回保証50％、各契約費用等を含みます。正式な見積もりは未取得です。",
     "普通借家2年、解約予告2ヶ月前。退去時清掃77,000円、更新料1ヶ月と更新事務手数料22,000円が必要です。退去前は先行契約の扱いです。外観画像に植栽が写っています。隣接建物の植物の状況と東京駅・品川駅までの所要時間は未確認です。"
+  ],
+  photos: [
+    {
+      src: "fujita-photos/08-01.jpg",
+      label: "外観（募集時の掲載画像）"
+    },
+    {
+      src: "fujita-photos/08-05.jpg",
+      label: "洋室"
+    },
+    {
+      src: "fujita-photos/08-04.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "fujita-photos/08-03.jpg",
+      label: "洗面台"
+    },
+    {
+      src: "fujita-photos/08-06.jpg",
+      label: "浴室"
+    },
+    {
+      src: "fujita-photos/08-09.jpg",
+      label: "トイレ"
+    },
+    {
+      src: "fujita-photos/08-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "fujita-photos/08-08.jpg",
+      label: "玄関収納"
+    }
   ]
 }
 ];
@@ -679,6 +722,11 @@ function cardHtml(p) {
   const floorplan = '<div class="floorplan-heading">お部屋の図面</div>'
     + '<a class="floorplan-image-link" href="' + floorplanSrc + '" target="_blank" rel="noopener noreferrer" aria-label="図面を拡大して別タブで開く"><img src="' + floorplanSrc + '" loading="lazy" decoding="async" alt="' + p.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + ' ' + (p.unit || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;') + 'の図面"></a>'
     + (p.driveId ? '<a class="floorplan-fallback" href="https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>' : '');
+
+  const photoEsc = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const photos = (p.photos && p.photos.length) ? '<section class="property-photos"><h4 class="floorplan-heading">外観・室内の掲載画像</h4><div class="property-photo-grid">'
+    + p.photos.map(photo => '<figure><a href="' + photoEsc(photo.src) + '" target="_blank" rel="noopener noreferrer" aria-label="' + photoEsc(photo.label) + 'を拡大"><img src="' + photoEsc(photo.src) + '" loading="lazy" decoding="async" alt="' + photoEsc(p.name + ' ' + p.unit + '：' + photo.label) + '"></a><figcaption>' + photoEsc(photo.label) + '</figcaption></figure>').join('')
+    + '</div><p class="photo-note">募集時の掲載画像です。現況は内見でご確認ください。</p></section>' : '';
   return ''
   + '<article class="card">'
   +   '<div class="card-top">'
@@ -707,6 +755,7 @@ function cardHtml(p) {
   +     '<h4>契約条件</h4><ul><li>' + p.deposit + '／' + p.reikin + '／' + p.year + '年築</li></ul>'
   +   '</div></details>'
   +   (p.addedAt ? '<div class="added-date">物件情報の登録日：' + p.addedAt + '</div>' : '')
+  +   photos
   +   '<div class="floorplan">' + floorplan + '</div>'
   + '</article>';
 }
