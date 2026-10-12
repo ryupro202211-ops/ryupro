@@ -258,6 +258,7 @@ footer{font-size:12px}
 .property-photo-grid figcaption{font-size:11px;line-height:1.5;margin-top:4px}
 .photo-note{font-size:11px;line-height:1.6;color:var(--ink-2);margin:10px 0 0}
 @media(max-width:600px){.property-photos{margin:0 18px 20px}.property-photo-grid img{height:220px}}
+.property-photo-grid.single-photo img{height:auto}
 @media(prefers-reduced-motion:reduce){.property-photo-grid{scroll-behavior:auto}}
 
 body.floorplan-popup-open{overflow:hidden}
@@ -739,9 +740,13 @@ function cardHtml(p) {
     + (p.driveId ? '<a class="floorplan-fallback" href="https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>' : '');
 
   const photoEsc = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const photos = (p.photos && p.photos.length) ? '<section class="property-photos"><div class="photo-heading-row"><h4 class="floorplan-heading">外観・室内の掲載画像</h4><div class="photo-controls"><button type="button" onclick="movePropertyPhoto(this,-1)" aria-label="前の画像">←</button><button type="button" onclick="movePropertyPhoto(this,1)" aria-label="次の画像">→</button></div></div><div class="property-photo-grid" tabindex="0" role="region" aria-label="物件画像の横スライダー">'
-    + p.photos.map(photo => '<figure><a href="' + photoEsc(photo.src) + '" target="_blank" rel="noopener noreferrer" aria-label="' + photoEsc(photo.label) + 'を拡大"><img src="' + photoEsc(photo.src) + '" loading="lazy" decoding="async" alt="' + photoEsc(p.name + ' ' + p.unit + '：' + photo.label) + '"></a><figcaption>' + photoEsc(photo.label) + '</figcaption></figure>').join('')
-    + '</div><p class="photo-note">横にスワイプ、または矢印で画像を切り替えられます。クリックすると拡大します。</p><p class="photo-note">募集時の掲載画像です。現況は内見でご確認ください。</p></section>' : '';
+  const media = [{src: floorplanSrc, label: 'お部屋の図面'}, ...(p.photos || [])];
+  const photos = '<section class="property-photos"><div class="photo-heading-row"><h4 class="floorplan-heading">' + (media.length > 1 ? '図面・物件画像' : 'お部屋の図面') + '</h4>'
+    + (media.length > 1 ? '<div class="photo-controls"><button type="button" onclick="movePropertyPhoto(this,-1)" aria-label="前の画像">←</button><button type="button" onclick="movePropertyPhoto(this,1)" aria-label="次の画像">→</button></div>' : '')
+    + '</div><div class="property-photo-grid' + (media.length === 1 ? ' single-photo' : '') + '" tabindex="0" role="region" aria-label="図面・物件画像">'
+    + media.map(photo => '<figure><a class="property-media-link" href="' + photoEsc(photo.src) + '" aria-haspopup="dialog" aria-controls="floorplan-popup" aria-label="' + photoEsc(photo.label) + 'を拡大"><img src="' + photoEsc(photo.src) + '" loading="lazy" decoding="async" alt="' + photoEsc(p.name + ' ' + p.unit + '：' + photo.label) + '"></a><figcaption>' + photoEsc(photo.label) + '</figcaption></figure>').join('')
+    + '</div><p class="photo-note">' + (media.length > 1 ? '横にスワイプ、または矢印で画像を切り替えられます。' : '') + 'クリックするとポップアップで拡大します。</p>'
+    + (media.length > 1 ? '<p class="photo-note">募集時の掲載画像です。現況は内見でご確認ください。</p>' : '') + '</section>';
   return ''
   + '<article class="card">'
   +   '<div class="card-top">'
@@ -771,7 +776,6 @@ function cardHtml(p) {
   +   '</div></details>'
   +   (p.addedAt ? '<div class="added-date">物件情報の登録日：' + p.addedAt + '</div>' : '')
   +   photos
-  +   '<div class="floorplan">' + floorplan + '</div>'
   + '</article>';
 }
 
@@ -861,7 +865,7 @@ apply();
 const floorplanPopup = document.getElementById('floorplan-popup');
 const floorplanPopupImage = floorplanPopup.querySelector('img');
 document.addEventListener('click', event => {
-  const link = event.target.closest('.floorplan-image-link');
+  const link = event.target.closest('.floorplan-image-link, .property-media-link');
   if (!link) return;
   event.preventDefault();
   floorplanPopupImage.src = link.href;
