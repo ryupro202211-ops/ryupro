@@ -246,13 +246,19 @@ footer{font-size:12px}
 }
 
 .property-photos{margin:0 22px 22px;min-width:0}
-.property-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.property-photo-grid figure{margin:0;min-width:0}
+.photo-heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.photo-heading-row .floorplan-heading{margin:0}
+.photo-controls{display:flex;gap:6px;flex-shrink:0}
+.photo-controls button{width:36px;height:36px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);font-size:18px;cursor:pointer}
+.photo-controls button:hover{background:#edf3ff}
+.property-photo-grid{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:thin;padding-bottom:8px}
+.property-photo-grid figure{margin:0;min-width:0;flex:0 0 100%;scroll-snap-align:start}
 .property-photo-grid a{display:block;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden;cursor:zoom-in}
-.property-photo-grid img{display:block;width:100%;height:150px;object-fit:contain}
+.property-photo-grid img{display:block;width:100%;height:250px;object-fit:contain}
 .property-photo-grid figcaption{font-size:11px;line-height:1.5;margin-top:4px}
 .photo-note{font-size:11px;line-height:1.6;color:var(--ink-2);margin:10px 0 0}
-@media(max-width:600px){.property-photos{margin:0 18px 20px}.property-photo-grid img{height:130px}}
+@media(max-width:600px){.property-photos{margin:0 18px 20px}.property-photo-grid img{height:220px}}
+@media(prefers-reduced-motion:reduce){.property-photo-grid{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -724,9 +730,9 @@ function cardHtml(p) {
     + (p.driveId ? '<a class="floorplan-fallback" href="https://drive.google.com/file/d/' + encodeURIComponent(p.driveId) + '/view" target="_blank" rel="noopener noreferrer">PDFを別タブで開く ↗</a>' : '');
 
   const photoEsc = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const photos = (p.photos && p.photos.length) ? '<section class="property-photos"><h4 class="floorplan-heading">外観・室内の掲載画像</h4><div class="property-photo-grid">'
+  const photos = (p.photos && p.photos.length) ? '<section class="property-photos"><div class="photo-heading-row"><h4 class="floorplan-heading">外観・室内の掲載画像</h4><div class="photo-controls"><button type="button" onclick="movePropertyPhoto(this,-1)" aria-label="前の画像">←</button><button type="button" onclick="movePropertyPhoto(this,1)" aria-label="次の画像">→</button></div></div><div class="property-photo-grid" tabindex="0" role="region" aria-label="物件画像の横スライダー">'
     + p.photos.map(photo => '<figure><a href="' + photoEsc(photo.src) + '" target="_blank" rel="noopener noreferrer" aria-label="' + photoEsc(photo.label) + 'を拡大"><img src="' + photoEsc(photo.src) + '" loading="lazy" decoding="async" alt="' + photoEsc(p.name + ' ' + p.unit + '：' + photo.label) + '"></a><figcaption>' + photoEsc(photo.label) + '</figcaption></figure>').join('')
-    + '</div><p class="photo-note">募集時の掲載画像です。現況は内見でご確認ください。</p></section>' : '';
+    + '</div><p class="photo-note">横にスワイプ、または矢印で画像を切り替えられます。クリックすると拡大します。</p><p class="photo-note">募集時の掲載画像です。現況は内見でご確認ください。</p></section>' : '';
   return ''
   + '<article class="card">'
   +   '<div class="card-top">'
@@ -761,6 +767,10 @@ function cardHtml(p) {
 }
 
 // ---------- フィルタ：コントロールはデータから生成する ----------
+function movePropertyPhoto(button, direction) {
+  const track = button.closest('.property-photos').querySelector('.property-photo-grid');
+  track.scrollBy({left: direction * (track.clientWidth + 12), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+}
 const state = { sort: 'rent-asc', layout: 'all', line: 'all', rentcap: Infinity };
 
 function buildChips(kind) {
