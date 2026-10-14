@@ -294,7 +294,7 @@ body.floorplan-popup-open{overflow:hidden}
       <div class="fact"><span class="k">ご紹介件数</span><span class="v" id="f-count">–</span></div>
       <div class="fact"><span class="k">管理費込み賃料</span><span class="v" id="f-rent">–</span></div>
       <div class="fact"><span class="k">専有面積</span><span class="v" id="f-size">–</span></div>
-      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026-10-13</span></div>
+      <div class="fact"><span class="k">最終更新</span><span class="v" style="font-size:15px">2026-10-14</span></div>
     </div>
   </div>
 </header>
@@ -358,7 +358,7 @@ body.floorplan-popup-open{overflow:hidden}
   </section>
 <section class="contact-panel" id="contact"><h2>気になるお部屋はありましたか？</h2><p>物件名を添えて、担当者へLINEまたはメールでお知らせください。<br>最新の募集状況を確認し、内見の日程をご案内します。</p></section>
 </main></div>
-<div class="wrap"><footer><div class="footer-brand">ベストライフサポート</div>2026-10-13に物件情報の掲載を確認しました。掲載中でも申込や募集終了の場合があるため、内見をご希望の際は担当者へお問い合わせください。水道・給湯・保証料など、管理費以外の費用は各物件のご留意点をご確認ください。</footer></div>
+<div class="wrap"><footer><div class="footer-brand">ベストライフサポート</div>2026-10-14に物件情報の掲載を確認しました。掲載中でも申込や募集終了の場合があるため、内見をご希望の際は担当者へお問い合わせください。水道・給湯・保証料など、管理費以外の費用は各物件のご留意点をご確認ください。</footer></div>
 
 <script>
 // =========================================================================
@@ -369,10 +369,9 @@ body.floorplan-popup-open{overflow:hidden}
 const SHOW_RANK_BADGES = false;
 
 // NEWバッジのしきい値。addedAt >= NEW_SINCE の物件に「NEW」が付く。
-const NEW_SINCE = '2026-10-13';
+const NEW_SINCE = '2026-10-14';
 
 const PROPERTIES = [
-  // CUSTOMIZE: references/property_schema.md に従って物件オブジェクトを並べる
   {
   id: "01",
   name: "ラシクラス氷川台",
@@ -465,9 +464,10 @@ const PROPERTIES = [
     "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
     "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
   ],
-  floorplanJpg: "kawashima-floorplans/01.jpg"
+  floorplanJpg: "kawashima-floorplans/01.jpg",
+  floor: "1階"
 },
-{
+  {
   id: "02",
   name: "ラシクラス氷川台",
   line: "有楽町線・副都心線",
@@ -559,9 +559,10 @@ const PROPERTIES = [
     "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
     "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
   ],
-  floorplanJpg: "kawashima-floorplans/02.jpg"
+  floorplanJpg: "kawashima-floorplans/02.jpg",
+  floor: "1階"
 },
-{
+  {
   id: "03",
   name: "ラシクラス南行徳",
   unit: "304号室",
@@ -652,7 +653,898 @@ const PROPERTIES = [
     "初期費用約54.2万円は11月15日起算・半月分の日割りと翌月分を想定した概算です。正式見積りにより変わります。"
   ],
   floorplanJpg: "kawashima-floorplans/03.jpg"
+},
+  {
+  id: "04",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.31,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "東向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "1階・東向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "103号室",
+  rent: 113000,
+  total: 128880,
+  initialEstimate: 517400,
+  photos: [
+    {
+      src: "kawashima-photos/04-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/04-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/04-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/04-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/04-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/04-06.jpg",
+      label: "トイレ"
+    },
+    {
+      src: "kawashima-photos/04-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/04-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/04-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/04-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（103号室はCタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/04.jpg",
+  floor: "1階"
+},
+  {
+  id: "05",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.26,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "南向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を2,880円超えます。比較用に掲載しています。",
+    "2階・南向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "202号室",
+  rent: 117000,
+  total: 132880,
+  initialEstimate: 529800,
+  photos: [
+    {
+      src: "kawashima-photos/05-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/05-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/05-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/05-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/05-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/05-06.jpg",
+      label: "トイレ・洗面"
+    },
+    {
+      src: "kawashima-photos/05-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/05-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/05-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/05-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（202号室はBタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/05.jpg",
+  floor: "2階"
+},
+  {
+  id: "06",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.26,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "南向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を1,880円超えます。比較用に掲載しています。",
+    "3階・南向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "301号室",
+  rent: 116000,
+  total: 131880,
+  initialEstimate: 526700,
+  photos: [
+    {
+      src: "kawashima-photos/06-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/06-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/06-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/06-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/06-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/06-06.jpg",
+      label: "トイレ"
+    },
+    {
+      src: "kawashima-photos/06-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/06-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/06-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/06-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（301号室はAタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/06.jpg",
+  floor: "3階"
+},
+  {
+  id: "07",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.26,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "南向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を2,880円超えます。比較用に掲載しています。",
+    "3階・南向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "302号室",
+  rent: 117000,
+  total: 132880,
+  initialEstimate: 529800,
+  photos: [
+    {
+      src: "kawashima-photos/07-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/07-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/07-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/07-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/07-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/07-06.jpg",
+      label: "トイレ・洗面"
+    },
+    {
+      src: "kawashima-photos/07-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/07-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/07-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/07-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（302号室はBタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/07.jpg",
+  floor: "3階"
+},
+  {
+  id: "08",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.31,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "東向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を4,880円超えます。比較用に掲載しています。",
+    "3階・東向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "303号室",
+  rent: 119000,
+  total: 134880,
+  initialEstimate: 536000,
+  photos: [
+    {
+      src: "kawashima-photos/08-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/08-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/08-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/08-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/08-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/08-06.jpg",
+      label: "トイレ"
+    },
+    {
+      src: "kawashima-photos/08-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/08-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/08-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/08-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（303号室はCタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/08.jpg",
+  floor: "3階"
+},
+  {
+  id: "09",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.26,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "南向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を1,880円超えます。比較用に掲載しています。",
+    "4階・南向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "402号室",
+  rent: 116000,
+  total: 131880,
+  initialEstimate: 526700,
+  photos: [
+    {
+      src: "kawashima-photos/09-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/09-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/09-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/09-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/09-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/09-06.jpg",
+      label: "トイレ・洗面"
+    },
+    {
+      src: "kawashima-photos/09-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/09-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/09-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/09-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（402号室はBタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/09.jpg",
+  floor: "4階"
+},
+  {
+  id: "10",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.31,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "東向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を3,880円超えます。比較用に掲載しています。",
+    "4階・東向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "403号室",
+  rent: 118000,
+  total: 133880,
+  initialEstimate: 532900,
+  photos: [
+    {
+      src: "kawashima-photos/04-01.jpg",
+      label: "洋室（参考：103号室）"
+    },
+    {
+      src: "kawashima-photos/04-03.jpg",
+      label: "キッチン（参考：103号室）"
+    },
+    {
+      src: "kawashima-photos/04-04.jpg",
+      label: "独立洗面台（参考：103号室）"
+    },
+    {
+      src: "kawashima-photos/04-05.jpg",
+      label: "浴室（参考：103号室）"
+    },
+    {
+      src: "kawashima-photos/04-06.jpg",
+      label: "トイレ（参考：103号室）"
+    },
+    {
+      src: "kawashima-photos/04-07.jpg",
+      label: "収納（参考：103号室）"
+    },
+    {
+      src: "kawashima-photos/10-01.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/10-02.jpg",
+      label: "宅配ボックス・集合ポスト"
+    },
+    {
+      src: "kawashima-photos/10-03.jpg",
+      label: "共用階段"
+    },
+    {
+      src: "kawashima-photos/10-04.jpg",
+      label: "共用エントランス"
+    }
+  ],
+  floorplanLabel: "募集図面（403号室はCタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/10.jpg",
+  floor: "4階"
+},
+  {
+  id: "11",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.26,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "南向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "5階・南向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "501号室",
+  rent: 114000,
+  total: 129880,
+  initialEstimate: 520500,
+  photos: [
+    {
+      src: "kawashima-photos/11-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/11-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/11-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/11-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/11-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/11-06.jpg",
+      label: "トイレ"
+    },
+    {
+      src: "kawashima-photos/11-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/11-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/11-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/11-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（501号室はAタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/11.jpg",
+  floor: "5階"
+},
+  {
+  id: "12",
+  name: "ラシクラス氷川台",
+  line: "有楽町線・副都心線",
+  station: "氷川台",
+  walk: 7,
+  size: 25.26,
+  layout: "1K",
+  kanri: 15000,
+  monthlyFees: 880,
+  deposit: "敷金なし",
+  reikin: "礼金なし",
+  year: 2026,
+  structure: "壁式RC造",
+  facing: "南向き",
+  available: "即入居可（希望日の確認が必要）",
+  addedAt: "2026-10-14",
+  driveId: "",
+  tags: [
+    {
+      t: "月額予算超過",
+      c: "warn"
+    },
+    {
+      t: "防音室・歌対応",
+      c: ""
+    },
+    {
+      t: "バストイレ別",
+      c: ""
+    },
+    {
+      t: "独立洗面台",
+      c: ""
+    }
+  ],
+  cons: [
+    "月額予算13万円を880円超えます。比較用に掲載しています。",
+    "5階・南向き。単身限定、ペット・事務所利用は不可です。",
+    "11月中旬の契約開始と、録音の時間・音量ルールは確認が必要です。",
+    "初期費用は半月分と翌月分を含む概算です。フリーレント適用前で、正式見積りにより変わります。"
+  ],
+  unit: "502号室",
+  rent: 115000,
+  total: 130880,
+  initialEstimate: 523600,
+  photos: [
+    {
+      src: "kawashima-photos/12-01.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/12-02.jpg",
+      label: "洋室"
+    },
+    {
+      src: "kawashima-photos/12-03.jpg",
+      label: "キッチン"
+    },
+    {
+      src: "kawashima-photos/12-04.jpg",
+      label: "独立洗面台"
+    },
+    {
+      src: "kawashima-photos/12-05.jpg",
+      label: "浴室"
+    },
+    {
+      src: "kawashima-photos/12-06.jpg",
+      label: "トイレ・洗面"
+    },
+    {
+      src: "kawashima-photos/12-07.jpg",
+      label: "収納"
+    },
+    {
+      src: "kawashima-photos/12-08.jpg",
+      label: "シューズボックス"
+    },
+    {
+      src: "kawashima-photos/12-09.jpg",
+      label: "外観"
+    },
+    {
+      src: "kawashima-photos/12-10.jpg",
+      label: "宅配ボックス・集合ポスト"
+    }
+  ],
+  floorplanLabel: "募集図面（502号室はBタイプ）",
+  pros: [
+    "2026年7月築。歌・動画配信向けの防音室を備えています。",
+    "バストイレ別・独立洗面台・浴室乾燥機・室内洗濯機置き場付き。",
+    "オートロック・宅配ボックス・防犯カメラ付き。",
+    "家賃・共益費1ヶ月分のフリーレントがあります（適用条件の確認が必要）。",
+    "月額サービス料550円と口座振替手数料330円を月額合計に含みます。",
+    "神田まで電車で約35分、浜松町まで約44〜50分が目安です。駅までと到着駅からの徒歩は別途必要です。"
+  ],
+  floorplanJpg: "kawashima-floorplans/12.jpg",
+  floor: "5階"
 }
+
 ];
 
 // ---------- 派生値：手で書かない。ここが計算するのでズレようがない ----------
@@ -771,6 +1663,7 @@ function cardHtml(p) {
   +     specRow('構造', kouzou(p.structure))
   +     specRow('入居可能日', p.available)
   +     specRow('主要採光面', p.facing)
+  +     specRow('所在階', p.floor)
   +     '</div>'
   +   '</div>'
   +   '<div class="tags">' + tags + '</div>'
